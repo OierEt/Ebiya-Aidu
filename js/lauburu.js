@@ -1,9 +1,10 @@
 /* The lauburu: a small red mascot that wanders around the window on its own.
    You can grab it with the pointer and throw it into the basket on the right.
    Shots from far away count 3, closer shots count 2. Score is kept in this browser.
-   Off for people who prefer reduced motion. */
+   With "reduce motion" it never moves by itself. */
 (function () {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // With "reduce motion" on, the lauburu stays still on its own but can still be grabbed and thrown.
+  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var eu = document.documentElement.lang === "eu";
   var TXT = eu
@@ -183,6 +184,7 @@
 
   // ---- wandering ----
   function wander(dt, now) {
+    if (calm) { speed = 0; return; }
     if (now > until) {
       resting = !resting;
       until = now + (resting ? 2500 + Math.random() * 4000 : 7000 + Math.random() * 10000);
