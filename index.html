@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -38,29 +39,46 @@
       </div>
     </div>
   </section>
+  <div class="marquee" aria-hidden="true"><div class="track"><span>Data</span><span class="dot">&bull;</span><span>Education</span><span class="dot">&bull;</span><span>NLP</span><span class="dot">&bull;</span><span>Ethical AI</span><span class="dot">&bull;</span><span>Dashboards</span><span class="dot">&bull;</span><span>Raspberry Pi</span><span class="dot">&bull;</span><span>Soviet objects</span><span class="dot">&bull;</span><span>Travel</span><span class="dot">&bull;</span><span>Euskal Herria</span><span class="dot">&bull;</span><span>Data</span><span class="dot">&bull;</span><span>Education</span><span class="dot">&bull;</span><span>NLP</span><span class="dot">&bull;</span><span>Ethical AI</span><span class="dot">&bull;</span><span>Dashboards</span><span class="dot">&bull;</span><span>Raspberry Pi</span><span class="dot">&bull;</span><span>Soviet objects</span><span class="dot">&bull;</span><span>Travel</span><span class="dot">&bull;</span><span>Euskal Herria</span><span class="dot">&bull;</span></div></div>
   <main>
     <div class="wrap">
+      <div class="section-title"><h2>Selected work</h2></div>
+      <div class="grid">
+        <a class="card" href="projects.html#projects"><h3>Competency dashboards</h3><p>Interactive dashboards that follow socioemotional competencies across programmes and years.</p><ul class="tags"><li>Power BI</li><li>Streamlit</li></ul><span class="more">See more &rarr;</span></a>
+        <a class="card" href="projects.html#projects"><h3>Connect Four arena</h3><p>AI agents play tournaments and get profiled on how they play.</p><ul class="tags"><li>Python</li><li>LLMs</li></ul><span class="more">See more &rarr;</span></a>
+        <a class="card" href="projects.html#projects"><h3>Overhead flight board</h3><p>A Raspberry Pi display that shows the aircraft flying over, in amber on black.</p><ul class="tags"><li>Raspberry Pi</li><li>ADS-B</li></ul><span class="more">See more &rarr;</span></a>
+      </div>
+
+      <div class="section-title"><h2>What I do</h2></div>
+      <div class="trio">
+        <div><h3>Data</h3><p>Analysis and dashboards that make educational data easy to read and hard to misread.</p></div>
+        <div><h3>Language &amp; AI</h3><p>Methods and experiments on how people and machines reflect, reason and play.</p></div>
+        <div><h3>Things &amp; places</h3><p>Small hardware builds, Soviet-era objects and trips off the usual map.</p></div>
+      </div>
+
       <div class="section-title"><h2>Where to go</h2></div>
       <div class="grid">
         <a class="card" href="projects.html"><div class="idx">01</div><h3>Projects</h3><p>Dashboards, AI experiments, small hardware builds and my research.</p><span class="more">Open &rarr;</span></a>
         <a class="card" href="about.html"><div class="idx">02</div><h3>About me</h3><p>Who I am, places I have been, short thoughts and my collection.</p><span class="more">Open &rarr;</span></a>
-        <a class="card" href="chat.html"><div class="idx">03</div><h3>Chat</h3><p>Leave a message, ask something or just say hi.</p><span class="more">Open &rarr;</span></a>
+        <a class="card" href="chat.html"><div class="idx">03</div><h3>Chat</h3><p>Coming soon.</p><span class="more">Open &rarr;</span></a>
       </div>
 
       <div class="section-title"><h2>About this site</h2></div>
       <div class="prose">
         <p>I have a background in biomedical engineering and a master's in Data Science and Big Data. Today I work as a data analyst in the humanities sector, where I look at how students develop their competencies over time.</p>
         <p>This site is a working notebook more than a CV. Things appear here when they are interesting, not when they are finished.</p>
+        <p>There is a small lauburu wandering around this page. Grab it and try to score in the hoop on the right.</p>
       </div>
     </div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
       <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="coast" aria-pressed="false">Coast</button><button type="button" data-theme-set="notebook" aria-pressed="false">Notebook</button><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button></div>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/follower.js"></script>
+  <script src="js/lauburu.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>

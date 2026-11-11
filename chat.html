@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -30,42 +31,25 @@
     <div class="wrap">
       <div class="num">03 /</div>
       <h1>Chat</h1>
-      <p>A public notice board.</p>
+      <p>Coming soon.</p>
     </div>
   </section>
   <main>
     <div class="wrap">
-      <div class="prose">
-        <p>Leave a message. Pick any alias you like (except mine) and write what you want. Messages are public and I can delete any of them.</p>
-        <p class="note">Please do not share personal data such as your email or phone number.</p>
-      </div>
-      <div id="chat" style="margin-top:28px">
-        <div id="chat-off" class="card todo chat-box" hidden>
-          <p style="max-width:460px">The chat is not connected yet.</p>
-        </div>
-        <form id="chat-form" class="card chat-form" novalidate hidden>
-          <label for="chat-alias">Alias</label>
-          <input id="chat-alias" name="alias" maxlength="24" autocomplete="nickname" required>
-          <label for="chat-body">Message</label>
-          <textarea id="chat-body" name="body" maxlength="500" rows="4" required></textarea>
-          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="chat-actions">
-            <button class="btn" type="submit">Send</button>
-            <span id="chat-status" role="status"></span>
-          </div>
-        </form>
-        <ul id="chat-list" class="chat-list"></ul>
+      <div class="card soon">
+        <h2>Coming soon</h2>
+        <p>A public notice board where you will be able to leave a message under an alias. It is not ready yet.</p>
       </div>
     </div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
       <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="coast" aria-pressed="false">Coast</button><button type="button" data-theme-set="notebook" aria-pressed="false">Notebook</button><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button></div>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/follower.js"></script>
+  <script src="js/lauburu.js"></script>
   <script src="js/nav.js"></script>
-  <script src="js/chat.js"></script>
 </body>
 </html>

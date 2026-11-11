@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -30,42 +31,25 @@
     <div class="wrap">
       <div class="num">03 /</div>
       <h1>Txata</h1>
-      <p>Iragarki-taula publiko bat.</p>
+      <p>Laster.</p>
     </div>
   </section>
   <main>
     <div class="wrap">
-      <div class="prose">
-        <p>Utzi mezu bat. Aukeratu nahi duzun ezizena (nirea izan ezik) eta idatzi nahi duzuna. Mezuak publikoak dira eta nahi dudana ezabatu dezaket.</p>
-        <p class="note">Mesedez, ez partekatu datu pertsonalik, hala nola posta elektronikoa edo telefono zenbakia.</p>
-      </div>
-      <div id="chat" style="margin-top:28px">
-        <div id="chat-off" class="card todo chat-box" hidden>
-          <p style="max-width:460px">Txata ez dago oraindik konektatuta.</p>
-        </div>
-        <form id="chat-form" class="card chat-form" novalidate hidden>
-          <label for="chat-alias">Ezizena</label>
-          <input id="chat-alias" name="alias" maxlength="24" autocomplete="nickname" required>
-          <label for="chat-body">Mezua</label>
-          <textarea id="chat-body" name="body" maxlength="500" rows="4" required></textarea>
-          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="chat-actions">
-            <button class="btn" type="submit">Bidali</button>
-            <span id="chat-status" role="status"></span>
-          </div>
-        </form>
-        <ul id="chat-list" class="chat-list"></ul>
+      <div class="card soon">
+        <h2>Laster</h2>
+        <p>Ezizen baten pean mezu bat utz dezakezun iragarki-taula publikoa. Oraindik ez dago prest.</p>
       </div>
     </div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
       <span><img src="../img/lauburu.svg" alt="">Euskal Herrian eginda</span>
+      <div class="themes" role="group" aria-label="Estiloa"><span>Estiloa</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Konstruktibista</button><button type="button" data-theme-set="coast" aria-pressed="false">Kostaldea</button><button type="button" data-theme-set="notebook" aria-pressed="false">Koadernoa</button><button type="button" data-theme-set="archive" aria-pressed="false">Artxiboa</button></div>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/follower.js"></script>
+  <script src="../js/lauburu.js"></script>
   <script src="../js/nav.js"></script>
-  <script src="../js/chat.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -38,29 +39,46 @@
       </div>
     </div>
   </section>
+  <div class="marquee" aria-hidden="true"><div class="track"><span>Datuak</span><span class="dot">&bull;</span><span>Hezkuntza</span><span class="dot">&bull;</span><span>NLP</span><span class="dot">&bull;</span><span>AA etikoa</span><span class="dot">&bull;</span><span>Dashboardak</span><span class="dot">&bull;</span><span>Raspberry Pi</span><span class="dot">&bull;</span><span>Sobietar objektuak</span><span class="dot">&bull;</span><span>Bidaiak</span><span class="dot">&bull;</span><span>Euskal Herria</span><span class="dot">&bull;</span><span>Datuak</span><span class="dot">&bull;</span><span>Hezkuntza</span><span class="dot">&bull;</span><span>NLP</span><span class="dot">&bull;</span><span>AA etikoa</span><span class="dot">&bull;</span><span>Dashboardak</span><span class="dot">&bull;</span><span>Raspberry Pi</span><span class="dot">&bull;</span><span>Sobietar objektuak</span><span class="dot">&bull;</span><span>Bidaiak</span><span class="dot">&bull;</span><span>Euskal Herria</span><span class="dot">&bull;</span></div></div>
   <main>
     <div class="wrap">
+      <div class="section-title"><h2>Hautatutako lanak</h2></div>
+      <div class="grid">
+        <a class="card" href="projects.html#projects"><h3>Gaitasunen dashboardak</h3><p>Gaitasun sozioemozionalen bilakaera erakusten duten dashboard interaktiboak.</p><ul class="tags"><li>Power BI</li><li>Streamlit</li></ul><span class="more">Ikusi gehiago &rarr;</span></a>
+        <a class="card" href="projects.html#projects"><h3>Connect Four arena</h3><p>AA agenteek txapelketak jokatzen dituzte eta nola jokatzen duten profilatzen da.</p><ul class="tags"><li>Python</li><li>LLMs</li></ul><span class="more">Ikusi gehiago &rarr;</span></a>
+        <a class="card" href="projects.html#projects"><h3>Hegaldien panela</h3><p>Gainetik pasatzen diren hegazkinak erakusten dituen Raspberry Pi pantaila, anbarra beltz gainean.</p><ul class="tags"><li>Raspberry Pi</li><li>ADS-B</li></ul><span class="more">Ikusi gehiago &rarr;</span></a>
+      </div>
+
+      <div class="section-title"><h2>Zer egiten dudan</h2></div>
+      <div class="trio">
+        <div><h3>Datuak</h3><p>Hezkuntza-datuak erraz irakurtzeko eta zaila da gaizki irakurtzeko modukoak egiten dituzten analisiak eta dashboardak.</p></div>
+        <div><h3>Hizkuntza eta AA</h3><p>Pertsonek eta makinek nola hausnartzen duten, arrazoitzen duten eta jolasten duten aztertzeko metodoak eta esperimentuak.</p></div>
+        <div><h3>Gauzak eta lekuak</h3><p>Hardware proiektu txikiak, sobietar garaiko objektuak eta ohiko mapatik kanpoko bidaiak.</p></div>
+      </div>
+
       <div class="section-title"><h2>Nora joan</h2></div>
       <div class="grid">
         <a class="card" href="projects.html"><div class="idx">01</div><h3>Proiektuak</h3><p>Dashboardak, AA esperimentuak, hardware proiektu txikiak eta nire ikerketa.</p><span class="more">Ireki &rarr;</span></a>
         <a class="card" href="about.html"><div class="idx">02</div><h3>Niri buruz</h3><p>Nor naizen, joan naizen lekuak, gogoeta laburrak eta nire bilduma.</p><span class="more">Ireki &rarr;</span></a>
-        <a class="card" href="chat.html"><div class="idx">03</div><h3>Txata</h3><p>Utzi mezu bat, galdetu zerbait edo esan kaixo.</p><span class="more">Ireki &rarr;</span></a>
+        <a class="card" href="chat.html"><div class="idx">03</div><h3>Txata</h3><p>Laster.</p><span class="more">Ireki &rarr;</span></a>
       </div>
 
       <div class="section-title"><h2>Webgune honi buruz</h2></div>
       <div class="prose">
         <p>Ingeniaritza biomedikoko ikasketak egin nituen eta Datu Zientzia eta Big Data masterra dut. Gaur egun giza zientzien sektorean ari naiz datu-analista gisa, ikasleek euren gaitasunak denboran zehar nola garatzen dituzten aztertzen.</p>
         <p>Webgune hau koaderno bat da, CV bat baino gehiago. Gauzak interesgarriak direnean agertzen dira hemen, ez bukatuta daudenean.</p>
+        <p>Lauburu txiki bat dabil orri honetan zehar. Heldu eta saiatu eskuineko saskian sartzen.</p>
       </div>
     </div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
       <span><img src="../img/lauburu.svg" alt="">Euskal Herrian eginda</span>
+      <div class="themes" role="group" aria-label="Estiloa"><span>Estiloa</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Konstruktibista</button><button type="button" data-theme-set="coast" aria-pressed="false">Kostaldea</button><button type="button" data-theme-set="notebook" aria-pressed="false">Koadernoa</button><button type="button" data-theme-set="archive" aria-pressed="false">Artxiboa</button></div>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/follower.js"></script>
+  <script src="../js/lauburu.js"></script>
   <script src="../js/nav.js"></script>
 </body>
 </html>
