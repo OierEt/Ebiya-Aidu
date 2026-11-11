@@ -10,13 +10,14 @@
   --black: #15120f;
   --green: #1f6b3a;   /* used sparingly: a quiet nod to the Basque flag */
   --head: "Anton", Impact, "Arial Narrow Bold", sans-serif;
-  --body: "IBM Plex Mono", "Courier New", monospace;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", "Courier New", monospace;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0; background: var(--cream); color: var(--black);
-  font-family: var(--body); font-size: 15px; line-height: 1.65;
+  font-family: var(--body); font-size: 17px; line-height: 1.65;
 }
 a { color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 a:hover { background: var(--black); color: var(--cream); text-decoration: none; }
@@ -29,14 +30,14 @@ a:hover { background: var(--black); color: var(--cream); text-decoration: none; 
 .brand:hover { background: none; color: var(--cream); }
 .brand img { width: 34px; height: 34px; filter: invert(.92) sepia(.2); }
 .nav { display: flex; flex-wrap: wrap; gap: 4px; }
-.nav a { color: var(--cream); text-decoration: none; text-transform: uppercase; font-size: 13px; letter-spacing: .08em; padding: 4px 10px; border: 2px solid transparent; }
+.nav a { font-family: var(--mono); color: var(--cream); text-decoration: none; text-transform: uppercase; font-size: 13px; letter-spacing: .08em; padding: 4px 10px; border: 2px solid transparent; }
 .nav a:hover { background: var(--cream); color: var(--black); }
 .nav a[aria-current="page"] { background: var(--red); color: var(--cream); }
 
 /* ---------- hero (home) ---------- */
 .hero { position: relative; overflow: hidden; padding: 64px 0 72px; }
 .hero .wrap { position: relative; z-index: 2; }
-.kicker { display: inline-block; background: var(--green); color: var(--cream); padding: 2px 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px; }
+.kicker { font-family: var(--mono); display: inline-block; background: var(--green); color: var(--cream); padding: 2px 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px; }
 .hero h1 { font-family: var(--head); font-weight: 400; font-size: clamp(64px, 14vw, 168px); line-height: .92; margin: 0 0 22px; text-transform: uppercase; letter-spacing: .01em; }
 .hero h1 span { color: var(--red); }
 .hero p.lead { max-width: 560px; font-size: 17px; }
@@ -50,7 +51,7 @@ a:hover { background: var(--black); color: var(--cream); text-decoration: none; 
 /* ---------- inner page header ---------- */
 .page-head { background: var(--red); color: var(--cream); border-bottom: 6px solid var(--black); position: relative; overflow: hidden; }
 .page-head .wrap { padding-top: 34px; padding-bottom: 34px; position: relative; z-index: 2; }
-.page-head .num { font-size: 14px; letter-spacing: .2em; }
+.page-head .num { font-family: var(--mono); font-size: 14px; letter-spacing: .2em; }
 .page-head h1 { font-family: var(--head); font-weight: 400; font-size: clamp(48px, 9vw, 96px); line-height: 1; margin: 4px 0 6px; text-transform: uppercase; }
 .page-head p { margin: 0; max-width: 620px; }
 .page-head::after { content: ""; position: absolute; right: -40px; top: -40px; width: 260px; height: 260px; background: var(--black); transform: rotate(18deg); opacity: .92; z-index: 1; }
@@ -72,12 +73,12 @@ a.card:hover { background: var(--paper); color: inherit; transform: translate(4p
 .card h3 { font-family: var(--head); font-weight: 400; text-transform: uppercase; font-size: 26px; margin: 6px 0 8px; line-height: 1.1; }
 .card p { margin: 0 0 12px; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
-.tags li { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; border: 2px solid var(--green); color: var(--green); padding: 0 8px; }
-.card .more { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-top: 12px; display: block; }
+.tags li { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; border: 2px solid var(--green); color: var(--green); padding: 0 8px; }
+.card .more { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-top: 12px; display: block; }
 
 /* placeholder items: delete the "todo" class once you've filled them in */
 .todo { border-style: dashed; }
-.todo::before { z-index: 3; content: "placeholder – edit me"; position: absolute; top: -13px; right: 14px; background: var(--black); color: var(--cream); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 1px 8px; }
+.todo::before { font-family: var(--mono); z-index: 3; content: "placeholder – edit me"; position: absolute; top: -13px; right: 14px; background: var(--black); color: var(--cream); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; padding: 1px 8px; }
 
 .photo { aspect-ratio: 4 / 3; background: var(--black); margin: -20px -22px 16px; position: relative; overflow: hidden; border-bottom: 3px solid var(--black); }
 .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -97,7 +98,38 @@ a.card:hover { background: var(--paper); color: inherit; transform: translate(4p
 @media (max-width: 600px) { .list li { grid-template-columns: 1fr; gap: 4px; } }
 
 /* ---------- footer ---------- */
-.site-footer { background: var(--black); color: var(--cream); border-top: 6px solid var(--red); padding: 26px 0; font-size: 13px; }
+.site-footer { font-family: var(--mono); background: var(--black); color: var(--cream); border-top: 6px solid var(--red); padding: 26px 0; font-size: 13px; }
 .site-footer .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 .site-footer img { width: 20px; height: 20px; vertical-align: -4px; margin-right: 8px; filter: invert(.92) sepia(.2); }
 .site-footer a { color: var(--cream); }
+
+/* ---------- language switch ---------- */
+.lang { display: flex; margin-left: 10px; border: 2px solid var(--cream); }
+.lang a { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; padding: 3px 9px; color: var(--cream); text-decoration: none; }
+.lang a:hover { background: var(--cream); color: var(--black); }
+.lang a[aria-current="true"] { background: var(--cream); color: var(--black); }
+.header-right { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+html[lang="eu"] .todo::before { content: "leku-marka \2013  editatu"; }
+
+/* ---------- in-page sub navigation ---------- */
+.subnav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 34px; padding: 0; list-style: none; }
+.subnav a { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; border: 3px solid var(--black); padding: 4px 14px; color: var(--black); text-decoration: none; background: var(--paper); }
+.subnav a:hover { background: var(--black); color: var(--cream); }
+section[id] { scroll-margin-top: 20px; }
+
+/* ---------- buttons ---------- */
+.buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+.btn { font-family: var(--mono); font-size: 14px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; padding: 12px 22px; border: 3px solid var(--black); background: var(--red); color: var(--cream); text-decoration: none; box-shadow: 5px 5px 0 var(--black); transition: transform .12s, box-shadow .12s; }
+.btn:hover { background: var(--red); color: var(--cream); transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--black); }
+.btn.alt { background: var(--paper); color: var(--black); }
+.btn.alt:hover { background: var(--paper); color: var(--black); }
+
+/* ---------- chat embed ---------- */
+.chat-box { min-height: 420px; display: flex; align-items: center; justify-content: center; text-align: center; }
+.chat-box iframe { width: 100%; height: 480px; border: 0; }
+
+/* ---------- cursor follower ---------- */
+.follower { position: fixed; left: 0; top: 0; width: 30px; height: 30px; pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .3s; will-change: transform; }
+.follower.on { opacity: 1; }
+.follower img { width: 100%; height: 100%; display: block; }
+@media (pointer: coarse), (prefers-reduced-motion: reduce) { .follower { display: none; } }

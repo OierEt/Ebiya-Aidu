@@ -8,32 +8,36 @@
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Oier</a>
-      <nav class="nav" aria-label="Main">
-      <a href="index.html">Home</a>
-      <a href="projects.html" aria-current="page">Projects</a>
-      <a href="research.html">Research</a>
-      <a href="collection.html">Collection</a>
-      <a href="places.html">Places</a>
-      <a href="notes.html">Notes</a>
-      </nav>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="about.html">About me</a>
+        <a href="chat.html">Chat</a>
+        </nav>
+        <div class="lang" aria-label="Language"><a href="projects.html" lang="en" hreflang="en" aria-current="true">EN</a><a href="eu/projects.html" lang="eu" hreflang="eu">EU</a></div>
+      </div>
     </div>
   </header>
   <section class="page-head">
     <div class="wrap">
       <div class="num">01 /</div>
       <h1>Projects</h1>
-      <p>Things I build, mostly with data and mostly to find out how they work.</p>
+      <p>Things I build and study, mostly with data.</p>
     </div>
   </section>
   <main>
     <div class="wrap">
+      <ul class="subnav"><li><a href="#projects">Projects</a></li><li><a href="#research">Research</a></li></ul>
+      <section id="projects">
+      <div class="section-title"><h2>Projects</h2></div>
       <div class="grid">
         <div class="card todo">
           <h3>Competency dashboards</h3>
@@ -60,14 +64,28 @@
           <a class="more" href="#">Details &rarr;</a>
         </div>
       </div>
-      <p style="margin-top:34px">Each card will get its own page with screenshots, code and a short write-up. Replace the <code>#</code> links with real ones as you go.</p>
+      </section>
+      <section id="research">
+      <div class="section-title"><h2>Research</h2></div>
+      <div class="prose">
+        <p>My doctoral work sits between education, data and AI: how students reflect, how competencies grow, and how machines can be trained to behave ethically.</p>
+      </div>
+      <ul class="list" style="margin-top:22px">
+        <li><div class="when">Ongoing</div><div><h3>Reflection in student&ndash;AI conversations</h3><p>A reproducible NLP method to measure the reflective quality of dialogues between students and ChatGPT.</p></div></li>
+        <li><div class="when">Ongoing</div><div><h3>Ethical AI training in game-based environments</h3><p>A systematic literature review that scores published studies against a weighted rubric.</p></div></li>
+        <li><div class="when">Ongoing</div><div><h3>Socioemotional competency analytics</h3><p>Longitudinal analysis of competency data across programmes and cohorts.</p></div></li>
+      </ul>
+      <h3 style="font-family:var(--head);font-weight:400;text-transform:uppercase;font-size:24px;margin:30px 0 10px">Publications</h3>
+      <div class="card todo"><p style="margin:0">No publications listed yet. Add them here as a list: authors, year, title, journal, link.</p></div>
+      </section>
     </div>
   </main>
   <footer class="site-footer">
     <div class="wrap">
       <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
-      <span>&copy; 2026 Oier &middot; <a href="https://github.com/">GitHub</a></span>
+      <span>&copy; 2026 Oier</span>
     </div>
   </footer>
+  <script src="js/follower.js"></script>
 </body>
 </html>
