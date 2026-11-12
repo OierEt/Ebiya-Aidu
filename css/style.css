@@ -315,3 +315,13 @@ html[data-theme="archive"] .shape.ring { border-radius: 0; }
 .stat b { overflow-wrap: anywhere; }
 @media (max-width: 880px) { .stats, .stats.four { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); } }
 .summary .stats { margin-bottom: 18px; }
+
+/* Blocks written afterwards with Claude (not part of the original report) */
+.added { position: relative; margin: 26px 0; padding: 14px 20px 4px; background: var(--paper); border: 2px solid var(--black); border-left: 8px solid var(--black); }
+.added p, .added ol { margin: 0 0 12px; }
+.added ol { padding-left: 22px; }
+.added li { margin-bottom: 6px; }
+.added-label { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; background: var(--black); color: var(--paper); padding: 2px 8px; margin-bottom: 10px; }
+.added.review { border-style: dashed; border-left-style: solid; }
+.added code { font-family: var(--mono); font-size: .9em; }
+.report p a { overflow-wrap: anywhere; }
