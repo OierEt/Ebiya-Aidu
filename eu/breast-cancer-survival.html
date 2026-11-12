@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261112j">
-  <script src="../js/theme.js?v=20261112j"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20261112k">
+  <script src="../js/theme.js?v=20261112k"></script>
 </head>
 <body>
   <header class="site-header">
@@ -49,14 +49,14 @@
             <aside class="my-note"><div class="my-note-label">Nire oharra</div>
               <p><strong>Testuingurua.</strong> Hau izan zen aurrez aurre izan nuen lehen machine learning proiektua. Ikasleen arteko lehiaketa bat zen. Bularreko minbizia zuten pazienteen datu-multzo bat partekatu ziguten, eta helburua zen paziente batek 8 urte geroago bizirik jarraituko ote zuen aurreikusten zuen eredu bat entrenatzea. Irakasleak esan zuenez, lor zitekeen maximo teorikoa 0,74ko AUC zen, nire ustez nahiko ona: bizirik jarraitzen duen paziente bat eta ez duen beste bat hartuta, ereduak kasuen % 74an ordenatzen ditu ondo, aurreikuspena 8 urte geroagorako izan arren. Epe laburragoko aurreikuspenekin errendimendua handiagoa izango litzateke.</p>
               <p>Ez ziguten argibide gehiagorik eman, eta nota sailkapen batetik zetorren: eredu prediktibo onena egiten zuen ikasleak 1. postua izango zuen eta, beraz, nota onena; gero bigarrenak, hirugarrenak, eta abar. Sailkapena ezartzeko, entrenatzeko Xtrain datu-multzoa genuen, eta probatzeko beste bat, Xtest. Eredua prest genuenean, unibertsitateko plataformara igo genezakeen, non beste datu-multzo batekin probatzen zen, Xtest2 deituko diodana. Ez genuen horretara sarbiderik, baina errendimendua egiazta genezakeen eta sailkapenean gure lekua ikusi. Gainera, irakasleak hirugarren datu-multzo bat zuen, Xtest3, gure ereduekin probatu ere egin ezin genuena eta azken sailkapena erabakitzen zuena. Horrela, ezin genuen geneuzkan datuetara soilik gainegokitu (overfitting), eta plataformako emaitzek gainegokitzerik ote genuen jakiten laguntzen ziguten.</p>
-              <p>Proiektu honi asko maite diot, bakoitzak bere kasa moldatu behar baitzuen emaitza onena lortzeko. Adimen artifizial sortzailearen aurreko garaian geundenez (2021), asko esperimentatzeko eta ikasteko balio izan zuen. Jarraian dagoen txostena irakasleari entregatu nion bezalaxe da, eta urte batzuk igaro direnez (hau 2026an idazten ari naiz), entregatu nuenari buruzko iruzkinak utziko ditut.</p></aside>
+              <p>Proiektu honi asko maite diot, bakoitzak bere kasa moldatu behar baitzuen emaitza onena lortzeko. Adimen artifizial sortzailearen aurreko garaian geundenez (2021), asko esperimentatzeko eta ikasteko balio izan zuen, nahiz eta badakidan ez dagoela perfektua. Jarraian dagoen txostena irakasleari entregatu nion bezalaxe da, eta urte batzuk igaro direnez (hau 2026an idazten ari naiz), seguruenik ez nuke gaur egun berdin egingo, eta interesgarria litzateke ikustea orain dudan ezagutzarekin hobeto egin dezakedan. Hala ere, oso txosten eta lan interesgarria da oraindik. Horregatik utziko ditut, gainera, entregatu nuenari buruzko iruzkinak, ideiak eta argibideak.</p></aside>
           </section>
           <section id="data">
             <h2 class="sub">Datuak</h2>
             <p>Datu-multzoa unibertsitateko ikastaro batetik dator: 985 paziente, bakoitzak 24.374 zutabe (6 aldagai kliniko eta 24.368 gene-adierazpen), eta entrenamendu-multzoan biziraupenaren emaitza. Proba-multzoak formatu bera du, 985 pazienterekin, baina emaitzarik gabe. Fitxategiak hiru taula ditu: <code>Xtrain</code>, <code>ytrain</code> eta <code>Xtest</code>.</p>
             <div class="dl-grid">
               <div class="card todo preview" data-csv="../data/breast-cancer-preview.csv" data-caption="Entrenamenduko 985 pazienteetatik lehen 10. 24.374 zutabeetatik, 6 aldagai kliniko, 12 gene eta biziraupenaren 3 zutabeak bakarrik erakusten dira."><h3>Aurrebista</h3><p>Datu gordinen lehen errenkadak. Datuak igotzen direnean agertuko dira.</p></div>
-              <div class="card"><h3>Deskargatu</h3><p>Dena R fitxategi originalean dago. Excel fitxategiek taula berberak dituzte (Xtrain, Xtest eta ytrain); haietan 24.374 zutabeak bi orritan daude banatuta, Excelen zutabe-mugagatik.</p><div class="dl-group"><div class="dl-label">Originala (R formatua)</div><div class="dl-btns"><a class="btn" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a></div></div><div class="dl-group"><div class="dl-label">Datu berberak Excelen</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div></div>
+              <div class="card"><h3>Deskargatu</h3><p>Dena R fitxategi originalean dago. Excel fitxategiek taula berberak dituzte (Xtrain, Xtest eta ytrain); haietan 24.374 zutabeak bi orritan daude banatuta, Excelen zutabe-mugagatik.</p><div class="dl-group"><div class="dl-label">Originala (R formatua)</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a></div></div><div class="dl-group"><div class="dl-label">Datu berberak Excelen</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div></div>
             </div>
           </section>
           <section id="report-wrap" lang="en">
@@ -116,6 +116,7 @@ XsValidation&lt;-Xtrain[index[601:nrow(Xtrain)],]
 YsValidation&lt;-ytrain[index[601:nrow(Xtrain)],]</code></pre></details>
 <div class="rsec" id="selection-of-variables">
 <h3 class="sub3"> 2.1 Selection of variables  </h3>
+<aside class="my-note"><div class="my-note-label">Nire oharra</div><p>Atal hau oso garrantzitsua da, aldagaien kalitateak emaitzan zuzenean eragiten baitu. Hemengo logika da gure datu-multzoak 20.000 gene (zutabe) baino gehiago dituela, eta badakigu horiek guztiak ez direla baliagarriak norbait bizirik egongo den ala ez aurreikusteko. Imajinatu gene batek adierazpen-maila bera duela paziente guztietan, emaitza edozein dela ere: gene edo zutabe horrek balio al du aurreikusteko? Ez asko... Probak eta akatsak askoz egin ondoren, jarraian deskribatzen den hautaketarekin lortu nituen emaitzarik onenak. Tresna matematikoez gain, kaxatik kanpo pentsatu nuen pixka bat, eta ikerketa-artikuluen arabera gaixotasunarekin erlazionatuta zeudela jada ezagutzen ziren geneak ere aukeratu nituen. Horrek nabarmen lagundu zidan emaitza hobeak lortzen.</p></aside>
 <p>We will select our variables from 4 different methods:</p>
 <ul>
 <li><p>With standard deviation we will select the first 100 genes that have the highest standard deviation. Then, with <em>Minimum redundancy Maximum relevance (mRMR)</em> we reduce our variables to 96 and obtain the same standard deviation order with the loop (this last step is not necessary).</p></li>
@@ -712,8 +713,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/lauburu.js?v=20261112j"></script>
-  <script src="../js/preview.js?v=20261112j"></script>
-  <script src="../js/nav.js?v=20261112j"></script>
+  <script src="../js/lauburu.js?v=20261112k"></script>
+  <script src="../js/preview.js?v=20261112k"></script>
+  <script src="../js/nav.js?v=20261112k"></script>
 </body>
 </html>

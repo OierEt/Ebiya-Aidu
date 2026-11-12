@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261112j">
-  <script src="js/theme.js?v=20261112j"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261112k">
+  <script src="js/theme.js?v=20261112k"></script>
 </head>
 <body>
   <header class="site-header">
@@ -49,14 +49,14 @@
             <aside class="my-note"><div class="my-note-label">My note</div>
               <p><strong>Context.</strong> This was the first machine learning project I faced. It was a competition between students. We were given a dataset of breast cancer patients, and the goal was to train a model that predicted whether a patient would still be alive after 8 years. According to the professor, the theoretical maximum was an AUC of 0.74, which in my opinion is quite good: it means that, picking one patient who survives and one who does not, the model ranks them correctly about 74% of the time, even though the prediction looks 8 years ahead. With shorter-term predictions the performance would be higher.</p>
               <p>No further instructions were given, and the grade came from a ranking: the student with the best predictive model would be first and get the best grade, then the second, the third, and so on. To build the ranking we had a training dataset, Xtrain, and another one for testing, Xtest. Once we had a model, we could upload it to the university platform, where it was tested on another dataset, which I will call Xtest2. We had no access to it, but we could check the performance and see our position. In addition, the professor kept a third dataset, Xtest3, that we could not even test our models on, and that decided the final ranking. This way we could not simply overfit the data we had, and the platform results gave us an idea of whether we were overfitting.</p>
-              <p>I have a lot of affection for this project because everyone had to figure things out on their own to get the best result. Considering that this was the pre-generative-AI era (2021), it was a great way to experiment and learn a lot. The report below is exactly what I handed in to the professor. Since a few years have passed (I am writing this in 2026), I will leave comments about what I submitted.</p></aside>
+              <p>I have a lot of affection for this project because everyone had to figure things out on their own to get the best result. Considering that this was the pre-generative-AI era (2021), it was a great way to experiment and learn a lot, although I know it is not perfect. The report below is exactly what I handed in to the professor. Since a few years have passed (I am writing this in 2026), I would probably not do it the same way today, and it would be interesting to see whether I can do it better with the knowledge I have now. Even so, it is still a very interesting report and piece of work. That is also why I will leave comments, insights and clarifications about what I submitted.</p></aside>
           </section>
           <section id="data">
             <h2 class="sub">Data</h2>
             <p>The dataset comes from a university course: 985 patients with 24,374 columns each (6 clinical variables and 24,368 gene expressions), plus the survival outcome for the training set. The test set has the same 985-patient format without the outcome. The file contains three tables: <code>Xtrain</code>, <code>ytrain</code> and <code>Xtest</code>.</p>
             <div class="dl-grid">
               <div class="card todo preview" data-csv="data/breast-cancer-preview.csv" data-caption="First 10 of 985 training patients. Of the 24,374 columns only 6 clinical variables, 12 genes and the 3 survival columns are shown."><h3>Preview</h3><p>First rows of the raw data. It will appear here once the data is uploaded.</p></div>
-              <div class="card"><h3>Download</h3><p>Everything is in the original R file. The Excel files contain the same tables (Xtrain, Xtest and ytrain); in them the 24,374 columns are split over two sheets because of Excel&rsquo;s column limit.</p><div class="dl-group"><div class="dl-label">Original (R format)</div><div class="dl-btns"><a class="btn" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a></div></div><div class="dl-group"><div class="dl-label">Same data in Excel</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div></div>
+              <div class="card"><h3>Download</h3><p>Everything is in the original R file. The Excel files contain the same tables (Xtrain, Xtest and ytrain); in them the 24,374 columns are split over two sheets because of Excel&rsquo;s column limit.</p><div class="dl-group"><div class="dl-label">Original (R format)</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a></div></div><div class="dl-group"><div class="dl-label">Same data in Excel</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div></div>
             </div>
           </section>
           <section id="report-wrap" lang="en">
@@ -116,6 +116,7 @@ XsValidation&lt;-Xtrain[index[601:nrow(Xtrain)],]
 YsValidation&lt;-ytrain[index[601:nrow(Xtrain)],]</code></pre></details>
 <div class="rsec" id="selection-of-variables">
 <h3 class="sub3"> 2.1 Selection of variables  </h3>
+<aside class="my-note"><div class="my-note-label">My note</div><p>This section is critical, because the quality of the variables directly affects the result. The logic here is that our dataset has more than 20,000 genes (columns), and we know that not all of them are useful to predict whether someone will be alive or not. Imagine a gene with the same expression level in every patient, regardless of the outcome: is that gene, or column, useful for prediction? Not really... After a lot of trial and error, I got my best results with the selection described below. Besides mathematical tools, I thought a bit outside the box and also picked genes that research articles had already linked to the disease. This helped me significantly to get better results.</p></aside>
 <p>We will select our variables from 4 different methods:</p>
 <ul>
 <li><p>With standard deviation we will select the first 100 genes that have the highest standard deviation. Then, with <em>Minimum redundancy Maximum relevance (mRMR)</em> we reduce our variables to 96 and obtain the same standard deviation order with the loop (this last step is not necessary).</p></li>
@@ -712,8 +713,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261112j"></script>
-  <script src="js/preview.js?v=20261112j"></script>
-  <script src="js/nav.js?v=20261112j"></script>
+  <script src="js/lauburu.js?v=20261112k"></script>
+  <script src="js/preview.js?v=20261112k"></script>
+  <script src="js/nav.js?v=20261112k"></script>
 </body>
 </html>
