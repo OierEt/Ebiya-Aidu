@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Challenge: Machine Learning · Breast cancer survival · Ebiya Aidu</title>
+  <meta name="description" content="Ebiya Aidu: a personal site about data, education, research, travel and odd collections.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261112c">
+  <script src="js/theme.js?v=20261112c"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Ebiya Aidu</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="about.html">About me</a>
+        <a href="chat.html">Chat</a>
+        </nav>
+        <div class="lang" aria-label="Language"><a href="breast-cancer-report.html" lang="en" hreflang="en" aria-current="true">EN</a><a href="eu/breast-cancer-report.html" lang="eu" hreflang="eu">EU</a></div>
+      </div>
+    </div>
+  </header>
+    <section class="page-head">
+    <div class="wrap">
+      <div class="num">Genomics and Proteomics · 31/10/2021</div>
+      <h1>Challenge: Machine Learning</h1>
+      <p>Full report of the breast cancer survival project, with code and figures.</p>
+    </div>
+  </section>
+  <main>
+    <div class="wrap">
+      <p class="back"><a href="breast-cancer-survival.html">&larr; Breast cancer survival</a></p>
+      <article class="report" lang="en">
+        <p class="note" lang="en">This is the original university report, kept complete with its code and figures. Personal details and local file paths have been removed.</p>
+        
+<div class="section level1" id="introduction">
+<h2 class="sub">1. Introduction</h2>
+<p>The aim of our project is to predict cancer survival in breast cancer patients from clinicogenetic data. We will try to predict whether women can survive more than 96 months (8 years). Theoretically, the best approximation we could get is an <em>AUC</em> score of <em>0.74</em> in the <strong>Test set 1</strong>. The reason for this is that we are making long-term predictions, so the time factor plays a big role and makes it more difficult to predict correctly. If we were making predictions for a shorter period of time, our prediction results would be better.</p>
+<div class="section level2" id="loading-the-packages">
+<h3 class="sub3">1.1 Loading the Packages</h3>
+<p>First, we load and install the packages.</p>
+<pre class="r"><code>#install.packages("glmnet")
+#install.packages("ROCR")
+#install.packages("e1071")
+#install.packages("randomForest")
+#install.packages("boot")
+#install.packages("survival")
+#install.packages("MASS")
+#install.packages("class")
+#install.packages("nnet")
+#install.packages("arm")
+library(boot);
+library(survival);
+library(MASS);
+library(class);
+library(nnet);
+library(e1071);
+library(randomForest);
+library(glmnet);
+library(ROCR);
+library(matrixStats);
+#library(arm)
+#library(FSelector)</code></pre>
+</div>
+<div class="section level2" id="loading-data">
+<h3 class="sub3">1.2 Loading Data</h3>
+<p>We load our data, it consists in 3 main groups or objects loaded as matrices.</p>
+<p>On the one hand, we have <em>xtrain</em> and <em>ytrain</em>, which are our <strong>training set</strong> and the ones that we will use to train our predictor. We can use <em>xtrain</em> to train our model and <em>ytrain</em> to see how well it works, since this last one is the known outcome of <em>xtrain</em>. On the other hand, we have <em>Xtest</em> which is part of our <strong>Test set 1</strong>. We know that it contains the information of ~1000 people and their ~24000 gene expressions. However, we don’t have the outcome of this people so we can’t know how well performs our model with this new data. Nevertheless, we can see the results if we upload our predictor to the course&#8217;s evaluation server.</p>
+<p>At last, the model performance will be evaluated on <strong>Test set 2</strong>, where we don’t have patients data neither the outcome of them.</p>
+<pre class="r"><code>load("path/to/dataChallenge2020_students.Rdata")</code></pre>
+</div>
+</div>
+<div class="section level1" id="predictions-splitting-the-training-set">
+<h2 class="sub">2. Predictions splitting the training set</h2>
+<p>To make the first approach, we will split <em>xtrain</em> and <em>ytrain</em> into two groups. 600 out of ~1000 will be used to train our model and the rest will be used to validate or see how well it performs since we are not using these patients to train our model.</p>
+<pre class="r"><code>#We use set.seed to always get the same results
+set.seed(1)
+index&lt;-sample(nrow(Xtrain))
+
+#In order to run the predictions, we will split the Xtrain into two sets of data: Training and Validation.
+
+XsTraining&lt;-Xtrain[index[1:600],]
+YsTraining&lt;-ytrain[index[1:600],]
+
+XsValidation&lt;-Xtrain[index[601:nrow(Xtrain)],]
+YsValidation&lt;-ytrain[index[601:nrow(Xtrain)],]</code></pre>
+<div class="section level2" id="selection-of-variables">
+<h3 class="sub3">2.1 Selection of variables </h3>
+<p>We will select our variables from 4 different methods:</p>
+<ul>
+<li><p>With standard deviation we will select the first 100 genes that have the highest standard deviation. Then, with <em>Minimum redundancy Maximum relevance (mRMR)</em> we reduce our variables to 96 and obtain the same standard deviation order with the loop (this last step is not necessary).</p></li>
+<li><p>Using limma, we select the top 5 genes ordered by their <em>p-value</em>. We do not want to rely too much on <em>p-values</em> as it does not take redundancy into account. For this reason, we select only a few.</p></li>
+<li><p>Using limma robust, we also select the top 5 genes ordered by their <em>p-value</em> for the same reason as before.</p></li>
+<li><p>Finally, we selected the genes that we know are related to breast cancer survival. According to [1] we know that <em>LYVE1</em>, <em>LILRB5</em>, <em>CD209</em> and <em>IMPDH2</em> are genes of interest for our project.</p></li>
+</ul>
+<pre class="r"><code>#Using standard deviation we select the top 100 genes
+Sds &lt;- colSds(XsTraining)
+KeepVar &lt;- order(Sds, decreasing = T)[1:100]
+
+#Multivariate
+library(mRMRe)
+set.thread.count(6)</code></pre>
+<pre class="out"><code>## [1] 6</code></pre>
+<pre class="r"><code>df &lt;- data.frame(y = YsTraining[!is.na(YsTraining[,3]),3], XsTraining[!is.na(YsTraining[,3]),KeepVar])
+dd &lt;- mRMR.data(data = df)
+salida &lt;- mRMR.classic(data = dd, target_indices = c(1), feature_count = length(KeepVar))
+KeepmRMR &lt;- match(colnames(salida@mi_matrix)[salida@filters[[1]]], colnames(Xtrain))
+KeepmRMR &lt;- KeepmRMR[!is.na(KeepmRMR)]
+print(length(KeepmRMR))</code></pre>
+<pre class="out"><code>## [1] 96</code></pre>
+<pre class="r"><code>Variables&lt;-0
+j&lt;-1
+for (i in 1:length(KeepVar)) {
+  for (k in 1:length(KeepmRMR)) {
+    if (KeepVar[i]==KeepmRMR[k]) {
+      Variables[j]&lt;-KeepVar[i]
+      j&lt;-j+1
+    }
+  }
+}
+
+#Using limma
+XsTraining2 &lt;- XsTraining[!is.na(YsTraining[,3]),]
+Design &lt;- cbind(1,YsTraining[!is.na(YsTraining[,3]),3])
+library(limma)
+fit &lt;- lmFit(t(XsTraining2), Design)
+fit2 &lt;- contrasts.fit(fit, c(0,1))
+fit2 &lt;- eBayes(fit2)
+Keeplimma &lt;- order(fit2$p.value)[1:5]
+
+#Using limma Robust
+fit &lt;- lmFit(t(XsTraining2), Design, method = "robust")
+fit2 &lt;- contrasts.fit(fit, c(0,1))
+fit2 &lt;- eBayes(fit2)
+KeeplimmaRobust &lt;- order(fit2$p.value)[1:5]
+
+#Related genes
+#CD209 was not in our genes 
+colnames(XsTraining)[15743] #LYVE1</code></pre>
+<pre class="out"><code>## [1] "LYVE1"</code></pre>
+<pre class="r"><code>colnames(XsTraining)[22926] #LILRB5</code></pre>
+<pre class="out"><code>## [1] "LILRB5"</code></pre>
+<pre class="r"><code>colnames(XsTraining)[14830] #IMPDH2</code></pre>
+<pre class="out"><code>## [1] "IMPDH2"</code></pre>
+<p>To find the column numbers of our genes we did the following. First we tried to use loops but it was very time consuming. To save this time we passed <em>xtrain</em> to Excel. There, using <em>find</em> we were able to locate the gene name and since the column numbers must match, we also obtained the position of our genes in <em>R</em>.</p>
+<p>Finally, we introduce the selected variables in a vector and make them unique since we do not want to have the same genes repeated. Thus, in our case we obtain 105 variables.</p>
+<pre class="r"><code>SelectedColumns&lt;-c(Variables,Keeplimma,KeeplimmaRobust,15743,22926,14830)
+SelectedColumns&lt;-unique(SelectedColumns)
+Keep2 &lt;- c(SelectedColumns)
+print(length(Keep2))</code></pre>
+<pre class="out"><code>## [1] 105</code></pre>
+<pre class="r"><code>#Defining the functions
+plotROC &lt;- function(preds0,YsTraining){
+  samples &lt;- !is.na(YsTraining)
+  pred &lt;- prediction(preds0[samples],YsTraining[samples])
+  perf&lt;- performance(pred,"tpr","fpr")
+  plot(perf)
+  AUC&lt;-performance(pred,"auc")@y.values[[1]]
+  grid()
+  text(.6,.2,sprintf("AUC=%0.3f", AUC))
+  abline(0,1,col="red", lty = 2)
+  
+}
+plotPR &lt;- function(preds0,YsTraining){
+  samples &lt;- !is.na(YsTraining)
+  pred &lt;- prediction(preds0[samples],YsTraining[samples])
+  perf&lt;- performance(pred,"prec","rec")
+  plot(perf)
+  AUC&lt;-performance(pred,"aucpr")@y.values[[1]]
+  grid()
+  text(.6,.9,sprintf("AUCPR=%0.3f", AUC))
+}</code></pre>
+</div>
+<div class="section level2" id="training-the-predictor">
+<h3 class="sub3">2.2 Training the predictor </h3>
+<p>The difference between Lasso and Ridge predictors is the alpha parameter, which for the first one is 1 and for the second one is 0. Therefore, to know the best alpha we will make a loop and select the one with the highest value of <em>AUC</em>. In this way, we will obtain the best predictor. However, we will not use it as our final predictor but to make our first approximation and see if it works correctly.</p>
+<pre class="r"><code>set.seed(10);
+#Elastic Net
+cvFitElastic&lt;-cv.glmnet(XsTraining[!is.na(YsTraining[,3]),Keep2],
+                        YsTraining[!is.na(YsTraining[,3]),3],
+                        family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+aux&lt;-max(cvFitElastic$cvm)
+alfa&lt;-0
+for (i in seq(0,1,0.1)) {
+  cvFitElastic&lt;-cv.glmnet(XsTraining[!is.na(YsTraining[,3]),Keep2],
+                          YsTraining[!is.na(YsTraining[,3]),3],
+                          family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+  if (aux &lt; max(cvFitElastic$cvm)) {
+    aux&lt;-max(cvFitElastic$cvm)
+    alfa&lt;-i
+  }
+}
+cvFitElastic&lt;-cv.glmnet(XsTraining[!is.na(YsTraining[,3]),Keep2],
+                        YsTraining[!is.na(YsTraining[,3]),3],
+                        family="binomial",nfolds=3,type.measure = "auc",alpha=alfa)
+
+#Selected aux (maximum AUC value) and the correspondent alpha
+print(aux)</code></pre>
+<pre class="out"><code>## [1] 0.6865415</code></pre>
+<pre class="r"><code>print(alfa)</code></pre>
+<pre class="out"><code>## [1] 0.2</code></pre>
+<pre class="r"><code>plot(cvFitElastic);</code></pre>
+<figure class="figure"><img alt="Cross-validated AUC against log lambda for the best alpha (0.2) on the 105 selected genes." height="857" loading="lazy" src="img/projects/breast-cancer-report-1.png" width="1200"/></figure>
+<p>This plot corresponds to the best alpha with the highest <em>AUC</em> score (0.6865) for our 105 genes. Having a small alpha value (0.2) makes this predictor behave similarly to a Ridge predictor.</p>
+<pre class="r"><code>predsTrain&lt;-predict(cvFitElastic,XsTraining[,Keep2],s="lambda.min",type="response")
+predsValid&lt;-predict(cvFitElastic,XsValidation[,Keep2],s="lambda.min",type="response")
+
+layout(matrix(c(1:2), nrow=1))
+plotROC(predsTrain,YsTraining[,3])
+plotROC(predsValid,YsValidation[,3])</code></pre>
+<figure class="figure"><img alt="ROC curves of the elastic net on the training set (AUC 0.769) and the validation set (AUC 0.680)." height="857" loading="lazy" src="img/projects/breast-cancer-report-2.png" width="1200"/></figure>
+<p>As we can see, our predictor did a good job. With the training data we obtained an <em>AUC</em> of <em>0.769</em> and with the validation data we obtained an <em>AUC</em> of <em>0.680</em>. We can be satisfied with this and we will use this predictor as the main predictor for training all data in the next step. As our predictor avoids overfitting, this difference could be due to the small number of patients that we have in the validation data.</p>
+</div>
+</div>
+<div class="section level1" id="predictions-with-all-the-training-set">
+<h2 class="sub">3. Predictions with all the training set</h2>
+<p>Earlier we got the best alpha, but how do we know how many genes get the best <em>AUC</em> result?</p>
+<p>To answer this question, we need a method to eliminate genes and see their performance. We will use the gene importance table that can be extracted from <em>randomforest</em>. We will set different thresholds and see how it performs to select the best one. If our model does not improve we would end up using the full model that includes all the selected genes so it would be the same as in our last section.</p>
+<p>Previously we tried using a “manually” implemented backward <em>stepAIC</em> model, where using the importance table as a reference there would be another loop out of our current one. In this way, the loop worked by deleting a gene (according to the importance table) and inside perform the loop looking for the best alpha (with the new gene length) until the best gene length was found. However, this method needed large amount of time (4 hours). Also, we were eliminating genes in a certain order and not trying all combinations as <em>stepAIC</em> does, for that we would need to design a third loop but I considered that this approach was not worth trying.</p>
+<div class="section level2" id="random-forest">
+<h3 class="sub3">3.1 Random Forest</h3>
+<pre class="r"><code>#Now we train the model with all the Xtrain data
+#RandomForest
+set.seed(10)
+Rforest.fit&lt;-randomForest(Xtrain[!is.na(ytrain[,3]),Keep2],
+                          factor(ytrain[!is.na(ytrain[,3]),3]))
+print(Rforest.fit)</code></pre>
+<pre class="out"><code>## 
+## Call:
+##  randomForest(x = Xtrain[!is.na(ytrain[, 3]), Keep2], y = factor(ytrain[!is.na(ytrain[,      3]), 3])) 
+##                Type of random forest: classification
+##                      Number of trees: 500
+## No. of variables tried at each split: 10
+## 
+##         OOB estimate of  error rate: 31.19%
+## Confusion matrix:
+##     0  1 class.error
+## 0 535 51  0.08703072
+## 1 230 85  0.73015873</code></pre>
+<pre class="r"><code>Importance&lt;-as.data.frame(importance(Rforest.fit))
+MatrizAux&lt;-cbind(Keep2,Importance)
+library(plyr)
+ImportanceNames&lt;-arrange(MatrizAux,desc(MeanDecreaseGini))
+print(ImportanceNames)</code></pre>
+<pre class="out"><code>##     Keep2 MeanDecreaseGini
+## 1       2        15.453975
+## 2       1        10.693578
+## 3       3         9.101839
+## 4    3722         6.059211
+## 5    5768         5.740132
+## 6   12541         5.582623
+## 7    7493         5.473755
+## 8   21497         5.412127
+## 9    5560         5.350352
+## 10  20252         5.012011
+## 11  11521         4.946211
+## 12  12106         4.804727
+## 13    771         4.699915
+## 14  16972         4.641563
+## 15  17766         4.623838
+## 16  11697         4.434654
+## 17  19308         4.216603
+## 18  22122         4.198002
+## 19  23053         4.157748
+## 20   5109         4.117754
+## 21  15611         4.057957
+## 22   4046         4.054713
+## 23  15544         4.027710
+## 24   6468         4.013413
+## 25  14131         4.009656
+## 26  10833         3.977135
+## 27  18262         3.976087
+## 28    682         3.972475
+## 29   7556         3.966418
+## 30  14364         3.963248
+## 31  11278         3.960516
+## 32   8891         3.921129
+## 33  17670         3.849479
+## 34  15311         3.848842
+## 35   1909         3.838096
+## 36  19899         3.798447
+## 37  10569         3.785514
+## 38   7430         3.775691
+## 39  20112         3.770232
+## 40   5459         3.764301
+## 41  17849         3.751219
+## 42   5503         3.739030
+## 43  23216         3.735937
+## 44   6475         3.728333
+## 45   2183         3.717807
+## 46  17607         3.705924
+## 47  17361         3.667037
+## 48  11477         3.663409
+## 49  11882         3.656225
+## 50  15810         3.651424
+## 51   8511         3.574373
+## 52  15743         3.570420
+## 53  23198         3.557528
+## 54   4452         3.539867
+## 55   1382         3.531807
+## 56  22926         3.495683
+## 57   5826         3.494875
+## 58    513         3.486067
+## 59   5175         3.480166
+## 60  11742         3.478591
+## 61  20879         3.474111
+## 62   2688         3.464583
+## 63  24346         3.429299
+## 64   3379         3.429049
+## 65  23339         3.384051
+## 66  12140         3.332338
+## 67  20517         3.282622
+## 68  13878         3.274901
+## 69   3732         3.274128
+## 70  10492         3.272915
+## 71   3788         3.254821
+## 72  14623         3.247913
+## 73   6963         3.245178
+## 74  23789         3.227715
+## 75  14830         3.222729
+## 76  20548         3.219979
+## 77   7518         3.213578
+## 78  24176         3.206850
+## 79  19375         3.189023
+## 80   3566         3.183423
+## 81  22540         3.182906
+## 82   1547         3.168558
+## 83  21021         3.161866
+## 84  14111         3.144574
+## 85   3967         3.113660
+## 86  23778         3.108779
+## 87  11760         3.088790
+## 88  14981         3.086184
+## 89  21352         3.084150
+## 90  18650         3.053914
+## 91  10709         3.025851
+## 92  23510         3.024889
+## 93   6222         3.014874
+## 94  17219         2.984437
+## 95    448         2.973287
+## 96   1014         2.967805
+## 97   8480         2.963803
+## 98  18912         2.912994
+## 99  23152         2.890199
+## 100 12825         2.875481
+## 101 20738         2.866819
+## 102 24330         2.866273
+## 103  3199         2.821414
+## 104 10085         2.786360
+## 105 20419         2.695167</code></pre>
+<p><em>ImportanceNames</em> is a 2-column matrix showing the importance of each gene in descending order. We will base on this order and set different thresholds in the next step. The selected thresholds are 6 different values for <em>MeanDecreaseGini</em>: 0 (initial model), 3, 3.5, 4, 4.5 and 5.</p>
+</div>
+<div class="section level2" id="searching-for-the-best-threshold">
+<h3 class="sub3">3.2 Searching for the best threshold</h3>
+<pre class="r"><code>#First we define our vectors with different thresholds
+KeepOrdenadoCompleto&lt;-ImportanceNames[,1]
+
+KeepOrdenadoThres3&lt;-0
+pos&lt;-1
+KeepOrdenadoThres3_5&lt;-0
+pos1&lt;-1
+KeepOrdenadoThres4&lt;-0
+pos2&lt;-1
+KeepOrdenadoThres4_5&lt;-0
+pos3&lt;-1
+KeepOrdenadoThres5&lt;-0
+pos4&lt;-1
+
+for (i in 1:dim(ImportanceNames)[1]) {
+  if (ImportanceNames[i,2]&gt;=3) {
+    KeepOrdenadoThres3[pos]&lt;-ImportanceNames[i,1]
+    pos&lt;-pos+1
+  }
+  if (ImportanceNames[i,2]&gt;=3.5) {
+    KeepOrdenadoThres3_5[pos1]&lt;-ImportanceNames[i,1]
+    pos1&lt;-pos1+1
+  }
+  if (ImportanceNames[i,2]&gt;=4) {
+    KeepOrdenadoThres4[pos2]&lt;-ImportanceNames[i,1]
+    pos2&lt;-pos2+1
+  }
+  if (ImportanceNames[i,2]&gt;=4.5) {
+    KeepOrdenadoThres4_5[pos3]&lt;-ImportanceNames[i,1]
+    pos3&lt;-pos3+1
+  }
+  if (ImportanceNames[i,2]&gt;=5) {
+    KeepOrdenadoThres5[pos2]&lt;-ImportanceNames[i,1]
+    pos4&lt;-pos4+1
+  }
+}</code></pre>
+<p>We make a loop looking for the best alpha for each of our thresholds. Since we are doing this loop we can take advantage and store all the maximum values of each lap. Considering that we are doing 100 loops, we will get 100 maximum values one for each alpha.</p>
+<pre class="r"><code>set.seed(9);
+#Completo
+cvFitElasticCom&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoCompleto],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+
+auxCom&lt;-max(cvFitElasticCom$cvm)
+alfaCom&lt;-0
+VectorMaximosCom&lt;-0
+posC&lt;-1
+#Threshold 3
+cvFitElastic3&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3],
+                         ytrain[!is.na(ytrain[,3]),3],
+                         family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+
+aux3&lt;-max(cvFitElastic3$cvm)
+alfa3&lt;-0
+VectorMaximos3&lt;-0
+pos3&lt;-1
+#Threshold 3.5
+cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+
+aux3_5&lt;-max(cvFitElastic3_5$cvm)
+alfa3_5&lt;-0
+VectorMaximos3_5&lt;-0
+pos3_5&lt;-1
+
+#Threshold 4
+cvFitElastic4&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4],
+                         ytrain[!is.na(ytrain[,3]),3],
+                         family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+
+aux4&lt;-max(cvFitElastic4$cvm)
+alfa4&lt;-0
+VectorMaximos4&lt;-0
+pos4&lt;-1
+
+#Threshold 4.5
+cvFitElastic4_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4_5],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+
+aux4_5&lt;-max(cvFitElastic4_5$cvm)
+alfa4_5&lt;-0
+VectorMaximos4_5&lt;-0
+pos4_5&lt;-1
+
+#Threshold 5
+cvFitElastic5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres5],
+                         ytrain[!is.na(ytrain[,3]),3],
+                         family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+
+aux5&lt;-max(cvFitElastic5$cvm)
+alfa5&lt;-0
+VectorMaximos5&lt;-0
+pos5&lt;-1
+
+
+VectorAlfa&lt;-seq(0,1,0.01)
+
+for (i in seq(0,1,0.01)) {
+  cvFitElasticCom&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoCompleto],
+                          ytrain[!is.na(ytrain[,3]),3],
+                          family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+  cvFitElastic3&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3],
+                             ytrain[!is.na(ytrain[,3]),3],
+                             family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+  cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
+                             ytrain[!is.na(ytrain[,3]),3],
+                             family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+  cvFitElastic4&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4],
+                             ytrain[!is.na(ytrain[,3]),3],
+                             family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+  cvFitElastic4_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4_5],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+  cvFitElastic5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres5],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+  
+  VectorMaximosCom[posC]&lt;-max(cvFitElasticCom$cvm)
+  posC&lt;-posC+1
+  
+  if (auxCom &lt; max(cvFitElasticCom$cvm)) {
+    auxCom&lt;-max(cvFitElasticCom$cvm)
+    alfaCom&lt;-i
+  }
+  
+  VectorMaximos3[pos3]&lt;-max(cvFitElastic3$cvm)
+  pos3&lt;-pos3+1
+  
+  if (aux3 &lt; max(cvFitElastic3$cvm)) {
+    aux3&lt;-max(cvFitElastic3$cvm)
+    alfa3&lt;-i
+  }
+  
+  VectorMaximos3_5[pos3_5]&lt;-max(cvFitElastic3_5$cvm)
+  pos3_5&lt;-pos3_5+1
+  
+  if (aux3_5 &lt; max(cvFitElastic3_5$cvm)) {
+    aux3_5&lt;-max(cvFitElastic3_5$cvm)
+    alfa3_5&lt;-i
+  }
+  
+  VectorMaximos4[pos4]&lt;-max(cvFitElastic4$cvm)
+  pos4&lt;-pos4+1
+  
+  if (aux4 &lt; max(cvFitElastic4$cvm)) {
+    aux4&lt;-max(cvFitElastic4$cvm)
+    alfa4&lt;-i
+  }
+  
+  VectorMaximos4_5[pos4_5]&lt;-max(cvFitElastic4_5$cvm)
+  pos4_5&lt;-pos4_5+1
+  
+  if (aux4_5 &lt; max(cvFitElastic4_5$cvm)) {
+    aux4_5&lt;-max(cvFitElastic4_5$cvm)
+    alfa4_5&lt;-i
+  }
+  
+  VectorMaximos5[pos5]&lt;-max(cvFitElastic5$cvm)
+  pos5&lt;-pos5+1
+  
+  if (aux5 &lt; max(cvFitElastic5$cvm)) {
+    aux5&lt;-max(cvFitElastic5$cvm)
+    alfa5&lt;-i
+  }
+}  
+layout(matrix(c(1:2), nrow=1,byrow = T))
+plot(VectorAlfa,VectorMaximosCom,col="blue",type="p",cex=0.75,pch=20,xlab="Alpha", ylab="Maximun AUC scores")
+lines(VectorAlfa,VectorMaximos3,col="red",type="p",cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos3_5,col="green",type="p",cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos4,col="yellow",type="p",cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos4_5,col="orange",type="p",cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos5,col="black",type="p",cex=0.75,pch=20)
+abline(h=mean(VectorMaximosCom),col="blue")
+abline(h=mean(VectorMaximos3),col="red")
+abline(h=mean(VectorMaximos3_5),col="green")
+abline(h=mean(VectorMaximos4),col="yellow")
+abline(h=mean(VectorMaximos4_5),col="orange")
+abline(h=mean(VectorMaximos5),col="black")
+plot(c(length(KeepOrdenadoCompleto),length(KeepOrdenadoThres3),length(KeepOrdenadoThres3_5),length(KeepOrdenadoThres4),length(KeepOrdenadoThres4_5),length(KeepOrdenadoThres5)),c(mean(VectorMaximosCom),mean(VectorMaximos3),mean(VectorMaximos3_5),mean(VectorMaximos4),mean(VectorMaximos4_5),mean(VectorMaximos5)),type="b",xlab="Number of genes", ylab="Mean of maximun AUC score")</code></pre>
+<figure class="figure"><img alt="Maximum AUC for each alpha, one colour per random forest threshold, and mean of the maximum AUC against number of genes." height="857" loading="lazy" src="img/projects/breast-cancer-report-3.png" width="1200"/></figure>
+<p>In the left graph, each point represents a maximum <em>AUC</em> obtained for each alpha and each threshold. Each line represents the mean of these maximum values and these lines are represented as dots in the graph on the right.</p>
+<ul>
+<li><strong>Blue:</strong> full model with 105 genes.</li>
+<li><strong>Red:</strong> threshold of 3 <em>MeanDecreaseGini</em> containing 93 genes.</li>
+<li><strong>Green:</strong> threshold of 3.5 <em>MeanDecreaseGini</em> containing 58 genes.</li>
+<li><strong>Yellow:</strong> threshold of 4 <em>MeanDecreaseGini</em> containing 23 genes.</li>
+<li><strong>Orange:</strong> threshold of 4.5 <em>MeanDecreaseGini</em> containing 15 genes.</li>
+<li><strong>Black:</strong> threshold of 5 <em>MeanDecreaseGini</em> containing 12 genes.</li>
+</ul>
+<p>We can observe that on average we get better results when we reduce the number of genes. Although the threshold of 4 has the best mean, it does not mean that it plots the best AUC or makes the best predictions. It only gives us an idea that, in general, our model obtains better values when the threshold is between 3.5 and 4.5.</p>
+</div>
+<div class="section level2" id="ploting-the-best-models">
+<h3 class="sub3">3.3 Ploting the best models</h3>
+<p>We will plot the best models we have obtained for each threshold.</p>
+<pre class="r"><code>#Now we plot the best ones
+layout(matrix(c(1:6), nrow=2,byrow = T))
+cvFitElasticCom&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoCompleto],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=alfaCom)
+cvFitElastic3&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3],
+                         ytrain[!is.na(ytrain[,3]),3],
+                         family="binomial",nfolds=3,type.measure = "auc",alpha=alfa3)
+cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=alfa3_5)
+cvFitElastic4&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4],
+                         ytrain[!is.na(ytrain[,3]),3],
+                         family="binomial",nfolds=3,type.measure = "auc",alpha=alfa4)
+cvFitElastic4_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4_5],
+                           ytrain[!is.na(ytrain[,3]),3],
+                           family="binomial",nfolds=3,type.measure = "auc",alpha=alfa4_5)
+cvFitElastic5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres5],
+                         ytrain[!is.na(ytrain[,3]),3],
+                         family="binomial",nfolds=3,type.measure = "auc",alpha=alfa5)
+plot(cvFitElasticCom)
+plot(cvFitElastic3)
+plot(cvFitElastic3_5)
+plot(cvFitElastic4)
+plot(cvFitElastic4_5)
+plot(cvFitElastic5)</code></pre>
+<figure class="figure"><img alt="Six cross-validation plots, one for each random forest importance threshold." height="857" loading="lazy" src="img/projects/breast-cancer-report-4.png" width="1200"/></figure>
+<pre class="r"><code>max(VectorMaximosCom)</code></pre>
+<pre class="out"><code>## [1] 0.7144286</code></pre>
+<pre class="r"><code>max(VectorMaximos3)</code></pre>
+<pre class="out"><code>## [1] 0.7182504</code></pre>
+<pre class="r"><code>max(VectorMaximos3_5)</code></pre>
+<pre class="out"><code>## [1] 0.7247179</code></pre>
+<pre class="r"><code>max(VectorMaximos4)</code></pre>
+<pre class="out"><code>## [1] 0.7185329</code></pre>
+<pre class="r"><code>max(VectorMaximos4_5)</code></pre>
+<pre class="out"><code>## [1] 0.7214539</code></pre>
+<pre class="r"><code>max(VectorMaximos5)</code></pre>
+<pre class="out"><code>## [1] 0.7057409</code></pre>
+<p>As we can see when we reduce the variables, we are also eliminating the penalties produced by Elastic Net and although they produce penalties they should not be considered as noise but I consider that we are eliminating valuable signal. If we check the maximum <em>AUC</em> value we obtained was for a threshold of 3.5.</p>
+</div>
+<div class="section level2" id="roc-curves-for-the-best-models">
+<h3 class="sub3">3.3 ROC curves for the best models</h3>
+<pre class="r"><code>predsC&lt;-predict(cvFitElasticCom,Xtrain[,KeepOrdenadoCompleto],s="lambda.min",type="response")
+preds3&lt;-predict(cvFitElastic3,Xtrain[,KeepOrdenadoThres3],s="lambda.min",type="response")
+preds3_5&lt;-predict(cvFitElastic3_5,Xtrain[,KeepOrdenadoThres3_5],s="lambda.min",type="response")
+preds4&lt;-predict(cvFitElastic4,Xtrain[,KeepOrdenadoThres4],s="lambda.min",type="response")
+preds4_5&lt;-predict(cvFitElastic4_5,Xtrain[,KeepOrdenadoThres4_5],s="lambda.min",type="response")
+preds5&lt;-predict(cvFitElastic5,Xtrain[,KeepOrdenadoThres5],s="lambda.min",type="response")
+layout(matrix(c(1:6), nrow=2,byrow = T))
+plotROC(predsC,ytrain[,3])
+plotROC(preds3,ytrain[,3])
+plotROC(preds3_5,ytrain[,3])
+plotROC(preds4,ytrain[,3])
+plotROC(preds4_5,ytrain[,3])
+plotROC(preds5,ytrain[,3])</code></pre>
+<figure class="figure"><img alt="Six ROC curves on the training data, one for each threshold; the 3.5 threshold gives the best AUC." height="857" loading="lazy" src="img/projects/breast-cancer-report-5.png" width="1200"/></figure>
+<p>After looking at the ROC curves, we can be more confident that the best threshold is 3.5, as it gives an <em>AUC</em> of <em>0.764</em>.</p>
+</div>
+<div class="section level2" id="precision-recall-curves-for-the-best-models">
+<h3 class="sub3">3.4 Precision Recall curves for the best models</h3>
+<pre class="r"><code>layout(matrix(c(1:6), nrow=2,byrow = T))
+plotPR(predsC,ytrain[,3])
+plotPR(preds3,ytrain[,3])
+plotPR(preds3_5,ytrain[,3])
+plotPR(preds4,ytrain[,3])
+plotPR(preds4_5,ytrain[,3])
+plotPR(preds5,ytrain[,3])</code></pre>
+<figure class="figure"><img alt="Six precision-recall curves, one for each threshold." height="857" loading="lazy" src="img/projects/breast-cancer-report-6.png" width="1200"/></figure>
+<p>A perfect classifier would have an precision equal to 1 and a recall equal to 1, which means that the classifier would not misclassify any data. In our case even if our results are far from perfection, the best one is for the threshold of 3.5 because it has the best area under the curve.</p>
+</div>
+<div class="section level2" id="code-lines-to-save">
+<h3 class="sub3">3.5 Code Lines to save</h3>
+<pre class="r"><code>#Code Lines to upload
+PredsElasticNet&lt;-predict(cvFitElastic3_5,Xtest[,KeepOrdenadoThres3_5],s="lambda.1se",type="response")
+write.table(PredsElasticNet,file="PredsElasticNet3_5.csv",col.names=FALSE,sep=",")</code></pre>
+</div>
+</div>
+<div class="section level1" id="stability">
+<h2 class="sub">4. Stability</h2>
+<p>To test the stability, we will vary <em>set.seed</em> in our best model (threshold of 3.5) and see how it performs.</p>
+<pre class="r"><code>AUC_Values&lt;-0
+j&lt;-1
+for (i in 1:100) {
+  set.seed(i);
+  cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
+                             ytrain[!is.na(ytrain[,3]),3],
+                             family="binomial",nfolds=3,type.measure = "auc",alpha=alfa3_5)
+  preds3_5&lt;-predict(cvFitElastic3_5,Xtrain[,KeepOrdenadoThres3_5],s="lambda.min",type="response")
+  samples &lt;- !is.na(ytrain[,3])
+  pred &lt;- prediction(preds3_5[samples],ytrain[,3][samples])
+  AUC&lt;-performance(pred,"auc")@y.values[[1]]
+  AUC_Values[j]&lt;-AUC
+  j&lt;-j+1
+}
+layout(1)
+plot(AUC_Values,xlab="Seed", ylab="AUC score")
+abline(h=mean(AUC_Values))</code></pre>
+<figure class="figure"><img alt="AUC of the best model for different random seeds, all between 0.75 and 0.77." height="857" loading="lazy" src="img/projects/breast-cancer-report-7.png" width="1200"/></figure>
+<pre class="r"><code>StabMatrix&lt;-matrix(c(min(AUC_Values),max(AUC_Values),mean(AUC_Values),median(AUC_Values),sd(AUC_Values)),nrow=1)
+colnames(StabMatrix)&lt;-c("Min Value","Max Value","Mean","Median","Standard Deviation")
+print(StabMatrix)</code></pre>
+<pre class="out"><code>##      Min Value Max Value      Mean    Median Standard Deviation
+## [1,] 0.7520938 0.7734222 0.7644498 0.7652581        0.004866613</code></pre>
+<p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
+</div>
+<div class="section level1" id="results">
+<h2 class="sub">5. Results</h2>
+<pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
+plotROC(predsTrain,YsTraining[,3])
+plotROC(predsValid,YsValidation[,3])
+plotROC(preds3_5,ytrain[,3])</code></pre>
+<figure class="figure"><img alt="Three ROC curves: training, validation and the best 58-gene model." height="857" loading="lazy" src="img/projects/breast-cancer-report-8.png" width="1200"/></figure>
+<p>These are the final results obtained. In the first graph we can see the training results for our complete model with 105 genes. In the second plot the validation we have obtained for these 105 genes and in the last graph we can observe the ROC curve for our best model with 58 genes (threshold of 3.5).</p>
+<p>Finally, we can conclude that on average, our model predicts with 76.44% accuracy whether a woman with breast cancer will live more than 8 years with our <strong>Training set</strong>. Testing with different <em>set.seeds</em> we have obtained a result of 73.29% with the <strong>Test set 1</strong> (data that has not been used to train the predictor) which we have managed to get very close to the 74% target.</p>
+<p><em>Estimated time to generate the html: 15min</em></p>
+</div>
+<div class="section level1" id="bibliography">
+<h2 class="sub">6. Bibliography</h2>
+<p>[1] Liu, L., Chen, Z., Shi, W., Liu, H., &amp; Pang, W. (2019). Breast cancer survival prediction using seven prognostic biomarker genes. Oncology letters, 18(3), 2907–2916. <a class="uri" href="https://doi.org/10.3892/ol.2019.10635">https://doi.org/10.3892/ol.2019.10635</a></p>
+</div>
+
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="coast" aria-pressed="false">Coast</button><button type="button" data-theme-set="notebook" aria-pressed="false">Notebook</button><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button></div>
+      <span>&copy; 2026 Ebiya Aidu</span>
+    </div>
+  </footer>
+  <script src="js/lauburu.js?v=20261112c"></script>
+  <script src="js/nav.js?v=20261112c"></script>
+</body>
+</html>
