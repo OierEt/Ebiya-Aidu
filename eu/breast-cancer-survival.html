@@ -243,6 +243,7 @@ plotROC(predsValid,YsValidation[,3])</code></pre></details>
 <p>As we can see, our predictor did a good job. With the training data we obtained an <em>AUC</em> of <em>0.769</em> and with the validation data we obtained an <em>AUC</em> of <em>0.680</em>. We can be satisfied with this and we will use this predictor as the main predictor for training all data in the next step. As our predictor avoids overfitting, this difference could be due to the small number of patients that we have in the validation data.</p>
 </div>
 </div>
+<aside class="my-note"><div class="my-note-label">Nire oharra</div><p>Txostenean agertzen ez bada ere, arazoa iragarle eta metodo desberdinekin lantzen saiatu nintzen. Azkenean, txostenak dioenez, aukeratutako iragarlea Elastic Net da, 0,2ko alfarekin eta 105 aldagaiekin lortua. 0,769ko AUCa lortu zuen XsTraining-en (Xtrain-en azpimultzo bat) eta 0,680koa XsValidation-en (Xtrain-en beste azpimultzo bat, entrenatzean iragarleak ikusi ez zituen datuekin). Hurrengo atalean hasita, Xtrain osoa erabiltzen da.</p></aside>
 <div class="rsec" id="predictions-with-all-the-training-set">
 <h2 class="sub"> 3. Predictions with all the training set </h2>
 <p>Earlier we got the best alpha, but how do we know how many genes get the best <em>AUC</em> result?</p>

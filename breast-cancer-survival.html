@@ -243,6 +243,7 @@ plotROC(predsValid,YsValidation[,3])</code></pre></details>
 <p>As we can see, our predictor did a good job. With the training data we obtained an <em>AUC</em> of <em>0.769</em> and with the validation data we obtained an <em>AUC</em> of <em>0.680</em>. We can be satisfied with this and we will use this predictor as the main predictor for training all data in the next step. As our predictor avoids overfitting, this difference could be due to the small number of patients that we have in the validation data.</p>
 </div>
 </div>
+<aside class="my-note"><div class="my-note-label">My note</div><p>Although it does not appear in the report, I tried to approach the problem with different predictors and methods. In the end, as the report says, the chosen predictor is an Elastic Net with alpha 0.2, obtained with the 105 variables. It got an AUC of 0.769 on XsTraining (a subset of Xtrain) and an AUC of 0.680 on XsValidation (another subset of Xtrain, whose data the predictor had not seen during training). From the next section on, the whole Xtrain is used.</p></aside>
 <div class="rsec" id="predictions-with-all-the-training-set">
 <h2 class="sub"> 3. Predictions with all the training set </h2>
 <p>Earlier we got the best alpha, but how do we know how many genes get the best <em>AUC</em> result?</p>
