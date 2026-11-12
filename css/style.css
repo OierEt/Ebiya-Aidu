@@ -225,3 +225,14 @@ html[data-theme="archive"] .hero h1 { font-size: clamp(48px, 10vw, 112px); }
 html[data-theme="archive"] .card, html[data-theme="archive"] .score { box-shadow: 4px 4px 0 rgba(42, 33, 22, .55); }
 html[data-theme="archive"] .shape.circle { border-radius: 0; }
 html[data-theme="archive"] .shape.ring { border-radius: 0; }
+
+/* Project detail pages */
+.back { font-family: var(--mono); font-size: 14px; margin: 22px 0 8px; }
+.back a { color: var(--black); }
+.prose .sub { font-family: var(--head); font-weight: 400; text-transform: uppercase; font-size: 26px; margin: 28px 0 10px; }
+.steps { padding-left: 22px; margin: 0 0 16px; }
+.steps li { margin-bottom: 8px; }
+.figure { margin: 22px 0; border: 3px solid var(--black); background: var(--paper); }
+.figure img { display: block; width: 100%; height: auto; }
+.figure figcaption { font-family: var(--mono); font-size: 13px; padding: 8px 12px; border-top: 3px solid var(--black); }
+.ref { font-size: 14px; margin-top: 28px; }

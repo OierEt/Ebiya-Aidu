@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bularreko minbiziaren biziraupena · Proiektuak · Ebiya Aidu</title>
+  <meta name="description" content="Ebiya Aidu: datuei, hezkuntzari, ikerketari, bidaiei eta bilduma bitxiei buruzko webgune pertsonala.">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=20261112b">
+  <script src="../js/theme.js?v=20261112b"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="../img/lauburu.svg" alt="">Ebiya Aidu</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Nagusia">
+        <a href="index.html">Hasiera</a>
+        <a href="projects.html" aria-current="page">Proiektuak</a>
+        <a href="about.html">Niri buruz</a>
+        <a href="chat.html">Txata</a>
+        </nav>
+        <div class="lang" aria-label="Hizkuntza"><a href="../breast-cancer-survival.html" lang="en" hreflang="en">EN</a><a href="breast-cancer-survival.html" lang="eu" hreflang="eu" aria-current="true">EU</a></div>
+      </div>
+    </div>
+  </header>
+    <section class="page-head">
+    <div class="wrap">
+      <div class="num">Genomika proiektua, 2021</div>
+      <h1>Bularreko minbiziaren biziraupena</h1>
+      <p>8 urteko biziraupena aurreikusten, gene-adierazpenetik abiatuta.</p>
+    </div>
+  </section>
+  <main>
+    <div class="wrap">
+      <p class="back"><a href="projects.html#projects">&larr; Proiektu guztiak</a></p>
+      <article class="prose">
+        <ul class="tags"><li>R</li><li>glmnet</li><li>Random forest</li><li>limma</li><li>Genomika</li></ul>
+        <h2 class="sub">Galdera</h2>
+        <p>Datu klinikoetatik eta gene-adierazpenetik abiatuta, bularreko minbizia duten zein pazientek biziko diren 96 hilabete (8 urte) baino gehiago jakin al daiteke? Epe luzerako aurreikuspenak zailak dira denborak pisu handia duelako; proba-multzoan lor zitekeen onena 0,74 inguruko AUC zen.</p>
+        <h2 class="sub">Nola funtzionatzen du</h2>
+        <ol class="steps"><li>Datuak: 1.000 paziente inguru, bakoitzak 24.000 gene-adierazpen inguru, eta ezkutuko proba-multzo bat.</li><li>Gene hautagaiak lau eratara aukeratu: bariantza handiena (gero mRMR erredundantzia murrizteko), limma-ren emaitza onenak, limma sendoaren emaitza onenak eta literaturan jasotako geneak (LYVE1, LILRB5, IMPDH2). Guztira: 105 gene.</li><li>Geneak random forest-aren garrantziaren arabera sailkatu eta sei ebaki-puntu probatu, 105 geneetatik 12ra arte.</li><li>Ebaki-puntu bakoitzerako elastic net (glmnet) doitu, alfa parametroa 0tik 1era bilatuz eta balidazio gurutzatuko AUCaren arabera neurtuz.</li><li>Egonkortasuna egiaztatu, eredu onena hainbat hazi ausazalekin errepikatuz.</li></ol>
+        <h2 class="sub">Zer aurkitu nuen</h2>
+        <p>Ebaki-puntu onenak 58 gene mantendu zituen. Entrenamendu-datuetan, bere AUCa 0,76 inguru izan zen. Hazi ausazal desberdinekin 0,75 eta 0,77 artean mantendu zen (desbideratze estandarra 0,005), beraz emaitza ez dago zorian oinarritutako zatiketa baten mende. Ikusi gabeko proba-multzoan 0,733 lortu zuen, 0,74ko helburutik oso gertu.</p>
+        <figure class="figure"><img src="../img/projects/breast-cancer-roc.png" alt="Hiru ROC kurba: entrenamendua, balidazioa eta 58 geneko eredu onena." width="1344" height="960" loading="lazy"><figcaption>Entrenamendu, balidazio eta azken ereduen ROC kurbak.</figcaption></figure>
+        <figure class="figure"><img src="../img/projects/breast-cancer-stability.png" alt="Hazi ausazal desberdinen AUC balioen sakabanatze-grafikoa, guztiak 0,75 eta 0,77 artean." width="1344" height="960" loading="lazy"><figcaption>Eredu onenaren AUCa hazi ausazal desberdinekin.</figcaption></figure>
+        <h2 class="sub">Kontuz</h2>
+        <p>0,76 zifra entrenamendu-datuetatik dator, beraz baikorregia da; ikusi gabeko datuetako 0,733 da fidatu beharreko zenbakia. Jatorrizko txostenak AUC &ldquo;zehaztasun&rdquo; deitzen du, eta ez da gauza bera.</p>
+        <p class="ref">Erreferentzia: Liu et al. (2019), Breast cancer survival prediction using seven prognostic biomarker genes, Oncology Letters 18(3).</p>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span><img src="../img/lauburu.svg" alt="">Euskal Herrian eginda</span>
+      <div class="themes" role="group" aria-label="Estiloa"><span>Estiloa</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Konstruktibista</button><button type="button" data-theme-set="coast" aria-pressed="false">Kostaldea</button><button type="button" data-theme-set="notebook" aria-pressed="false">Koadernoa</button><button type="button" data-theme-set="archive" aria-pressed="false">Artxiboa</button></div>
+      <span>&copy; 2026 Ebiya Aidu</span>
+    </div>
+  </footer>
+  <script src="../js/lauburu.js?v=20261112b"></script>
+  <script src="../js/nav.js?v=20261112b"></script>
+</body>
+</html>

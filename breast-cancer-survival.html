@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Breast cancer survival · Projects · Ebiya Aidu</title>
+  <meta name="description" content="Ebiya Aidu: a personal site about data, education, research, travel and odd collections.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261112b">
+  <script src="js/theme.js?v=20261112b"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Ebiya Aidu</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="about.html">About me</a>
+        <a href="chat.html">Chat</a>
+        </nav>
+        <div class="lang" aria-label="Language"><a href="breast-cancer-survival.html" lang="en" hreflang="en" aria-current="true">EN</a><a href="eu/breast-cancer-survival.html" lang="eu" hreflang="eu">EU</a></div>
+      </div>
+    </div>
+  </header>
+    <section class="page-head">
+    <div class="wrap">
+      <div class="num">Genomics project, 2021</div>
+      <h1>Breast cancer survival</h1>
+      <p>Predicting 8-year survival from gene expression.</p>
+    </div>
+  </section>
+  <main>
+    <div class="wrap">
+      <p class="back"><a href="projects.html#projects">&larr; All projects</a></p>
+      <article class="prose">
+        <ul class="tags"><li>R</li><li>glmnet</li><li>Random forest</li><li>limma</li><li>Genomics</li></ul>
+        <h2 class="sub">The question</h2>
+        <p>Can we tell, from clinical and gene-expression data, which breast cancer patients will survive more than 96 months (8 years)? Long-term predictions are hard because time plays a big role, and the theoretical best on the held-out set was an AUC of about 0.74.</p>
+        <h2 class="sub">How it works</h2>
+        <ol class="steps"><li>Data: around 1,000 patients with about 24,000 gene expressions each, plus a hidden test set.</li><li>Pick candidate genes four ways: highest variance (then mRMR to cut redundancy), top limma hits, top robust limma hits, and genes reported in the literature (LYVE1, LILRB5, IMPDH2). Together: 105 genes.</li><li>Rank them by random forest importance and try six cut-offs, from all 105 genes down to 12.</li><li>Fit an elastic net (glmnet) for each cut-off, searching the mixing parameter alpha from 0 to 1 and scoring by cross-validated AUC.</li><li>Check stability by repeating the best model with many random seeds.</li></ol>
+        <h2 class="sub">What I found</h2>
+        <p>The best cut-off kept 58 genes. On the training data its AUC was about 0.76. Across different random seeds it stayed between 0.75 and 0.77 (standard deviation 0.005), so the result does not depend on a lucky split. On the unseen test set it reached 0.733, close to the 0.74 target.</p>
+        <figure class="figure"><img src="img/projects/breast-cancer-roc.png" alt="Three ROC curves: training, validation and the best 58-gene model." width="1344" height="960" loading="lazy"><figcaption>ROC curves of the training, validation and final models.</figcaption></figure>
+        <figure class="figure"><img src="img/projects/breast-cancer-stability.png" alt="Scatter of AUC values across random seeds, all between 0.75 and 0.77." width="1344" height="960" loading="lazy"><figcaption>AUC across different random seeds for the best model.</figcaption></figure>
+        <h2 class="sub">Caveat</h2>
+        <p>The 0.76 figure comes from the training data, so it is optimistic; the 0.733 on unseen data is the number to trust. The original report calls AUC &ldquo;accuracy&rdquo;, which is not the same thing.</p>
+        <p class="ref">Reference: Liu et al. (2019), Breast cancer survival prediction using seven prognostic biomarker genes, Oncology Letters 18(3).</p>
+      </article>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="coast" aria-pressed="false">Coast</button><button type="button" data-theme-set="notebook" aria-pressed="false">Notebook</button><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button></div>
+      <span>&copy; 2026 Ebiya Aidu</span>
+    </div>
+  </footer>
+  <script src="js/lauburu.js?v=20261112b"></script>
+  <script src="js/nav.js?v=20261112b"></script>
+</body>
+</html>
