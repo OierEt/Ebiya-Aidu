@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261112i">
-  <script src="../js/theme.js?v=20261112i"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20261112j">
+  <script src="../js/theme.js?v=20261112j"></script>
 </head>
 <body>
   <header class="site-header">
@@ -43,22 +43,25 @@
           <section id="overview">
             <h2 class="sub first">Ikuspegi orokorra</h2>
             <ul class="tags"><li>R</li><li>glmnet</li><li>Random forest</li><li>limma</li><li>Genomika</li></ul>
-            <p>Datu klinikoetatik eta gene-adierazpenetik abiatuta, bularreko minbizia duten zein pazientek biziko diren 96 hilabete (8 urte) baino gehiago jakin al daiteke? Epe luzerako aurreikuspenak zailak dira denborak pisu handia duelako; proba-multzoan lor zitekeen onena 0,74 inguruko AUC zen. Eredu onenak, random forest-ekin hautatutako 58 geneko elastic net batek, oso gertu iritsi zen.</p>
+            <p>Datu klinikoetatik eta gene-adierazpenetik abiatuta, bularreko minbizia duten zein pazientek biziko diren 96 hilabete (8 urte) baino gehiago jakin al daiteke? Epe luzerako aurreikuspenak zailak dira denborak pisu handia duelako; Genomika eta Proteomikako irakasleak zioenez, proba-multzoan lor zitekeen onena 0,74 inguruko AUC zen. Nik lortutako eredu onenak, random forest-ekin hautatutako 58 geneko elastic net batek, oso gertu iritsi zen.</p>
             <div class="stats"><div class="card stat"><b>0,733</b><span>AUCa ikusi gabeko proba-datuetan (helburua 0,74)</span></div><div class="card stat"><b>58</b><span>gene eredu onenean</span></div><div class="card stat"><b>0,005</b><span>AUCaren desbideratze estandarra hazien artean</span></div></div>
             <p class="caveat">Kontuz: entrenamendu-datuetan jasotako 0,76 inguruko AUCa baikorregia da; ikusi gabeko datuetako 0,733 da fidatu beharreko zenbakia. Jatorrizko txostenak AUC &ldquo;zehaztasun&rdquo; deitzen du, eta ez da gauza bera.</p>
-            <aside class="my-note todo"><div class="my-note-label">Nire oharra</div><p>Hau izan zen nire lehen machine learning proiektua. Nire oharrentzako lekua: gaur egun zer egingo nukeen modu desberdinean, zer ikasi nuen eta nire egungo lanera nola eraman ninduen.</p></aside>
+            <aside class="my-note"><div class="my-note-label">Nire oharra</div>
+              <p><strong>Testuingurua.</strong> Hau izan zen aurrez aurre izan nuen lehen machine learning proiektua. Ikasleen arteko lehiaketa bat zen. Bularreko minbizia zuten pazienteen datu-multzo bat partekatu ziguten, eta helburua zen paziente batek 8 urte geroago bizirik jarraituko ote zuen aurreikusten zuen eredu bat entrenatzea. Irakasleak esan zuenez, lor zitekeen maximo teorikoa 0,74ko AUC zen, nire ustez nahiko ona: bizirik jarraitzen duen paziente bat eta ez duen beste bat hartuta, ereduak kasuen % 74an ordenatzen ditu ondo, aurreikuspena 8 urte geroagorako izan arren. Epe laburragoko aurreikuspenekin errendimendua handiagoa izango litzateke.</p>
+              <p>Ez ziguten argibide gehiagorik eman, eta nota sailkapen batetik zetorren: eredu prediktibo onena egiten zuen ikasleak 1. postua izango zuen eta, beraz, nota onena; gero bigarrenak, hirugarrenak, eta abar. Sailkapena ezartzeko, entrenatzeko Xtrain datu-multzoa genuen, eta probatzeko beste bat, Xtest. Eredua prest genuenean, unibertsitateko plataformara igo genezakeen, non beste datu-multzo batekin probatzen zen, Xtest2 deituko diodana. Ez genuen horretara sarbiderik, baina errendimendua egiazta genezakeen eta sailkapenean gure lekua ikusi. Gainera, irakasleak hirugarren datu-multzo bat zuen, Xtest3, gure ereduekin probatu ere egin ezin genuena eta azken sailkapena erabakitzen zuena. Horrela, ezin genuen geneuzkan datuetara soilik gainegokitu (overfitting), eta plataformako emaitzek gainegokitzerik ote genuen jakiten laguntzen ziguten.</p>
+              <p>Proiektu honi asko maite diot, bakoitzak bere kasa moldatu behar baitzuen emaitza onena lortzeko. Adimen artifizial sortzailearen aurreko garaian geundenez (2021), asko esperimentatzeko eta ikasteko balio izan zuen. Jarraian dagoen txostena irakasleari entregatu nion bezalaxe da, eta urte batzuk igaro direnez (hau 2026an idazten ari naiz), entregatu nuenari buruzko iruzkinak utziko ditut.</p></aside>
           </section>
           <section id="data">
             <h2 class="sub">Datuak</h2>
             <p>Datu-multzoa unibertsitateko ikastaro batetik dator: 985 paziente, bakoitzak 24.374 zutabe (6 aldagai kliniko eta 24.368 gene-adierazpen), eta entrenamendu-multzoan biziraupenaren emaitza. Proba-multzoak formatu bera du, 985 pazienterekin, baina emaitzarik gabe. Fitxategiak hiru taula ditu: <code>Xtrain</code>, <code>ytrain</code> eta <code>Xtest</code>.</p>
             <div class="dl-grid">
-              <div class="card todo preview" data-csv="../data/breast-cancer-preview.csv" data-caption="Entrenamenduko 985 pazienteetatik lehen 15. 24.374 zutabeetatik, 6 aldagai kliniko, 12 gene eta biziraupenaren 3 zutabeak bakarrik erakusten dira."><h3>Aurrebista</h3><p>Datu gordinen lehen errenkadak. Datuak igotzen direnean agertuko dira.</p></div>
-              <div class="card"><h3>Deskargatu</h3><p>Datu-multzo osoa R formatuan (jatorrizkoa), edo taula berberak Excel fitxategi gisa. Excel fitxategietan 24.374 zutabeak bi orritan banatuta daude, Excelen zutabe-mugagatik.</p><div class="dl-btns"><a class="btn" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div>
+              <div class="card todo preview" data-csv="../data/breast-cancer-preview.csv" data-caption="Entrenamenduko 985 pazienteetatik lehen 10. 24.374 zutabeetatik, 6 aldagai kliniko, 12 gene eta biziraupenaren 3 zutabeak bakarrik erakusten dira."><h3>Aurrebista</h3><p>Datu gordinen lehen errenkadak. Datuak igotzen direnean agertuko dira.</p></div>
+              <div class="card"><h3>Deskargatu</h3><p>Dena R fitxategi originalean dago. Excel fitxategiek taula berberak dituzte (Xtrain, Xtest eta ytrain); haietan 24.374 zutabeak bi orritan daude banatuta, Excelen zutabe-mugagatik.</p><div class="dl-group"><div class="dl-label">Originala (R formatua)</div><div class="dl-btns"><a class="btn" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a></div></div><div class="dl-group"><div class="dl-label">Datu berberak Excelen</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div></div>
             </div>
           </section>
           <section id="report-wrap" lang="en">
             <h2 class="sub" id="report" lang="eu">Txosten osoa</h2>
-            <p class="note" lang="eu">Unibertsitateko jatorrizko txostena, kodea eta irudi guztiekin. Txostena ingelesez dago. Datu pertsonalak eta fitxategi-bideak kendu dira.</p>
+            <p class="note" lang="eu">Unibertsitateko jatorrizko txostena, kodea eta irudi guztiekin. Txostena ingelesez dago. Datu pertsonalak eta fitxategi-bideak kendu dira. Iruzkinak eta ideiak bloke bereizietan gehitu dira.</p>
             
 <div class="rsec" id="introduction">
 <h2 class="sub"> 1. Introduction </h2>
@@ -709,8 +712,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/lauburu.js?v=20261112i"></script>
-  <script src="../js/preview.js?v=20261112i"></script>
-  <script src="../js/nav.js?v=20261112i"></script>
+  <script src="../js/lauburu.js?v=20261112j"></script>
+  <script src="../js/preview.js?v=20261112j"></script>
+  <script src="../js/nav.js?v=20261112j"></script>
 </body>
 </html>

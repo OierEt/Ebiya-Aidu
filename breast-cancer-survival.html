@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261112i">
-  <script src="js/theme.js?v=20261112i"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261112j">
+  <script src="js/theme.js?v=20261112j"></script>
 </head>
 <body>
   <header class="site-header">
@@ -43,22 +43,25 @@
           <section id="overview">
             <h2 class="sub first">Overview</h2>
             <ul class="tags"><li>R</li><li>glmnet</li><li>Random forest</li><li>limma</li><li>Genomics</li></ul>
-            <p>Can we tell, from clinical and gene-expression data, which breast cancer patients will survive more than 96 months (8 years)? Long-term predictions are hard because time plays a big role, and the theoretical best on the held-out set was an AUC of about 0.74. The best model, an elastic net on 58 genes picked with a random forest, got close.</p>
+            <p>Can we tell, from clinical and gene-expression data, which breast cancer patients will survive more than 96 months (8 years)? Long-term predictions are hard because time plays a big role, and, according to my Genomics and Proteomics professor, the theoretical best on the held-out set was an AUC of about 0.74. The best model I obtained, an elastic net on 58 genes picked with a random forest, got close.</p>
             <div class="stats"><div class="card stat"><b>0.733</b><span>AUC on unseen test data (target 0.74)</span></div><div class="card stat"><b>58</b><span>genes in the best model</span></div><div class="card stat"><b>0.005</b><span>standard deviation of AUC across seeds</span></div></div>
             <p class="caveat">Caveat: the AUC of about 0.76 reported on the training data is optimistic; the 0.733 on unseen data is the number to trust. The original report calls AUC &ldquo;accuracy&rdquo;, which is not the same thing.</p>
-            <aside class="my-note todo"><div class="my-note-label">My note</div><p>This was my first machine learning project. Space for my own notes: what I would do differently today, what I learned from it, and how it led to my current work.</p></aside>
+            <aside class="my-note"><div class="my-note-label">My note</div>
+              <p><strong>Context.</strong> This was the first machine learning project I faced. It was a competition between students. We were given a dataset of breast cancer patients, and the goal was to train a model that predicted whether a patient would still be alive after 8 years. According to the professor, the theoretical maximum was an AUC of 0.74, which in my opinion is quite good: it means that, picking one patient who survives and one who does not, the model ranks them correctly about 74% of the time, even though the prediction looks 8 years ahead. With shorter-term predictions the performance would be higher.</p>
+              <p>No further instructions were given, and the grade came from a ranking: the student with the best predictive model would be first and get the best grade, then the second, the third, and so on. To build the ranking we had a training dataset, Xtrain, and another one for testing, Xtest. Once we had a model, we could upload it to the university platform, where it was tested on another dataset, which I will call Xtest2. We had no access to it, but we could check the performance and see our position. In addition, the professor kept a third dataset, Xtest3, that we could not even test our models on, and that decided the final ranking. This way we could not simply overfit the data we had, and the platform results gave us an idea of whether we were overfitting.</p>
+              <p>I have a lot of affection for this project because everyone had to figure things out on their own to get the best result. Considering that this was the pre-generative-AI era (2021), it was a great way to experiment and learn a lot. The report below is exactly what I handed in to the professor. Since a few years have passed (I am writing this in 2026), I will leave comments about what I submitted.</p></aside>
           </section>
           <section id="data">
             <h2 class="sub">Data</h2>
             <p>The dataset comes from a university course: 985 patients with 24,374 columns each (6 clinical variables and 24,368 gene expressions), plus the survival outcome for the training set. The test set has the same 985-patient format without the outcome. The file contains three tables: <code>Xtrain</code>, <code>ytrain</code> and <code>Xtest</code>.</p>
             <div class="dl-grid">
-              <div class="card todo preview" data-csv="data/breast-cancer-preview.csv" data-caption="First 15 of 985 training patients. Of the 24,374 columns only 6 clinical variables, 12 genes and the 3 survival columns are shown."><h3>Preview</h3><p>First rows of the raw data. It will appear here once the data is uploaded.</p></div>
-              <div class="card"><h3>Download</h3><p>The full dataset in R format (the original), or the same tables as Excel files. In the Excel files the 24,374 columns are split over two sheets because of Excel&rsquo;s column limit.</p><div class="dl-btns"><a class="btn" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div>
+              <div class="card todo preview" data-csv="data/breast-cancer-preview.csv" data-caption="First 10 of 985 training patients. Of the 24,374 columns only 6 clinical variables, 12 genes and the 3 survival columns are shown."><h3>Preview</h3><p>First rows of the raw data. It will appear here once the data is uploaded.</p></div>
+              <div class="card"><h3>Download</h3><p>Everything is in the original R file. The Excel files contain the same tables (Xtrain, Xtest and ytrain); in them the 24,374 columns are split over two sheets because of Excel&rsquo;s column limit.</p><div class="dl-group"><div class="dl-label">Original (R format)</div><div class="dl-btns"><a class="btn" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a></div></div><div class="dl-group"><div class="dl-label">Same data in Excel</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div></div>
             </div>
           </section>
           <section id="report-wrap" lang="en">
             <h2 class="sub" id="report" lang="en">Full report</h2>
-            <p class="note" lang="en">The original university report, complete with its code and figures. Personal details and local file paths have been removed.</p>
+            <p class="note" lang="en">The original university report, complete with its code and figures. Personal details and local file paths have been removed. Comments with insights have been added in separate blocks.</p>
             
 <div class="rsec" id="introduction">
 <h2 class="sub"> 1. Introduction </h2>
@@ -709,8 +712,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261112i"></script>
-  <script src="js/preview.js?v=20261112i"></script>
-  <script src="js/nav.js?v=20261112i"></script>
+  <script src="js/lauburu.js?v=20261112j"></script>
+  <script src="js/preview.js?v=20261112j"></script>
+  <script src="js/nav.js?v=20261112j"></script>
 </body>
 </html>
