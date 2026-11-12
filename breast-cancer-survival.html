@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261112n">
-  <script src="js/theme.js?v=20261112n"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261112o">
+  <script src="js/theme.js?v=20261112o"></script>
 </head>
 <body>
   <header class="site-header">
@@ -688,7 +688,7 @@ print(StabMatrix)</code></pre></details>
 <p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
 </div>
 <div class="rsec" id="results">
-<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Results at a glance (AUC)</div><div class="stats four"><div class="card stat"><b>0.769</b><span>XsTraining, 105 genes</span></div><div class="card stat"><b>0.680</b><span>XsValidation, 105 genes</span></div><div class="card stat"><b>0.766</b><span>Xtrain, 58 genes</span></div><div class="card stat"><b>0.764</b><span>stability: mean over seeds (Xtrain, 58 genes)</span></div></div><p class="summary-note">On Test set 1, data not used to train the predictor, the model reached an AUC of 0.733, close to the 0.74 target.</p><div class="tbl-title">Choosing the threshold</div><table class="tbl"><thead><tr><th>Threshold (MeanDecreaseGini)</th><th>Genes</th><th>Highest CV AUC</th></tr></thead><tbody><tr><td>None (all genes)</td><td>105</td><td>0.714</td></tr><tr><td>3</td><td>93</td><td>0.718</td></tr><tr class="best"><td>3.5</td><td>58</td><td>0.725</td></tr><tr><td>4</td><td>23</td><td>0.719</td></tr><tr><td>4.5</td><td>15</td><td>0.721</td></tr><tr><td>5</td><td>12</td><td>0.706</td></tr></tbody></table><p class="tbl-cap">Highest cross-validated AUC over alpha from 0 to 1. The 3.5 threshold is the best.</p></div>
+<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Results at a glance (AUC)</div><div class="stats four"><div class="card stat"><b>0.769</b><span>XsTraining, 105 genes</span></div><div class="card stat"><b>0.680</b><span>XsValidation, 105 genes</span></div><div class="card stat"><b>0.766</b><span>Xtrain, 58 genes</span></div><div class="card stat"><b>0.733</b><span>Test set 1 (university platform, unseen data)</span></div></div></div>
 <details class="code"><summary>Show code</summary><pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])
@@ -696,6 +696,7 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
 <figure class="figure"><img alt="Three ROC curves: training, validation and the best 58-gene model." height="857" loading="lazy" src="img/projects/breast-cancer-report-8.png" width="1200"/></figure>
 <p>These are the final results obtained. In the first graph we can see the training results for our complete model with 105 genes. In the second plot the validation we have obtained for these 105 genes and in the last graph we can observe the ROC curve for our best model with 58 genes (threshold of 3.5).</p>
 <p>Finally, we can conclude that on average, our model predicts with 76.44% accuracy whether a woman with breast cancer will live more than 8 years with our <strong>Training set</strong>. Testing with different <em>set.seeds</em> we have obtained a result of 73.29% with the <strong>Test set 1</strong> (data that has not been used to train the predictor) which we have managed to get very close to the 74% target.</p>
+<aside class="my-note"><div class="my-note-label">My note</div><p>Here I mixed up two terms. The 76.44% and the 73.29% are not accuracy: they are AUC values (0.7644 is the mean AUC across seeds on the training set, and 0.7329 is the AUC on Test set 1). Accuracy is the share of patients classified correctly at a given cut-off, while AUC measures how well the model ranks patients who survive above those who do not, across all cut-offs.</p></aside>
 <p><em>Estimated time to generate the html: 15min</em></p>
 </div>
 <div class="rsec" id="bibliography">
@@ -715,8 +716,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261112n"></script>
-  <script src="js/preview.js?v=20261112n"></script>
-  <script src="js/nav.js?v=20261112n"></script>
+  <script src="js/lauburu.js?v=20261112o"></script>
+  <script src="js/preview.js?v=20261112o"></script>
+  <script src="js/nav.js?v=20261112o"></script>
 </body>
 </html>

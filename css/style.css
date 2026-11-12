@@ -310,3 +310,8 @@ html[data-theme="archive"] .shape.ring { border-radius: 0; }
 .summary .stats { margin: 16px 0 6px; }
 .summary-note { font-size: 15px; margin: 22px 0 4px; }
 .stats.four .stat b { font-size: 36px; }
+.stats, .stats.four { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.stats > * { min-width: 0; }
+.stat b { overflow-wrap: anywhere; }
+@media (max-width: 880px) { .stats, .stats.four { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); } }
+.summary .stats { margin-bottom: 18px; }

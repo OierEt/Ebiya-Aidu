@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261112n">
-  <script src="../js/theme.js?v=20261112n"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20261112o">
+  <script src="../js/theme.js?v=20261112o"></script>
 </head>
 <body>
   <header class="site-header">
@@ -688,7 +688,7 @@ print(StabMatrix)</code></pre></details>
 <p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
 </div>
 <div class="rsec" id="results">
-<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Emaitzak begirada batean (AUC)</div><div class="stats four"><div class="card stat"><b>0,769</b><span>XsTraining, 105 gene</span></div><div class="card stat"><b>0,680</b><span>XsValidation, 105 gene</span></div><div class="card stat"><b>0,766</b><span>Xtrain, 58 gene</span></div><div class="card stat"><b>0,764</b><span>egonkortasuna: hazien batezbestekoa (Xtrain, 58 gene)</span></div></div><p class="summary-note">1. proba-multzoan, iragarlea entrenatzeko erabili ez ziren datuetan, ereduak 0,733ko AUCa lortu zuen, 0,74ko helburutik gertu.</p><div class="tbl-title">Ebaki-puntuaren aukeraketa</div><table class="tbl"><thead><tr><th>Ebaki-puntua (MeanDecreaseGini)</th><th>Geneak</th><th>AUC maximoa (BG)</th></tr></thead><tbody><tr><td>Gene guztiak</td><td>105</td><td>0,714</td></tr><tr><td>3</td><td>93</td><td>0,718</td></tr><tr class="best"><td>3,5</td><td>58</td><td>0,725</td></tr><tr><td>4</td><td>23</td><td>0,719</td></tr><tr><td>4,5</td><td>15</td><td>0,721</td></tr><tr><td>5</td><td>12</td><td>0,706</td></tr></tbody></table><p class="tbl-cap">Alfa 0tik 1era aldatuz lortutako balidazio gurutzatuko (BG) AUC maximoa. 3,5eko ebaki-puntua da onena.</p></div>
+<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Emaitzak begirada batean (AUC)</div><div class="stats four"><div class="card stat"><b>0,769</b><span>XsTraining, 105 gene</span></div><div class="card stat"><b>0,680</b><span>XsValidation, 105 gene</span></div><div class="card stat"><b>0,766</b><span>Xtrain, 58 gene</span></div><div class="card stat"><b>0,733</b><span>1. proba-multzoa (unibertsitateko plataforma, ikusi gabeko datuak)</span></div></div></div>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])
@@ -696,6 +696,7 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
 <figure class="figure"><img alt="Hiru ROC kurba: entrenamendua, balidazioa eta 58 geneko eredu onena." height="857" loading="lazy" src="../img/projects/breast-cancer-report-8.png" width="1200"/></figure>
 <p>These are the final results obtained. In the first graph we can see the training results for our complete model with 105 genes. In the second plot the validation we have obtained for these 105 genes and in the last graph we can observe the ROC curve for our best model with 58 genes (threshold of 3.5).</p>
 <p>Finally, we can conclude that on average, our model predicts with 76.44% accuracy whether a woman with breast cancer will live more than 8 years with our <strong>Training set</strong>. Testing with different <em>set.seeds</em> we have obtained a result of 73.29% with the <strong>Test set 1</strong> (data that has not been used to train the predictor) which we have managed to get very close to the 74% target.</p>
+<aside class="my-note"><div class="my-note-label">Nire oharra</div><p>Hemen bi kontzeptu nahastu nituen. % 76,44 eta % 73,29 ez dira zehaztasuna (accuracy): AUC balioak dira (0,7644 entrenamendu-multzoko hazien arteko AUC batezbestekoa da, eta 0,7329 1. proba-multzoko AUCa). Zehaztasuna ebaki-puntu jakin batean ondo sailkatutako pazienteen proportzioa da; AUCak, berriz, ebaki-puntu guztietan ereduak bizirik jarraitzen duten pazienteak ez dutenen aurretik zein ondo ordenatzen dituen neurtzen du.</p></aside>
 <p><em>Estimated time to generate the html: 15min</em></p>
 </div>
 <div class="rsec" id="bibliography">
@@ -715,8 +716,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/lauburu.js?v=20261112n"></script>
-  <script src="../js/preview.js?v=20261112n"></script>
-  <script src="../js/nav.js?v=20261112n"></script>
+  <script src="../js/lauburu.js?v=20261112o"></script>
+  <script src="../js/preview.js?v=20261112o"></script>
+  <script src="../js/nav.js?v=20261112o"></script>
 </body>
 </html>
