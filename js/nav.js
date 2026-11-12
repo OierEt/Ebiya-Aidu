@@ -1,7 +1,7 @@
 /* Shows which sub-section you are reading: highlights it in the sticky
    sub-menu and puts it in the browser tab title ("Research · Projects · Site"). */
 (function () {
-  var links = [].slice.call(document.querySelectorAll(".subnav a"));
+  var links = [].slice.call(document.querySelectorAll(".subnav a, .toc a"));
   if (!links.length) return;
 
   var parts = document.title.split(" · ");
