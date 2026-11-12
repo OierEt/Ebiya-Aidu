@@ -50,7 +50,7 @@ Personal website of Oier, published under the alias "Ebiya Aidu". Data scientist
 - The report body is the original English university report (code in collapsed `details.code`, outputs in `pre.out`). It stays in English in both languages; only the surrounding text is translated. Personal name, local paths and the course server link are removed on purpose.
 - Owner's notes: add `<aside class="my-note"><div class="my-note-label">My note</div><p>...</p></aside>` (Basque: "Nire oharra") right after the report passage it comments on, in both languages. Remove the `todo` class once real text is in. Notes must stay visually distinct from the report (red border).
 - `.summary` boxes (Results at a glance) are added by the site, not part of the original report.
-- Data section: download card is a placeholder until files exist in `data/`; `js/preview.js` fills the preview from `data/breast-cancer-preview.csv` (first 10 rows, 14 columns) and leaves the placeholder if the file is missing. Before publishing data, confirm with the owner that the course allows redistribution.
+- Data section: the preview (first 15 patients, 21 columns) is filled by `js/preview.js` from `data/breast-cancer-preview.csv`; the download card sits below it and links to the files of the GitHub release tagged `data` (`.Rdata` and three `.xlsx`, kept out of the repository because of the 100 MB limit). If a release file is renamed, update the links in both languages. The owner confirmed the data may be published.
 
 ## Placeholders
 - A card or row with class `todo` is a placeholder (dashed border and a "placeholder" label). When the owner supplies the real content, replace the text and remove the `todo` class in both languages.

@@ -3,7 +3,7 @@
 (function () {
   var box = document.querySelector("[data-csv]");
   if (!box || !window.fetch) return;
-  var MAX_ROWS = 11, MAX_COLS = 14;
+  var MAX_ROWS = 16, MAX_COLS = 24;
 
   function parse(text) {
     var rows = [], row = [], cell = "", q = false, i, c;
