@@ -33,14 +33,14 @@ Personal website of Oier, published under the alias "Ebiya Aidu". Data scientist
 - Check every `href` and `src` resolves to an existing file before pushing.
 
 ## Design (values are in `:root` of `css/style.css`; change them there, not inline)
-- Colours: cream `#ece3cf`, paper `#f6f0e1`, red `#cf2a1c`, black `#15120f`, green `#1f6b3a`.
+- Colours of the default (archive) style: cream `#e6d9bb`, paper `#f0e7cf`, rust `#8e3a22` (in the variable `--red`), black `#2a2116`, green `#556b2f`. Headings use IBM Plex Mono. The other styles' values are in the `html[data-theme=...]` blocks.
 - Green is only for tags and the "Kaixo" label. Red is for accents and the page header band. Black is for text, borders and offset shadows.
-- Fonts: Anton for headings (uppercase), IBM Plex Sans for body text (17px), IBM Plex Mono only for labels, nav, tags and buttons.
+- Fonts: headings uppercase in `var(--head)` (IBM Plex Mono in the archive style, Anton in the others), IBM Plex Sans for body text (17px), IBM Plex Mono only for labels, nav, tags and buttons.
 - Components: `.card` (3px black border, 7px offset shadow), `.btn`, `.subnav`, `.list`, `.tags`, `.section-title`.
 - Basque identity is subtle: lauburu in header and footer, "Kaixo", the green, the language switch. Never use ikurriña colours as the main palette and never put Basque imagery in the hero.
 - Wandering lauburu (`js/lauburu.js`): a 28px lauburu in the accent colour that roams the window on its own in smooth curves, rests now and then and rotates slowly. It ignores the mouse until it is grabbed. With `prefers-reduced-motion` it never moves by itself but can still be grabbed and thrown. Do not add a second creature or sound. Tuning constants are at the top of the file.
 - Basket game (same file): the visitor can grab the lauburu (pointer events, works with touch), drag and throw it. A hoop (`.hoop`) is fixed at the right edge at 36vh and a score box (`.score`) at the bottom right; both are created by the script, not written in the HTML. A basket from far (distance greater than max(300px, 35% of window width)) counts 3, otherwise 2. The score is kept in `localStorage` (`lauburuScore`); the visitor can hide the hoop with the button in the score box. Gravity, bounce and throw limits are constants at the top. Before changing the physics, test it in a real browser (for example puppeteer-core with the installed Chrome) by throwing the ball and checking that near shots score 2, far shots score 3 and weak throws score nothing.
-- Styles: four looks selectable from the footer (constructivist = default, coast, notebook, archive), implemented in `js/theme.js` and in the `html[data-theme="..."]` blocks at the end of `css/style.css`. They only override the CSS variables plus a few shapes. New components must use the variables (`var(--red)` etc.) so they work in all four. The colour list below describes the default style.
+- Styles: four looks selectable from the footer (archive = default, chosen by the owner; constructivist, coast and notebook are alternatives), implemented in `js/theme.js` and in the `html[data-theme="..."]` blocks at the end of `css/style.css`. They only override the CSS variables plus a few shapes. New components must use the variables (`var(--red)` etc.) so they work in all four. The colour list below describes the default style.
 - The sub-menu (`.subnav`) is sticky and shows the current section; section ids must match the `href`s in it.
 - Photos: JPEG or WebP, at most 200 KB each, width at most 1200 px, with a meaningful `alt` text.
 

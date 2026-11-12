@@ -4,7 +4,7 @@
   var KEY = "siteTheme", ok = ["constructivist", "coast", "notebook", "archive"];
   var t = null;
   try { t = localStorage.getItem(KEY); } catch (e) {}
-  if (ok.indexOf(t) < 0) t = "constructivist";
+  if (ok.indexOf(t) < 0) t = "archive";
   function apply(name) {
     if (name === "constructivist") document.documentElement.removeAttribute("data-theme");
     else document.documentElement.setAttribute("data-theme", name);
