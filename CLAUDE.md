@@ -16,7 +16,7 @@ Personal website of Oier, published under the alias "Ebiya Aidu". Data scientist
 - Home layout, top to bottom: hero (name, intro, two buttons), word band (`.marquee`), Selected work (3 cards linking to `projects.html#projects`), What I do (`.trio`), Where to go, About this site. Keep the three Selected work cards in sync with real projects.
 - Four pages per language: `index.html` (Home), `projects.html` (Projects, with a Research section), `about.html` (About me, with Me, Places, Thoughts and Collection sections), `chat.html` (Chat).
 - Nav labels. EN: Home, Projects, About me, Chat. EU: Hasiera, Proiektuak, Niri buruz, Txata.
-- Shared files: `css/style.css` (all styling), `js/lauburu.js` (wandering lauburu, basket and score), `js/theme.js` (style switcher, loaded in `<head>`), `js/nav.js` (sub-menu highlight and tab title), `js/chat.js` and `backend/chat-setup.sql` (chat, currently paused, see Chat page), `img/lauburu.svg` (black/cream use), `img/favicon.svg` (red lauburu used as favicon; the roaming lauburu is inline SVG inside `js/lauburu.js`).
+- Shared files: `css/style.css` (all styling), `js/lauburu.js` (wandering lauburu, basket and score), `js/theme.js` (style switcher, loaded in `<head>`), `js/nav.js` (sub-menu / side-menu highlight and tab title), `js/preview.js` (raw-data preview on the project page), `js/chat.js` and `backend/chat-setup.sql` (chat, currently paused, see Chat page), `img/lauburu.svg` (black/cream use), `img/favicon.svg` (red lauburu used as favicon; the roaming lauburu is inline SVG inside `js/lauburu.js`).
 - No frameworks, no build step, no npm, no analytics or tracking scripts. Allowed external resources: Google Fonts, and the Supabase REST API once the chat is reactivated.
 
 ## Bilingual rule
@@ -43,6 +43,14 @@ Personal website of Oier, published under the alias "Ebiya Aidu". Data scientist
 - Styles: four looks selectable from the footer (archive = default, chosen by the owner; constructivist, coast and notebook are alternatives), implemented in `js/theme.js` and in the `html[data-theme="..."]` blocks at the end of `css/style.css`. They only override the CSS variables plus a few shapes. New components must use the variables (`var(--red)` etc.) so they work in all four. The colour list below describes the default style.
 - The sub-menu (`.subnav`) is sticky and shows the current section; section ids must match the `href`s in it.
 - Photos: JPEG or WebP, at most 200 KB each, width at most 1200 px, with a meaningful `alt` text.
+
+## Project pages (`breast-cancer-survival.html`, same in `eu/`)
+- Edit these pages by hand from now on; they were generated once and have no generator.
+- Layout: `.wrap.wide` (full width), `.proj` grid with a sticky side menu `.toc` on the left and `.report` on the right. `js/nav.js` highlights the current entry and opens the sub-items (`li.l2[data-group]`) of the current section only.
+- The report body is the original English university report (code in collapsed `details.code`, outputs in `pre.out`). It stays in English in both languages; only the surrounding text is translated. Personal name, local paths and the course server link are removed on purpose.
+- Owner's notes: add `<aside class="my-note"><div class="my-note-label">My note</div><p>...</p></aside>` (Basque: "Nire oharra") right after the report passage it comments on, in both languages. Remove the `todo` class once real text is in. Notes must stay visually distinct from the report (red border).
+- `.summary` boxes (Results at a glance) are added by the site, not part of the original report.
+- Data section: download card is a placeholder until files exist in `data/`; `js/preview.js` fills the preview from `data/breast-cancer-preview.csv` (first 10 rows, 14 columns) and leaves the placeholder if the file is missing. Before publishing data, confirm with the owner that the course allows redistribution.
 
 ## Placeholders
 - A card or row with class `todo` is a placeholder (dashed border and a "placeholder" label). When the owner supplies the real content, replace the text and remove the `todo` class in both languages.

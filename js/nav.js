@@ -1,6 +1,8 @@
 /* Shows which sub-section you are reading: highlights it in the sticky
    sub-menu and puts it in the browser tab title ("Research · Projects · Site"). */
 (function () {
+  var toc = document.querySelector(".toc");
+  if (toc) toc.classList.add("js");
   var links = [].slice.call(document.querySelectorAll(".subnav a, .toc a"));
   if (!links.length) return;
 
@@ -17,6 +19,12 @@
   function show(i) {
     links.forEach(function (l) { l.removeAttribute("aria-current"); });
     i.a.setAttribute("aria-current", "true");
+    if (toc) {
+      var li = i.a.parentNode, g = li.getAttribute("data-group") || li.getAttribute("data-self");
+      [].forEach.call(toc.querySelectorAll("li.l2"), function (x) {
+        x.classList.toggle("open", !!g && x.getAttribute("data-group") === g);
+      });
+    }
     var same = i.label.toLowerCase() === page.toLowerCase();
     document.title = (same ? page : i.label + " · " + page) + " · " + site;
   }

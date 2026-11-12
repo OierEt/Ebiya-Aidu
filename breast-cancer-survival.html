@@ -9,12 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261112e">
-  <script src="js/theme.js?v=20261112e"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261112f">
+  <script src="js/theme.js?v=20261112f"></script>
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap">
+    <div class="wrap wide">
       <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Ebiya Aidu</a>
       <div class="header-right">
         <nav class="nav" aria-label="Main">
@@ -27,18 +27,18 @@
       </div>
     </div>
   </header>
-    <section class="page-head">
-    <div class="wrap">
-      <div class="num">Genomics and Proteomics · 2021</div>
+    <section class="page-head compact">
+    <div class="wrap wide">
+      <div class="num">Projects / Genomics and Proteomics · 2021</div>
       <h1>Breast cancer survival</h1>
       <p>Predicting 8-year survival from gene expression.</p>
     </div>
   </section>
   <main>
-    <div class="wrap">
+    <div class="wrap wide">
       <p class="back"><a href="projects.html#projects">&larr; All projects</a></p>
       <div class="proj">
-        <nav class="toc" aria-label="Contents"><div class="toc-title">Contents</div><ul><li><a href="#overview">Overview</a></li><li><a href="#notes">My notes</a></li><li><a href="#report">Full report</a></li><li class="l1"><a href="#introduction">1. Introduction</a></li><li class="l2"><a href="#loading-the-packages">1.1 Loading the Packages</a></li><li class="l2"><a href="#loading-data">1.2 Loading Data</a></li><li class="l1"><a href="#predictions-splitting-the-training-set">2. Predictions splitting the training set</a></li><li class="l2"><a href="#selection-of-variables">2.1 Selection of variables</a></li><li class="l2"><a href="#training-the-predictor">2.2 Training the predictor</a></li><li class="l1"><a href="#predictions-with-all-the-training-set">3. Predictions with all the training set</a></li><li class="l2"><a href="#random-forest">3.1 Random Forest</a></li><li class="l2"><a href="#searching-for-the-best-threshold">3.2 Searching for the best threshold</a></li><li class="l2"><a href="#ploting-the-best-models">3.3 Ploting the best models</a></li><li class="l2"><a href="#roc-curves-for-the-best-models">3.3 ROC curves for the best models</a></li><li class="l2"><a href="#precision-recall-curves-for-the-best-models">3.4 Precision Recall curves for the best models</a></li><li class="l2"><a href="#code-lines-to-save">3.5 Code Lines to save</a></li><li class="l1"><a href="#stability">4. Stability</a></li><li class="l1"><a href="#results">5. Results</a></li><li class="l1"><a href="#bibliography">6. Bibliography</a></li></ul></nav>
+        <nav class="toc" aria-label="Contents"><div class="toc-title">Contents</div><ul><li class="l0"><a href="#overview">Overview</a></li><li class="l0"><a href="#data">Data</a></li><li class="l0"><a href="#report">Full report</a></li><li class="l1" data-self="introduction"><a href="#introduction">1. Introduction</a></li><li class="l2" data-group="introduction"><a href="#loading-the-packages">1.1 Loading the Packages</a></li><li class="l2" data-group="introduction"><a href="#loading-data">1.2 Loading Data</a></li><li class="l1" data-self="predictions-splitting-the-training-set"><a href="#predictions-splitting-the-training-set">2. Predictions splitting the training set</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#selection-of-variables">2.1 Selection of variables</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#training-the-predictor">2.2 Training the predictor</a></li><li class="l1" data-self="predictions-with-all-the-training-set"><a href="#predictions-with-all-the-training-set">3. Predictions with all the training set</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#random-forest">3.1 Random Forest</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#searching-for-the-best-threshold">3.2 Searching for the best threshold</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#ploting-the-best-models">3.3 Ploting the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#roc-curves-for-the-best-models">3.3 ROC curves for the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#precision-recall-curves-for-the-best-models">3.4 Precision Recall curves for the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#code-lines-to-save">3.5 Code Lines to save</a></li><li class="l1" data-self="stability"><a href="#stability">4. Stability</a></li><li class="l1" data-self="results"><a href="#results">5. Results</a></li><li class="l1" data-self="bibliography"><a href="#bibliography">6. Bibliography</a></li></ul></nav>
         <article class="report">
           <section id="overview">
             <h2 class="sub first">Overview</h2>
@@ -46,10 +46,15 @@
             <p>Can we tell, from clinical and gene-expression data, which breast cancer patients will survive more than 96 months (8 years)? Long-term predictions are hard because time plays a big role, and the theoretical best on the held-out set was an AUC of about 0.74. The best model, an elastic net on 58 genes picked with a random forest, got close.</p>
             <div class="stats"><div class="card stat"><b>0.733</b><span>AUC on unseen test data (target 0.74)</span></div><div class="card stat"><b>58</b><span>genes in the best model</span></div><div class="card stat"><b>0.005</b><span>standard deviation of AUC across seeds</span></div></div>
             <p class="caveat">Caveat: the AUC of about 0.76 reported on the training data is optimistic; the 0.733 on unseen data is the number to trust. The original report calls AUC &ldquo;accuracy&rdquo;, which is not the same thing.</p>
+            <aside class="my-note todo"><div class="my-note-label">My note</div><p>This was my first machine learning project. Space for my own notes: what I would do differently today, what I learned from it, and how it led to my current work.</p></aside>
           </section>
-          <section id="notes">
-            <h2 class="sub">My notes</h2>
-            <div class="card todo notes"><p style="margin:0">This was my first machine learning project. Space for my own notes: what I would do differently today, what I learned from it, and how it led to my current work.</p></div>
+          <section id="data">
+            <h2 class="sub">Data</h2>
+            <p>The dataset comes from a university course: about 1,000 patients, each with about 24,000 gene expressions and the survival outcome. The files will be available here soon.</p>
+            <div class="dl-grid">
+              <div class="card todo"><h3>Download</h3><p>Full dataset (.Rdata / .csv). Coming soon.</p><span class="btn off">Download</span></div>
+              <div class="card todo preview" data-csv="data/breast-cancer-preview.csv" data-caption="First %r rows, %c of %t columns shown."><h3>Preview</h3><p>First rows of the raw data. It will appear here once the data is uploaded.</p></div>
+            </div>
           </section>
           <section id="report-wrap" lang="en">
             <h2 class="sub" id="report" lang="en">Full report</h2>
@@ -677,7 +682,7 @@ print(StabMatrix)</code></pre></details>
 <p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
 </div>
 <div class="rsec" id="results">
-<h2 class="sub"> 5. Results </h2>
+<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Results at a glance</div><div class="stats four"><div class="card stat"><b>0.769</b><span>AUC on training (105 genes)</span></div><div class="card stat"><b>0.680</b><span>AUC on validation</span></div><div class="card stat"><b>0.733</b><span>AUC on test set 1</span></div><div class="card stat"><b>0.74</b><span>target AUC</span></div></div><table class="tbl"><thead><tr><th>Threshold (MeanDecreaseGini)</th><th>Genes</th><th>Highest CV AUC</th></tr></thead><tbody><tr><td>None (all genes)</td><td>105</td><td>0.714</td></tr><tr><td>3</td><td>93</td><td>0.718</td></tr><tr class="best"><td>3.5</td><td>58</td><td>0.725</td></tr><tr><td>4</td><td>23</td><td>0.719</td></tr><tr><td>4.5</td><td>15</td><td>0.721</td></tr><tr><td>5</td><td>12</td><td>0.706</td></tr></tbody></table><p class="tbl-cap">Highest cross-validated AUC over alpha from 0 to 1. The 3.5 threshold is the best.</p></div>
 <details class="code"><summary>Show code</summary><pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])
@@ -698,13 +703,14 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
     </div>
   </main>
   <footer class="site-footer">
-    <div class="wrap">
+    <div class="wrap wide">
       <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
       <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="coast" aria-pressed="false">Coast</button><button type="button" data-theme-set="notebook" aria-pressed="false">Notebook</button><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button></div>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261112e"></script>
-  <script src="js/nav.js?v=20261112e"></script>
+  <script src="js/lauburu.js?v=20261112f"></script>
+  <script src="js/preview.js?v=20261112f"></script>
+  <script src="js/nav.js?v=20261112f"></script>
 </body>
 </html>

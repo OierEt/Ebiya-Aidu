@@ -9,12 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261112e">
-  <script src="../js/theme.js?v=20261112e"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20261112f">
+  <script src="../js/theme.js?v=20261112f"></script>
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap">
+    <div class="wrap wide">
       <a class="brand" href="index.html"><img src="../img/lauburu.svg" alt="">Ebiya Aidu</a>
       <div class="header-right">
         <nav class="nav" aria-label="Nagusia">
@@ -27,18 +27,18 @@
       </div>
     </div>
   </header>
-    <section class="page-head">
-    <div class="wrap">
-      <div class="num">Genomika eta Proteomika · 2021</div>
+    <section class="page-head compact">
+    <div class="wrap wide">
+      <div class="num">Proiektuak / Genomika eta Proteomika · 2021</div>
       <h1>Bularreko minbiziaren biziraupena</h1>
       <p>8 urteko biziraupena aurreikusten, gene-adierazpenetik abiatuta.</p>
     </div>
   </section>
   <main>
-    <div class="wrap">
+    <div class="wrap wide">
       <p class="back"><a href="projects.html#projects">&larr; Proiektu guztiak</a></p>
       <div class="proj">
-        <nav class="toc" aria-label="Aurkibidea"><div class="toc-title">Aurkibidea</div><ul><li><a href="#overview">Ikuspegi orokorra</a></li><li><a href="#notes">Nire oharrak</a></li><li><a href="#report">Txosten osoa</a></li><li class="l1"><a href="#introduction">1. Introduction</a></li><li class="l2"><a href="#loading-the-packages">1.1 Loading the Packages</a></li><li class="l2"><a href="#loading-data">1.2 Loading Data</a></li><li class="l1"><a href="#predictions-splitting-the-training-set">2. Predictions splitting the training set</a></li><li class="l2"><a href="#selection-of-variables">2.1 Selection of variables</a></li><li class="l2"><a href="#training-the-predictor">2.2 Training the predictor</a></li><li class="l1"><a href="#predictions-with-all-the-training-set">3. Predictions with all the training set</a></li><li class="l2"><a href="#random-forest">3.1 Random Forest</a></li><li class="l2"><a href="#searching-for-the-best-threshold">3.2 Searching for the best threshold</a></li><li class="l2"><a href="#ploting-the-best-models">3.3 Ploting the best models</a></li><li class="l2"><a href="#roc-curves-for-the-best-models">3.3 ROC curves for the best models</a></li><li class="l2"><a href="#precision-recall-curves-for-the-best-models">3.4 Precision Recall curves for the best models</a></li><li class="l2"><a href="#code-lines-to-save">3.5 Code Lines to save</a></li><li class="l1"><a href="#stability">4. Stability</a></li><li class="l1"><a href="#results">5. Results</a></li><li class="l1"><a href="#bibliography">6. Bibliography</a></li></ul></nav>
+        <nav class="toc" aria-label="Aurkibidea"><div class="toc-title">Aurkibidea</div><ul><li class="l0"><a href="#overview">Ikuspegi orokorra</a></li><li class="l0"><a href="#data">Datuak</a></li><li class="l0"><a href="#report">Txosten osoa</a></li><li class="l1" data-self="introduction"><a href="#introduction">1. Introduction</a></li><li class="l2" data-group="introduction"><a href="#loading-the-packages">1.1 Loading the Packages</a></li><li class="l2" data-group="introduction"><a href="#loading-data">1.2 Loading Data</a></li><li class="l1" data-self="predictions-splitting-the-training-set"><a href="#predictions-splitting-the-training-set">2. Predictions splitting the training set</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#selection-of-variables">2.1 Selection of variables</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#training-the-predictor">2.2 Training the predictor</a></li><li class="l1" data-self="predictions-with-all-the-training-set"><a href="#predictions-with-all-the-training-set">3. Predictions with all the training set</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#random-forest">3.1 Random Forest</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#searching-for-the-best-threshold">3.2 Searching for the best threshold</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#ploting-the-best-models">3.3 Ploting the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#roc-curves-for-the-best-models">3.3 ROC curves for the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#precision-recall-curves-for-the-best-models">3.4 Precision Recall curves for the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#code-lines-to-save">3.5 Code Lines to save</a></li><li class="l1" data-self="stability"><a href="#stability">4. Stability</a></li><li class="l1" data-self="results"><a href="#results">5. Results</a></li><li class="l1" data-self="bibliography"><a href="#bibliography">6. Bibliography</a></li></ul></nav>
         <article class="report">
           <section id="overview">
             <h2 class="sub first">Ikuspegi orokorra</h2>
@@ -46,10 +46,15 @@
             <p>Datu klinikoetatik eta gene-adierazpenetik abiatuta, bularreko minbizia duten zein pazientek biziko diren 96 hilabete (8 urte) baino gehiago jakin al daiteke? Epe luzerako aurreikuspenak zailak dira denborak pisu handia duelako; proba-multzoan lor zitekeen onena 0,74 inguruko AUC zen. Eredu onenak, random forest-ekin hautatutako 58 geneko elastic net batek, oso gertu iritsi zen.</p>
             <div class="stats"><div class="card stat"><b>0,733</b><span>AUCa ikusi gabeko proba-datuetan (helburua 0,74)</span></div><div class="card stat"><b>58</b><span>gene eredu onenean</span></div><div class="card stat"><b>0,005</b><span>AUCaren desbideratze estandarra hazien artean</span></div></div>
             <p class="caveat">Kontuz: entrenamendu-datuetan jasotako 0,76 inguruko AUCa baikorregia da; ikusi gabeko datuetako 0,733 da fidatu beharreko zenbakia. Jatorrizko txostenak AUC &ldquo;zehaztasun&rdquo; deitzen du, eta ez da gauza bera.</p>
+            <aside class="my-note todo"><div class="my-note-label">Nire oharra</div><p>Hau izan zen nire lehen machine learning proiektua. Nire oharrentzako lekua: gaur egun zer egingo nukeen modu desberdinean, zer ikasi nuen eta nire egungo lanera nola eraman ninduen.</p></aside>
           </section>
-          <section id="notes">
-            <h2 class="sub">Nire oharrak</h2>
-            <div class="card todo notes"><p style="margin:0">Hau izan zen nire lehen machine learning proiektua. Nire oharrentzako lekua: gaur egun zer egingo nukeen modu desberdinean, zer ikasi nuen eta nire egungo lanera nola eraman ninduen.</p></div>
+          <section id="data">
+            <h2 class="sub">Datuak</h2>
+            <p>Datu-multzoa unibertsitateko ikastaro batetik dator: 1.000 paziente inguru, bakoitzak 24.000 gene-adierazpen inguru eta biziraupenaren emaitza. Fitxategiak laster egongo dira hemen.</p>
+            <div class="dl-grid">
+              <div class="card todo"><h3>Deskargatu</h3><p>Datu-multzo osoa (.Rdata / .csv). Laster.</p><span class="btn off">Deskargatu</span></div>
+              <div class="card todo preview" data-csv="../data/breast-cancer-preview.csv" data-caption="Lehen %r errenkadak; %t zutabetik %c erakusten dira."><h3>Aurrebista</h3><p>Datu gordinen lehen errenkadak. Datuak igotzen direnean agertuko dira.</p></div>
+            </div>
           </section>
           <section id="report-wrap" lang="en">
             <h2 class="sub" id="report" lang="eu">Txosten osoa</h2>
@@ -677,7 +682,7 @@ print(StabMatrix)</code></pre></details>
 <p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
 </div>
 <div class="rsec" id="results">
-<h2 class="sub"> 5. Results </h2>
+<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Emaitzak begirada batean</div><div class="stats four"><div class="card stat"><b>0,769</b><span>AUCa entrenamenduan (105 gene)</span></div><div class="card stat"><b>0,680</b><span>AUCa balidazioan</span></div><div class="card stat"><b>0,733</b><span>AUCa 1. proba-multzoan</span></div><div class="card stat"><b>0,74</b><span>helburuko AUCa</span></div></div><table class="tbl"><thead><tr><th>Ebaki-puntua (MeanDecreaseGini)</th><th>Geneak</th><th>AUC maximoa (BG)</th></tr></thead><tbody><tr><td>Gene guztiak</td><td>105</td><td>0,714</td></tr><tr><td>3</td><td>93</td><td>0,718</td></tr><tr class="best"><td>3,5</td><td>58</td><td>0,725</td></tr><tr><td>4</td><td>23</td><td>0,719</td></tr><tr><td>4,5</td><td>15</td><td>0,721</td></tr><tr><td>5</td><td>12</td><td>0,706</td></tr></tbody></table><p class="tbl-cap">Alfa 0tik 1era aldatuz lortutako balidazio gurutzatuko (BG) AUC maximoa. 3,5eko ebaki-puntua da onena.</p></div>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])
@@ -698,13 +703,14 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
     </div>
   </main>
   <footer class="site-footer">
-    <div class="wrap">
+    <div class="wrap wide">
       <span><img src="../img/lauburu.svg" alt="">Euskal Herrian eginda</span>
       <div class="themes" role="group" aria-label="Estiloa"><span>Estiloa</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Konstruktibista</button><button type="button" data-theme-set="coast" aria-pressed="false">Kostaldea</button><button type="button" data-theme-set="notebook" aria-pressed="false">Koadernoa</button><button type="button" data-theme-set="archive" aria-pressed="false">Artxiboa</button></div>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/lauburu.js?v=20261112e"></script>
-  <script src="../js/nav.js?v=20261112e"></script>
+  <script src="../js/lauburu.js?v=20261112f"></script>
+  <script src="../js/preview.js?v=20261112f"></script>
+  <script src="../js/nav.js?v=20261112f"></script>
 </body>
 </html>
