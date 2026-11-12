@@ -308,3 +308,5 @@ html[data-theme="archive"] .shape.ring { border-radius: 0; }
 .dl-grid > *, .proj > * { min-width: 0; }
 .tbl-title { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 600; margin: 18px 0 4px; }
 .summary .stats { margin: 16px 0 6px; }
+.summary-note { font-size: 15px; margin: 22px 0 4px; }
+.stats.four .stat b { font-size: 36px; }

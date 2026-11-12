@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261112l">
-  <script src="../js/theme.js?v=20261112l"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20261112n">
+  <script src="../js/theme.js?v=20261112n"></script>
 </head>
 <body>
   <header class="site-header">
@@ -688,7 +688,7 @@ print(StabMatrix)</code></pre></details>
 <p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
 </div>
 <div class="rsec" id="results">
-<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Emaitzak begirada batean</div><div class="stats"><div class="card stat"><b>0,764</b><span>AUCa entrenamenduan, eredu onena (hazien batezbestekoa)</span></div><div class="card stat"><b>0,733</b><span>AUCa 1. proba-multzoan (ikusi gabeko datuak)</span></div><div class="card stat"><b>0,74</b><span>helburuko AUCa</span></div></div><div class="tbl-title">Pausoz pauso</div><table class="tbl"><thead><tr><th>Pausoa</th><th>Geneak</th><th>Datuak</th><th>AUCa</th></tr></thead><tbody><tr><td>2. atala</td><td>105</td><td>XsTraining / XsValidation</td><td>0,769 / 0,680</td></tr><tr><td>3.&ndash;4. atalak</td><td>58</td><td>Xtrain (hazien batezbestekoa)</td><td>0,764</td></tr><tr><td>5. atala</td><td>58</td><td>1. proba-multzoa (ikusi gabea)</td><td>0,733</td></tr></tbody></table><div class="tbl-title">Ebaki-puntuaren aukeraketa</div><table class="tbl"><thead><tr><th>Ebaki-puntua (MeanDecreaseGini)</th><th>Geneak</th><th>AUC maximoa (BG)</th></tr></thead><tbody><tr><td>Gene guztiak</td><td>105</td><td>0,714</td></tr><tr><td>3</td><td>93</td><td>0,718</td></tr><tr class="best"><td>3,5</td><td>58</td><td>0,725</td></tr><tr><td>4</td><td>23</td><td>0,719</td></tr><tr><td>4,5</td><td>15</td><td>0,721</td></tr><tr><td>5</td><td>12</td><td>0,706</td></tr></tbody></table><p class="tbl-cap">Alfa 0tik 1era aldatuz lortutako balidazio gurutzatuko (BG) AUC maximoa. 3,5eko ebaki-puntua da onena.</p></div>
+<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Emaitzak begirada batean (AUC)</div><div class="stats four"><div class="card stat"><b>0,769</b><span>XsTraining, 105 gene</span></div><div class="card stat"><b>0,680</b><span>XsValidation, 105 gene</span></div><div class="card stat"><b>0,766</b><span>Xtrain, 58 gene</span></div><div class="card stat"><b>0,764</b><span>egonkortasuna: hazien batezbestekoa (Xtrain, 58 gene)</span></div></div><p class="summary-note">1. proba-multzoan, iragarlea entrenatzeko erabili ez ziren datuetan, ereduak 0,733ko AUCa lortu zuen, 0,74ko helburutik gertu.</p><div class="tbl-title">Ebaki-puntuaren aukeraketa</div><table class="tbl"><thead><tr><th>Ebaki-puntua (MeanDecreaseGini)</th><th>Geneak</th><th>AUC maximoa (BG)</th></tr></thead><tbody><tr><td>Gene guztiak</td><td>105</td><td>0,714</td></tr><tr><td>3</td><td>93</td><td>0,718</td></tr><tr class="best"><td>3,5</td><td>58</td><td>0,725</td></tr><tr><td>4</td><td>23</td><td>0,719</td></tr><tr><td>4,5</td><td>15</td><td>0,721</td></tr><tr><td>5</td><td>12</td><td>0,706</td></tr></tbody></table><p class="tbl-cap">Alfa 0tik 1era aldatuz lortutako balidazio gurutzatuko (BG) AUC maximoa. 3,5eko ebaki-puntua da onena.</p></div>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])
@@ -715,8 +715,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/lauburu.js?v=20261112l"></script>
-  <script src="../js/preview.js?v=20261112l"></script>
-  <script src="../js/nav.js?v=20261112l"></script>
+  <script src="../js/lauburu.js?v=20261112n"></script>
+  <script src="../js/preview.js?v=20261112n"></script>
+  <script src="../js/nav.js?v=20261112n"></script>
 </body>
 </html>
