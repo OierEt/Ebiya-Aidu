@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261112f">
-  <script src="js/theme.js?v=20261112f"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261112g">
+  <script src="js/theme.js?v=20261112g"></script>
 </head>
 <body>
   <header class="site-header">
@@ -50,10 +50,10 @@
           </section>
           <section id="data">
             <h2 class="sub">Data</h2>
-            <p>The dataset comes from a university course: about 1,000 patients, each with about 24,000 gene expressions and the survival outcome. The files will be available here soon.</p>
+            <p>The dataset comes from a university course: 985 patients with 24,374 columns each (6 clinical variables and 24,368 gene expressions), plus the survival outcome for the training set. The test set has the same 985-patient format without the outcome. The file contains three tables: <code>Xtrain</code>, <code>ytrain</code> and <code>Xtest</code>.</p>
             <div class="dl-grid">
-              <div class="card todo"><h3>Download</h3><p>Full dataset (.Rdata / .csv). Coming soon.</p><span class="btn off">Download</span></div>
-              <div class="card todo preview" data-csv="data/breast-cancer-preview.csv" data-caption="First %r rows, %c of %t columns shown."><h3>Preview</h3><p>First rows of the raw data. It will appear here once the data is uploaded.</p></div>
+              <div class="card todo"><h3>Download</h3><p>Full dataset (.Rdata, 345 MB). Coming soon.</p><span class="btn off">Download</span></div>
+              <div class="card todo preview" data-csv="data/breast-cancer-preview.csv" data-caption="First 10 of 985 training patients. Of the 24,374 columns only 6 clinical variables, 3 genes and the 3 survival columns are shown."><h3>Preview</h3><p>First rows of the raw data. It will appear here once the data is uploaded.</p></div>
             </div>
           </section>
           <section id="report-wrap" lang="en">
@@ -709,8 +709,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261112f"></script>
-  <script src="js/preview.js?v=20261112f"></script>
-  <script src="js/nav.js?v=20261112f"></script>
+  <script src="js/lauburu.js?v=20261112g"></script>
+  <script src="js/preview.js?v=20261112g"></script>
+  <script src="js/nav.js?v=20261112g"></script>
 </body>
 </html>
