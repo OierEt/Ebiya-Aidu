@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261112k">
-  <script src="js/theme.js?v=20261112k"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261112l">
+  <script src="js/theme.js?v=20261112l"></script>
 </head>
 <body>
   <header class="site-header">
@@ -44,7 +44,7 @@
             <h2 class="sub first">Overview</h2>
             <ul class="tags"><li>R</li><li>glmnet</li><li>Random forest</li><li>limma</li><li>Genomics</li></ul>
             <p>Can we tell, from clinical and gene-expression data, which breast cancer patients will survive more than 96 months (8 years)? Long-term predictions are hard because time plays a big role, and, according to my Genomics and Proteomics professor, the theoretical best on the held-out set was an AUC of about 0.74. The best model I obtained, an elastic net on 58 genes picked with a random forest, got close.</p>
-            <div class="stats"><div class="card stat"><b>0.733</b><span>AUC on unseen test data (target 0.74)</span></div><div class="card stat"><b>58</b><span>genes in the best model</span></div><div class="card stat"><b>0.005</b><span>standard deviation of AUC across seeds</span></div></div>
+            <div class="stats"><div class="card stat"><b>0.733</b><span>AUC on Test set 1, unseen data (target 0.74)</span></div><div class="card stat"><b>58</b><span>genes in the best model</span></div><div class="card stat"><b>0.005</b><span>standard deviation of AUC across seeds</span></div></div>
             <p class="caveat">Caveat: the AUC of about 0.76 reported on the training data is optimistic; the 0.733 on unseen data is the number to trust. The original report calls AUC &ldquo;accuracy&rdquo;, which is not the same thing.</p>
             <aside class="my-note"><div class="my-note-label">My note</div>
               <p><strong>Context.</strong> This was the first machine learning project I faced. It was a competition between students. We were given a dataset of breast cancer patients, and the goal was to train a model that predicted whether a patient would still be alive after 8 years. According to the professor, the theoretical maximum was an AUC of 0.74, which in my opinion is quite good: it means that, picking one patient who survives and one who does not, the model ranks them correctly about 74% of the time, even though the prediction looks 8 years ahead. With shorter-term predictions the performance would be higher.</p>
@@ -688,7 +688,7 @@ print(StabMatrix)</code></pre></details>
 <p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
 </div>
 <div class="rsec" id="results">
-<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Results at a glance</div><div class="stats four"><div class="card stat"><b>0.769</b><span>AUC on training (105 genes)</span></div><div class="card stat"><b>0.680</b><span>AUC on validation</span></div><div class="card stat"><b>0.733</b><span>AUC on test set 1</span></div><div class="card stat"><b>0.74</b><span>target AUC</span></div></div><table class="tbl"><thead><tr><th>Threshold (MeanDecreaseGini)</th><th>Genes</th><th>Highest CV AUC</th></tr></thead><tbody><tr><td>None (all genes)</td><td>105</td><td>0.714</td></tr><tr><td>3</td><td>93</td><td>0.718</td></tr><tr class="best"><td>3.5</td><td>58</td><td>0.725</td></tr><tr><td>4</td><td>23</td><td>0.719</td></tr><tr><td>4.5</td><td>15</td><td>0.721</td></tr><tr><td>5</td><td>12</td><td>0.706</td></tr></tbody></table><p class="tbl-cap">Highest cross-validated AUC over alpha from 0 to 1. The 3.5 threshold is the best.</p></div>
+<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Results at a glance</div><div class="stats"><div class="card stat"><b>0.764</b><span>AUC on training, best model (mean over seeds)</span></div><div class="card stat"><b>0.733</b><span>AUC on Test set 1 (unseen data)</span></div><div class="card stat"><b>0.74</b><span>target AUC</span></div></div><div class="tbl-title">Stage by stage</div><table class="tbl"><thead><tr><th>Step</th><th>Genes</th><th>Data</th><th>AUC</th></tr></thead><tbody><tr><td>Section 2</td><td>105</td><td>XsTraining / XsValidation</td><td>0.769 / 0.680</td></tr><tr><td>Sections 3&ndash;4</td><td>58</td><td>Xtrain (mean over seeds)</td><td>0.764</td></tr><tr><td>Section 5</td><td>58</td><td>Test set 1 (unseen)</td><td>0.733</td></tr></tbody></table><div class="tbl-title">Choosing the threshold</div><table class="tbl"><thead><tr><th>Threshold (MeanDecreaseGini)</th><th>Genes</th><th>Highest CV AUC</th></tr></thead><tbody><tr><td>None (all genes)</td><td>105</td><td>0.714</td></tr><tr><td>3</td><td>93</td><td>0.718</td></tr><tr class="best"><td>3.5</td><td>58</td><td>0.725</td></tr><tr><td>4</td><td>23</td><td>0.719</td></tr><tr><td>4.5</td><td>15</td><td>0.721</td></tr><tr><td>5</td><td>12</td><td>0.706</td></tr></tbody></table><p class="tbl-cap">Highest cross-validated AUC over alpha from 0 to 1. The 3.5 threshold is the best.</p></div>
 <details class="code"><summary>Show code</summary><pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])
@@ -715,8 +715,8 @@ plotROC(preds3_5,ytrain[,3])</code></pre></details>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261112k"></script>
-  <script src="js/preview.js?v=20261112k"></script>
-  <script src="js/nav.js?v=20261112k"></script>
+  <script src="js/lauburu.js?v=20261112l"></script>
+  <script src="js/preview.js?v=20261112l"></script>
+  <script src="js/nav.js?v=20261112l"></script>
 </body>
 </html>

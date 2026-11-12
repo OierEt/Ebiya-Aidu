@@ -306,3 +306,5 @@ html[data-theme="archive"] .shape.ring { border-radius: 0; }
   .stats, .stats.four, .dl-grid { grid-template-columns: 1fr; }
 }
 .dl-grid > *, .proj > * { min-width: 0; }
+.tbl-title { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); font-weight: 600; margin: 18px 0 4px; }
+.summary .stats { margin: 16px 0 6px; }
