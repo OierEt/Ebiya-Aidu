@@ -74,6 +74,8 @@ a.card:hover { background: var(--paper); color: inherit; transform: translate(4p
 .card p { margin: 0 0 12px; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .tags li { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; border: 2px solid var(--green); color: var(--green); padding: 0 8px; }
+.card .year { position: absolute; top: 12px; right: 14px; font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; padding: 2px 7px; border: 2px solid var(--black); background: var(--cream); line-height: 1.4; }
+.card .year + h3 { padding-right: 58px; }
 .card .more { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-top: 12px; display: block; }
 
 /* placeholder items: delete the "todo" class once you've filled them in */
@@ -124,6 +126,8 @@ section[id] { scroll-margin-top: 80px; }
 .btn:hover { background: var(--red); color: var(--cream); transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--black); }
 .btn.alt { background: var(--paper); color: var(--black); }
 .btn.alt:hover { background: var(--paper); color: var(--black); }
+.hero .btn { background: var(--paper); color: var(--black); }
+.hero .btn:hover, .hero .btn.alt:hover { background: var(--red); color: var(--cream); }
 
 /* ---------- chat embed ---------- */
 .chat-box { min-height: 420px; display: flex; align-items: center; justify-content: center; text-align: center; }
@@ -205,6 +209,7 @@ html[data-theme="coast"] { --cream: #d9e6e2; --paper: #f1f7f5; --red: #1d6f84; -
 html[data-theme="coast"] .card, html[data-theme="coast"] .chat-msg, html[data-theme="coast"] .score { border-radius: 16px; box-shadow: 0 7px 0 rgba(14, 42, 51, .28); }
 html[data-theme="coast"] a.card:hover { transform: translateY(4px); box-shadow: 0 3px 0 rgba(14, 42, 51, .28); }
 html[data-theme="coast"] .btn, html[data-theme="coast"] .subnav a, html[data-theme="coast"] .tags li { border-radius: 999px; }
+html[data-theme="coast"] .card .year { border-radius: 999px; }
 html[data-theme="coast"] .shape.bar { border-radius: 999px; }
 html[data-theme="coast"] .shape.tri { clip-path: ellipse(50% 50% at 50% 100%); }
 html[data-theme="coast"] .page-head::after { border-radius: 50%; }

@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261112r">
-  <script src="js/theme.js?v=20261112r"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261113a">
+  <script src="js/theme.js?v=20261113a"></script>
 </head>
 <body>
   <header class="site-header">
@@ -299,6 +299,7 @@ while (i&lt;dim(data)[1]) {
 <details class="code"><summary>Show code</summary><pre class="r"><code>print(data$vmiles[170:176]) #Vemos la evolución que tuvo este estado y se puede apreciar que es un claro outlier.</code></pre></details>
 <pre class="out"><code>## [1]  7.226798 26.148271  7.505625  7.867966  8.212686  8.368896  7.304109</code></pre>
 <p>Otra conclusión a la que se podría llegar, es que, se ve claramente que el rojo es predominante. Aprovechando los contadores que hemos utilizado, podemos hacer un <em>pie chart</em> para visualizar cuántos estados hay con cada tipo de ley.</p>
+<aside class="my-note" lang="en"><div class="my-note-label">My note</div><p>Two shortcuts here. Six states changed their laws during the seven years, and to keep the calculation simple I treated them as if they had kept their 1982 laws throughout; that is not exactly true and it blurs the groups a little. And the clear outlier in miles driven (about 26 for one state in one year, when its neighbouring years are 7 to 8) is probably a data error rather than a real value.</p></aside>
 </div>
 <div class="rsec" id="pie-chart">
 <h3 class="sub3">2.2 Pie chart</h3>
@@ -453,6 +454,7 @@ lines(data$year[1:7],VectorYNmrall,type = &quot;l&quot;,col=&quot;blue&quot;)</c
 <p>Así mismo, parece ser que los mejores resultados o mejor evolución en todas las categorías las tiene la línea amarilla. Es decir, los estados que siguen la siguiente ley: No cárcel y Sí servicios.</p>
 <p>Podemos apreciar que el outlier que teníamos antes en el tercer gráfico, se ha absorvido y en su lugar solo vemos un pico pequeño. Esto, es debido a que tenemos muchos estados con ese tipo de leyes y por tanto, al hacer la media, ha disminuido o se ha convertido en un valor más normal.</p>
 <p>Este cambio no lo podemos afirmar si ha pasado en los que siguen otras leyes ya que, no tenemos muchos estados y por tanto, no sabemos si los datos, tienen outliers o no. Entonces, puede que los datos obtenidos por las observaciones no estén representando bien lo que realmente experimentan los estados que tienen esas leyes. Esto, habrá que tenerlo en cuenta al realizar diferentes estadísticas y también en las conclusiones.</p>
+<aside class="my-note" lang="en"><div class="my-note-label">My note</div><p>Only 6, 3 and 2 states follow the other three kinds of law, so the blue, green and yellow lines are averages of very few states. I warned about it at the time, and it is the main reason I would not trust the idea that the yellow group does best.</p></aside>
 </div>
 <div class="rsec" id="boxplot">
 <h3 class="sub3">2.4 Boxplot, evolución media por leyes</h3>
@@ -713,6 +715,7 @@ kruskal.test(DatosAnova$vmiles ~ DatosAnova$Grupo3)</code></pre></details>
 <p>La hipótesis nula, sigue siendo rechazada en el gráfico 5 pero ahora, en el gráfico 3 nos dice que las medias de los grupos ya no son diferentes, ya que, el p.value es mayor a 0.05.</p>
 <p>Por tanto, podemos decir que sí influye que los estados tengan un tipo de leyes u otra en todas las categorias o siendo puristas, en todas excepto la media de millas recorridas por los conductores.</p>
 <p>Así mismo, también hay que tener en cuenta que, como he mencionado anteriormente los colores amarillo, azul y verde puede que no representen al 100% lo que realmente experimentan estos tipos de estados con esas leyes, por tener pocos estados en nuestros datos.</p>
+<aside class="added review" lang="en"><div class="added-label">Review · written with Claude</div><p>The ANOVA and Kruskal tests do not use the 336 state-years: they compare 28 numbers, the seven yearly averages of each of the four law groups (3 and 24 degrees of freedom). Those seven values are consecutive years of the same group, so they trend together and are not independent, and the groups are very unequal (37, 6, 3 and 2 states), so the averages of the small groups are fragile. The very small p-values mostly confirm what the plots already showed, that the groups sit at different levels (beer tax, for example); they do not show that the laws caused the differences.</p></aside>
 </div>
 <div class="rsec" id="simple-regression">
 <h2 class="sub">3. Regresión lineal simple general</h2>
@@ -945,6 +948,8 @@ cor(unrateout,beertaxout)</code></pre></details>
 <pre class="out"><code>## [1] 0.3055533</code></pre>
 <p>Analizando los resultados, podemos observar que el modelo reducido predice mejor los ingresos personales que el modelo completo. Sin embargo, este modelo no es estadísticamente significativo, ya que, el p.valor no es menor que 0,05. De hecho, el p.valor obtenido es igual al vmiles del modelo completo.</p>
 <p>Además, la correlación entre parámetros es baja por lo que podemos descartar que tengamos multicolinearidad. También, lo podemos descartar viendo que los p.valores de los parámetros salen significativos y a su vez, el p.valor del modelo.</p>
+<aside class="my-note" lang="en"><div class="my-note-label">My note</div><p>After stepAIC the reduced model looks slightly better on the fit measures, but the test that compares it with the full model is not significant. So, honestly, dropping miles driven changes little, and I would not sell it as a clearly better model.</p></aside>
+<aside class="added review" lang="en"><div class="added-label">Review · written with Claude</div><p>Sections 3 and 4 fit the 336 state-year rows as if they were independent observations, but they are 48 states measured seven times each. Income, unemployment and mortality also drift with the years, so part of the relationships found may come from differences between states and from a shared time trend, not from anything that happens within a state. The usual way to handle this is a model with state and year effects (or a mixed model). The modest R&sup2; values in 3.1 and 3.2 (about 30% and 24%) should be read with that in mind.</p></aside>
 </div>
 <div class="rsec" id="simple-by-law">
 <h2 class="sub">5. Regresión lineal simple por leyes</h2>
@@ -1138,6 +1143,7 @@ lines(density(lmYYperincunrate[[&quot;residuals&quot;]]),col=&quot;green&quot;)<
 <figure class="figure"><img src="img/projects/ddl-14.png" alt="Residuals of the four regressions by observation, and their densities." width="1200" height="857" loading="lazy"></figure>
 <p>Aunque, la media de los errores es nula, en la función de densidad se ve que no se asemejan mucho a la normal. Esto puede ser debido al bajo número de <em>n</em> que tenemos.</p>
 <p>También, me parece curioso que, en la tercera observación todos dieron un valor muy negativo. Se puede ver que, en el primer gráfico de este apartado la tercera observación de cada línea es más baja de lo habitual y después, en la recta de regresión, también salen por debajo. Teniendo en cuenta, cómo se han calculado estos vectores, esto, me lleva a concluir que algún acontecimiento pudo haber tenido lugar en la tercera observación, es decir, en 1984.</p>
+<aside class="my-note" lang="en"><div class="my-note-label">My note</div><p>Each of these four lines is fitted to just seven points (yearly averages), so a high R&sup2; is easy to get and the confidence bands of the small groups are wide. What caught my eye is that the third observation is below the line in all four, which is why I guessed that something happened in 1984; it is only a guess, I did not look for it.</p></aside>
 </div>
 <div class="rsec" id="multiple-by-law">
 <h2 class="sub">6. Regresión lineal múltiple por leyes</h2>
@@ -1530,6 +1536,7 @@ lines(data$year[1:7],vectorNO21,type = &#x27;b&#x27;,col=&quot;red&quot;)</code>
 <figure class="figure"><img src="img/projects/ddl-17.png" alt="Number of states with a minimum drinking age of 21 against the rest, 1982 to 1988: two mirror-image curves that sum to 48." width="1200" height="857" loading="lazy"></figure>
 <p>Tal y como se observa, aquí también, se ven las tendencias claramente. Además, como cada año las dos tienen que sumar lo mismo (48), las dos son iguales pero opuestas.</p>
 <p>Podemos decir que, tal vez, esta tendencia a la que los estados se van decantando para subir la edad minima legal a 21 años, tenga algo que ver con los buenos resultados que se han obtenido (de manera general) en los demás parámentros. Por ejemplo, en la tendencia positiva de los ingresos personales o la bajada de la tasa del paro. Pero, igualmente, creo que habría que estudiarlo más, antes de poder afirmar esto.</p>
+<aside class="my-note" lang="en"><div class="my-note-label">My note</div><p>The move towards a minimum drinking age of 21 (24 states in 1982, 47 in 1988) goes hand in hand with the improvement in the other indicators, and I wrote that the two might be related. It is only two trends that coincide in time; nothing in this report separates one from the other, and I would still say it needs more study.</p></aside>
 </div>
 <div class="rsec" id="logistic-first">
 <h3 class="sub3">7.2 Primera regresión logística</h3>
@@ -1718,7 +1725,7 @@ title(main=&quot;Mlda 21 data with Fitted Logistic Regression Line&quot;)</code>
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261112r"></script>
-  <script src="js/nav.js?v=20261112r"></script>
+  <script src="js/lauburu.js?v=20261113a"></script>
+  <script src="js/nav.js?v=20261113a"></script>
 </body>
 </html>
