@@ -107,6 +107,7 @@ luad&lt;-filterMaf(maf=luad,genes=c(&quot;MUC16&quot;,&quot;TTN&quot;))
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>rainfallPlot(maf = luad, detectChangePoints = TRUE, pointSize = 0.6)</code></pre></details>
 <figure class="figure"><img src="../img/projects/luad-2.png" alt="Rainfall grafikoa: kromosoma bakoitzean jarraian dauden mutazioen arteko distantzia." width="1200" height="857" loading="lazy"></figure>
 <p>We can see that earlier chromosomes (1-5) contain a greater number of mutations than do later chromosomes. The first X chromosome also contains a large number of mutations.</p>
+<aside class="my-note" lang="eu"><div class="my-note-label">Nire oharra</div><p>Berriz begiratuta, mutazio gehien dituzten kromosomak (1etik 5era) handienak ere badira; beraz, patroiaren zati bat tamainari dagokio. Konparaketa zuzenagoa izango litzateke mutazio-kopurua kromosomaren luzerarekin normalizatzea.</p></aside>
 </div>
 <div class="rsec" id="transitions-transversions">
 <h3 class="sub3">2.3. Transitions or Transversions?</h3>
@@ -117,6 +118,7 @@ plotTiTv(res = luad.titv)</code></pre></details>
 <figure class="figure"><img src="../img/projects/luad-3.png" alt="Trantsizioak eta transbertsioak: sei ordezkapen-motetako bakoitzaren proportzioa." width="1200" height="857" loading="lazy"></figure>
 <p>There is a greater number of transversions (where one-ring pyramidines are interchanged) than transitions (where two-ring purines are interchanged). This is striking since transition mutations usually occur at a greater rate than transversions [4]. This may be expected since transversions are more likely to result in amino acid substitutions that may result in tumour propagation.</p>
 <p>The greatest proportion of mutations occurred from cytosine to adenine and interestingly there was a large trend towards loss of cytosine nucleotides, since the top three mutation types all described changes away from cytosine. This knowledge could be useful in the selection/development of appropriate therapeutic gene modulators.</p>
+<aside class="my-note" lang="eu"><div class="my-note-label">Nire oharra</div><p>Ez nuen aipatu C&gt;A transbertsioen gehiegizko kopuruaren azalpen probableena: tabakoaren keak uzten duen mutazio-sinadura, biriketako minbiziaren ohikoa. Datu klinikoek erretzeari buruzko informazioa badute, hura gehituko nuke hori egiaztatzeko.</p></aside>
 </div>
 <div class="rsec" id="mutation-frequency">
 <h3 class="sub3">2.4. Mutation Frequency by Sample</h3>
@@ -167,6 +169,7 @@ plotVaf(maf = luad)</code></pre></details>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>laml.mutload = tcgaCompare(maf = luad, cohortName = &#x27;Example-LUAD&#x27;)</code></pre></details>
 <figure class="figure"><img src="../img/projects/luad-8.png" alt="Kohorte honetako megabaseko mutazioak, TCGAko beste minbizi-motekin alderatuta." width="1200" height="857" loading="lazy"></figure>
 <p>We can see that this particular cancer has a great deal of mutations which gives us a large number of possible drug targets in the search for an effective treatment. It was only beaten by skin cutaneous melanoma and lung squamous cell carcinoma (a more serious type of lung cancer).</p>
+<aside class="my-note" lang="eu"><div class="my-note-label">Nire oharra</div><p>Mutazio kopuru handiak ez du esan nahi helburu farmakologiko asko daudenik: gehienak &ldquo;bidaiariak&rdquo; dira, hau da, ez dute tumorea gidatzen. Mutazio-karga handiak inmunoterapian izan dezake garrantzia, baina proiektu honek ez du hori jorratzen.</p></aside>
 </div>
 <div class="rsec" id="tumour-origin-survival">
 <h3 class="sub3">3.2. Tumour Origin, Gender and Survival</h3>
@@ -308,6 +311,7 @@ subsetMaf(maf = luad, genes = &quot;TP53&quot;)</code></pre></details>
 ## 11:             total     305 1.063      1</code></pre>
 <p>Gender had no affect on survival, yet patients who survived more than 5.5 years post tumour discovery had moderately improved prognosis if their tumour originated in the lower lobe rather than the upper lobe. Our confidence in this result is also moderate in size since sample size decreased considerably post 5 years.</p>
 <aside class="added review" lang="eu"><div class="added-label">Berrikuspena · Clauderekin idatzia</div><p>Goiko testuak dio analisi honek tumorearen graduari begiratzen diola, baina kodeak beste bi gauza alderatzen ditu: tumorearen kokalekua (beheko vs goiko lobulua, p = 0,54) eta sexua (p = 0,38). Bietan ez dago biziraupenean alde argirik (mediana 1501 vs 1622 egun lobuluetan; 1498 vs 1622 egun emakumeetan eta gizonezkoetan). Beraz, gradu handiagoak biziraupen laburragoa dakarrela dioen esaldia ez dago analisi honen bidez frogatuta.</p><p>Kodean akats bat ere badago: iragazkiak bi baliorekin <code>==</code> erabiltzen du <code>%in%</code> ordez, eta horrek isilean pazienteen erdiak inguru baino ez ditu gordetzen (beheko lobuluko 194 kasutik 98, goiko lobuluko 353tik 177, 320 emakumetik 164 eta 272 gizonetik 143). Tumorearen gradua ez da inoiz aztertu; bertsio zuzendu batek <code>%in%</code> eta gradu- edo estadio-zutabe bat erabiliko lituzke.</p></aside>
+<aside class="my-note" lang="eu"><div class="my-note-label">Nire oharra</div><p>Gaur egun analisi hau beste modu batera egingo nuke: tumore-laginak bakarrik (ehun normalik gabe), paziente bakoitzeko lagin bat, iragazki zuzena, eta lobuluaz gain estadioaren arabera ere alderatu. 0,54 eta 0,38ko p-balioak ikusita, lobuluaren emaitza behaketa gisa aurkeztuko nuke, ez aurkikuntza gisa.</p></aside>
 </div>
 <div class="rsec" id="gene-interactions">
 <h3 class="sub3">3.3. Gene Interactions</h3>
@@ -340,6 +344,7 @@ somaticInteractions(maf = luad, top = 25, pvalue = c(0.05, 0.1))</code></pre></d
 ## 299:     CSMD3, KRAS      68/257
 ## 300:      FAT3, KRAS      36/215</code></pre>
 <p>Almost all of these genes appear to co-occur except for KRAS and KEAP1 genes which seem to occur independently of any other (white colour). This possibly suggests that these two mutations could be independent risk factors for poorer clinical outcomes. It would be interesting to test this hypothesis using survival analysis in future studies. The KRAS gene mutation also appears to be mutually exclusive with respect to the ubiquitous TP53 gene mutation (red colour). This biomarker could possibly differentiate between different cancer sub types.</p>
+<aside class="my-note" lang="eu"><div class="my-note-label">Nire oharra</div><p>Mapan, zuriak ez-asoziazio esanguratsua esan nahi du, ez independentzia. Beraz, KRAS eta KEAP1 arrisku-faktore independenteak izatea frogatu beharreko hipotesia da (testuak berak biziraupen-analisia proposatzen du), eta grafiko honek bakarrik ezin du frogatu. Gainera, batera-agertze gehiena mutazio-kargak eragingo du: mutazio asko dituzten tumoreek gene askotan dituzte aldi berean.</p></aside>
 </div>
 <div class="rsec" id="oncogenic-pathways">
 <h3 class="sub3">3.4. Oncogenic Signaling Pathways</h3>
@@ -437,6 +442,7 @@ dnmt3a.dgi[,.(Gene, interaction_types, drug_name, drug_claim_name)]</code></pre>
 <h2 class="sub">5. Conclusions</h2>
 <p>We found that the majority of lung cancer mutations were SNP missense mutations where cytosine was removed and were disproportionately found on the first five chromosomes of the genome. We learned that TP53 and KRAS gene mutations were the most impactful due to their high mutation frequency, allele uniformity, independent mutation and effect on oncogenic signalling pathways. Clinical data supports that they have a significant impact on patient prognosis. Rarer gene mutations such as KEAP1 also appear to produce a similar effect, especially when in combinations with the mutations above.</p>
 <p>We were successful in identifying novel treatments that could improve the prognosis of lung adenocarcinoma patients but were unable to find a robust biomarker panel that could aid in differential diagnosis of different tumour types. This was due to the lack of comparative study between different tumour types. It would be useful to address this in a future study.</p>
+<aside class="my-note" lang="eu"><div class="my-note-label">Nire oharra</div><p>Ondorioetako bi baieztapen analisiak baino urrunago doaz. &ldquo;Tratamendu berriak identifikatzea&rdquo;: droga-datu-baseak elkarrekintza ezagunak bakarrik zerrendatzen ditu, eraginkortasun-daturik gabe. Eta TP53 eta KRAS-ek prognosian duten eragina datu klinikoek onartzen dutela esatea eztabaidan aipatutako literaturatik dator, ez nik egindako biziraupen-analisi batetik. Gaur egun biak kontu handiagoz idatziko nituzke.</p></aside>
 </div>
 <div class="rsec" id="bibliography">
 <h2 class="sub">6. Bibliography</h2>
