@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zeolite and iron adsorption · Projects · Ebiya Aidu</title>
+  <meta name="description" content="Ebiya Aidu: a personal site about data, education, research, travel and odd collections.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261113b">
+  <script src="js/theme.js?v=20261113b"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Ebiya Aidu</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="about.html">About me</a>
+        <a href="chat.html">Chat</a>
+        </nav>
+        <div class="lang" aria-label="Language"><a href="zeolite-iron-adsorption.html" lang="en" hreflang="en" aria-current="true">EN</a><a href="eu/zeolite-iron-adsorption.html" lang="eu" hreflang="eu">EU</a></div>
+      </div>
+    </div>
+  </header>
+    <section class="page-head compact">
+    <div class="wrap wide">
+      <div class="num">Projects / Biomedical Engineering internship · 2022</div>
+      <h1>Removing iron from water with natural zeolite</h1>
+      <p>Two lab methods to measure how much iron natural zeolite can adsorb, and whether salt pre-treatment and finer grains help.</p>
+    </div>
+  </section>
+  <main>
+    <div class="wrap wide">
+      <p class="back"><a href="projects.html#projects">&larr; All projects</a></p>
+      <div class="proj">
+        <nav class="toc" aria-label="Contents"><div class="toc-title">Contents</div><ul><li class="l0"><a href="#overview">Overview</a></li><li class="l0"><a href="#report">Full report</a></li><li class="l1" data-self="introduction"><a href="#introduction">1. Introducción</a></li><li class="l2" data-group="introduction"><a href="#structure">1.1 Estructura</a></li><li class="l2" data-group="introduction"><a href="#objectives">1.2 Objetivos</a></li><li class="l1" data-self="materials-and-methods"><a href="#materials-and-methods">2. Materiales y Métodos</a></li><li class="l2" data-group="materials-and-methods"><a href="#nacl-preparation">2.1 Preparación de NaCl al 10% de peso</a></li><li class="l2" data-group="materials-and-methods"><a href="#calibration-line">2.2 Cálculo de la recta de calibración</a></li><li class="l2" data-group="materials-and-methods"><a href="#spectrophotometry-method">2.3 Método de espectrofotometría</a></li><li class="l2" data-group="materials-and-methods"><a href="#phenanthroline-method">2.4 Método estándar de fenantrolina</a></li><li class="l1" data-self="results"><a href="#results">3. Resultados y discusión</a></li><li class="l2" data-group="results"><a href="#calibration">3.1 Recta de calibración</a></li><li class="l2" data-group="results"><a href="#spectrophotometry-results">3.2 Método de espectrofotometría</a></li><li class="l2" data-group="results"><a href="#phenanthroline-results">3.3 Método de la fenantrolina</a></li><li class="l1" data-self="conclusions"><a href="#conclusions">4. Conclusión y Líneas futuras</a></li><li class="l1" data-self="bibliography"><a href="#bibliography">Bibliography</a></li><li class="l1" data-self="appendix"><a href="#appendix">A. Anexo</a></li><li class="l2" data-group="appendix"><a href="#r-code">A.1 Líneas de Código en R</a></li></ul></nav>
+        <article class="report">
+          <section id="overview">
+            <h2 class="sub first">Overview</h2>
+            <ul class="tags"><li>Lab work</li><li>Spectrophotometry</li><li>R</li><li>Biomedical engineering</li></ul>
+            <p>A lab internship project for the Biomedical Engineering degree. Iron is a common contaminant in water, and natural zeolite is a cheap porous mineral that can capture metal ions. The project tests how well natural zeolite adsorbs iron, compares two ways of measuring it (spectrophotometry and the standard phenanthroline method) and checks whether soaking the zeolite in salt (NaCl) beforehand and using finer grains improves the result.</p>
+            <div class="stats"><div class="card stat"><b>2</b><span>measurement methods compared: spectrophotometry and the phenanthroline standard</span></div><div class="card stat"><b>80%</b><span>of the iron removed within an hour by the best setup (grains under 0.3 mm, soaked in NaCl)</span></div><div class="card stat"><b>5 mg</b><span>of iron adsorbed per gram of zeolite at best</span></div></div>
+            <p class="caveat">This is a student lab report, not a published study. The first method turned out not to work, as the report itself explains, and the final method was run in four assays, with no repeats mentioned.</p>
+            <aside class="my-note todo"><div class="my-note-label">My note</div><p>Context note to come.</p></aside>
+          </section>
+          <section id="report-wrap" lang="es">
+            <h2 class="sub" id="report" lang="en">Full report</h2>
+            <p class="note" lang="en">The original internship report in Spanish, with its figures, tables and R code. Personal details have been removed. The blocks marked &ldquo;Review &middot; written with Claude&rdquo; were added afterwards and are not part of the original.</p>
+<div class="rsec" id="introduction">
+<h2 class="sub">1. Introducción</h2>
+<p>Debido a la actividad de las industrias, zonas mineras y fabricantes de baterías entre otros, la afluencia continua de materiales tóxicos, como los metales pesados, desembocan en masas de agua, lo que provoca su contaminación. Los metales pesados pueden acumularse en los organismos vivos como elementos tóxicos y estables que con frecuencia causan diversas enfermedades, resultando así un peligro para la salud pública. Entre los metales pesados más comunes, el hierro ha cobrado importancia debido que puede causar graves problemas sanitarios, tecnológicos y económicos.</p>
+<p>El límite en concentración de hierro (Fe) establecido por la mayor parte de las reglamentaciones nacionales y supranacionales en el agua potable es 0,02 mg/L [1]. La alta concentración de hierro en el agua presenta algunos inconvenientes, como la decoloración del agua, la mancha en los accesorios de fontanería y el sabor metálico [2].</p>
+<p>Por lo tanto, se precisan soluciones para reducir o eliminar la concentración de metales pesados en el agua contaminada. Una posible solución puede venir por la zeolita natural o la zeolita sintética.</p>
+<p>Las zeolitas son aluminosilicatos formados por una red tridimensional de tetraedros SiO4 y AlO4 - , conectados entre sí por átomos de oxígeno comunes y presentan altas capacidades de adsorción debido a su estructura porosa y sus altas áreas superficiales. Esta carga negativa les confiere la capacidad de capturar cationes, así como metales pesados, mediante el intercambio de iones. Sus bajos costes y su capacidad de regeneración sin perder las propiedades de adsorción lo hacen ser una solución atractiva como accesible.</p>
+<p>En los últimos años se han realizado distintos estudios para buscar una solución a estos problemas mediante el uso de la zeolita. Estos estudios sintetizan la zeolita a través de caolinita y monitorizan principalmente tres parámetros: tiempo de contacto, concentración inicial de hierro y la masa de zeolita. En los resultados obtenidos por [3] pudieron obtener una adsorción de 5.6 mg de hierro por gramo de zeolita. En otros estudios que emplearon zeolita natural, se monitorizaron del mismo modo principalmente los tres parámetros mencionados además de la temperatura y el tamaño de la partícula. Adicionalmente, en distintos estudios se muestra la importancia de reducir el pH para evitar la precipitación del hierro. Sin embargo, estos estudios se centran esencialmente en eliminar distintos metales del agua en función de los parámetros mencionados, enfocándose mayormente así en factores externos. Así pues, es de interés conocer la posibilidad de aumentar la capacidad de adsorbancia de la propia zeolita.</p>
+<p>Por tanto, en estas prácticas se pretenden analizar las propiedades adsorción de la zeolita natural siendo así, tal y como se ha mencionado, una alternativa económicamente viable. Los ensayos se realizaron mediante dos métodos distintos: espectrofotometría y fenantrolina. Adicionalmente, para aumentar la capacidad de adsorción de la zeolita, se propuso dopar con sal (NaCl) previo a cada ensayo, debido que distintos estudios verifican la capacidad de interacción y regeneración.</p>
+<p>Por todo ello, esta replica de los estudios con la zeolita natural mediante las dos técnicas de medición y dopaje carentes en los estudios, podría dar paso a futuros proyectos o investigaciones que podrían explorar las propiedades de la zeolita con mayor profundidad empleando estos protocolos.</p>
+<p>Estas prácticas realizaron en Miramón, laboratorio de la universidad de Navarra y en CEIT, un centro de investigación vasco situado en Donostia-San Sebastián.</p>
+<aside class="added review" lang="en"><div class="added-label">Review · written with Claude</div><p>One number in the introduction looks like a slip. The report gives 0.02 mg/L as the drinking-water limit for iron, but the EU Drinking Water Directive lists iron at 200 &micro;g/L, that is 0.2 mg/L, as an indicator parameter. It is worth checking against reference [1] and correcting.</p></aside>
+</div>
+<div class="rsec" id="structure">
+<h3 class="sub3">1.1 Estructura</h3>
+<p>En primer lugar, como apertura de la memoria técnica, se presenta una breve introducción donde se sitúa el marco de este proyecto. También se presentan en esta parte los principales objetivos de su realización.</p>
+<p>A continuación, en el apartado de materiales y métodos se especifican los protocolos llevados a cabo, así como los materiales que se necesitaron para ello.</p>
+<p>Posteriormente, se encuentran los resultados y sus respectivas discusiones obtenidas con ambos métodos.</p>
+<p>Por último, se halla un capítulo dedicado a las conclusiones donde se engloban los puntos principales de las prácticas y las posibles continuaciones del proyecto.</p>
+</div>
+<div class="rsec" id="objectives">
+<h3 class="sub3">1.2 Objetivos</h3>
+<p>El objetivo de la práctica fue estudiar las propiedades de la zeolita como material adsorbente del Fe mediante los siguientes pasos:</p>
+<ul><li>Evaluar diferentes métodos para la medida y seguimiento de iones de Fe disuelto.</li><li>Estudiar la capacidad máxima de adsorción de Fe en la zeolita.</li><li>Estudiar la evolución temporal de la adsorción del Fe en la zeolita.</li></ul>
+</div>
+<div class="rsec" id="materials-and-methods">
+<h2 class="sub">2. Materiales y Métodos</h2>
+
+</div>
+<div class="rsec" id="nacl-preparation">
+<h3 class="sub3">2.1 Preparación de NaCl al 10% de peso</h3>
+<p>Tal y como se ha mencionado anteriormente, previo a iniciar los ensayos se determinó dopar la zeolita. Para ello, en este apartado se presenta su protocolo.</p>
+<p>Primero, se decidió fijar la proporción de gramos de NaCl por mL de H2 O para todas las prácticas limitando así la variabilidad. Para elegir el porcentaje se basó en los trabajos anteriores, el cual fue del 10%.</p>
+<p>Además de esta relación, se fijó también la proporción entre la sal y la zeolita para seguir minimizando la variabilidad y poder obtener conclusiones más certeras. Al igual que el porcentaje de peso, esta relación se obtuvo de los trabajos anteriores y fue de 0.25 g de NaCl por cada gramo de zeolita.</p>
+<p>Por tanto, durante los ensayos, se emplearon las ecuaciones 2.1 y 2.2 para conocer la cantidad de sal y consecuentemente agua en función de la masa de zeolita.</p>
+<p class="eq">NaCl = (α g zeolita × 0.25 g NaCl) / (1 g zeolita) = β g NaCl&emsp;(2.1)</p>
+<p class="eq">H₂O = (β g NaCl × 100 mL H₂O) / (10 g NaCl) = γ mL H₂O&emsp;(2.2)</p>
+</div>
+<div class="rsec" id="calibration-line">
+<h3 class="sub3">2.2 Cálculo de la recta de calibración</h3>
+<p>Para poder conocer las concentraciones y por tanto los resultados, era preciso crear una recta de calibración el cual consiste en dar una relación entre la absorbancia de la disolución con la concentración. Para poder calcular esta recta, se elaboró una tabla con las relaciones conocidas empleando las siguientes ecuaciones:</p>
+<p class="eq">Cantidad de Fe₂(SO₄)₃ = (C<sub>d</sub> / C<sub>0</sub>) × V<sub>t</sub>&emsp;(2.3)</p>
+<p class="eq">Cantidad de agua = V<sub>t</sub> − Cantidad de Fe₂(SO₄)₃&emsp;(2.4)</p>
+<p>Siendo Cd la concentración deseada para cada una de las muestras, C0 la concentración inicial de 150 mg/L de sulfato de hierro y un volumen total Vt de 1 mL. Se decidió emplear este rango debido que era la concentración máxima empleada en los experimentos. De esta manera, se pudieron conseguir resultados más precisos. Adicionalmente, se decidió realizarlo por triplicado para obtener mejores resultados minimizando los valores irregulares causados por trabajar con cantidades pequeñas. Para obtener con precisión la ecuación de la recta, se realizó en R una regresión lineal, A.1.</p>
+<div class="tbl-scroll"><table class="tbl"><thead><tr><th>Número de muestra</th><th>Concentración (mg/L)</th><th>Sulfato de hierro (mL)</th><th>Agua (mL)</th></tr></thead><tbody><tr><td>1</td><td>150</td><td>1</td><td>0</td></tr><tr><td>2</td><td>135</td><td>0.9</td><td>0.1</td></tr><tr><td>3</td><td>120</td><td>0.8</td><td>0.2</td></tr><tr><td>4</td><td>105</td><td>0.7</td><td>0.3</td></tr><tr><td>5</td><td>90</td><td>0.6</td><td>0.4</td></tr><tr><td>6</td><td>75</td><td>0.5</td><td>0.5</td></tr><tr><td>7</td><td>60</td><td>0.4</td><td>0.6</td></tr><tr><td>8</td><td>45</td><td>0.3</td><td>0.7</td></tr><tr><td>9</td><td>30</td><td>0.2</td><td>0.8</td></tr><tr><td>10</td><td>15</td><td>0.1</td><td>0.9</td></tr><tr><td>11</td><td>0</td><td>0</td><td>1</td></tr></tbody></table></div><p class="tbl-cap">Table 2.1: Cantidades de sulfato de hierro y agua destilada.</p>
+<p class="eq">Cantidad de Fe₂(SO₄)₃ = (0.1 L × 150 mg) / (1 L) = 15 mg&emsp;(2.5)</p>
+<p>Por tanto, para partir de una concentración de 150 mg/L de sulfato de hierro en polvo, se pesaron en la balanza 15 mg, añadiendo 0,1 L de agua destilada y mezclándolo en el agitador magnético a temperatura ambiente.</p>
+<p>Antes de obtener las muestras, se mezcló el vaso de precipitados para homogeneizar la disolución. Se pipetearon los volúmenes calculados en tubos eppendorf y se volvió a mezclar para homogeneizar mediante “up-down”.</p>
+<p>Por último, se pipetearon 150 µl de la disolución desde los tubos eppendorf a la placa de 96 pocillos y se analizaron en el espectrofotómetro a 510 nm.</p>
+</div>
+<div class="rsec" id="spectrophotometry-method">
+<h3 class="sub3">2.3 Método de absorción por espectrofotometría</h3>
+<p>Tal y como se indica en la introducción y objetivos, mediante este método se trató de comprobar si era posible analizar las propiedades de la zeolita, así como encontrar la mínima masa de zeolita donde este, adsorbiese la mayor cantidad de sulfato de hierro. Para ello, se redujo la masa de zeolita en cada experimento y se mantuvo constante (150 mg/L) la cantidad de sulfato de hierro. Cuando se observase que la cantidad de sulfato de hierro en la disolución no era nula, se concluiría que la zeolita se habría saturado. La capacidad máxima de adsorción se calcula mediante la siguiente ecuación:</p>
+<p class="eq">Q<sub>e</sub> = (C<sub>0</sub> − C<sub>e</sub>) × V / M&emsp;(2.6)</p>
+<p>Donde, Qe es la capacidad máxima de adsorción, C0 es la concentración inicial de Fe, Ce es la concentración en el equilibrio (concentración final), V es el volumen de disolución y M es la masa de zeolita.</p>
+<p>Así pues, para todos los ensayos se preparó una concentración de sulfato de hierro de 150 mg/L. Debido que, se emplearon vasos de precipitado con 0,5 L de agua destilada, el cálculo realizado fue el siguiente:</p>
+<p class="eq">Cantidad de Fe₂(SO₄)₃ = (150 mg × 0.5 L) / (1 L) = 75 mg&emsp;(2.7)</p>
+<p>Por tanto, se pesaron 75 mg de sulfato de hierro en la balanza de precisión y se añadieron 500 mL de agua destilada en el vaso de precipitado. Se colocó en el agitador magnético hasta disolver y obtener una disolución homogénea a una temperatura aproximada de 75ºC. Por otro lado, con una pipeta Pasteur se añadió ácido clorhídrico no concentrado reduciendo así el pH hasta 4.</p>
+<p>Previo a mezclar esta disolución con la zeolita, tal y como se ha aclarado en el apartado anterior, había que acondicionar la zeolita con NaCl. Para ello, se pesó la correspondiente masa de zeolita en la balanza de precisión y se limpió con agua destilada. A continuación, se mezcló con NaCl al 10% y se dejó reposar hasta 24 horas. Transcurrido este tiempo se retiraba la solución filtrando con un colador y se incorporaba a la disolución de sulfato de hierro para empezar el ensayo.</p>
+<p>Una vez puestos en contacto la zeolita con el sulfato de hierro, los vasos se colocaron en el orbital shaker a ligeramente más de 100 rpm. Se tomaron muestras de 1 mL cada hora entre 4 y 5 horas y se almacenaron en tubos eppendorf.</p>
+<p>Por último, se homogeneizaron las muestras mediante “up-down”, se pipetearon 150 µl en la placa de 96 pocillos y se analizaron en el espectrofotómetro a 510 nm.</p>
+</div>
+<div class="rsec" id="phenanthroline-method">
+<h3 class="sub3">2.4 Método estándar de fenantrolina</h3>
+<p>A diferencia del método de espectrofotometría, este método es específico. Esto supone la posibilidad de detectar la concentración de hierro en el medio a través de la colorimetría. Además, ofrece la posibilidad de crear rectas de calibración debido a que la absorbancia es proporcional a la concentración. Por tanto, este método ofrece unos resultados fiables y robustos hasta un periodo de 6 meses y es capaz de detectar concentraciones de hasta 10 µl/L.</p>
+<p>Es de interés conocer que añadir hidroxilamina en exceso elimina los errores causados por altas concentraciones de reactivos oxidantes en el medio. Asimismo, en caso de la presencia de otros iones metálicos, es conveniente añadir una mayor cantidad de fenantrolina.</p>
+<p>Para poder emplear el método estándar, es preciso realizar dos pasos donde primero se preparan los reactivos y después se procede a obtener la concentración de hierro del medio. En los puntos de a continuación se aclaran estos pasos.</p>
+<ol><li><strong>Preparación de los reactivos</strong><ul><li>Solución de hidroxilamina: Disolver 10 g NH2OH·HCl en 100 mL de agua.</li><li>Solución tampón de acetato de amonio: Disolver 250 g de NH4C2H3O2 en 150 mL de agua. Añadir, 700 mL de ácido acético (glacial) concentrado.</li><li>Solución de fenantrolina: Disolver 100 mg 1,10-fenantrolina monohidrato, C12H8N2·H2O, en 100 mL de agua agitando y calentando a 80ºC. No hervir. Descartar la solución si se oscurece.</li></ul></li><li><strong>Procedimiento para obtener el hierro total en la disolución</strong><ul><li>Introducir una muestra bien mezclada de 50 mL en un matraz de Erlenmeyer.</li><li>Añadir 2 mL de HCl concentrado y 1 mL de solución de hidroxilamina.</li><li>Hervir hasta reducir su volumen hasta 15 – 20 mL.</li><li>Dejar enfriar hasta llegar a temperatura ambiente y transferir a un matraz aforado de 50 o 100 mL.</li><li>Añadir 10 mL de solución tampón de acetato de amonio y 4 mL de solución de fenantrolina.</li><li>Diluir con agua hasta la marca.</li><li>Mezclar y dejar reposar un mínimo de 10 minutos para el máximo desarrollo del color.</li><li>Una vez desarrollado el color, extraer una muestra y analizar en el espectrofotómetro a 510 nm.</li></ul></li></ol>
+<aside class="added review" lang="en"><div class="added-label">Review · written with Claude</div><p>A unit slip: the detection capability of the phenanthroline method is given as &ldquo;10 &micro;l/L&rdquo;, which is a volume per volume. A concentration limit needs mass per volume, so it presumably means 10 &micro;g/L.</p></aside>
+</div>
+<div class="rsec" id="results">
+<h2 class="sub">3. Resultados y discusión</h2>
+<p>En este apartado se muestran los resultados obtenidos mediante los métodos mencionados anteriormente. En el caso del método basado en espectrofotometría, primero se calculó la recta de calibración para lograr una relación entre la absorbancia y concentración. Una vez obtenida, se llevaron a cabo experimentos para evaluar si los métodos eran viables, así como el estudio de capacidad de adsorción y evolución de la concentración de hierro.</p>
+</div>
+<div class="rsec" id="calibration">
+<h3 class="sub3">3.1 Recta de calibración</h3>
+<p>La recta de calibración se calculó tal y como se describió en el protocolo dando como resultado la figura 3.1. Además de realizarlo por triplicado, se añadieron puntos en los extremos, cuando la concentración era nula (absorbancia del agua) y de 150 mg/L. Esto se realizó para tener datos más precisos y la realización en los puntos extremos se debió a que la recta es más propensa a cambiar cuando se alteran los cambios en los extremos. Estos puntos aparecen reflejados en la figura 3.1 como puntos verdes.</p>
+<figure class="figure"><img src="img/projects/zeo-1.png" alt="Absorbance against iron sulfate concentration from 0 to 150 mg/L: blue points used by both fits, green points added at the ends, red points discarded as outliers, with a green and a yellow trend line." width="1143" height="608" loading="lazy"><figcaption>Figure 3.1: Relación entre la concentración de sulfato de hierro (III) con la absorbancia (puntos azules y rojos) y líneas de tendencia (verde y amarillo).</figcaption></figure>
+<p>La línea de tendencia amarilla se obtuvo mediante la regresión lineal de los puntos azules y rojos. En cambio, para obtener la línea de tendencia verde, se realizó la regresión lineal de los puntos azules y verdes, sin considerar los rojos. Esto se debe a que se tomaron como outliers, siendo causa de errores de pipeteo cometidos por trabajar con cantidades relativamente pequeñas.</p>
+<p>Al analizar en R, la recta verde obtuvo un R2 de 0.9724 mientras que la recta amarilla 0.8957, por lo que, se decidió emplear la verde para relacionar la concentración de la disolución con la absorbancia en los ensayos.</p>
+<aside class="added review" lang="en"><div class="added-label">Review · written with Claude</div><p>The calibration line used (R&sup2; = 0.9724) was chosen over the alternative (0.8957) after discarding the red points as pipetting errors and adding six extra readings at 150 mg/L and six at 0 mg/L (see the R code in the appendix). Both choices raise R&sup2;: dropping the points that disagree removes scatter, and loading the two ends of a line gives them more weight. The line is a reasonable working calibration, but the gap between 0.97 and 0.90 partly reflects those decisions and says little about how accurate the method is. The report shows both lines, which is the honest way to present it.</p></aside>
+</div>
+<div class="rsec" id="spectrophotometry-results">
+<h3 class="sub3">3.2 Estudio de la capacidad de adsorción de la zeolita a partir del método basado en espectrofotometría</h3>
+<p>En este apartado, se presentan los resultados obtenidos con el método basado en espectrofotometría después de 12 ensayos. Tal y como se ha mencionado anteriormente, la concentración de hierro inicial se mantuvo constante durante todos los ensayos y se probaron distintas masas de zeolita desde 150 g hasta 70 g. La estequiometria viene dada del siguiente modo al igual que la relación entre la concentración de sulfato de hierro (150 mg/L) y la concentración de iones de hierro (42 mg/L).</p>
+<p class="eq">Fe₂(SO₄)₃ → 2Fe³⁺ + 3SO₄</p>
+<p class="eq">0.150 g Fe₂(SO₄)₃ × (1 mol Fe₂(SO₄)₃ / 399.88 g Fe₂(SO₄)₃) × (2 mol Fe / 1 mol Fe₂(SO₄)₃) × (55.845 g / 1 mol Fe) = 42 mg Fe</p>
+<p>Estos ensayos se resumen en la figura 3.2 donde se observa la evolución de la concentración en el tiempo en distintos ensayos. Todos los resultados presentan una tendencia decreciente de sulfato de hierro en la disolución, independientemente de la masa de zeolita. Además, se observa que la concentración fue prácticamente nula a partir de la cuarta hora en todos los ensayos.</p>
+<p>La variación de la concentración inicial obtenida respecto a la teórica fue relativamente pequeña en la mayoría de los ensayos. Este error se pudo cometer a la hora de preparar la disolución debido que esta desviación se refleja consecuentemente en las muestras de las siguientes horas.</p>
+<p>En cambio, para que este método fuese viable se esperaba que, a medida que se realizaban más ensayos reduciendo la cantidad de zeolita, las líneas se aproximarían a la concentración inicial (línea azul oscura) indicando de este modo que, una menor cantidad de zeolita tardaría más tiempo en adsorber la misma concentración de hierro. Eventualmente obteniendo de este modo una lectura no nula e indicando así la capacidad máxima de adsorción.</p>
+<p>Sin embargo, esto no se cumplió debido que tal y como se observa en la figura 3.2 y mencionado anteriormente, independientemente de la masa de zeolita, las concentraciones obtenidas eran razonablemente parecidas.</p>
+<figure class="figure"><img src="img/projects/zeo-2.png" alt="Iron sulfate concentration against trial number (1 to 12), one line per sampling hour: the initial concentration stays high while the later hours fall towards zero." width="1087" height="598" loading="lazy"><figcaption>Figure 3.2: Ensayos realizados desde 150 g hasta 70 g mediante espectrofotometría.</figcaption></figure>
+<p>Adicionalmente, en la tabla 3.1 se observa un ensayo con tres vasos de precipitado durante las 4 primeras horas. En estas imágenes se comprueba que, la disolución pierde el color amarillo naranja característico del hierro, reflejándose en la figura 3.2 como la disminución de su concentración en la disolución.</p>
+<p>Las figuras presentadas en la tabla 3.1 fueron similares en todos los ensayos, reflejándose sus valores del mismo modo en la figura 3.2.</p>
+<p>Esta similitud mostrada en la tabla 3.1 y los resultados obtenidos en la figura 3.2, llevaron a concluir que el método no estaba funcionando correctamente debido que la velocidad de adsorción de la zeolita era la misma independientemente de su masa además de obtener una concentración final nula.</p>
+<p>Por un lado, se observó que, al colar el vaso después de un ensayo, este contenía hierro precipitado. Además, esta precipitación era comparable con el pH del medio debido que a medida que se acidificaba el medio se producía una menor precipitación por lo que, la correcta ejecución de este paso era fundamental.</p>
+<figure class="figure figrow"><div class="row"><div><img src="img/projects/zeo-3.jpg" alt="Beaker with zeolite and iron solution on a magnetic stirrer after one hour." width="302" height="617" loading="lazy"><span>1h</span></div><div><img src="img/projects/zeo-4.jpg" alt="The same beaker after two hours, the solution is paler." width="306" height="618" loading="lazy"><span>2h</span></div><div><img src="img/projects/zeo-5.jpg" alt="The same beaker after three hours, the solution is paler still." width="302" height="617" loading="lazy"><span>3h</span></div><div><img src="img/projects/zeo-6.jpg" alt="The same beaker after four hours, the solution has almost lost its yellow-orange colour." width="303" height="617" loading="lazy"><span>4h</span></div></div><figcaption>Table 3.1: Evolución del experimento durante las primeras 4 horas para la zeolita 90 g (posterior izquierda), 80 g (posterior derecha) y 70 g (anterior).</figcaption></figure>
+<p>Por otro lado, se concluyó que el orbital shaker podría no ser un agitador adecuado debido que las piedras se mantenían estáticas durante el experimento, impidiendo así que el sulfato de hierro tuviese contacto con toda la zeolita.</p>
+<p>Al igual que se pudo observar que el pH del medio era un factor importante para evitar el precipitado, tal y como se esperaba, homogeneizar la muestra era primordial para obtener las muestras adecuadas.</p>
+<p>En consecuencia, al no poder garantizar la adsorbancia, tal y como se ha propuesto en la introducción tampoco se pudo medir el impacto o potencial del acondicionamiento de la zeolita.</p>
+<p>Además del agitador, se pudo observar que cada vez que se removía manualmente el vaso de precipitado, aumentaba la turbidez de la disolución. Esto, afectaba a la hora de tomar la muestra y consecuentemente en el resultado, debido que el espectrofotómetro no es un método especifico que detecta los iones de hierro. Este equipo, mide la absorbancia total de la muestra por lo que, esto impidió conocer la relación entre el hierro y la turbidez encontrados en los resultados.</p>
+<p>La turbidez, pudo ser originada por las impurezas en las que venía la zeolita o el proceso imperfecto de lavado. Debido a estos factores se razonó que los resultados no eran fiables.</p>
+<p>Por tanto, se concluyó también que el protocolo basado en espectroscopía no era capaz de realizar correctamente el experimento. En consecuencia, no se pudo conocer la cantidad de zeolita con la que se saturaba debido que la evolución de la concentración del hierro en el tiempo estaba sesgada.</p>
+</div>
+<div class="rsec" id="phenanthroline-results">
+<h3 class="sub3">3.3 Estudio de la capacidad de adsorción de la zeolita mediante el método estándar de fenantrolina</h3>
+<p>Al adquirir los reactivos, se prepararon siguiendo el protocolo mencionado en el apartado materiales y métodos. Tal y como se aclara en la sección anterior, el protocolo se basa en utilizar la colorimetría para conocer la concentración de hierro por lo que, al analizar en el espectrofotómetro se elimina el factor de la turbidez.</p>
+<p>Los ensayos realizados mediante este método partieron de sulfato de hierro (II) heptahidratado (A), que por estequiometría se obtiene:</p>
+<p class="eq">FeSO₄ × 7H₂O ↔ Fe²⁺ + SO₄²⁻ + 7H₂O</p>
+<p>De este modo, la concentración inicial de Fe2+ (B) se calculó del siguiente modo:</p>
+<p class="eq">C<sub>B0</sub> = [ (m<sub>A0</sub> / MW<sub>A</sub>) × (1 mol B / 1 mol A) × MW<sub>B</sub> ] / V&emsp;(3.1)</p>
+<p>En estos ensayos, se estableció que la concentración inicial de Fe2+ fuera de 100 mg * Fe2+ /L, por lo que la masa de sal de hierro heptahidratada que se empleó fue de alrededor de 250 mg. Por otro lado, se emplearon 10 gramos de zeolita (C) con una concentración de 20 g * C/L para todos los ensayos.</p>
+<p>Todos los experimentos se realizaron a temperatura ambiente (21 ºC), con una velocidad de agitación (200 rpm) constante y en un medio ácido de un pH de 4.5.</p>
+<p>Se cambió el método de mezclado empleando así Jar test el cual consistía en unas aspas accionadas con un motor para que de este modo se garantizase el mezclado correctamente.</p>
+<p>Las principales variables fueron el pretratamiento de la zeolita y el diámetro de partícula. En la tabla 3.2 se indican las condiciones de operación de cada uno de los ensayos.</p>
+<p>De esta manera, se pretendía observar la disminución de la concentración de hierro disuelto debido, en principio, a su adsorción sobre la zeolita. Para ello, se tomaron alícuotas a diferentes tiempos y se analizó la concentración de Fe2+ mediante el método estándar.</p>
+<div class="tbl-scroll"><table class="tbl"><thead><tr><th></th><th>Ensayo 1</th><th>Ensayo 2</th><th>Ensayo 3</th><th>Ensayo 4</th></tr></thead><tbody><tr><td>Diámetro part. [mm]</td><td>0.3 - 1</td><td>&lt; 0.3</td><td>0.3 - 1</td><td>&lt; 0.3</td></tr><tr><td>Pretratamiento</td><td>-</td><td>-</td><td>NaCl</td><td>NaCl</td></tr></tbody></table></div><p class="tbl-cap">Table 3.2: Condición de operación de 4 ensayos.</p>
+<figure class="figure"><img src="img/projects/zeo-7.png" alt="Test 1 (grains of 0.3 to 1 mm, no NaCl): iron concentration relative to the start and iron adsorbed per gram of zeolite over 120 minutes." width="576" height="300" loading="lazy"><figcaption>Figure 3.3: Evolución de la concentración de Fe2+ y su capacidad de adsorción para un diámetro de entre 0.3 - 1 mm sin acondicionamiento.</figcaption></figure>
+<figure class="figure"><img src="img/projects/zeo-8.png" alt="Test 2 (grains under 0.3 mm, no NaCl): iron concentration relative to the start and iron adsorbed per gram of zeolite over 120 minutes." width="576" height="300" loading="lazy"><figcaption>Figure 3.4: Evolución de la concentración de Fe2+ y su capacidad de adsorción para un diámetro menor a 0.3 mm sin acondicionamiento.</figcaption></figure>
+<figure class="figure"><img src="img/projects/zeo-9.png" alt="Test 3 (grains of 0.3 to 1 mm, NaCl pre-treatment): iron concentration relative to the start and iron adsorbed per gram of zeolite over 120 minutes." width="576" height="300" loading="lazy"><figcaption>Figure 3.5: Evolución de la concentración de Fe2+ y su capacidad de adsorción para un diámetro de entre 0.3 - 1 mm con acondicionamiento.</figcaption></figure>
+<figure class="figure"><img src="img/projects/zeo-10.png" alt="Test 4 (grains under 0.3 mm, NaCl pre-treatment): iron concentration relative to the start and iron adsorbed per gram of zeolite over 120 minutes." width="576" height="300" loading="lazy"><figcaption>Figure 3.6: Evolución de la concentración de Fe2+ y su capacidad de adsorción para un diámetro menor de 0.3 mm con acondicionamiento.</figcaption></figure>
+<p>Tal y como se observa en las figuras 3.3, 3.4, 3.5 y 3.6 se decidió interpretar los resultados en función de la concentración inicial (línea amarilla) sin emplear así la recta de calibración.</p>
+<p>Sin embargo, para calcular la capacidad de adsorción se calcularon las rectas de calibración correspondientes. De este modo, se conoció la relación entre la absorbancia y la concentración de hierro en la disolución y a través de la ecuación 3.2 se pudo conocer el parámetro qBt que indicaba los miligramos de hierro adsorbidos por gramo de zeolita.</p>
+<p class="eq">q<sub>Bt</sub> = (C<sub>B0</sub> − C<sub>Bn</sub>) / C<sub>C0</sub>&emsp;(3.2)</p>
+<p>Siendo CB0 la concentración de hierro en el instante inicial, CBn la concentración de hierro en el instante n y CC0 la concentración de gramos de zeolita por litro. De este modo, se esperaba que este valor incrementase a medida que la concentración de hierro disminuía en la disolución.</p>
+<p>Tal y como se esperaba, la concentración de hierro disminuyó en los cuatro ensayos y, por tanto, la capacidad de adsorción qBt aumentó. De este modo se pudo concluir exitosamente que este método era adecuado para medir las propiedades de adsorción.</p>
+<p>En los ensayos realizados, es de destacar la velocidad en la que se adsorbió el hierro debido que al transcurrir alrededor de media hora, se observó que todos los experimentos llegaron a un estado de equilibrio.</p>
+<p>Sin embargo, también se observaron diferencias significativas entre ellas. El contraste más notable se comprueba entre las figuras 3.3 y 3.4 respecto a las figuras 3.5 y 3.6. Esto se debe a la preparación del ensayo donde tal y como se indica en la tabla 3.2, las figuras 3.3 y 3.4 no tuvieron dopado mientras que las figuras 3.5 y 3.6 sí. De este modo, se pudo reducir la concentración de hierro en el medio hasta la mitad en media hora. Es de importancia indicar que dentro de los resultados de las figuras 3.5 y 3.6, el tamaño de la zeolita obtuvo resultados significativamente distintos.</p>
+<p>Por un lado, la zeolita con un diámetro menor que 0.3 mm pudo adsorber hasta el 80% del hierro mientras que la zeolita con diámetro de entre 0.3 y 1 mm el 60%. Por otro lado, la zeolita de menor tamaño pudo adsorber una mayor cantidad de Fe en un menor tiempo. Esto pudo ser debido a la correcta elección de agitador, así como el método y una mayor área de contacto respecto a la zeolita grande.</p>
+<p>Respecto a la zeolita sin dopar, en las figuras 3.3 y 3.4 se obtuvieron unas mejores adsorbancias cuando el diámetro de la zeolita era pequeña. Aunque cabe destacar que esta diferencia no fue tan significativa (alrededor del 10%) así como la diferencia entre ellos cuando estaban dopadas. Adicionalmente, no se observó una variación destacable en la velocidad de adsorción en los dos primeros ensayos a diferencia de los ensayos realizados cuando la zeolita se encontraba dopada.</p>
+<p>Por tanto, se pudo concluir que además de ser un método viable y fiable, la mejor configuración venia dada cuando la zeolita tenía un diámetro menor a 0.3 mm aumentando de esta manera el área de contacto y se dopaba previamente con NaCl.</p>
+<p>De este modo, con la mejor configuración, se pudo eliminar el 50% del hierro en un tiempo menor a 10 minutos y hasta el 80% en 1 hora. La mejor adsorción obtenida, fue de 5 mg de hierro por gramo de zeolita aproximándose a los resultados obtenidos por los demás estudios únicamente con la configuración inicial, es decir, sin poseer las concentraciones o parámetros optimizados.</p>
+<aside class="added review" lang="en"><div class="added-label">Review · written with Claude</div><p>These conclusions rest on four assays, and the report mentions no repeats, so the noise cannot be estimated. The curves themselves hint at its size: in Test 2 the iron falls to about 0.65 of the starting concentration and then climbs back to about 0.75, and Test 1 wobbles in a similar way. The roughly 10% difference between grain sizes without NaCl (Figures 3.3 and 3.4) is within that wobble, so I would not read it as a real effect. The NaCl pre-treatment is a different matter: it brings the iron down to about 0.4 and about 0.2 of the start, a much larger change than the wobble. Because the four assays share the same stirring method, the comparison between them is fair; comparing them with the earlier spectrophotometry trials is not, since the stirrer changed too.</p></aside>
+</div>
+<div class="rsec" id="conclusions">
+<h2 class="sub">4. Conclusión y Líneas futuras</h2>
+<p>Tal y como se ha aclarado en el apartado anterior, no se pudo concluir que el orbital shaker fuese un buen método para realizar los experimentos. Esto es debido que cuando el método funcionó, se estaba empleando el Jar test. Los ensayos basados en espectrofotometría no fueron aptos debido a que este, detectaba únicamente la absorbancia sin distinguir entre la turbidez y el hierro por lo que, era necesario emplear el método estándar. Por tanto, se concluyó que el método basado en la espectrofotometría no era adecuado para la monitorización de la adsorción.</p>
+<p>Por otro lado, se observó que acidificar el medio era fundamental para evitar el precipitado de la disolución, así como la homogeneidad de las muestras para obtener resultados fiables.</p>
+<p>Respecto al método estándar de fenantrolina, se pudo verificar su funcionamiento para analizar las propiedades de la zeolita y se apreció que el diámetro de la partícula tiene cierta influencia sobre la adsorción, siendo significativa cuando se acondicionaba previamente con NaCl. Por tanto, se pudo concluir que la configuración en la que se obtenían mejores resultados era cuando la zeolita se dopaba previamente con NaCl y se disminuía su diámetro para aumentar el área de contacto con el medio. Esta configuración logró reducir la concentración de Fe2+ hasta un 80%.</p>
+<p>De este modo, se pudo estudiar la capacidad de adsorción de la zeolita, así como su evolución temporal y velocidad satisfaciendo así los objetivos iniciales propuestos.</p>
+<p>Finalmente, para posteriores experimentos, sería de interés partir de la zeolita dopada con diámetro pequeño para encontrar la configuración optima y de esta manera hallar la capacidad máxima de adsorción Qe . Una vez concluido esto, se podrían estudiar otros aspectos como comprobar los efectos de distintos iones como sodio, magnesio o calcio en la mezcla evaluando así la competitividad y rendimiento del hierro con la zeolita. Adicionalmente, se podrían investigar distintos tipos de dopado para aumentar la adsorción, así como su reciclaje y el efecto en la reutilización y el porcentaje de peso optimo.</p>
+<p>Por otro lado, se podría comprobar la eficacia del orbital shaker mediante el método estándar para evaluar el mejor agitador al igual que explorar cómo afectan los parámetros de grado de agitación en la adsorción.</p>
+<p>Asimismo, se podrían comparar los resultados de la configuración optima con otras zeolitas y evaluar el coste económico para llevar los experimentos a mayores escalas.</p>
+<p>Respecto al método de la espectrofotometría, se podría desarrollar un protocolo de limpieza que eliminase completamente la turbidez para que la absorbancia de la muestra equivaliese a la del hierro en la disolución. Para evitar que la zeolita estuviese en reposo se podría emplear el Jar test o maximizar el área de contacto con el orbital shaker. Maximizar el área de contacto, supondría que los demás parámetros tendrían que estar ajustados en función a esta. El correcto funcionamiento de este protocolo supondría un ahorro económico significante respecto al método de fenantrolina al igual que proporcionar un entorno menos peligroso debido a los reactivos empleados. [4] [5] [6] [7] [8] [9] [10] [11] [12]</p>
+</div>
+<div class="rsec" id="bibliography">
+<h2 class="sub">Bibliography</h2>
+<ol class="bib"><li>[1] “iagua, eliminación de fe y mn en agua potable,” <a href="https://www.iagua.es/noticias/filtralite/eliminacion-fe-y-mn-agua-potable-empleando-filtraliter-alta-eficiencia-y-coste">https://www.iagua.es/noticias/filtralite/eliminacion-fe-y-mn-agua-potable-empleando-filtraliter-alta-eficiencia-y-coste</a>, accessed: 2022-06-28.</li><li>[2] “PSA, hierro y manganeso - problemas en el uso y manejo del agua,” <a href="https://www.psa.com.ar/psa-es-salud/notas-de-interes/hierro-y-manganeso#.YoupdxghYzQ">https://www.psa.com.ar/psa-es-salud/notas-de-interes/hierro-y-manganeso#.YoupdxghYzQ</a>, accessed: 2022-06-28.</li><li>[3] M. Seliem and S. Komarneni, “Equilibrium and kinetic studies for adsorption of iron from aqueous solution by synthetic na-a zeolites: Statistical modeling and optimization,” Microporous and Mesoporous Materials, vol. 228, 04 2016.</li><li>[4] T. Belova, “Adsorption of heavy metal ions (cu2+, ni2+, co2+ and fe2+) from aqueous solutions by natural zeolite,” 09 2019.</li><li>[5] M. Al-Anber and Z. A. Al-Anber, “Utilization of natural zeolite as ion-exchange and sorbent material in the removal of iron,” Desalination, vol. 225, no. 1, pp. 70–81, 2008. [Online]. Available: https: //www.sciencedirect.com/science/article/pii/S001191640800091X</li><li>[6] L. Lin, Z. Lei, L. Wang, X. Liu, Y. Zhang, C. Wan, D.-J. Lee, and J. H. Tay, “Adsorption mechanisms of high-levels of ammonium onto natural and nacl-modified zeolites,” Separation and Purification Technology, vol. 103, pp. 15–20, 2013. [Online]. Available: https: //www.sciencedirect.com/science/article/pii/S1383586612005382</li><li>[7] A. Aragon-Piña, M. Berber Mendoza, R. Ramos, and J. Barrón, “Intercambio iónico de pb(ii) en solución acuosa sobre clinoptilolita modificada por intercambio catiónico,” Journal of the Mexican Chemical Society, vol. 48, pp. 130–136, 06 2004.</li><li>[8] T. Motsi, N. Rowson, and M. Simmons, “Adsorption of heavy metals from acid mine drainage by natural zeolite,” International Journal of Mineral Processing, vol. 92, no. 1, pp. 42–48, 2009. [Online]. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0301751609000349">https://www.sciencedirect.com/science/article/pii/S0301751609000349</a></li><li>[9] J. Perić, M. Trgo, and N. Vukojević Medvidović, “Removal of zinc, copper and lead by natural zeolite—a comparison of adsorption isotherms,” Water Research, vol. 38, no. 7, pp. 1893–1899, 2004. [Online]. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0043135403007255">https://www.sciencedirect.com/science/article/pii/S0043135403007255</a></li><li>[10] N. Jiang, R. Shang, S. G. Heijman, and L. C. Rietveld, “High-silica zeolites for adsorption of organic micro-pollutants in water treatment: A review,” Water Research, vol. 144, pp. 145–161, 2018. [Online]. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0043135418305566">https://www.sciencedirect.com/science/article/pii/S0043135418305566</a></li><li>[11] M. Hong, L. Yu, Y. Wang, J. Zhang, Z. Chen, L. Dong, Q. Zan, and R. Li, “Heavy metal adsorption with zeolites: The role of hierarchical pore architecture,” Chemical Engineering Journal, vol. 359, pp. 363–372, 2019. [Online]. Available: https: //www.sciencedirect.com/science/article/pii/S1385894718323210</li><li>[12] J. Wen, H. Dong, and G. Zeng, “Application of zeolite in removing salinity/sodicity from wastewater: A review of mechanisms, challenges and opportunities,” Journal of Cleaner Production, vol. 197, pp. 1435–1446, 2018. [Online]. Available: <a href="https://www.sciencedirect.com/science/article/pii/S0959652618319292">https://www.sciencedirect.com/science/article/pii/S0959652618319292</a></li></ol>
+</div>
+<div class="rsec" id="appendix">
+<h2 class="sub">A. Anexo</h2>
+
+</div>
+<div class="rsec" id="r-code">
+<h3 class="sub3">A.1 Líneas de Código en R</h3>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Concentraciones de sulfato de hierro (III)
+Concentracion &lt;- c(150,135,120,105,90,75,60,45,30,15,0)
+
+#Absorbancias obtenidas en el espectrofotómetro
+Abs1&lt;- c(0.129,0.128,0.101,0.118,0.105,0.097,0.084,0.082,
+        0.065,0.056,0.06)
+Abs2&lt;-c(0.147,0.142,0.134,0.117,0.114,0.109,0.102,0.085,
+        0.069,0.059,0.043)
+Abs3&lt;-c(0.156,0.127,0.123,0.113,0.112,0.108,0.095,0.079,
+        0.063,0.052,0.043)
+Abs4&lt;-c(0.118,0.112,0.111,0.104,0.091,0.084,0.074,0.076,
+        0.062,0.05,0.04)
+
+#Graficas
+grid&lt;-matrix(c(1,2,3,4),nrow = 2,ncol = 2,byrow = T)
+layout(grid)
+plot(Concentracion,Abs1,type = &quot;b&quot;,col=&quot;red&quot;)
+plot(Concentracion,Abs2,type = &quot;b&quot;,col=&quot;green&quot;)
+plot(Concentracion,Abs3,type = &quot;b&quot;,col=&quot;blue&quot;)
+plot(Concentracion,Abs4,type = &quot;b&quot;,col=&quot;yellow&quot;)
+
+layout(1)
+plot(Concentracion,Abs1,type = &quot;b&quot;,col=&quot;red&quot;,
+        ylim = c(min(Abs4),max(Abs3)),ylab=&quot;Absorbancia&quot;)
+lines(Concentracion,Abs2,type = &quot;b&quot;,col=&quot;green&quot;)
+lines(Concentracion,Abs3,type = &quot;b&quot;,col=&quot;blue&quot;)
+lines(Concentracion,Abs4,type = &quot;b&quot;,col=&quot;yellow&quot;)
+
+#Regresion lineal
+
+#data&lt;-data.frame(Concentracion,Abs1,Abs2,Abs3,Abs4)
+#regresion&lt;-lm(formula =Abs1+Abs2~Concentracion,data = data)
+#summary(regresion)
+#abline(regresion)
+
+################
+#Regresion lineal simple con los datos que me interesan
+
+#TODOS LOS DATOS
+ConcentracionTotal&lt;-c(150,135,120,105,90,75,60,45,30,15,0,150,
+        135,120,105,90,75,60,45,30,15,0,150,135,120,105,90,
+        75,60,45,30,15,0,150,135,120,105,90,75,60,45,30,15,0)
+AbsorbanciaTotal&lt;-c(0.129,0.128,0.101,0.118,0.105,0.097,0.084,
+        0.082,0.065,0.056,0.06,0.147,0.142,0.134,0.117,0.114,
+        0.109,0.102,0.085,0.069,0.059,0.043,0.156,0.127,0.123,
+        0.113,0.112,0.108,0.095,0.079,0.063,0.052,0.043,0.118,
+        0.112,0.111,0.104,0.091,0.084,0.074,0.076,0.062,0.05,
+        0.04)
+
+plot(ConcentracionTotal,AbsorbanciaTotal)
+regresionTotal&lt;-lm(AbsorbanciaTotal~ConcentracionTotal)
+summary(regresionTotal)
+abline(regresionTotal)
+
+#Datos Sin Outliers
+ConcentracionSinOut &lt;-c(150,135,105,90,75,60,45,30,15,150,135,
+        120,105,90,75,60,45,30,15,0,150,135,120,105,90,75,60,
+        45,30,15,0,150,150,150,150,150,150,0,0,0,0,0,0)
+AbsorbanciaSinOut&lt;-c(0.129,0.128,0.118,0.105,0.097,0.084,
+        0.082,0.065,0.056,0.147,0.142,0.134,0.117,0.114,0.109,
+        0.102,0.085,0.069,0.059,0.043,0.156,0.127,0.123,0.113,
+        0.112,0.108,0.095,0.079,0.063,0.052,0.043,0.158,0.157,
+        0.155,0.149,0.155,0.156,0.041,0.042,0.047,0.045,0.042,
+       0.045)
+
+plot(ConcentracionSinOut,AbsorbanciaSinOut)
+regresionSinOut&lt;-lm(AbsorbanciaSinOut~ConcentracionSinOut)
+summary(regresionSinOut)
+abline(regresionSinOut)</code></pre></details>
+</div>
+          </section>
+        </article>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="coast" aria-pressed="false">Coast</button><button type="button" data-theme-set="notebook" aria-pressed="false">Notebook</button><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button></div>
+      <span>&copy; 2026 Ebiya Aidu</span>
+    </div>
+  </footer>
+  <script src="js/lauburu.js?v=20261113b"></script>
+  <script src="js/nav.js?v=20261113b"></script>
+</body>
+</html>

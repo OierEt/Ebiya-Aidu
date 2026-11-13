@@ -330,3 +330,11 @@ html[data-theme="archive"] .shape.ring { border-radius: 0; }
 .added.review { border-style: dashed; border-left-style: solid; }
 .added code { font-family: var(--mono); font-size: .9em; }
 .report p a { overflow-wrap: anywhere; }
+
+/* report extras: equations, photo row, bibliography */
+.eq { font-family: var(--mono); font-size: 14px; text-align: center; margin: 16px 0; overflow-x: auto; }
+.figrow .row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 8px; }
+.figrow .row div span { display: block; text-align: center; font-family: var(--mono); font-size: 12px; padding-top: 4px; }
+@media (max-width: 600px) { .figrow .row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bib { list-style: none; padding: 0; margin: 0; }
+.bib li { margin: 0 0 12px; overflow-wrap: anywhere; font-size: 15px; }
