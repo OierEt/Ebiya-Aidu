@@ -44,7 +44,7 @@ Personal website of Oier, published under the alias "Ebiya Aidu". Data scientist
 - The sub-menu (`.subnav`) is sticky and shows the current section; section ids must match the `href`s in it.
 - Photos: JPEG or WebP, at most 200 KB each, width at most 1200 px, with a meaningful `alt` text.
 
-## Project pages (`breast-cancer-survival.html` and `lung-adenocarcinoma.html`, same in `eu/`)
+## Project pages (`breast-cancer-survival.html`, `lung-adenocarcinoma.html` and `drunk-driving-laws.html`, same in `eu/`)
 - Edit these pages by hand from now on; they were generated once and have no generator.
 - Layout: `.wrap.wide` (full width), `.proj` grid with a sticky side menu `.toc` on the left and `.report` on the right. `js/nav.js` highlights the current entry and opens the sub-items (`li.l2[data-group]`) of the current section only.
 - The report body is the original English university report (code in collapsed `details.code`, outputs in `pre.out`). It stays in English in both languages; only the surrounding text is translated. Personal name, local paths and the course server link are removed on purpose.
@@ -53,6 +53,9 @@ Personal website of Oier, published under the alias "Ebiya Aidu". Data scientist
 - Data section: the preview (first 10 patients, 21 columns) is filled by `js/preview.js` from `data/breast-cancer-preview.csv`; the download card sits below it and links to the files of the GitHub release tagged `data` (`.Rdata` and three `.xlsx`, kept out of the repository because of the 100 MB limit). If a release file is renamed, update the links in both languages. The owner confirmed the data may be published.
 
 - Lung adenocarcinoma page: it holds the final version of the university report (a complete one; an earlier unfinished draft was replaced). The only text not from the original is the `<aside class="added review">` block in 3.2 (black label "Review · written with Claude", about the `==` instead of `%in%` filter); keep it visually distinct from the original and from the owner's `my-note` blocks. Authorship (co-author, name) is intentionally not shown; the owner will edit it. His Context note is in his own words. The six other `my-note` blocks in the report (2.2, 2.3, 3.1, 3.2, 3.3, Conclusions) were drafted by Claude in the owner's voice at his request; he will edit them. The cBioPortal and GDC links in its Data section could not be tested from the build environment.
+
+- Drunk driving laws page: the 2020 Biostatistics report (complete, in Spanish; it stays in Spanish in both languages, `section#report-wrap lang="es"`). Author name and the local path were removed. Its Context note is still a placeholder (`my-note todo`, "Context note to come."). The Data link (Rdatasets/Ecdat `Fatality` description) could not be tested from the build environment.
+- Ovarian cancer (GSE29156, limma) has a card in `projects.html` without a link ("Details coming soon" / "Xehetasunak laster"): the page is not built yet because there is no rendered report. When it exists, build the page and turn that text into a `Details` link in both languages.
 
 ## Placeholders
 - A card or row with class `todo` is a placeholder (dashed border and a "placeholder" label). When the owner supplies the real content, replace the text and remove the `todo` class in both languages.

@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drunk driving laws and traffic deaths · Projects · Ebiya Aidu</title>
+  <meta name="description" content="Ebiya Aidu: a personal site about data, education, research, travel and odd collections.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261112r">
+  <script src="js/theme.js?v=20261112r"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Ebiya Aidu</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="about.html">About me</a>
+        <a href="chat.html">Chat</a>
+        </nav>
+        <div class="lang" aria-label="Language"><a href="drunk-driving-laws.html" lang="en" hreflang="en" aria-current="true">EN</a><a href="eu/drunk-driving-laws.html" lang="eu" hreflang="eu">EU</a></div>
+      </div>
+    </div>
+  </header>
+    <section class="page-head compact">
+    <div class="wrap wide">
+      <div class="num">Projects / Biostatistics · 2020</div>
+      <h1>Drunk driving laws and traffic deaths</h1>
+      <p>Do US states with different drunk-driving laws differ in income, unemployment and traffic deaths?</p>
+    </div>
+  </section>
+  <main>
+    <div class="wrap wide">
+      <p class="back"><a href="projects.html#projects">&larr; All projects</a></p>
+      <div class="proj">
+        <nav class="toc" aria-label="Contents"><div class="toc-title">Contents</div><ul><li class="l0"><a href="#overview">Overview</a></li><li class="l0"><a href="#data">Data</a></li><li class="l0"><a href="#report">Full report</a></li><li class="l1" data-self="introduction"><a href="#introduction">1. Introducción</a></li><li class="l2" data-group="introduction"><a href="#data-in-r">1.1 Introducción datos en R</a></li><li class="l1" data-self="general-analysis"><a href="#general-analysis">2. Análisis general</a></li><li class="l2" data-group="general-analysis"><a href="#laws-evolution">2.1 Evolución general por leyes</a></li><li class="l2" data-group="general-analysis"><a href="#pie-chart">2.2 Pie chart</a></li><li class="l2" data-group="general-analysis"><a href="#mean-evolution">2.3 Evolución media por leyes</a></li><li class="l2" data-group="general-analysis"><a href="#boxplot">2.4 Boxplot, evolución media por leyes</a></li><li class="l2" data-group="general-analysis"><a href="#shapiro-test">2.5 Shapiro test</a></li><li class="l2" data-group="general-analysis"><a href="#anova-test">2.6 Anova test</a></li><li class="l2" data-group="general-analysis"><a href="#kruskal-test">2.7 Kruskal test</a></li><li class="l1" data-self="simple-regression"><a href="#simple-regression">3. Regresión lineal simple general</a></li><li class="l2" data-group="simple-regression"><a href="#income-unemployment">3.1 Perinc vs Unrate</a></li><li class="l2" data-group="simple-regression"><a href="#income-mortality">3.2 Perinc vs Mrall</a></li><li class="l1" data-self="multiple-regression"><a href="#multiple-regression">4. Regresión lineal múltiple general</a></li><li class="l1" data-self="simple-by-law"><a href="#simple-by-law">5. Regresión lineal simple por leyes</a></li><li class="l1" data-self="multiple-by-law"><a href="#multiple-by-law">6. Regresión lineal múltiple por leyes</a></li><li class="l1" data-self="logistic-regression"><a href="#logistic-regression">7. Regresión logística</a></li><li class="l2" data-group="logistic-regression"><a href="#logistic-general">7.1 Datos generales</a></li><li class="l2" data-group="logistic-regression"><a href="#logistic-first">7.2 Primera regresión logística</a></li><li class="l2" data-group="logistic-regression"><a href="#logistic-second">7.3 Segunda regresión logística</a></li></ul></nav>
+        <article class="report">
+          <section id="overview">
+            <h2 class="sub first">Overview</h2>
+            <ul class="tags"><li>R</li><li>Regression</li><li>ANOVA</li><li>Biostatistics</li></ul>
+            <p>This project looks at 48 US states over seven years (1982&ndash;1988) and asks whether the type of drunk-driving law a state has (mandatory jail, mandatory community service, both or neither) goes with differences in unemployment, personal income, beer tax, miles driven and traffic mortality. It moves from descriptive plots to ANOVA and Kruskal-Wallis tests, simple and multiple linear regression (overall and by type of law) and, finally, logistic regression on the minimum legal drinking age.</p>
+            <div class="stats"><div class="card stat"><b>48</b><span>US states followed from 1982 to 1988 (336 observations)</span></div><div class="card stat"><b>37</b><span>states with neither mandatory jail nor community service</span></div><div class="card stat"><b>24 &rarr; 47</b><span>states with a minimum drinking age of 21, from 1982 to 1988</span></div></div>
+            <p class="caveat">This is an observational study of a small number of states. The report itself points out that correlation does not imply causation and that the groups with few states may not represent their type of law well.</p>
+            <aside class="my-note todo"><div class="my-note-label">My note</div><p>Context note to come.</p></aside>
+          </section>
+          <section id="data">
+            <h2 class="sub">Data</h2>
+            <p>The data are public: the <em>Fatality</em> dataset (traffic fatalities and drunk-driving laws in the US, 48 states, 1982&ndash;1988; 336 rows and 11 columns), from the Rdatasets collection.</p>
+            <div class="dl-grid">
+              <div class="card"><h3>Public data</h3><div class="dl-btns"><a class="btn alt" href="http://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/Fatality.html">Open the dataset description</a></div></div>
+            </div>
+          </section>
+          <section id="report-wrap" lang="es">
+            <h2 class="sub" id="report" lang="en">Full report</h2>
+            <p class="note" lang="en">The original university report in Spanish, complete with its code and figures. Personal details and local file paths have been removed.</p>
+<div class="rsec" id="introduction">
+<h2 class="sub">1. Introducción</h2>
+<p>Tras revisar las distintas opciones, he decidido llevar a cabo el siguiente estudio. Los datos se han obtenido de la base de datos de <a href="http://vincentarelbundock.github.io/Rdatasets/doc/Ecdat/Fatality.html">adi</a>. Tenemos un <em>data.frame</em> con 11 columnas y 336 filas donde, podemos recoger los datos e intentar transformarlos en información. Estas 11 columnas son los siguientes:</p>
+<ul><li><strong>X</strong>: Número de observación.</li><li><strong>State</strong>: Es una variable numérica donde, a cada estado le pertenece un número. Es decir, de 48 estados que tenemos, cada uno tendrá un número con el que será asociado.</li><li><strong>Year</strong>: Nos muestra el año al que pertenecen las observaciones. Estos, van de 1982 a 1988. Como tenemos 48 estados y cada uno tiene una observación por año, a cada estado le pertenecerán 7 lineas del <em>data.frame</em>.</li><li><strong>Mrall</strong>: Nos indica el ratio de mortalidad que tuvieron los accidentes ocurridos. Muertes por cada 10000 accidentes.</li><li><strong>Beertax</strong>: Es la tasa sobre la cerveza.</li><li><strong>Mlda</strong>: Edad mínima legal para beber.</li><li><strong>Jaild</strong>: Sentencia obligatoria de cárcel.</li><li><strong>Comerd</strong>: Sentencia obligatoria de servicios comunitarios.</li><li><strong>Vmiles</strong>: Son las millas medias recorridas por conductor.</li><li><strong>Unrate</strong>: Es la tasa de paro.</li><li><strong>Perinc</strong>: Son los ingresos personales per cápita.</li></ul>
+</div>
+<div class="rsec" id="data-in-r">
+<h3 class="sub3">1.1 Introducción datos en R</h3>
+<p>Para empezar, vamos a incorporar en R nuestro set de datos.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>path&lt;-file.path(&quot;path&quot;,&quot;to&quot;,&quot;Fatality.csv&quot;)
+data&lt;-read.csv(path)</code></pre></details>
+</div>
+<div class="rsec" id="general-analysis">
+<h2 class="sub">2. Análisis general</h2>
+
+</div>
+<div class="rsec" id="laws-evolution">
+<h3 class="sub3">2.1 Evolución general por leyes</h3>
+<p>Al revisar los datos que disponemos, resulta interesante observarlos de forma general, sin entrar mucho en la estadística. Para ello, vamos a ver cómo han ido evolucionando los siguientes estados con respecto a los diferentes parámetros, en funcion de las leyes.</p>
+<p>Los 6 estados siguientes: <em>9</em> <em>32</em> <em>39</em> <em>41</em> <em>45</em> <em>49</em>, cambiaron sus leyes respecto a la cárcel y el servicio comunitario durante los años en los que se llevó la recogida de datos. Para facilitar el cálculo, he considerado que estos 6 estados no han tenido ningún cambio durante los 7 años y por tanto los he evaluado tal y como tenían su sistema de leyes en el primer año, 1982.</p>
+<p>También, vamos a distinguir con diferentes colores los distintos tipos de leyes para apreciarlo mejor.</p>
+<p>Pintaremos de la siguiente manera:</p>
+<ul><li><strong>Verde</strong>, los estados que tengan cárcel y servicios comunitarios obligatorios.</li><li><strong>Rojo</strong>, ni cárcel ni servicios obligatorios.</li><li><strong>Azul</strong>, cárcel obligatorio pero los servicios no son necesarios.</li><li><strong>Amarillo</strong>, no tienen cárcel pero los servicios sí son obligatorios.</li></ul>
+<p>Para facilitar el trabajo y la lectura, he seguido la siguiente notación:</p>
+<ul><li><strong>Si-Si o Yes-Yes</strong>, Sí cárcel y Sí servicios, verde.</li><li><strong>Si-No o Yes-No</strong>, Sí cárcel y No servicios, azul.</li><li><strong>No-Si o No-Yes</strong>, No cárcel y Sí servicios, amarillo.</li><li><strong>No-No o No-No</strong>, No cárcel y No servicios, rojo.</li></ul>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Creamos un grid que tendra 5 gráficos en una fila.
+grid&lt;-matrix(c(1,2,3,4,5),nrow = 1,ncol =5)
+
+layout(grid)
+
+#Gráfico 1 - Perinc
+plot(data$year[1:7],data$perinc[1:7],type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(min(data$perinc),max(data$perinc)),xlab = &quot;Años&quot;,ylab = &quot;Renta per Capita&quot;,main = &quot;Evolucion Perinc&quot;)
+i=8
+#Vamos a aprovechar el bucle para establecer un contador que nos cuente cuantos estados tenemos con diferentes leyes.
+contYY=0
+contNN=1 #El primero ya lo hemos dibujado
+contYN=0
+contNY=0
+while (i&lt;dim(data)[1]) {
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    contYY=contYY+1
+    for (j in 1:7) {
+      lines(data$year[1:7],data$perinc[i:(i+6)],col=&quot;green&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    contNN=contNN+1
+    for (j in 1:7) {
+      lines(data$year[1:7],data$perinc[i:(i+6)],col=&quot;red&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    contYN=contYN+1
+    for (j in 1:7) {
+      lines(data$year[1:7],data$perinc[i:(i+6)],col=&quot;blue&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    contNY=contNY+1
+    for (j in 1:7) {
+      lines(data$year[1:7],data$perinc[i:(i+6)],col=&quot;yellow&quot;)
+      j=j+1
+    }
+  }
+  
+  i=i+7
+}
+
+#Gráfico 2 - Unrate
+plot(data$year[1:7],data$unrate[1:7],type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(min(data$unrate),max(data$unrate)),xlab = &quot;Años&quot;,ylab = &quot;Tasa de paro&quot;,main = &quot;Evolucion Unrate&quot;)
+i=8
+while (i&lt;dim(data)[1]) {
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$unrate[i:(i+6)],col=&quot;green&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$unrate[i:(i+6)],col=&quot;red&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$unrate[i:(i+6)],col=&quot;blue&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$unrate[i:(i+6)],col=&quot;yellow&quot;)
+      j=j+1
+    }
+  }
+  
+  i=i+7
+}
+
+#Gráfico 3 - Vmiles
+plot(data$year[1:7],data$vmiles[1:7],type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(min(data$vmiles),max(data$vmiles)),xlab = &quot;Años&quot;,ylab = &quot;Average Miles per Driver&quot;,main = &quot;Evolucion vmiles&quot;)
+i=8
+while (i&lt;dim(data)[1]) {
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$vmiles[i:(i+6)],col=&quot;green&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$vmiles[i:(i+6)],col=&quot;red&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$vmiles[i:(i+6)],col=&quot;blue&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$vmiles[i:(i+6)],col=&quot;yellow&quot;)
+      j=j+1
+    }
+  }
+  
+  i=i+7
+}
+
+#Gráfico 4 - Beertax
+plot(data$year[1:7],data$beertax[1:7],type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(min(data$beertax),max(data$beertax)),xlab = &quot;Años&quot;,ylab = &quot;Tasa de la cerveza&quot;,main = &quot;Evolucion beertax&quot;)
+i=8
+while (i&lt;dim(data)[1]) {
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$beertax[i:(i+6)],col=&quot;green&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$beertax[i:(i+6)],col=&quot;red&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$beertax[i:(i+6)],col=&quot;blue&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$beertax[i:(i+6)],col=&quot;yellow&quot;)
+      j=j+1
+    }
+  }
+  
+  i=i+7
+}
+
+#Gráfico 5 - Mrall
+plot(data$year[1:7],data$mrall[1:7],type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(min(data$mrall),max(data$mrall)),xlab = &quot;Años&quot;,ylab = &quot;Mortality rate&quot;,main = &quot;Evolucion rmall&quot;)
+i=8
+while (i&lt;dim(data)[1]) {
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$mrall[i:(i+6)],col=&quot;green&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$mrall[i:(i+6)],col=&quot;red&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$mrall[i:(i+6)],col=&quot;blue&quot;)
+      j=j+1
+    }
+  }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+    
+    for (j in 1:7) {
+      lines(data$year[1:7],data$mrall[i:(i+6)],col=&quot;yellow&quot;)
+      j=j+1
+    }
+  }
+  
+  i=i+7
+}</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-1.png" alt="Evolution of income, unemployment, miles driven, beer tax and mortality rate for each state from 1982 to 1988, coloured by type of law." width="1200" height="857" loading="lazy"></figure>
+<p>Tal y como se observa en las gráficas, no se puede concluir gran cosa, ya que tenemos muchos estados en un espacio limitado y por tanto, se solapan e impiden sacar conclusiones. Pero podemos apreciar que, hay un claro outlier en el gráfico de la evolución de vmiles.</p>
+<p>Podemos obtener esos valores y comprobar si se trata de un outlier.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(which.max(data$vmiles)) #Obtenemos la posición del valor</code></pre></details>
+<pre class="out"><code>## [1] 171</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(data$vmiles[170:176]) #Vemos la evolución que tuvo este estado y se puede apreciar que es un claro outlier.</code></pre></details>
+<pre class="out"><code>## [1]  7.226798 26.148271  7.505625  7.867966  8.212686  8.368896  7.304109</code></pre>
+<p>Otra conclusión a la que se podría llegar, es que, se ve claramente que el rojo es predominante. Aprovechando los contadores que hemos utilizado, podemos hacer un <em>pie chart</em> para visualizar cuántos estados hay con cada tipo de ley.</p>
+</div>
+<div class="rsec" id="pie-chart">
+<h3 class="sub3">2.2 Pie chart</h3>
+<details class="code"><summary>Show code</summary><pre class="r"><code># Pie Chart
+layout(1)
+slices &lt;- c(contNN,contYN,contYY,contNY)
+PorcentajeNN&lt;-contNN/48*100
+PorcentajeNY&lt;-contNY/48*100
+PorcentajeYN&lt;-contYN/48*100
+PorcentajeYY&lt;-contYY/48*100
+lbls &lt;- c(&quot;No - No 77%&quot;, &quot;Si - No 12.5%&quot;, &quot;Si - Si 6.25%&quot;, &quot;No - Si 4.16%&quot;)
+#No-No - No cárcel y No trabajos
+#No-Si - No cárcel y Sí trabajos
+#Si-No - Sí cárcel y No trabajos
+#Si-Si - Sí cárcel y Sí trabajos
+pie(slices, labels = lbls, main=&quot;Numero de estados con diferentes leyes&quot;,col=c(&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;,&quot;yellow&quot;))</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-2.png" alt="Pie chart of the number of states by type of law: 77% have neither mandatory jail nor community service." width="1200" height="857" loading="lazy"></figure>
+<p>Como he mencionado anteriormente, la amplia mayoría son los estados que no tienen ni cárcel ni servicios comunitarios, 37 estados para ser exactos. Los estados que siguen otras leyes son el <em>12.5%</em>, <em>6.25%</em> y <em>4.16%</em> respectivamente, que equivalen a <em>6</em>, <em>3</em> y <em>2</em> estados.</p>
+<p>Volviendo al primer gráfico, como no se pueden sacar más conclusiones, resulta interesante calcular la media de los mismos, dependiendo de las leyes. Resultaría también interesante plantearse si los estados con diferentes leyes son estadísticamente significativas en cuanto a las diferencias en distintas categorias. Es decir, ¿es estadísticamente significativo (que de media), haya más o menos paro, tasa de mortalidad, tasa de cerveza, ingresos personales y millas medias recorridas dependiendo del tipo de ley que siga ese estado?</p>
+</div>
+<div class="rsec" id="mean-evolution">
+<h3 class="sub3">2.3 Evolución media por leyes</h3>
+<p>Para calcular el nuevo gráfico, vamos a sumar todos y dividir entre el número de estados que siguen ese tipo de ley.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Inicializamos los vectores
+i&lt;-1
+#Personal Income
+VectorNNperinc&lt;-as.numeric(vector(length = 7))
+VectorYYperinc&lt;-as.numeric(vector(length = 7))
+VectorYNperinc&lt;-as.numeric(vector(length = 7))
+VectorNYperinc&lt;-as.numeric(vector(length = 7))
+#Unrate
+VectorNNunrate&lt;-as.numeric(vector(length = 7))
+VectorYYunrate&lt;-as.numeric(vector(length = 7))
+VectorYNunrate&lt;-as.numeric(vector(length = 7))
+VectorNYunrate&lt;-as.numeric(vector(length = 7))
+#Vmiles
+VectorNNvmiles&lt;-as.numeric(vector(length = 7))
+VectorYYvmiles&lt;-as.numeric(vector(length = 7))
+VectorYNvmiles&lt;-as.numeric(vector(length = 7))
+VectorNYvmiles&lt;-as.numeric(vector(length = 7))
+#Beertax
+VectorNNbeertax&lt;-as.numeric(vector(length = 7))
+VectorYYbeertax&lt;-as.numeric(vector(length = 7))
+VectorYNbeertax&lt;-as.numeric(vector(length = 7))
+VectorNYbeertax&lt;-as.numeric(vector(length = 7))
+#Mrall
+VectorNNmrall&lt;-as.numeric(vector(length = 7))
+VectorYYmrall&lt;-as.numeric(vector(length = 7))
+VectorYNmrall&lt;-as.numeric(vector(length = 7))
+VectorNYmrall&lt;-as.numeric(vector(length = 7))
+
+
+while (i&lt;dim(data)[1]) {
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+      j&lt;-1
+      VectorYYperinc[j:(j+6)]&lt;-data$perinc[i:(i+6)]+VectorYYperinc[j:(j+6)]
+      VectorYYunrate[j:(j+6)]&lt;-data$unrate[i:(i+6)]+VectorYYunrate[j:(j+6)]
+      VectorYYvmiles[j:(j+6)]&lt;-data$vmiles[i:(i+6)]+VectorYYvmiles[j:(j+6)]
+      VectorYYbeertax[j:(j+6)]&lt;-data$beertax[i:(i+6)]+VectorYYbeertax[j:(j+6)]
+      VectorYYmrall[j:(j+6)]&lt;-data$mrall[i:(i+6)]+VectorYYmrall[j:(j+6)]
+      }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+       j&lt;-1
+      VectorNNperinc[j:(j+6)]&lt;-data$perinc[i:(i+6)]+VectorNNperinc[j:(j+6)]
+      VectorNNunrate[j:(j+6)]&lt;-data$unrate[i:(i+6)]+VectorNNunrate[j:(j+6)]
+      VectorNNvmiles[j:(j+6)]&lt;-data$vmiles[i:(i+6)]+VectorNNvmiles[j:(j+6)]
+      VectorNNbeertax[j:(j+6)]&lt;-data$beertax[i:(i+6)]+VectorNNbeertax[j:(j+6)]
+      VectorNNmrall[j:(j+6)]&lt;-data$mrall[i:(i+6)]+VectorNNmrall[j:(j+6)]
+      }
+  
+  
+  if (data$jaild[i]==&quot;yes&quot; &amp;&amp; data$comserd[i]==&quot;no&quot;) {
+      j&lt;-1
+      VectorYNperinc[j:(j+6)]&lt;-data$perinc[i:(i+6)]+VectorYNperinc[j:(j+6)]
+      VectorYNunrate[j:(j+6)]&lt;-data$unrate[i:(i+6)]+VectorYNunrate[j:(j+6)]
+      VectorYNvmiles[j:(j+6)]&lt;-data$vmiles[i:(i+6)]+VectorYNvmiles[j:(j+6)]
+      VectorYNbeertax[j:(j+6)]&lt;-data$beertax[i:(i+6)]+VectorYNbeertax[j:(j+6)]
+      VectorYNmrall[j:(j+6)]&lt;-data$mrall[i:(i+6)]+VectorYNmrall[j:(j+6)]
+      }
+  
+  if (data$jaild[i]==&quot;no&quot; &amp;&amp; data$comserd[i]==&quot;yes&quot;) {
+      j&lt;-1
+      VectorNYperinc[j:(j+6)]&lt;-data$perinc[i:(i+6)]+VectorNYperinc[j:(j+6)]
+      VectorNYunrate[j:(j+6)]&lt;-data$unrate[i:(i+6)]+VectorNYunrate[j:(j+6)]
+      VectorNYvmiles[j:(j+6)]&lt;-data$vmiles[i:(i+6)]+VectorNYvmiles[j:(j+6)]
+      VectorNYbeertax[j:(j+6)]&lt;-data$beertax[i:(i+6)]+VectorNYbeertax[j:(j+6)]
+      VectorNYmrall[j:(j+6)]&lt;-data$mrall[i:(i+6)]+VectorNYmrall[j:(j+6)]
+      }
+  
+  
+  i=i+7
+}
+
+#Calculamos la media
+#Perinc
+VectorNNperinc&lt;-VectorNNperinc/contNN
+VectorNYperinc&lt;-VectorNYperinc/contNY
+VectorYNperinc&lt;-VectorYNperinc/contYN
+VectorYYperinc&lt;-VectorYYperinc/contYY
+#Unrate
+VectorNNunrate&lt;-VectorNNunrate/contNN
+VectorNYunrate&lt;-VectorNYunrate/contNY
+VectorYNunrate&lt;-VectorYNunrate/contYN
+VectorYYunrate&lt;-VectorYYunrate/contYY
+#Vmiles
+VectorNNvmiles&lt;-VectorNNvmiles/contNN
+VectorNYvmiles&lt;-VectorNYvmiles/contNY
+VectorYNvmiles&lt;-VectorYNvmiles/contYN
+VectorYYvmiles&lt;-VectorYYvmiles/contYY
+#Beertax
+VectorNNbeertax&lt;-VectorNNbeertax/contNN
+VectorNYbeertax&lt;-VectorNYbeertax/contNY
+VectorYNbeertax&lt;-VectorYNbeertax/contYN
+VectorYYbeertax&lt;-VectorYYbeertax/contYY
+#Mrall
+VectorNNmrall&lt;-VectorNNmrall/contNN
+VectorNYmrall&lt;-VectorNYmrall/contNY
+VectorYNmrall&lt;-VectorYNmrall/contYN
+VectorYYmrall&lt;-VectorYYmrall/contYY
+
+
+layout(grid) #Cinco gráficos en una linea
+#Perinc
+plot(data$year[1:7],VectorNNperinc,type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(12200,16000),xlab = &quot;Años&quot;, ylab = &quot;Renta per capita&quot;, main = &quot;Evol. media perinc&quot;)
+lines(data$year[1:7],VectorYYperinc,type = &quot;l&quot;,col=&quot;green&quot;)
+lines(data$year[1:7],VectorNYperinc,type = &quot;l&quot;,col=&quot;yellow&quot;)
+lines(data$year[1:7],VectorYNperinc,type = &quot;l&quot;,col=&quot;blue&quot;)
+#Unrate
+plot(data$year[1:7],VectorNNunrate,type = &quot;l&quot;,col=&quot;red&quot;,ylim= c(5.1,11.2),xlab = &quot;Años&quot;, ylab = &quot;Tasa de Paro&quot;, main = &quot;Evol. media unrate&quot;)
+lines(data$year[1:7],VectorYYunrate,type = &quot;l&quot;,col=&quot;green&quot;)
+lines(data$year[1:7],VectorNYunrate,type = &quot;l&quot;,col=&quot;yellow&quot;)
+lines(data$year[1:7],VectorYNunrate,type = &quot;l&quot;,col=&quot;blue&quot;)
+#Vmiles
+plot(data$year[1:7],VectorNNvmiles,type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(6.75,9.5),xlab = &quot;Años&quot;, ylab = &quot;Average miles per driver&quot;, main = &quot;Evol. media vmiles&quot;)
+lines(data$year[1:7],VectorYYvmiles,type = &quot;l&quot;,col=&quot;green&quot;)
+lines(data$year[1:7],VectorNYvmiles,type = &quot;l&quot;,col=&quot;yellow&quot;)
+lines(data$year[1:7],VectorYNvmiles,type = &quot;l&quot;,col=&quot;blue&quot;)
+#Beertax
+plot(data$year[1:7],VectorNNbeertax,type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(0.3,0.7),xlab = &quot;Años&quot;, ylab = &quot;Tasa de cerveza&quot;, main = &quot;Evol. media beertax&quot;)
+lines(data$year[1:7],VectorYYbeertax,type = &quot;l&quot;,col=&quot;green&quot;)
+lines(data$year[1:7],VectorNYbeertax,type = &quot;l&quot;,col=&quot;yellow&quot;)
+lines(data$year[1:7],VectorYNbeertax,type = &quot;l&quot;,col=&quot;blue&quot;)
+#Mrall
+plot(data$year[1:7],VectorNNmrall,type = &quot;l&quot;,col=&quot;red&quot;,ylim = c(1.8,2.5),xlab = &quot;Años&quot;, ylab = &quot;Tasa de mortalidad&quot;, main = &quot;Evol. media mrall&quot;)
+lines(data$year[1:7],VectorYYmrall,type = &quot;l&quot;,col=&quot;green&quot;)
+lines(data$year[1:7],VectorNYmrall,type = &quot;l&quot;,col=&quot;yellow&quot;)
+lines(data$year[1:7],VectorYNmrall,type = &quot;l&quot;,col=&quot;blue&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-3.png" alt="Average evolution of the same five variables for each type of law." width="1200" height="857" loading="lazy"></figure>
+<p>En este gráfico se pueden observar las tendencias más claramente. Parece ser que, de media la evolucion de la renta per cápita en todos los estados, independientemente de las leyes aumenta y disminuye la tasa de paro. También, parece ser que aumenta el número de millas medias recorridas por conductor y se mantienen constantes o tienen una ligera disminución, la tasa de cerveza y la tasa de mortalidad en general.</p>
+<p>Así mismo, parece ser que los mejores resultados o mejor evolución en todas las categorías las tiene la línea amarilla. Es decir, los estados que siguen la siguiente ley: No cárcel y Sí servicios.</p>
+<p>Podemos apreciar que el outlier que teníamos antes en el tercer gráfico, se ha absorvido y en su lugar solo vemos un pico pequeño. Esto, es debido a que tenemos muchos estados con ese tipo de leyes y por tanto, al hacer la media, ha disminuido o se ha convertido en un valor más normal.</p>
+<p>Este cambio no lo podemos afirmar si ha pasado en los que siguen otras leyes ya que, no tenemos muchos estados y por tanto, no sabemos si los datos, tienen outliers o no. Entonces, puede que los datos obtenidos por las observaciones no estén representando bien lo que realmente experimentan los estados que tienen esas leyes. Esto, habrá que tenerlo en cuenta al realizar diferentes estadísticas y también en las conclusiones.</p>
+</div>
+<div class="rsec" id="boxplot">
+<h3 class="sub3">2.4 Boxplot, evolución media por leyes</h3>
+<p>A continuación, vamos a dibujar los mismos gráficos pero en <em>boxplots</em> para visualizar mejor los datos y ver si tenemos outliers.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>layout(grid)
+boxplot(VectorNNperinc,VectorNYperinc,VectorYNperinc,VectorYYperinc,col = c(&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;green&quot;),names = c(&quot;No-No&quot;,&quot;No-Si&quot;,&quot;Si-No&quot;,&quot;Si-Si&quot;),main=&quot;Evol. media perinc&quot;)
+boxplot(VectorNNunrate,VectorNYunrate,VectorYNunrate,VectorYYunrate,col = c(&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;green&quot;),names = c(&quot;No-No&quot;,&quot;No-Si&quot;,&quot;Si-No&quot;,&quot;Si-Si&quot;),main=&quot;Evol. media unrate&quot;)
+boxplot(VectorNNvmiles,VectorNYvmiles,VectorYNvmiles,VectorYYvmiles,col = c(&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;green&quot;),names = c(&quot;No-No&quot;,&quot;No-Si&quot;,&quot;Si-No&quot;,&quot;Si-Si&quot;),main=&quot;Evol. media vmiles&quot;)
+boxplot(VectorNNbeertax,VectorNYbeertax,VectorYNbeertax,VectorYYbeertax,col = c(&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;green&quot;),names = c(&quot;No-No&quot;,&quot;No-Si&quot;,&quot;Si-No&quot;,&quot;Si-Si&quot;),main=&quot;Evol. media beertax&quot;)
+boxplot(VectorNNmrall,VectorNYmrall,VectorYNmrall,VectorYYmrall,col = c(&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;green&quot;),names = c(&quot;No-No&quot;,&quot;No-Si&quot;,&quot;Si-No&quot;,&quot;Si-Si&quot;),main=&quot;Evol. media mrall&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-4.png" alt="Boxplots of the average values for each type of law, with two outliers." width="1200" height="857" loading="lazy"></figure>
+<p>Aparententemente, las medias pueden o parecen ser distintas. Solo tenemos dos outliers, una en la caja amarilla del gráfico 3 y otra, en el verde del último gráfico.</p>
+<p>Como he dicho anteriormente, se observa que el outlier del gráfico 3 rojo, se ha convertido en un valor normal.</p>
+</div>
+<div class="rsec" id="shapiro-test">
+<h3 class="sub3">2.5 Shapiro test</h3>
+<p>Vamos a ver si estos valores proceden de una normal o no para poder aplicar un test de diferencia de medias.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Shapiro.test para ver como de normales son los datos que tenemos
+#Shapiro Perinc
+print(shapiro.test(VectorNNperinc))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNNperinc
+## W = 0.95825, p-value = 0.8036</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorNYperinc))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNYperinc
+## W = 0.97883, p-value = 0.9537</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYNperinc))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYNperinc
+## W = 0.93055, p-value = 0.5555</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYYperinc))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYYperinc
+## W = 0.90873, p-value = 0.3871</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Shapiro Unrate
+print(shapiro.test(VectorNNunrate))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNNunrate
+## W = 0.91483, p-value = 0.4303</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorNYunrate))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNYunrate
+## W = 0.87902, p-value = 0.2221</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYNunrate))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYNunrate
+## W = 0.97477, p-value = 0.9305</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYYunrate))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYYunrate
+## W = 0.94402, p-value = 0.6752</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Shapiro vmiles
+print(shapiro.test(VectorNNvmiles))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNNvmiles
+## W = 0.96814, p-value = 0.8848</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorNYvmiles))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNYvmiles
+## W = 0.86423, p-value = 0.1651</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYNvmiles))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYNvmiles
+## W = 0.97075, p-value = 0.9038</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYYvmiles))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYYvmiles
+## W = 0.92999, p-value = 0.5508</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Shapiro beertax
+print(shapiro.test(VectorNNbeertax))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNNbeertax
+## W = 0.89985, p-value = 0.3301</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorNYbeertax))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNYbeertax
+## W = 0.95968, p-value = 0.8159</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYNbeertax))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYNbeertax
+## W = 0.9011, p-value = 0.3377</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYYbeertax))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYYbeertax
+## W = 0.94578, p-value = 0.6912</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Shapiro mrall
+print(shapiro.test(VectorNNmrall))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNNmrall
+## W = 0.83769, p-value = 0.09455</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorNYmrall))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorNYmrall
+## W = 0.98356, p-value = 0.975</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYNmrall))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYNmrall
+## W = 0.91765, p-value = 0.4514</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>print(shapiro.test(VectorYYmrall))</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  VectorYYmrall
+## W = 0.88957, p-value = 0.2724</code></pre>
+<p>Al observar estos resultados, podemos concluir que los datos son razonablemente normales y que por tanto, podemos aplicar el test de diferencia de medias. Como tenemos mas de 2 grupos, en cada gráfico tendremos que usar el test de anova en lugar del t.test.</p>
+</div>
+<div class="rsec" id="anova-test">
+<h3 class="sub3">2.6 Anova test</h3>
+<p>Nuestra hipótesis nula, es que no hay diferencia entre las medias de los 5 grupos en cada categoria. Es decir, que de media, dependiendo del tipo de leyes que sigue el estado, sus medias son iguales para <em>perinc</em>, <em>unrate</em>, <em>vmiles</em>, <em>beertax</em> y <em>mrall</em>. Por lo tanto, la hipótesis alternativa será que, sí hay diferencia entre las medias.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>DatosAnova&lt;-data.frame(Grupo1 = NA,perinc=NA,Grupo2 = NA,unrate=NA,Grupo3=NA,vmiles=NA,Grupo4=NA,beertax=NA,Grupo5=NA,mrall=NA)
+
+
+
+for (i in 1:(7*4)) {
+  if (i&lt;8) {
+    DatosAnova[i,1]&lt;-&quot;VectorNYperinc&quot;
+    DatosAnova[i,2]&lt;-VectorNYperinc[i]
+    DatosAnova[i,3]&lt;-&quot;VectorNYunrate&quot;
+    DatosAnova[i,4]&lt;-VectorNYunrate[i]
+    DatosAnova[i,5]&lt;-&quot;VectorNYvmiles&quot;
+    DatosAnova[i,6]&lt;-VectorNYvmiles[i]
+    DatosAnova[i,7]&lt;-&quot;VectorNYbeertax&quot;
+    DatosAnova[i,8]&lt;-VectorNYbeertax[i]
+    DatosAnova[i,9]&lt;-&quot;VectorNYmrall&quot;
+    DatosAnova[i,10]&lt;-VectorNYmrall[i]
+  }
+  if (i&gt;7 &amp;&amp; i&lt;15) {
+    DatosAnova[i,1]&lt;-&quot;VectorNNperinc&quot;
+    DatosAnova[i,2]&lt;-VectorNNperinc[i-7]
+    DatosAnova[i,3]&lt;-&quot;VectorNNunrate&quot;
+    DatosAnova[i,4]&lt;-VectorNNunrate[i-7]
+    DatosAnova[i,5]&lt;-&quot;VectorNNvmiles&quot;
+    DatosAnova[i,6]&lt;-VectorNNvmiles[i-7]
+    DatosAnova[i,7]&lt;-&quot;VectorNNbeertax&quot;
+    DatosAnova[i,8]&lt;-VectorNNbeertax[i-7]
+    DatosAnova[i,9]&lt;-&quot;VectorNNmrall&quot;
+    DatosAnova[i,10]&lt;-VectorNNmrall[i-7]
+  }
+  if (i&gt;14 &amp;&amp; i&lt;23) {
+    DatosAnova[i,1]&lt;-&quot;VectorYNperinc&quot;
+    DatosAnova[i,2]&lt;-VectorYNperinc[i-14]
+    DatosAnova[i,3]&lt;-&quot;VectorYNunrate&quot;
+    DatosAnova[i,4]&lt;-VectorYNunrate[i-14]
+    DatosAnova[i,5]&lt;-&quot;VectorYNvmiles&quot;
+    DatosAnova[i,6]&lt;-VectorYNvmiles[i-14]
+    DatosAnova[i,7]&lt;-&quot;VectorYNbeertax&quot;
+    DatosAnova[i,8]&lt;-VectorYNbeertax[i-14]
+    DatosAnova[i,9]&lt;-&quot;VectorYNmrall&quot;
+    DatosAnova[i,10]&lt;-VectorYNmrall[i-14]
+  }
+  if (i&gt;21) {
+    DatosAnova[i,1]&lt;-&quot;VectorYYperinc&quot;
+    DatosAnova[i,2]&lt;-VectorYYperinc[i-21]
+    DatosAnova[i,3]&lt;-&quot;VectorYYunrate&quot;
+    DatosAnova[i,4]&lt;-VectorYYunrate[i-21]
+    DatosAnova[i,5]&lt;-&quot;VectorYYvmiles&quot;
+    DatosAnova[i,6]&lt;-VectorYYvmiles[i-21]
+    DatosAnova[i,7]&lt;-&quot;VectorYYbeertax&quot;
+    DatosAnova[i,8]&lt;-VectorYYbeertax[i-21]
+    DatosAnova[i,9]&lt;-&quot;VectorYYmrall&quot;
+    DatosAnova[i,10]&lt;-VectorYYmrall[i-21]
+  }
+}
+
+Result.Aov.perinc&lt;-aov(DatosAnova$perinc ~ DatosAnova$Grupo1)
+Result.Aov.unrate&lt;-aov(DatosAnova$unrate ~ DatosAnova$Grupo2)
+Result.Aov.vmiles&lt;-aov(DatosAnova$vmiles ~ DatosAnova$Grupo3)
+Result.Aov.beertax&lt;-aov(DatosAnova$beertax ~ DatosAnova$Grupo4)
+Result.Aov.mrall&lt;-aov(DatosAnova$mrall ~ DatosAnova$Grupo5)
+summary(Result.Aov.perinc)</code></pre></details>
+<pre class="out"><code>##                   Df   Sum Sq Mean Sq F value   Pr(&gt;F)    
+## DatosAnova$Grupo1  3 22149838 7383279   23.02 3.04e-07 ***
+## Residuals         24  7697474  320728                     
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>summary(Result.Aov.unrate)</code></pre></details>
+<pre class="out"><code>##                   Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## DatosAnova$Grupo2  3  17.66   5.887   3.768 0.0239 *
+## Residuals         24  37.50   1.562                 
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>summary(Result.Aov.vmiles)</code></pre></details>
+<pre class="out"><code>##                   Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## DatosAnova$Grupo3  3  3.170  1.0566   3.363 0.0353 *
+## Residuals         24  7.541  0.3142                 
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>summary(Result.Aov.beertax)</code></pre></details>
+<pre class="out"><code>##                   Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## DatosAnova$Grupo4  3 0.3353 0.11175   227.9 &lt;2e-16 ***
+## Residuals         24 0.0118 0.00049                   
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>summary(Result.Aov.mrall)</code></pre></details>
+<pre class="out"><code>##                   Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## DatosAnova$Grupo5  3 0.7136 0.23788   25.25 1.34e-07 ***
+## Residuals         24 0.2261 0.00942                     
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1</code></pre>
+<p>Todos los p.values nos han salido significativos, por tanto, tenemos que rechazar la hipótesis nula. Luego, podemos decir que de media, sí hay diferencia en todas las categorias y que un estado tenga un tipo de leyes u otra realmente afecta.</p>
+<p>Siendo puristas, al tener dos outliers en los graficos 3 y 5 no podemos utilizar el t.test o el test extendido para más de dos grupos, el anova. Para estos, habría que hacer un test de diferencia de medianas, es decir, el test de wilcoxon. Pero, como tenemos mas de dos grupos, habría que usar el extendido, es decir, el Kruskal test.</p>
+</div>
+<div class="rsec" id="kruskal-test">
+<h3 class="sub3">2.7 Kruskal test</h3>
+<p>Lo esperado, sería que los p.values aumentasen pero no sabemos si seguirán siendo estadísticamente significativos o no.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Kruskal test en gráficos 3 y 5 
+kruskal.test(DatosAnova$vmiles ~ DatosAnova$Grupo3)</code></pre></details>
+<pre class="out"><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  DatosAnova$vmiles by DatosAnova$Grupo3
+## Kruskal-Wallis chi-squared = 6.3568, df = 3, p-value = 0.09548</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>kruskal.test(DatosAnova$mrall ~ DatosAnova$Grupo5)</code></pre></details>
+<pre class="out"><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  DatosAnova$mrall by DatosAnova$Grupo5
+## Kruskal-Wallis chi-squared = 20.835, df = 3, p-value = 0.0001139</code></pre>
+<p>La hipótesis nula, sigue siendo rechazada en el gráfico 5 pero ahora, en el gráfico 3 nos dice que las medias de los grupos ya no son diferentes, ya que, el p.value es mayor a 0.05.</p>
+<p>Por tanto, podemos decir que sí influye que los estados tengan un tipo de leyes u otra en todas las categorias o siendo puristas, en todas excepto la media de millas recorridas por los conductores.</p>
+<p>Así mismo, también hay que tener en cuenta que, como he mencionado anteriormente los colores amarillo, azul y verde puede que no representen al 100% lo que realmente experimentan estos tipos de estados con esas leyes, por tener pocos estados en nuestros datos.</p>
+</div>
+<div class="rsec" id="simple-regression">
+<h2 class="sub">3. Regresión lineal simple general</h2>
+<p>Vamos a ver a ojo, si hay alguna posible relación lineal entre las distintas categorías. Realizamos todas las combinaciones posibles independientemente de las leyes, es decir, ver si hay alguna relación lineal con todos los datos en general.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>layout(grid)
+#Combinación 1
+plot(data$perinc,data$unrate,xlab = &quot;Personla Income&quot;,ylab = &quot;Tasa de paro&quot;)
+plot(data$perinc,data$vmiles,xlab = &quot;Personla Income&quot;,ylab = &quot;Millas medias&quot;)
+plot(data$perinc,data$beertax,xlab = &quot;Personla Income&quot;,ylab = &quot;Tasa de cerveza&quot;)
+plot(data$perinc,data$mrall,xlab = &quot;Personla Income&quot;,ylab = &quot;Tasa de mortalidad&quot;)
+plot(data$unrate,data$vmiles,xlab = &quot;Tasa de paro&quot;, ylab = &quot;Millas medias&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-5.png" alt="Scatterplots of income against the other variables (first group of pairs)." width="1200" height="857" loading="lazy"></figure>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Combinación 2
+plot(data$unrate,data$beertax,xlab = &quot;Tasa de paro&quot;,ylab = &quot;Tasa de cerveza&quot;)
+plot(data$unrate,data$mrall,xlab = &quot;Tasa de paro&quot;,ylab = &quot;Tasa de mortalidad&quot;)
+plot(data$vmiles,data$beertax,xlab = &quot;Millas medias&quot;,ylab = &quot;Tasa de cerveza&quot;)
+plot(data$vmiles,data$mrall,xlab = &quot;Millas medias&quot;,ylab = &quot;Tasa de mortalidad&quot;)
+plot(data$beertax,data$mrall,xlab = &quot;Tasa de cerveza&quot;,ylab = &quot;Tasa de mortalidad&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-6.png" alt="Scatterplots of the remaining pairs of variables." width="1200" height="857" loading="lazy"></figure>
+<p>Aparentemente, no hay relaciones lineales y muchas parecen no tener correlación o tampoco que uno dependa de la otra. En mi opinión, sólo sería interesante hacer una regresión lineal simple en <em>perinc</em> vs <em>unrate</em> y <em>perinc</em> vs <em>mrall</em> ya que, estos son los más probables de tener una relación lineal más o menos decente.</p>
+</div>
+<div class="rsec" id="income-unemployment">
+<h3 class="sub3">3.1 Perinc vs Unrate</h3>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Perinc vs unrate
+perincout&lt;-data$perinc
+unrateout&lt;-data$unrate
+perinc.unrate.lm&lt;-lm(unrateout ~ perincout)
+summary(perinc.unrate.lm)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = unrateout ~ perincout)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.4452 -1.4446 -0.1475  1.2085  8.5191 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.599e+01  7.205e-01   22.19   &lt;2e-16 ***
+## perincout   -6.225e-04  5.124e-05  -12.15   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 2.113 on 334 degrees of freedom
+## Multiple R-squared:  0.3065, Adjusted R-squared:  0.3044 
+## F-statistic: 147.6 on 1 and 334 DF,  p-value: &lt; 2.2e-16</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Como se puede apreciar, el p.valor de beta1, intercept y la regresión lineal salen muy significativos. Sin embargo, R-squared no tiene un valor muy bueno y según el resultado, sólo predecimos bien en el 30% de las ocasiones.
+
+#Los errores tienen que seguir una distribución normal de media 0
+grid1&lt;-matrix(c(1,2),ncol = 2,nrow = 1)
+layout(grid1)
+plot(perinc.unrate.lm[[&quot;residuals&quot;]],xlab = &quot;Numero de observación&quot;,ylab = &quot;Error&quot;,main = &quot;Error en cada observación&quot;)
+mean(perinc.unrate.lm[[&quot;residuals&quot;]]) #Es prácticamente 0</code></pre></details>
+<pre class="out"><code>## [1] 9.603192e-17</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>abline(h=mean(perinc.unrate.lm[[&quot;residuals&quot;]]))
+plot(density(perinc.unrate.lm[[&quot;residuals&quot;]]),ylab = &quot;Densidad&quot;,main = &quot;Función de densidad de errores&quot;)
+shapiro.test(perinc.unrate.lm[[&quot;residuals&quot;]]) #Afirmamos que son normales</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  perinc.unrate.lm[[&quot;residuals&quot;]]
+## W = 0.97767, p-value = 4.449e-05</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#&quot;Teorica&quot;
+x&lt;-seq(-10,10,0.01)
+desviacionestandar&lt;-sd(perinc.unrate.lm[[&quot;residuals&quot;]])
+lines(x,dnorm(x,0,desviacionestandar),col=&quot;red&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-7.png" alt="Residuals of the regression of unemployment on income: errors per observation and their density against the theoretical normal curve." width="1200" height="857" loading="lazy"></figure>
+<p>Como podemos observar, los errores siguen una distribución normal de media nula. Aún así, no están repartidos por igual. Se puede apreciar que hay más errores concentradas en la parte negativa que en la positiva y los valores grandes positivos desplazan la media hacia el cero.</p>
+<p>En la gráfica de densidad, tenemos una línea roja solapando a la función de densidad de los errores. Esta, correspondería a la función de densidad “teórica”, que seguirían los errores con la misma varianza y con este punto podemos afirmar lo descrito en el párrafo anterior, los errores se concentran en la parte negativa.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Dibujamos los intervalos de confianza del 95%
+layout(1)
+plot(data$perinc,data$unrate,cex=0.5,xlab = &quot;Ingresos Personales&quot;,ylab = &quot;Tasa de paro&quot;,main = &quot;Variación de la tasa del paro respecto a los ingresos&quot;,sub = &quot;Intervalo de confianza del 95%&quot;)
+abline(perinc.unrate.lm)
+
+new&lt;-data.frame(perincout=seq(9000,23070,42))
+
+prediccionrecta &lt;- predict(perinc.unrate.lm, new, interval = &#x27;confidence&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2)
+
+prediccionrecta &lt;- predict(perinc.unrate.lm, new, interval = &#x27;prediction&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2,col=&quot;red&quot;)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2,col=&quot;red&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-8.png" alt="Unemployment against personal income with the regression line and 95% confidence and prediction bands." width="1200" height="857" loading="lazy"></figure>
+<p>Con las lineas intermedias negras, estamos prediciendo con un 95% de acierto, dónde va a caer el valor de la recta de regresión. Las líneas intermedias rojas, nos indican con el 95% de confianza, la probabilidad que tiene cualquier punto individual, de estar entre estas dos.</p>
+<p>Por tanto, aunque estemos acertando con un 30%, podemos decir que hay relación entre las dos variables. Se observa que, a medida que los ingresos personales aumentan la tasa de paro disminuye.</p>
+</div>
+<div class="rsec" id="income-mortality">
+<h3 class="sub3">3.2 Perinc vs Mrall</h3>
+<p>Vamos a seguir los mismos pasos pero ahora, respecto a los ingresos personales y a la tasa de mortalidad.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Perinc vs mrall
+mrallout&lt;-data$mrall
+perinc.mrall.lm&lt;-lm(mrallout ~ perincout)
+summary(perinc.mrall.lm)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = mrallout ~ perincout)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.16471 -0.33899 -0.07772  0.25583  1.99163 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.7926423  0.1687638   22.47   &lt;2e-16 ***
+## perincout   -0.0001262  0.0000120  -10.52   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 0.4949 on 334 degrees of freedom
+## Multiple R-squared:  0.2488, Adjusted R-squared:  0.2466 
+## F-statistic: 110.6 on 1 and 334 DF,  p-value: &lt; 2.2e-16</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Al igual que antes, los p valores nos salen muy significativos pero R-squared nos dice que lo estamos acertando con un 24% de acierto. Luego esta regresión es peor que la anterior y por lo tanto, la tasa de paro predice mejor los ingresos que la tasa de mortalidad
+
+#Los errores tienen que seguir una distribucion normal con media 0
+layout(grid1)
+plot(perinc.mrall.lm[[&quot;residuals&quot;]],xlab = &quot;Numero de observación&quot;,ylab = &quot;Error&quot;,main = &quot;Error en cada observación&quot;)
+mean(perinc.mrall.lm[[&quot;residuals&quot;]]) #Es 0</code></pre></details>
+<pre class="out"><code>## [1] -2.626544e-17</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>abline(h=mean(perinc.mrall.lm[[&quot;residuals&quot;]]))
+plot(density(perinc.mrall.lm[[&quot;residuals&quot;]]),ylab = &quot;Densidad&quot;,main = &quot;Función de densidad de errores&quot;)
+x&lt;-seq(-2,2,0.01)
+desviacionestandar&lt;-sd(perinc.mrall.lm[[&quot;residuals&quot;]])
+lines(x,dnorm(x,0,desviacionestandar),col=&quot;red&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-9.png" alt="Residuals of the regression of mortality rate on income: errors per observation and their density." width="1200" height="857" loading="lazy"></figure>
+<details class="code"><summary>Show code</summary><pre class="r"><code>shapiro.test(perinc.mrall.lm[[&quot;residuals&quot;]]) #Afirmamos que son normales</code></pre></details>
+<pre class="out"><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  perinc.mrall.lm[[&quot;residuals&quot;]]
+## W = 0.95749, p-value = 2.692e-08</code></pre>
+<p>Al igual que en la regresión lineal anterior, estas siguen una distribución normal de media nula. También, por el gráfico de la derecha podemos afirmar que, los errores se concentran más en la parte negativa.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>layout(1)
+#Dibujamos los intervalos de confianza del 95%
+plot(data$perinc,data$mrall,cex=0.5,xlab = &quot;Ingresos Personales&quot;,ylab = &quot;Tasa de mortalidad&quot;,main = &quot;Variación de la tasa del mortalidad respecto a los ingresos&quot;,sub = &quot;Intervalo de confianza del 95%&quot;)
+abline(perinc.mrall.lm)
+
+new&lt;-data.frame(perincout=seq(9000,23070,42))
+
+prediccionrecta &lt;- predict(perinc.mrall.lm, new, interval = &#x27;confidence&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2)
+
+prediccionrecta &lt;- predict(perinc.mrall.lm, new, interval = &#x27;prediction&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2,col=&quot;red&quot;)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2,col=&quot;red&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-10.png" alt="Mortality rate against personal income with the regression line and 95% confidence and prediction bands." width="1200" height="857" loading="lazy"></figure>
+<p>Por tanto, viendo la regresión podemos afirmar que aunque estemos acertando el 24%, a medida que los ingresos aumentan la tasa de mortalidad disminuye. Pero, esto no indica que uno no sea causa del otro ya que, la correlación no implica causalidad.</p>
+</div>
+<div class="rsec" id="multiple-regression">
+<h2 class="sub">4. Regresión lineal múltiple general</h2>
+<p>En lugar de ver y evaluar qué variables son o no son significativos para predecir la renta per cápita, vamos a hacerlo mediante una regresión lineal múltiple y así obtener datos estadísticos.</p>
+<p>Primero de todo obtendremos el modelo completo.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Sacamos los demas parámetros en vectores fuera del data.frame
+beertaxout&lt;-data$beertax
+vmilesout&lt;-data$vmiles
+
+fullmodel&lt;-lm(perincout ~ unrateout+vmilesout+beertaxout+mrallout)
+summary(fullmodel)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = perincout ~ unrateout + vmilesout + beertaxout + 
+##     mrallout)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3385.8 -1035.8   -77.9  1043.0  5361.1 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 20998.03     596.15  35.223  &lt; 2e-16 ***
+## unrateout    -446.34      36.44 -12.247  &lt; 2e-16 ***
+## vmilesout     -92.87      67.13  -1.383    0.167    
+## beertaxout  -1259.79     184.45  -6.830 4.08e-11 ***
+## mrallout    -1205.30     175.30  -6.876 3.09e-11 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 1535 on 331 degrees of freedom
+## Multiple R-squared:  0.5411, Adjusted R-squared:  0.5355 
+## F-statistic: 97.57 on 4 and 331 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Comprobando los resultados, podemos ver que, sólo con el modelo completo, estamos prediciendo mejor la renta per cápita que antes. Aunque, el F-estadístico haya salido algo peor, el p.valor sigue siendo igual de significativo. Además, tenemos un error estandar mucho menor y la R-squared sube hasta el 54%. Por tanto, podemos decir que este modelo está prediciendo mejor aunque, no sabemos si es lo mejor que podemos llegar a obtener.</p>
+<p>Para ello, vamos a hacer una selección de variables usando AIC. En un principio, esperamos que nos quite vmiles ya que este no es significativo para el modelo o lo entorpece para la predicción, aunque, no tiene porqué ser asi e incluso nos puede eliminar otras varibles.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#reducedmodelAIC&lt;-stepAIC(fullmodel,direction=&quot;backward&quot;)
+
+##Nota: ya que he tenido errores con la función stepAIC en R Markdown, en caso de que no funcione la linea anterior, ejecute la siguiente. Es el resultado que se obtiene
+
+reducedmodelAIC&lt;-lm(perincout ~ unrateout + beertaxout + mrallout)
+
+#Modelo reducido
+summary(reducedmodelAIC)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = perincout ~ unrateout + beertaxout + mrallout)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3459.7  -998.8   -93.7  1025.0  5368.5 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 20348.04     367.44  55.377  &lt; 2e-16 ***
+## unrateout    -426.93      33.68 -12.675  &lt; 2e-16 ***
+## beertaxout  -1266.70     184.64  -6.861 3.37e-11 ***
+## mrallout    -1314.02     156.91  -8.374 1.58e-15 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 1538 on 332 degrees of freedom
+## Multiple R-squared:  0.5384, Adjusted R-squared:  0.5343 
+## F-statistic: 129.1 on 3 and 332 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Como era de esperar, hemos eliminado la variable vmiles ya que nos empeoraba el modelo. Por tanto, este sería el modelo con el que mejor podríamos aproximar la renta per cápita.</p>
+<p>Vamos a ver si es estadísticamente significativo que el modelo reducido obtenido, es mejor que el modelo completo.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Anova para comparar modelos
+
+anova(fullmodel,reducedmodelAIC)</code></pre></details>
+<pre class="out"><code>## Analysis of Variance Table
+## 
+## Model 1: perincout ~ unrateout + vmilesout + beertaxout + mrallout
+## Model 2: perincout ~ unrateout + beertaxout + mrallout
+##   Res.Df       RSS Df Sum of Sq      F Pr(&gt;F)
+## 1    331 780390390                           
+## 2    332 784902718 -1  -4512328 1.9139 0.1675</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Correlación entre parametros
+cor(unrateout,beertaxout)</code></pre></details>
+<pre class="out"><code>## [1] 0.05677184</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>cor(unrateout,mrallout)</code></pre></details>
+<pre class="out"><code>## [1] 0.1753446</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>cor(beertaxout,mrallout)</code></pre></details>
+<pre class="out"><code>## [1] 0.3055533</code></pre>
+<p>Analizando los resultados, podemos observar que el modelo reducido predice mejor los ingresos personales que el modelo completo. Sin embargo, este modelo no es estadísticamente significativo, ya que, el p.valor no es menor que 0,05. De hecho, el p.valor obtenido es igual al vmiles del modelo completo.</p>
+<p>Además, la correlación entre parámetros es baja por lo que podemos descartar que tengamos multicolinearidad. También, lo podemos descartar viendo que los p.valores de los parámetros salen significativos y a su vez, el p.valor del modelo.</p>
+</div>
+<div class="rsec" id="simple-by-law">
+<h2 class="sub">5. Regresión lineal simple por leyes</h2>
+<p>Como en el primer apartado nos ha salido que la diferencia de leyes influye en el estado, me parece interesante volver a realizar la regresión lineal pero esta vez, distinguiendo las leyes. En mi opinión, creo que deberíamos obtener mejores modelos que, haciendolo todos a la vez.</p>
+<p>Dibujamos todos los puntos, pero esta vez, corresponden a la ganancia media de todos los estados dependiendo de las leyes.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>plot(VectorNNperinc,VectorNNunrate,col=&quot;red&quot;,type = &quot;b&quot;,cex=0.8,xlim = c(12200,16000),ylim = c(5.1,11.2),xlab = &quot;Ingresos Personales&quot;,ylab = &quot;Tasa de paro&quot;)
+lines(VectorYYperinc,VectorYYunrate,col=&quot;green&quot;,type = &quot;b&quot;,cex=0.8)
+lines(VectorYNperinc,VectorYNunrate,col=&quot;blue&quot;,type = &quot;b&quot;,cex=0.8)
+lines(VectorNYperinc,VectorNYunrate,col=&quot;yellow&quot;,type = &quot;b&quot;,cex=0.8)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-11.png" alt="Average unemployment against average income for each type of law, one line per type." width="1200" height="857" loading="lazy"></figure>
+<p>De este modo, podemos comprobar que parece haber relaciones lineales decentes. Sobre todo, en la línea roja. A mi parecer, esto puede ser debido a que tenemos muchos estados luego, la media de los estados que siguen estas leyes tienden a formar una tendencia. También, se aprecia que, los otros colores siguen una tendencia, pero, no es tan clara como la roja. Por tanto, tal y como acabo de mencionar, esto puede ser debido a que tenemos un numero pequeño de estados con sus correspondientes leyes.</p>
+<p>Vamos a realizar el modelo lineal simple en cada uno.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Modelo1 - NN
+lmNNperincunrate&lt;-lm(VectorNNunrate~VectorNNperinc)
+summary(lmNNperincunrate)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorNNunrate ~ VectorNNperinc)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7 
+##  0.2173  0.3420 -0.6412 -0.3047  0.0968  0.1756  0.1143 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    33.595195   2.743425  12.246 6.42e-05 ***
+## VectorNNperinc -0.001885   0.000195  -9.663 0.000201 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 0.3798 on 5 degrees of freedom
+## Multiple R-squared:  0.9492, Adjusted R-squared:  0.939 
+## F-statistic: 93.38 on 1 and 5 DF,  p-value: 0.0002014</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Modelo2 - YN
+lmYNperincunrate&lt;-lm(VectorYNunrate~VectorYNperinc)
+summary(lmYNperincunrate)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorYNunrate ~ VectorYNperinc)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7 
+##  0.2713  0.9185 -0.7193 -0.9647  0.2016  0.1290  0.1637 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)    51.3169339  8.5429544   6.007  0.00184 **
+## VectorYNperinc -0.0033542  0.0006717  -4.993  0.00413 **
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 0.6999 on 5 degrees of freedom
+## Multiple R-squared:  0.833,  Adjusted R-squared:  0.7996 
+## F-statistic: 24.93 on 1 and 5 DF,  p-value: 0.004128</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Modelo3 - NY
+lmNYperincunrate&lt;-lm(VectorNYunrate~VectorNYperinc)
+summary(lmNYperincunrate)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorNYunrate ~ VectorNYperinc)
+## 
+## Residuals:
+##        1        2        3        4        5        6        7 
+##  0.38421  0.31368 -0.89867 -0.58094  0.24891  0.47795  0.05485 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)    24.5099601  6.2103048   3.947   0.0109 *
+## VectorNYperinc -0.0011855  0.0004108  -2.886   0.0344 *
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 0.5804 on 5 degrees of freedom
+## Multiple R-squared:  0.6248, Adjusted R-squared:  0.5498 
+## F-statistic: 8.327 on 1 and 5 DF,  p-value: 0.03436</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Modelo4 - YY
+lmYYperincunrate&lt;-lm(VectorYYunrate~VectorYYperinc)
+summary(lmYYperincunrate)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorYYunrate ~ VectorYYperinc)
+## 
+## Residuals:
+##        1        2        3        4        5        6        7 
+##  0.29793  0.45992 -1.40366 -0.16880  0.77694  0.10042 -0.06276 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)    24.3092974 11.2372781   2.163   0.0828 .
+## VectorYYperinc -0.0012254  0.0008421  -1.455   0.2054  
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 0.7638 on 5 degrees of freedom
+## Multiple R-squared:  0.2975, Adjusted R-squared:  0.157 
+## F-statistic: 2.118 on 1 and 5 DF,  p-value: 0.2054</code></pre>
+<p>Como era esperado, hay una relación lineal entre los ingresos personales y la tasa de paro dependiendo de las leyes. Los modelos salen que son estadísticamente significativos y están prediciendo con un mayor acierto, excepto uno. El rojo, es el modelo con el que mejor resultados hemos tenido y el verde el peor. De hecho, este último, no ha salido significativo. Esto, me lleva a concluir que este tipo de estados puede que estuviese perjudicando en el modelo en el cual no se distinguían el tipo de leyes.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>plot(VectorNNperinc,VectorNNunrate,col=&quot;red&quot;,type = &quot;p&quot;,cex=0.5,xlim = c(12200,16000),ylim = c(5.1,11.2),xlab = &quot;Ingresos Personales&quot;,ylab = &quot;Tasa de paro&quot;,main = &quot;Rectas de regresión por tipo de leyes&quot;)
+lines(VectorYYperinc,VectorYYunrate,col=&quot;green&quot;,type = &quot;p&quot;,cex=0.5)
+lines(VectorYNperinc,VectorYNunrate,col=&quot;blue&quot;,type = &quot;p&quot;,cex=0.5)
+lines(VectorNYperinc,VectorNYunrate,col=&quot;yellow&quot;,type = &quot;p&quot;,cex=0.5)
+#abline
+abline(lmNNperincunrate,col=&quot;red&quot;)
+abline(lmYNperincunrate,col=&quot;blue&quot;)
+abline(lmNYperincunrate,col=&quot;yellow&quot;)
+abline(lmYYperincunrate,col=&quot;green&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-12.png" alt="Simple regression lines of unemployment on income for the four types of law." width="1200" height="857" loading="lazy"></figure>
+<p>Aunque, la regresión verde no ha salido significativa, podemos concluir que, todas tienen una tendencia negativa. Es decir, a medida que los ingresos personales aumentan, la tasa de paro disminuye.</p>
+<p>Observando la roja y la azul (las más significativas) podemos concluir también que, los estados que siguen las leyes rojas ganan más que la azul a medida que la tasa disminuye. Esto es debido a la pendiente o <em>beta1</em> que en el azul es mayor (-0.0033542) y en la roja, menor (-0.001885).</p>
+<p>Vamos a dibujar cada uno con su intervalo de confianza.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Intervalos de confianza en 2x2
+grid2&lt;-matrix(c(1,2,3,4),ncol = 2,nrow = 2)
+layout(grid2)
+#Primera NN
+plot(VectorNNperinc,VectorNNunrate,col=&quot;red&quot;,type = &quot;p&quot;,cex=0.8,xlab = &quot;Ingresos Personales&quot;,ylab = &quot;Tasa de paro&quot;)
+abline(lmNNperincunrate,col=&quot;red&quot;)
+
+new&lt;-data.frame(VectorNNperinc=seq(9000,23070,42))
+
+prediccionrecta &lt;- predict(lmNNperincunrate, new, interval = &#x27;confidence&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2)
+
+prediccionrecta &lt;- predict(lmNNperincunrate, new, interval = &#x27;prediction&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2,col=&quot;red&quot;)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2,col=&quot;red&quot;)
+
+#Segunda YN
+plot(VectorYNperinc,VectorYNunrate,col=&quot;blue&quot;,type = &quot;p&quot;,cex=0.8,xlab = &quot;Ingresos Personales&quot;,ylab = &quot;Tasa de paro&quot;)
+abline(lmYNperincunrate,col=&quot;blue&quot;)
+
+new&lt;-data.frame(VectorYNperinc=seq(9000,23070,42))
+
+prediccionrecta &lt;- predict(lmYNperincunrate, new, interval = &#x27;confidence&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2)
+
+prediccionrecta &lt;- predict(lmYNperincunrate, new, interval = &#x27;prediction&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2,col=&quot;red&quot;)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2,col=&quot;red&quot;)
+
+#Tercera NY
+plot(VectorNYperinc,VectorNYunrate,col=&quot;yellow&quot;,type = &quot;p&quot;,cex=0.8,xlab = &quot;Ingresos Personales&quot;, ylab = &quot;Tasa de paro&quot;)
+abline(lmNYperincunrate,col=&quot;yellow&quot;)
+
+new&lt;-data.frame(VectorNYperinc=seq(9000,23070,42))
+
+prediccionrecta &lt;- predict(lmNYperincunrate, new, interval = &#x27;confidence&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2)
+
+prediccionrecta &lt;- predict(lmNYperincunrate, new, interval = &#x27;prediction&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2,col=&quot;red&quot;)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2,col=&quot;red&quot;)
+
+#Cuarta YY
+plot(VectorYYperinc,VectorYYunrate,col=&quot;green&quot;,type = &quot;p&quot;,cex=0.8,xlab = &quot;Ingresos Personales&quot;,ylab = &quot;Tasa de paro&quot;)
+abline(lmYYperincunrate,col=&quot;green&quot;)
+
+new&lt;-data.frame(VectorYYperinc=seq(9000,23070,42))
+
+prediccionrecta &lt;- predict(lmYYperincunrate, new, interval = &#x27;confidence&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2)
+
+prediccionrecta &lt;- predict(lmYYperincunrate, new, interval = &#x27;prediction&#x27;)
+lines(seq(9000,23070,42),(prediccionrecta[, 2]), lty = 2,col=&quot;red&quot;)
+lines(seq(9000,23070,42),(prediccionrecta[, 3]), lty = 2,col=&quot;red&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-13.png" alt="The four regressions (one per type of law) with confidence bands." width="1200" height="857" loading="lazy"></figure>
+<p>Tal y como nos indicaba el <em>summary</em> del modelo, podemos ver que el rojo y azul se ajustan bien, en cambio, el amarillo y verde no se ajustan tan bien a la recta.</p>
+<p>Vamos a ver como se comportan los residuos.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Graficas de los errores
+mean(lmNNperincunrate[[&quot;residuals&quot;]]) #Prácticamente 0</code></pre></details>
+<pre class="out"><code>## [1] -1.982928e-17</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>mean(lmNYperincunrate[[&quot;residuals&quot;]]) #Prácticamente 0</code></pre></details>
+<pre class="out"><code>## [1] -3.971858e-18</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>mean(lmYNperincunrate[[&quot;residuals&quot;]]) #Prácticamente 0</code></pre></details>
+<pre class="out"><code>## [1] -3.966244e-17</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>mean(lmYYperincunrate[[&quot;residuals&quot;]]) #Prácticamente 0</code></pre></details>
+<pre class="out"><code>## [1] -4.361397e-17</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>layout(grid1)
+plot(lmNNperincunrate[[&quot;residuals&quot;]],col=&quot;red&quot;,cex=0.8,type = &quot;b&quot;,ylim = c(-1.41,0.92),xlab = &quot;Numero de observación&quot;,ylab = &quot;Error&quot;,main = &quot;Error en cada observación&quot;)
+lines(lmNYperincunrate[[&quot;residuals&quot;]],col=&quot;yellow&quot;,cex=0.8,type = &quot;b&quot;)
+lines(lmYNperincunrate[[&quot;residuals&quot;]],col=&quot;blue&quot;,cex=0.8,type = &quot;b&quot;)
+lines(lmYYperincunrate[[&quot;residuals&quot;]],col=&quot;green&quot;,cex=0.8,type = &quot;b&quot;)
+abline(h=0)
+plot(density(lmNNperincunrate[[&quot;residuals&quot;]]),col=&quot;red&quot;,ylab = &quot;Densidad&quot;,main = &quot;Función de densidad de errores&quot;)
+lines(density(lmNYperincunrate[[&quot;residuals&quot;]]),col=&quot;yellow&quot;)
+lines(density(lmYNperincunrate[[&quot;residuals&quot;]]),col=&quot;blue&quot;)
+lines(density(lmYYperincunrate[[&quot;residuals&quot;]]),col=&quot;green&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-14.png" alt="Residuals of the four regressions by observation, and their densities." width="1200" height="857" loading="lazy"></figure>
+<p>Aunque, la media de los errores es nula, en la función de densidad se ve que no se asemejan mucho a la normal. Esto puede ser debido al bajo número de <em>n</em> que tenemos.</p>
+<p>También, me parece curioso que, en la tercera observación todos dieron un valor muy negativo. Se puede ver que, en el primer gráfico de este apartado la tercera observación de cada línea es más baja de lo habitual y después, en la recta de regresión, también salen por debajo. Teniendo en cuenta, cómo se han calculado estos vectores, esto, me lleva a concluir que algún acontecimiento pudo haber tenido lugar en la tercera observación, es decir, en 1984.</p>
+</div>
+<div class="rsec" id="multiple-by-law">
+<h2 class="sub">6. Regresión lineal múltiple por leyes</h2>
+<p>Siguiendo la misma línea, vamos a realizar una regresión lineal múltiple, dependiendo de las leyes. Es decir, vamos a realizar cuatro regresiónes lineales múltiples, uno para cada tipo de ley. Viendo los resultados de los apartados anteriores, esperamos que, con este tipo de modelo obtengamos mejores resultados.</p>
+<p>Calculamos los modelos completos.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>fullmodelNN&lt;-lm(VectorNNperinc~VectorNNbeertax+VectorNNmrall+VectorNNvmiles+VectorNNunrate)
+summary(fullmodelNN)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorNNperinc ~ VectorNNbeertax + VectorNNmrall + 
+##     VectorNNvmiles + VectorNNunrate)
+## 
+## Residuals:
+##      1      2      3      4      5      6      7 
+## -82.39  79.69 -45.90 -36.63  97.17  50.13 -62.08 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)      24280.943   6617.288   3.669   0.0669 .
+## VectorNNbeertax -15642.977   7895.101  -1.981   0.1861  
+## VectorNNmrall        8.986   1934.563   0.005   0.9967  
+## VectorNNvmiles      31.066    464.293   0.067   0.9527  
+## VectorNNunrate    -302.712    183.353  -1.651   0.2405  
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 127.3 on 2 degrees of freedom
+## Multiple R-squared:  0.9915, Adjusted R-squared:  0.9744 
+## F-statistic: 58.04 on 4 and 2 DF,  p-value: 0.01701</code></pre>
+<p>El resultado del modelo es significativo y el R-squared que obtenemos, es mejor que en la regresión simple, (de 97% a 99%). Sin embargo, los demás parámetros empeoran (desviación estandar de los residuos, p.valor y F-statistics). Además, ningún vector sale significativo, habrá que ver, lo que ocurre cuando apliquemos el <em>stepAIC</em>.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>fullmodelNY&lt;-lm(VectorNYperinc~VectorNYbeertax+VectorNYmrall+VectorNYvmiles+VectorNYunrate)
+summary(fullmodelNY)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorNYperinc ~ VectorNYbeertax + VectorNYmrall + 
+##     VectorNYvmiles + VectorNYunrate)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7 
+##  -7.660 -13.141  41.265 -83.707  73.330 -11.896   1.809 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)     31537.41    6628.69   4.758   0.0415 *
+## VectorNYbeertax -3749.88    2979.21  -1.259   0.3352  
+## VectorNYmrall   -4570.83     854.31  -5.350   0.0332 *
+## VectorNYvmiles   -436.88     489.20  -0.893   0.4661  
+## VectorNYunrate    -90.07      96.46  -0.934   0.4490  
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 85.04 on 2 degrees of freedom
+## Multiple R-squared:  0.9928, Adjusted R-squared:  0.9783 
+## F-statistic: 68.51 on 4 and 2 DF,  p-value: 0.01444</code></pre>
+<p>En este modelo nos mejora el p.valor, F-statistic y sobre todo el R-squared respecto al modelo simple. En cambio, el error estandar aumenta y hay parámetros que no son significativos. Por tanto, aplicaremos el <em>stepAIC</em>.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>fullmodelYN&lt;-lm(VectorYNperinc~VectorYNbeertax+VectorYNmrall+VectorYNvmiles+VectorYNunrate)
+summary(fullmodelYN)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorYNperinc ~ VectorYNbeertax + VectorYNmrall + 
+##     VectorYNvmiles + VectorYNunrate)
+## 
+## Residuals:
+##        1        2        3        4        5        6        7 
+##  29.7038 -10.0877 -90.7089  25.9198  66.9613 -21.2021  -0.5863 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)      6080.50    2906.06   2.092    0.171
+## VectorYNbeertax  5605.58    9692.54   0.578    0.621
+## VectorYNmrall     772.73    1371.03   0.564    0.630
+## VectorYNvmiles    477.76     254.42   1.878    0.201
+## VectorYNunrate   -139.03      67.11  -2.072    0.174
+## 
+## Residual standard error: 86.07 on 2 degrees of freedom
+## Multiple R-squared:  0.9864, Adjusted R-squared:  0.9591 
+## F-statistic: 36.13 on 4 and 2 DF,  p-value: 0.02711</code></pre>
+<p>Respecto a este modelo, observamos que el error estandar de los residuos aumenta al igual que R-squared y F-statistic. El p.valor en cambio, empeora y ningún parámetro sale significativo. El hecho de que el modelo sea significativo y los parámetros no, puede ser que sea debido a que tengamos multicolinearidad al igual que ocurre en el modelo NN. Por tanto, al igual que a los dos modelos anteriores, aplicaremos <em>stepAIC</em>.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>fullmodelYY&lt;-lm(VectorYYperinc~VectorYYbeertax+VectorYYmrall+VectorYYvmiles+VectorYYunrate)
+summary(fullmodelYY)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorYYperinc ~ VectorYYbeertax + VectorYYmrall + 
+##     VectorYYvmiles + VectorYYunrate)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7 
+## -67.447  30.779  21.389  -4.033  69.308 -39.547 -10.450 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)      4118.48    2172.25   1.896   0.1984  
+## VectorYYbeertax 11042.95    4067.14   2.715   0.1131  
+## VectorYYmrall    -392.00     384.37  -1.020   0.4151  
+## VectorYYvmiles    638.22      84.08   7.591   0.0169 *
+## VectorYYunrate    -37.65      46.53  -0.809   0.5034  
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 78.89 on 2 degrees of freedom
+## Multiple R-squared:  0.9849, Adjusted R-squared:  0.9546 
+## F-statistic: 32.55 on 4 and 2 DF,  p-value: 0.03003</code></pre>
+<p>En este último modelo, nos ocurre lo siguiente, el error estardar de los residuos aumenta, el F-statistics aumenta y el R-squared también aumenta. En cambio, el p.valor disminuye y se convierte en significativo al contrario de lo que ocurría en el simple. Como a los demás modelos aplicaremos el <em>stepAIC</em> para mejorarlo.</p>
+<p>De estos cuatro modelos, podemos concluir que, en todos los modelos respecto a su correspondiente modelo simple, empeora el error estandar de los residuos. Esto, creo que puede ser debido a que, tenemos parámetros que “sobran” o empeoran el modelo y que mediante <em>stepAIC</em> intentaremos reducir. También, podemos ver un importante aumento en el valor de R-squared.</p>
+<p>Vamos a aplicar el <em>stepAIC</em> para obtener el mejor modelo posible.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#reducedmodelNN&lt;-stepAIC(fullmodelNN,direction=&quot;backward&quot;)
+##reducedmodelNY&lt;-stepAIC(fullmodelNY,direction=&quot;backward&quot;)
+#reducedmodelYN&lt;-stepAIC(fullmodelYN,direction=&quot;backward&quot;)
+#reducedmodelYY&lt;-stepAIC(fullmodelYY,direction=&quot;backward&quot;)
+
+##Nota: como he mencionado anteriormente he tenido errores con la función stepAIC en R Markdown, en caso de que no funcionen las lineas anteriores, ejecute las siguientes. Son el resultado que se obtiene.
+
+reducedmodelNN&lt;-lm(VectorNNperinc~VectorNNbeertax+VectorNNunrate)
+reducedmodelNY&lt;-lm(VectorNYperinc~VectorNYbeertax+VectorNYmrall+VectorNYunrate+VectorNYvmiles)
+reducedmodelYN&lt;-lm(VectorYNperinc~VectorYNbeertax+VectorYNunrate+VectorYNvmiles)
+reducedmodelYY&lt;-lm(VectorYYperinc~VectorYYbeertax+VectorYYvmiles)
+
+summary(reducedmodelNN)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorNNperinc ~ VectorNNbeertax + VectorNNunrate)
+## 
+## Residuals:
+##      1      2      3      4      5      6      7 
+## -82.95  81.84 -41.30 -44.20  95.75  50.39 -59.52 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      24602.65    1578.29  15.588 9.89e-05 ***
+## VectorNNbeertax -15634.33    3519.19  -4.443   0.0113 *  
+## VectorNNunrate    -311.92      49.34  -6.322   0.0032 ** 
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 90.12 on 4 degrees of freedom
+## Multiple R-squared:  0.9914, Adjusted R-squared:  0.9872 
+## F-statistic: 231.5 on 2 and 4 DF,  p-value: 7.335e-05</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>summary(reducedmodelNY)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorNYperinc ~ VectorNYbeertax + VectorNYmrall + 
+##     VectorNYunrate + VectorNYvmiles)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7 
+##  -7.660 -13.141  41.265 -83.707  73.330 -11.896   1.809 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)     31537.41    6628.69   4.758   0.0415 *
+## VectorNYbeertax -3749.88    2979.21  -1.259   0.3352  
+## VectorNYmrall   -4570.83     854.31  -5.350   0.0332 *
+## VectorNYunrate    -90.07      96.46  -0.934   0.4490  
+## VectorNYvmiles   -436.88     489.20  -0.893   0.4661  
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 85.04 on 2 degrees of freedom
+## Multiple R-squared:  0.9928, Adjusted R-squared:  0.9783 
+## F-statistic: 68.51 on 4 and 2 DF,  p-value: 0.01444</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>summary(reducedmodelYN)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorYNperinc ~ VectorYNbeertax + VectorYNunrate + 
+##     VectorYNvmiles)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7 
+##  33.011  -9.531 -77.829  10.993  77.635 -57.126  22.846 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)      5058.90    1996.53   2.534   0.0851 .
+## VectorYNbeertax 10381.12    4136.82   2.509   0.0870 .
+## VectorYNunrate   -119.37      50.39  -2.369   0.0986 .
+## VectorYNvmiles    601.26     113.63   5.291   0.0132 *
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 75.66 on 3 degrees of freedom
+## Multiple R-squared:  0.9842, Adjusted R-squared:  0.9684 
+## F-statistic: 62.22 on 3 and 3 DF,  p-value: 0.003361</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>summary(reducedmodelYY)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## lm(formula = VectorYYperinc ~ VectorYYbeertax + VectorYYvmiles)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7 
+## -117.83   50.77   36.85   44.17   22.35  -13.70  -22.59 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      4465.20    1625.23   2.747 0.051510 .  
+## VectorYYbeertax  8423.78    2549.22   3.304 0.029809 *  
+## VectorYYvmiles    610.93      56.82  10.752 0.000424 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## Residual standard error: 72.4 on 4 degrees of freedom
+## Multiple R-squared:  0.9745, Adjusted R-squared:  0.9618 
+## F-statistic: 76.47 on 2 and 4 DF,  p-value: 0.0006497</code></pre>
+<p>Viendo los modelos reducidos podemos concluir que, todos los parámetros han mejorado, el error estandar de los residuos, el F-statistic, el R-squared y el p.valor. Por tanto, estos son los mejores modelos que podemos llegar a obtener para predecir los ingresos per cápita con los demás parámetros. Hay que mencionar que, el único modelo que no ha cambiado ha sido el que sigue las siguientes leyes, no cárcel y sí servicios.</p>
+</div>
+<div class="rsec" id="logistic-regression">
+<h2 class="sub">7. Regresión logística</h2>
+<p>Hasta ahora, no hemos usado la columna de la edad legal mínima (mlda) para nada, me parece interesante y tal vez podamos sacar alguna información aplicando la regresión logística ya que, hemos aplicado mucho la regresión lineal.</p>
+</div>
+<div class="rsec" id="logistic-general">
+<h3 class="sub3">7.1 Datos generales</h3>
+<p>Primero de todo, veremos si hay alguna tendencia general o qué cambios se pueden apreciar durante los años, respecto mlda en los estados.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Calculamos la edad mínima y máxima que tenemos en nuestro data.frame
+edadMIN&lt;-data$mlda[1]
+edadMAX&lt;-data$mlda[1]
+i&lt;-1
+
+while (i&lt;=dim(data)[1]) {
+  if (data$mlda[i]&lt;edadMIN) {
+    edadMIN&lt;-data$mlda[i]
+  }
+  if (data$mlda[i]&gt;edadMAX) {
+    edadMAX&lt;-data$mlda[i]
+  }
+  i&lt;-i+1
+}
+edadMIN</code></pre></details>
+<pre class="out"><code>## [1] 18</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>edadMAX</code></pre></details>
+<pre class="out"><code>## [1] 21</code></pre>
+<p>Como vemos, nuestro rango de edades va estar entre 18 y 21, por lo que, aprovecharemos para calcular lo siguiente, una diferenciación por años y edades en cada estado.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Inicializamos las variables
+i&lt;-1
+cont18_1982&lt;-0
+cont18_1983&lt;-0
+cont18_1984&lt;-0
+cont18_1985&lt;-0
+cont18_1986&lt;-0
+cont18_1987&lt;-0
+cont18_1988&lt;-0
+cont19_1982&lt;-0
+cont19_1983&lt;-0
+cont19_1984&lt;-0
+cont19_1985&lt;-0
+cont19_1986&lt;-0
+cont19_1987&lt;-0
+cont19_1988&lt;-0
+cont20_1982&lt;-0
+cont20_1983&lt;-0
+cont20_1984&lt;-0
+cont20_1985&lt;-0
+cont20_1986&lt;-0
+cont20_1987&lt;-0
+cont20_1988&lt;-0
+cont21_1982&lt;-0
+cont21_1983&lt;-0
+cont21_1984&lt;-0
+cont21_1985&lt;-0
+cont21_1986&lt;-0
+cont21_1987&lt;-0
+cont21_1988&lt;-0
+while (i&lt;=dim(data)[1]) {
+  if (data$year[i]==1982){
+    if (data$mlda[i]&gt;=18 &amp;&amp; data$mlda[i]&lt;19) {
+      cont18_1982&lt;-cont18_1982+1
+    }
+    if (data$mlda[i]&gt;=19 &amp;&amp; data$mlda[i]&lt;20) {
+      cont19_1982&lt;-cont19_1982+1
+    }
+    if (data$mlda[i]&gt;=20 &amp;&amp; data$mlda[i]&lt;21) {
+      cont20_1982&lt;-cont20_1982+1
+    }
+    if (data$mlda[i]==21) {
+      cont21_1982&lt;-cont21_1982+1
+    }
+  }
+  if (data$year[i]==1983){
+    if (data$mlda[i]&gt;=18 &amp;&amp; data$mlda[i]&lt;19) {
+      cont18_1983&lt;-cont18_1983+1
+    }
+    if (data$mlda[i]&gt;=19 &amp;&amp; data$mlda[i]&lt;20) {
+      cont19_1983&lt;-cont19_1983+1
+    }
+    if (data$mlda[i]&gt;=20 &amp;&amp; data$mlda[i]&lt;21) {
+      cont20_1983&lt;-cont20_1983+1
+    }
+    if (data$mlda[i]==21) {
+      cont21_1983&lt;-cont21_1983+1
+    }
+  }
+  if (data$year[i]==1984){
+    if (data$mlda[i]&gt;=18 &amp;&amp; data$mlda[i]&lt;19) {
+      cont18_1984&lt;-cont18_1984+1
+    }
+    if (data$mlda[i]&gt;=19 &amp;&amp; data$mlda[i]&lt;20) {
+      cont19_1984&lt;-cont19_1984+1
+    }
+    if (data$mlda[i]&gt;=20 &amp;&amp; data$mlda[i]&lt;21) {
+      cont20_1984&lt;-cont20_1984+1
+    }
+    if (data$mlda[i]==21) {
+      cont21_1984&lt;-cont21_1984+1
+    }
+  }
+  if (data$year[i]==1985){
+    if (data$mlda[i]&gt;=18 &amp;&amp; data$mlda[i]&lt;19) {
+      cont18_1985&lt;-cont18_1985+1
+    }
+    if (data$mlda[i]&gt;=19 &amp;&amp; data$mlda[i]&lt;20) {
+      cont19_1985&lt;-cont19_1985+1
+    }
+    if (data$mlda[i]&gt;=20 &amp;&amp; data$mlda[i]&lt;21) {
+      cont20_1985&lt;-cont20_1985+1
+    }
+    if (data$mlda[i]==21) {
+      cont21_1985&lt;-cont21_1985+1
+    }
+  }
+  if (data$year[i]==1986){
+    if (data$mlda[i]&gt;=18 &amp;&amp; data$mlda[i]&lt;19) {
+      cont18_1986&lt;-cont18_1986+1
+    }
+    if (data$mlda[i]&gt;=19 &amp;&amp; data$mlda[i]&lt;20) {
+      cont19_1986&lt;-cont19_1986+1
+    }
+    if (data$mlda[i]&gt;=20 &amp;&amp; data$mlda[i]&lt;21) {
+      cont20_1986&lt;-cont20_1986+1
+    }
+    if (data$mlda[i]==21) {
+      cont21_1986&lt;-cont21_1986+1
+    }
+  }
+  if (data$year[i]==1987){
+    if (data$mlda[i]&gt;=18 &amp;&amp; data$mlda[i]&lt;19) {
+      cont18_1987&lt;-cont18_1987+1
+    }
+    if (data$mlda[i]&gt;=19 &amp;&amp; data$mlda[i]&lt;20) {
+      cont19_1987&lt;-cont19_1987+1
+    }
+    if (data$mlda[i]&gt;=20 &amp;&amp; data$mlda[i]&lt;21) {
+      cont20_1987&lt;-cont20_1987+1
+    }
+    if (data$mlda[i]==21) {
+      cont21_1987&lt;-cont21_1987+1
+    }
+  }
+  if (data$year[i]==1988){
+    if (data$mlda[i]&gt;=18 &amp;&amp; data$mlda[i]&lt;19) {
+      cont18_1988&lt;-cont18_1988+1
+    }
+    if (data$mlda[i]&gt;=19 &amp;&amp; data$mlda[i]&lt;20) {
+      cont19_1988&lt;-cont19_1988+1
+    }
+    if (data$mlda[i]&gt;=20 &amp;&amp; data$mlda[i]&lt;21) {
+      cont20_1988&lt;-cont20_1988+1
+    }
+    if (data$mlda[i]==21) {
+      cont21_1988&lt;-cont21_1988+1
+    }
+  }
+  i&lt;-i+1
+}
+#Para facilitar las conclusiones, he considerado redondear las edades de los estados que tenían una edad con decimales
+
+#Juntamos los distintos contadores por edad para formar vectores
+vector18&lt;-c(cont18_1982,cont18_1983,cont18_1984,cont18_1985,cont18_1986,cont18_1987,cont18_1988)
+vector19&lt;-c(cont19_1982,cont19_1983,cont19_1984,cont19_1985,cont19_1986,cont19_1987,cont19_1988)
+vector20&lt;-c(cont20_1982,cont20_1983,cont20_1984,cont20_1985,cont20_1986,cont20_1987,cont20_1988)
+vector21&lt;-c(cont21_1982,cont21_1983,cont21_1984,cont21_1985,cont21_1986,cont21_1987,cont21_1988)
+sum(vector18)+sum(vector19)+sum(vector20)+sum(vector21)==dim(data)[1] #Una manera de comprobar que lo hemos hecho bien</code></pre></details>
+<pre class="out"><code>## [1] TRUE</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Dibujamos los resultados
+layout(grid2)
+plot(data$year[1:7],vector18,type = &#x27;b&#x27;,xlab = &quot;Año&quot;,ylab = &quot;Nº estados con 18 años&quot;,col=&quot;green&quot;)
+plot(data$year[1:7],vector19,type = &#x27;b&#x27;,xlab = &quot;Año&quot;,ylab = &quot;Nº estados con 19 años&quot;,col=&quot;red&quot;)
+plot(data$year[1:7],vector20,type = &#x27;b&#x27;,xlab = &quot;Año&quot;,ylab = &quot;Nº estados con 20 años&quot;,col=&quot;blue&quot;)
+plot(data$year[1:7],vector21,type = &#x27;b&#x27;,xlab = &quot;Año&quot;,ylab = &quot;Nº estados con 21 años&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-15.png" alt="Number of states with a minimum legal drinking age of 18, 19, 20 and 21 for each year." width="1200" height="857" loading="lazy"></figure>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Respetando los colores para cada edad, los dibujamos todos en un gráfico
+layout(1)
+plot(data$year[1:7],vector18,type = &#x27;b&#x27;,ylim = c(0,47),col=&quot;green&quot;,xlab = &quot;Año&quot;,ylab = &quot;Nº estados&quot;,main=&quot;Evolución del nº de estados respecto mlda&quot;)
+lines(data$year[1:7],vector19,type = &#x27;b&#x27;,col=&quot;red&quot;)
+lines(data$year[1:7],vector20,type = &#x27;b&#x27;,col=&quot;blue&quot;)
+lines(data$year[1:7],vector21,type = &#x27;b&#x27;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-16.png" alt="Evolution of the number of states for each minimum drinking age, 1982 to 1988." width="1200" height="857" loading="lazy"></figure>
+<p>Observando estos gráficos, podemos decir que los estados que tienen como mlda 18, 19 y 20, van disminuyendo al paso de los años. Por esto, el número de estados con la edad 21 crece mucho.</p>
+<p>Vamos a sumar las líneas de las edades 18, 19 y 20 y dibujarlo junto a la evolución de la edad 21. Es decir, vamos a dividir entre, los que tienen 21 y los que no.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>vectorNO21&lt;-vector18+vector19+vector20
+plot(data$year[1:7],vector21,type = &#x27;b&#x27;,ylim = c(1,47),xlab = &quot;Año&quot;,ylab = &quot;Nº estados&quot;,main=&quot;Evolución del nº de estados respecto mlda&quot;)
+lines(data$year[1:7],vectorNO21,type = &#x27;b&#x27;,col=&quot;red&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-17.png" alt="Number of states with a minimum drinking age of 21 against the rest, 1982 to 1988: two mirror-image curves that sum to 48." width="1200" height="857" loading="lazy"></figure>
+<p>Tal y como se observa, aquí también, se ven las tendencias claramente. Además, como cada año las dos tienen que sumar lo mismo (48), las dos son iguales pero opuestas.</p>
+<p>Podemos decir que, tal vez, esta tendencia a la que los estados se van decantando para subir la edad minima legal a 21 años, tenga algo que ver con los buenos resultados que se han obtenido (de manera general) en los demás parámentros. Por ejemplo, en la tendencia positiva de los ingresos personales o la bajada de la tasa del paro. Pero, igualmente, creo que habría que estudiarlo más, antes de poder afirmar esto.</p>
+</div>
+<div class="rsec" id="logistic-first">
+<h3 class="sub3">7.2 Primera regresión logística</h3>
+<p>Vamos a realizar la primera regresión logística. Diferenciaremos en si los estados tienen como mlda 21 o no y lo ordenaremos por años.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Inicializamos las variables
+i&lt;-1
+j&lt;-1
+j2&lt;-1
+j3&lt;-1
+j4&lt;-1
+j5&lt;-1
+j6&lt;-1
+j7&lt;-1
+reg82&lt;-0
+reg83&lt;-0
+reg84&lt;-0
+reg85&lt;-0
+reg86&lt;-0
+reg87&lt;-0
+reg88&lt;-0
+while (i&lt;=dim(data)[1]) {
+  if (data$year[i]==1982) {
+    if (data$mlda[i]==21) {
+      reg82[j]&lt;-1
+      j&lt;-j+1
+    }
+    else {
+      reg82[j]&lt;-0
+      j&lt;-j+1
+    }
+  }
+  if (data$year[i]==1983) {
+    if (data$mlda[i]==21) {
+      reg83[j2]&lt;-1
+      j2&lt;-j2+1
+    }
+    else {
+      reg83[j2]&lt;-0
+      j2&lt;-j2+1
+    }
+  }
+  if (data$year[i]==1984) {
+    if (data$mlda[i]==21) {
+      reg84[j3]&lt;-1
+      j3&lt;-j3+1
+    }
+    else {
+      reg84[j3]&lt;-0
+      j3&lt;-j3+1
+    }
+  }
+  if (data$year[i]==1985) {
+    if (data$mlda[i]==21) {
+      reg85[j4]&lt;-1
+      j4&lt;-j4+1
+    }
+    else {
+      reg85[j4]&lt;-0
+      j4&lt;-j4+1
+    }
+  }
+  if (data$year[i]==1986) {
+    if (data$mlda[i]==21) {
+      reg86[j5]&lt;-1
+      j5&lt;-j5+1
+    }
+    else {
+      reg86[j5]&lt;-0
+      j5&lt;-j5+1
+    }
+  }
+  if (data$year[i]==1987) {
+    if (data$mlda[i]==21) {
+      reg87[j6]&lt;-1
+      j6&lt;-j6+1
+    }
+    else {
+      reg87[j6]&lt;-0
+      j6&lt;-j6+1
+    }
+  }
+  if (data$year[i]==1988) {
+    if (data$mlda[i]==21) {
+      reg88[j7]&lt;-1
+      j7&lt;-j7+1
+    }
+    else {
+      reg88[j7]&lt;-0
+      j7&lt;-j7+1
+    }
+  }
+i&lt;-i+1
+}
+
+#Unimos todos en orden al nuevo vector
+todos&lt;-c(reg82,reg83,reg84,reg85,reg86,reg87,reg88)
+logisticmodel &lt;- glm(todos ~ seq(1,336,1), family = &quot;binomial&quot;)
+summary(logisticmodel)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## glm(formula = todos ~ seq(1, 336, 1), family = &quot;binomial&quot;)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.2767  -1.0801   0.5273   0.8317   1.4370  
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    -0.620256   0.236816  -2.619  0.00882 ** 
+## seq(1, 336, 1)  0.009328   0.001448   6.443 1.17e-10 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 415.78  on 335  degrees of freedom
+## Residual deviance: 366.43  on 334  degrees of freedom
+## AIC: 370.43
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>Probs &lt;- predict(logisticmodel, type = &quot;response&quot;)
+library(ggplot2)
+df &lt;- data.frame(x=seq(1,336,1), status = todos, Probs=Probs)
+p &lt;- ggplot(aes(col=status), data=df) + 
+  geom_hline(aes(yintercept=0)) +
+  geom_segment(aes(x,status,xend=x,yend=status-status)) + 
+  geom_point(aes(x,status),size=3) 
+p &lt;- p + geom_line(aes(x, Probs), col =&quot;red&quot;)
+p</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-18.png" alt="First logistic regression: minimum drinking age of 21 or not, ordered by observation." width="1200" height="857" loading="lazy"></figure>
+<p>Aunque la regresión nos salga significativa y lo dibujemos, no creo que sea la mejor manera para sacar las conclusiones ya que el eje x es “aleatorio”. Es verdad que está ordenado por bloques, los primeros 48 de 1982, los siguientes 48 de 1983 así hasta 1988 pero, dentro de los bloques no hay ningún orden particular, solo sigue el orden del data.frame. Por tanto, pienso que, aunque podamos ver la tendencia positiva, no es la mejor para sacar conclusiones y que podemos encontrar otro modelo que nos de mejores resultados.</p>
+</div>
+<div class="rsec" id="logistic-second">
+<h3 class="sub3">7.3 Segunda regresión logística</h3>
+<p>Vamos a hacer una regresión logística donde veamos la evolución de los años en el eje x. Para ello, realizaremos pasos similares a los de la práctica de clase.</p>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Creamos un data.frame para introducir los datos
+data1&lt;-data.frame(Year=NA,Total=NA,num_21=NA,numNO_21=NA)
+data1[1:7,1]&lt;-seq(1982,1988,1)
+data1[1:7,2]&lt;-vectorNO21+vector21
+data1[1:7,3]&lt;-vector21
+data1[1:7,4]&lt;-vectorNO21
+
+#Creamos el modelo
+glm.out &lt;- glm(cbind(num_21, Total-num_21) ~ Year, family=binomial(logit), data=data1)
+summary(glm.out)</code></pre></details>
+<pre class="out"><code>## 
+## Call:
+## glm(formula = cbind(num_21, Total - num_21) ~ Year, family = binomial(logit), 
+##     data = data1)
+## 
+## Deviance Residuals: 
+##       1        2        3        4        5        6        7  
+##  1.4408   0.1495  -1.1341  -1.4589  -0.9180   1.0867   1.9654  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -907.44576  139.59340  -6.501 8.00e-11 ***
+## Year           0.45763    0.07035   6.505 7.75e-11 ***
+## ---
+## Signif. codes:  0 &#x27;***&#x27; 0.001 &#x27;**&#x27; 0.01 &#x27;*&#x27; 0.05 &#x27;.&#x27; 0.1 &#x27; &#x27; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 61.818  on 6  degrees of freedom
+## Residual deviance: 11.400  on 5  degrees of freedom
+## AIC: 41.868
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<details class="code"><summary>Show code</summary><pre class="r"><code>#Dibujamos
+plot(num_21/Total ~ Year, data=data1)
+lines(data1$Year, glm.out$fitted, type=&quot;l&quot;, col=&quot;red&quot;)
+title(main=&quot;Mlda 21 data with Fitted Logistic Regression Line&quot;)</code></pre></details>
+<figure class="figure"><img src="img/projects/ddl-19.png" alt="Second logistic regression: proportion of states with a minimum drinking age of 21 by year, with the fitted curve." width="1200" height="857" loading="lazy"></figure>
+<p>Con este modelo, hemos conseguido mejorar lo que teniamos antes. Aunque en el gráfico no se aprecie, el <em>summary</em> de los datos mejora mucho. El AIC es mucho menor y los p.valores del intercept y <em>beta1</em> mucho más significativos que antes.</p>
+<p>Podríamos hacer otra regresión logística con la cuarta columna del data.frame. Pero, no obtendríamos datos importantes ya que, como hemos mencionado antes, como las dos suman 48, una es la opuesta de la otra. Por tanto, obtendríamos el mismo modelo con una única diferencia, <em>beta1</em>. Tendría el mismo valor pero con el signo negativo.</p>
+</div>
+          </section>
+        </article>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="coast" aria-pressed="false">Coast</button><button type="button" data-theme-set="notebook" aria-pressed="false">Notebook</button><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button></div>
+      <span>&copy; 2026 Ebiya Aidu</span>
+    </div>
+  </footer>
+  <script src="js/lauburu.js?v=20261112r"></script>
+  <script src="js/nav.js?v=20261112r"></script>
+</body>
+</html>
