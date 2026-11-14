@@ -949,8 +949,6 @@ cor(unrateout,beertaxout)</code></pre></details>
 <pre class="out"><code>## [1] 0.3055533</code></pre>
 <p>Analizando los resultados, podemos observar que el modelo reducido predice mejor los ingresos personales que el modelo completo. Sin embargo, este modelo no es estadísticamente significativo, ya que, el p.valor no es menor que 0,05. De hecho, el p.valor obtenido es igual al vmiles del modelo completo.</p>
 <p>Además, la correlación entre parámetros es baja por lo que podemos descartar que tengamos multicolinearidad. También, lo podemos descartar viendo que los p.valores de los parámetros salen significativos y a su vez, el p.valor del modelo.</p>
-<aside class="my-note" lang="en"><div class="my-note-label">My note</div><p>After stepAIC the reduced model looks slightly better on the fit measures, but the test that compares it with the full model is not significant. So, honestly, dropping miles driven changes little, and I would not sell it as a clearly better model.</p></aside>
-<aside class="added review" lang="en"><div class="added-label">Review · written with Claude</div><p>Sections 3 and 4 fit the 336 state-year rows as if they were independent observations, but they are 48 states measured seven times each. Income, unemployment and mortality also drift with the years, so part of the relationships found may come from differences between states and from a shared time trend, not from anything that happens within a state. The usual way to handle this is a model with state and year effects (or a mixed model). The modest R&sup2; values in 3.1 and 3.2 (about 30% and 24%) should be read with that in mind.</p></aside>
 </div>
 <div class="rsec" id="simple-by-law">
 <h2 class="sub">5. Regresión lineal simple por leyes</h2>
