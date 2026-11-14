@@ -40,7 +40,6 @@ a:hover { background: var(--black); color: var(--cream); text-decoration: none; 
 .kicker { font-family: var(--mono); display: inline-block; background: var(--green); color: var(--cream); padding: 2px 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px; }
 .hero h1 { font-family: var(--head); font-weight: 400; font-size: clamp(56px, 12vw, 140px); line-height: .92; margin: 0 0 22px; text-transform: uppercase; letter-spacing: .01em; }
 .hero h1 span { color: var(--red); }
-.brand, .hero h1 { text-transform: none; }
 .hero p.lead { max-width: 560px; font-size: 17px; }
 .shape { position: absolute; z-index: 1; }
 .shape.circle { width: 380px; height: 380px; border-radius: 50%; background: var(--red); right: -60px; top: 30px; }
@@ -213,25 +212,6 @@ html[data-theme="archive"] .card, html[data-theme="archive"] .score { box-shadow
 html[data-theme="archive"] .shape.circle { border-radius: 0; }
 html[data-theme="archive"] .shape.ring { border-radius: 0; }
 
-/* Terminal: dark screen, mint text, amber accent */
-html[data-theme="terminal"] { --cream: #0a140e; --paper: #102019; --red: #ffb000; --black: #7ee787; --green: #56d4dd; --head: "IBM Plex Mono", "Courier New", monospace; --body: "IBM Plex Mono", "Courier New", monospace; }
-html[data-theme="terminal"] body { color: #c9f0d0; font-size: 15px; }
-html[data-theme="terminal"] h1, html[data-theme="terminal"] h2, html[data-theme="terminal"] h3, html[data-theme="terminal"] .brand, html[data-theme="terminal"] .marquee .track, html[data-theme="terminal"] .list .when { font-weight: 600; letter-spacing: -.02em; text-transform: none; }
-html[data-theme="terminal"] .hero h1 { font-size: clamp(44px, 9vw, 104px); }
-html[data-theme="terminal"] .section-title h2::before { content: "$ "; color: var(--red); }
-html[data-theme="terminal"] .card, html[data-theme="terminal"] .score { border-width: 2px; box-shadow: 0 0 16px rgba(126, 231, 135, .18); }
-html[data-theme="terminal"] a.card:hover { box-shadow: 0 0 22px rgba(255, 176, 0, .35); border-color: var(--red); }
-html[data-theme="terminal"] .btn { box-shadow: none; border-width: 2px; }
-html[data-theme="terminal"] .shape { display: none; }
-html[data-theme="terminal"] .site-header, html[data-theme="terminal"] .site-footer, html[data-theme="terminal"] .marquee { background: var(--paper); color: var(--black); }
-html[data-theme="terminal"] .brand, html[data-theme="terminal"] .brand:hover, html[data-theme="terminal"] .nav a, html[data-theme="terminal"] .lang a, html[data-theme="terminal"] .site-footer a, html[data-theme="terminal"] .themes button { color: var(--black); }
-html[data-theme="terminal"] .lang, html[data-theme="terminal"] .themes button { border-color: var(--black); }
-html[data-theme="terminal"] .nav a:hover, html[data-theme="terminal"] .lang a:hover, html[data-theme="terminal"] .themes button:hover, html[data-theme="terminal"] .lang a[aria-current="true"], html[data-theme="terminal"] .themes button[aria-pressed="true"] { background: var(--black); color: var(--cream); }
-html[data-theme="terminal"] .nav a[aria-current="page"] { background: var(--red); color: var(--cream); }
-html[data-theme="terminal"] .page-head { background: var(--paper); color: var(--black); border-bottom-color: var(--red); }
-html[data-theme="terminal"] .page-head::after { display: none; }
-html[data-theme="terminal"] .page-head h1 { color: var(--red); text-transform: none; }
-
 /* Swiss: off-white, black ink, one red, no shadows */
 html[data-theme="swiss"] { --cream: #f3f3ef; --paper: #ffffff; --red: #e30613; --black: #111111; --green: #1b5e3b; --head: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
 html[data-theme="swiss"] h1, html[data-theme="swiss"] h2, html[data-theme="swiss"] h3, html[data-theme="swiss"] .brand, html[data-theme="swiss"] .marquee .track, html[data-theme="swiss"] .list .when { font-weight: 600; letter-spacing: -.03em; text-transform: none; }
@@ -244,6 +224,28 @@ html[data-theme="swiss"] .shape.circle { border-radius: 0; width: 220px; height:
 html[data-theme="swiss"] .page-head::after { display: none; }
 html[data-theme="swiss"] .page-head { border-bottom-width: 3px; }
 html[data-theme="swiss"] .brand img, html[data-theme="swiss"] .site-footer img { filter: invert(1); }
+
+/* Blueprint: blue drawing paper, white linework, one coral red-line */
+html[data-theme="blueprint"] { --cream: #0b2a55; --paper: #103a73; --red: #ff8a5c; --black: #e8f1ff; --green: #8fe3ff; --head: "IBM Plex Mono", "Courier New", monospace; }
+html[data-theme="blueprint"] body { background-image: linear-gradient(rgba(232, 241, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(232, 241, 255, .07) 1px, transparent 1px), linear-gradient(rgba(232, 241, 255, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(232, 241, 255, .15) 1px, transparent 1px); background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px; }
+html[data-theme="blueprint"] h1, html[data-theme="blueprint"] h2, html[data-theme="blueprint"] h3, html[data-theme="blueprint"] .brand, html[data-theme="blueprint"] .idx, html[data-theme="blueprint"] .marquee .track, html[data-theme="blueprint"] .list .when { font-weight: 600; letter-spacing: -.02em; }
+html[data-theme="blueprint"] .hero h1 { font-size: clamp(48px, 10vw, 112px); }
+html[data-theme="blueprint"] .section-title h2::before { content: "// "; color: var(--red); }
+html[data-theme="blueprint"] .card, html[data-theme="blueprint"] .score { border-width: 2px; box-shadow: 6px 6px 0 rgba(232, 241, 255, .2); }
+html[data-theme="blueprint"] a.card:hover { border-color: var(--red); box-shadow: 2px 2px 0 var(--red); }
+html[data-theme="blueprint"] .btn { box-shadow: none; border-width: 2px; }
+html[data-theme="blueprint"] .shape { background: transparent; border: 2px solid rgba(232, 241, 255, .5); }
+html[data-theme="blueprint"] .shape.tri { display: none; }
+html[data-theme="blueprint"] .shape.circle { border-radius: 50%; border-style: dashed; }
+html[data-theme="blueprint"] .shape.ring { border-width: 2px; }
+html[data-theme="blueprint"] .site-header, html[data-theme="blueprint"] .site-footer, html[data-theme="blueprint"] .marquee { background: var(--paper); color: var(--black); }
+html[data-theme="blueprint"] .brand, html[data-theme="blueprint"] .brand:hover, html[data-theme="blueprint"] .nav a, html[data-theme="blueprint"] .lang a, html[data-theme="blueprint"] .site-footer a, html[data-theme="blueprint"] .themes button { color: var(--black); }
+html[data-theme="blueprint"] .lang, html[data-theme="blueprint"] .themes button { border-color: var(--black); }
+html[data-theme="blueprint"] .nav a:hover, html[data-theme="blueprint"] .lang a:hover, html[data-theme="blueprint"] .themes button:hover, html[data-theme="blueprint"] .lang a[aria-current="true"], html[data-theme="blueprint"] .themes button[aria-pressed="true"] { background: var(--black); color: var(--cream); }
+html[data-theme="blueprint"] .nav a[aria-current="page"] { background: var(--red); color: var(--cream); }
+html[data-theme="blueprint"] .page-head { background: var(--paper); color: var(--black); border-bottom-color: var(--red); }
+html[data-theme="blueprint"] .page-head::after { display: none; }
+html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 
 /* Project detail pages */
 .back { font-family: var(--mono); font-size: 14px; margin: 22px 0 8px; }
