@@ -1,7 +1,7 @@
 /* Style switcher: remembers the chosen look in this browser.
    Loaded in <head> so the saved style is applied before the page paints. */
 (function () {
-  var KEY = "siteTheme", ok = ["constructivist", "coast", "notebook", "archive"];
+  var KEY = "siteTheme", ok = ["archive", "constructivist", "terminal", "swiss"];
   var t = null;
   try { t = localStorage.getItem(KEY); } catch (e) {}
   if (ok.indexOf(t) < 0) t = "archive";

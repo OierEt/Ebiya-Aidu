@@ -46,4 +46,4 @@ create trigger messages_rate before insert on public.messages
   for each row execute function public.limit_rate();
 
 -- To answer as the owner: Table Editor > messages > Insert row,
--- alias = Ebiya Aidu, is_owner = true. To delete a message: delete its row there.
+-- alias = ebiya.aidu, is_owner = true. To delete a message: delete its row there.

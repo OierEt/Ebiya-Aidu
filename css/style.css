@@ -40,6 +40,7 @@ a:hover { background: var(--black); color: var(--cream); text-decoration: none; 
 .kicker { font-family: var(--mono); display: inline-block; background: var(--green); color: var(--cream); padding: 2px 12px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px; }
 .hero h1 { font-family: var(--head); font-weight: 400; font-size: clamp(56px, 12vw, 140px); line-height: .92; margin: 0 0 22px; text-transform: uppercase; letter-spacing: .01em; }
 .hero h1 span { color: var(--red); }
+.brand, .hero h1 { text-transform: none; }
 .hero p.lead { max-width: 560px; font-size: 17px; }
 .shape { position: absolute; z-index: 1; }
 .shape.circle { width: 380px; height: 380px; border-radius: 50%; background: var(--red); right: -60px; top: 30px; }
@@ -204,25 +205,6 @@ section[id] { scroll-margin-top: 80px; }
    Alternative styles. They only override the variables above
    plus a few shapes, so every page works in every style.
    ========================================================== */
-/* Coast: sea mist, deep teal, soft rounded shapes */
-html[data-theme="coast"] { --cream: #d9e6e2; --paper: #f1f7f5; --red: #1d6f84; --black: #0e2a33; --green: #2e7d5b; }
-html[data-theme="coast"] .card, html[data-theme="coast"] .chat-msg, html[data-theme="coast"] .score { border-radius: 16px; box-shadow: 0 7px 0 rgba(14, 42, 51, .28); }
-html[data-theme="coast"] a.card:hover { transform: translateY(4px); box-shadow: 0 3px 0 rgba(14, 42, 51, .28); }
-html[data-theme="coast"] .btn, html[data-theme="coast"] .subnav a, html[data-theme="coast"] .tags li { border-radius: 999px; }
-html[data-theme="coast"] .card .year { border-radius: 999px; }
-html[data-theme="coast"] .shape.bar { border-radius: 999px; }
-html[data-theme="coast"] .shape.tri { clip-path: ellipse(50% 50% at 50% 100%); }
-html[data-theme="coast"] .page-head::after { border-radius: 50%; }
-html[data-theme="coast"] .photo { border-radius: 0; }
-
-/* Notebook: graph paper and blue ink */
-html[data-theme="notebook"] { --cream: #f6f3ea; --paper: #fffdf6; --red: #2f4fcf; --black: #1b1d2a; --green: #2a7a52; }
-html[data-theme="notebook"] body { background-image: linear-gradient(rgba(47, 79, 207, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(47, 79, 207, .12) 1px, transparent 1px); background-size: 28px 28px; }
-html[data-theme="notebook"] .card, html[data-theme="notebook"] .score { box-shadow: 6px 6px 0 var(--red); border-width: 2px; }
-html[data-theme="notebook"] a.card:hover { box-shadow: 2px 2px 0 var(--red); }
-html[data-theme="notebook"] .subnav { background: var(--cream); }
-html[data-theme="notebook"] .section-title::after { height: 3px; background: var(--red); }
-
 /* Archive: aged paper, rust, typewriter headings */
 html[data-theme="archive"] { --cream: #e6d9bb; --paper: #f0e7cf; --red: #8e3a22; --black: #2a2116; --green: #556b2f; --head: "IBM Plex Mono", "Courier New", monospace; }
 html[data-theme="archive"] h1, html[data-theme="archive"] h2, html[data-theme="archive"] h3, html[data-theme="archive"] .brand, html[data-theme="archive"] .idx, html[data-theme="archive"] .marquee .track, html[data-theme="archive"] .list .when { font-weight: 600; letter-spacing: -.02em; }
@@ -230,6 +212,38 @@ html[data-theme="archive"] .hero h1 { font-size: clamp(48px, 10vw, 112px); }
 html[data-theme="archive"] .card, html[data-theme="archive"] .score { box-shadow: 4px 4px 0 rgba(42, 33, 22, .55); }
 html[data-theme="archive"] .shape.circle { border-radius: 0; }
 html[data-theme="archive"] .shape.ring { border-radius: 0; }
+
+/* Terminal: dark screen, mint text, amber accent */
+html[data-theme="terminal"] { --cream: #0a140e; --paper: #102019; --red: #ffb000; --black: #7ee787; --green: #56d4dd; --head: "IBM Plex Mono", "Courier New", monospace; --body: "IBM Plex Mono", "Courier New", monospace; }
+html[data-theme="terminal"] body { color: #c9f0d0; font-size: 15px; }
+html[data-theme="terminal"] h1, html[data-theme="terminal"] h2, html[data-theme="terminal"] h3, html[data-theme="terminal"] .brand, html[data-theme="terminal"] .marquee .track, html[data-theme="terminal"] .list .when { font-weight: 600; letter-spacing: -.02em; text-transform: none; }
+html[data-theme="terminal"] .hero h1 { font-size: clamp(44px, 9vw, 104px); }
+html[data-theme="terminal"] .section-title h2::before { content: "$ "; color: var(--red); }
+html[data-theme="terminal"] .card, html[data-theme="terminal"] .score { border-width: 2px; box-shadow: 0 0 16px rgba(126, 231, 135, .18); }
+html[data-theme="terminal"] a.card:hover { box-shadow: 0 0 22px rgba(255, 176, 0, .35); border-color: var(--red); }
+html[data-theme="terminal"] .btn { box-shadow: none; border-width: 2px; }
+html[data-theme="terminal"] .shape { display: none; }
+html[data-theme="terminal"] .site-header, html[data-theme="terminal"] .site-footer, html[data-theme="terminal"] .marquee { background: var(--paper); color: var(--black); }
+html[data-theme="terminal"] .brand, html[data-theme="terminal"] .brand:hover, html[data-theme="terminal"] .nav a, html[data-theme="terminal"] .lang a, html[data-theme="terminal"] .site-footer a, html[data-theme="terminal"] .themes button { color: var(--black); }
+html[data-theme="terminal"] .lang, html[data-theme="terminal"] .themes button { border-color: var(--black); }
+html[data-theme="terminal"] .nav a:hover, html[data-theme="terminal"] .lang a:hover, html[data-theme="terminal"] .themes button:hover, html[data-theme="terminal"] .lang a[aria-current="true"], html[data-theme="terminal"] .themes button[aria-pressed="true"] { background: var(--black); color: var(--cream); }
+html[data-theme="terminal"] .nav a[aria-current="page"] { background: var(--red); color: var(--cream); }
+html[data-theme="terminal"] .page-head { background: var(--paper); color: var(--black); border-bottom-color: var(--red); }
+html[data-theme="terminal"] .page-head::after { display: none; }
+html[data-theme="terminal"] .page-head h1 { color: var(--red); text-transform: none; }
+
+/* Swiss: off-white, black ink, one red, no shadows */
+html[data-theme="swiss"] { --cream: #f3f3ef; --paper: #ffffff; --red: #e30613; --black: #111111; --green: #1b5e3b; --head: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
+html[data-theme="swiss"] h1, html[data-theme="swiss"] h2, html[data-theme="swiss"] h3, html[data-theme="swiss"] .brand, html[data-theme="swiss"] .marquee .track, html[data-theme="swiss"] .list .when { font-weight: 600; letter-spacing: -.03em; text-transform: none; }
+html[data-theme="swiss"] .hero h1 { font-size: clamp(48px, 11vw, 124px); line-height: .95; }
+html[data-theme="swiss"] .card, html[data-theme="swiss"] .score { border-width: 2px; box-shadow: none; }
+html[data-theme="swiss"] a.card:hover { transform: none; box-shadow: none; border-color: var(--red); }
+html[data-theme="swiss"] .btn { box-shadow: none; border-width: 2px; }
+html[data-theme="swiss"] .shape.ring, html[data-theme="swiss"] .shape.bar, html[data-theme="swiss"] .shape.tri { display: none; }
+html[data-theme="swiss"] .shape.circle { border-radius: 0; width: 220px; height: 220px; top: 0; right: 40px; }
+html[data-theme="swiss"] .page-head::after { display: none; }
+html[data-theme="swiss"] .page-head { border-bottom-width: 3px; }
+html[data-theme="swiss"] .brand img, html[data-theme="swiss"] .site-footer img { filter: invert(1); }
 
 /* Project detail pages */
 .back { font-family: var(--mono); font-size: 14px; margin: 22px 0 8px; }
