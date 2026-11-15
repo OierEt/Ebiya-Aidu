@@ -38,7 +38,7 @@
     <div class="wrap wide">
       <p class="back"><a href="projects.html#projects">&larr; Proiektu guztiak</a></p>
       <div class="proj">
-        <nav class="toc" aria-label="Aurkibidea"><div class="toc-title">Aurkibidea</div><ul><li class="l0"><a href="#overview">Ikuspegi orokorra</a></li><li class="l0"><a href="#data">Datuak</a></li><li class="l0"><a href="#report">Txosten osoa</a></li><li class="l1" data-self="introduction"><a href="#introduction">1. Introduction</a></li><li class="l2" data-group="introduction"><a href="#loading-the-packages">1.1 Loading the Packages</a></li><li class="l2" data-group="introduction"><a href="#loading-data">1.2 Loading Data</a></li><li class="l1" data-self="predictions-splitting-the-training-set"><a href="#predictions-splitting-the-training-set">2. Predictions splitting the training set</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#selection-of-variables">2.1 Selection of variables</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#training-the-predictor">2.2 Training the predictor</a></li><li class="l1" data-self="predictions-with-all-the-training-set"><a href="#predictions-with-all-the-training-set">3. Predictions with all the training set</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#random-forest">3.1 Random Forest</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#searching-for-the-best-threshold">3.2 Searching for the best threshold</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#ploting-the-best-models">3.3 Ploting the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#roc-curves-for-the-best-models">3.3 ROC curves for the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#precision-recall-curves-for-the-best-models">3.4 Precision Recall curves for the best models</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#code-lines-to-save">3.5 Code Lines to save</a></li><li class="l1" data-self="stability"><a href="#stability">4. Stability</a></li><li class="l1" data-self="results"><a href="#results">5. Results</a></li><li class="l1" data-self="bibliography"><a href="#bibliography">6. Bibliography</a></li></ul></nav>
+        <nav class="toc" aria-label="Aurkibidea"><div class="toc-title">Aurkibidea</div><ul><li class="l0"><a href="#overview">Ikuspegi orokorra</a></li><li class="l0"><a href="#data">Datuak</a></li><li class="l0"><a href="#report">Txosten osoa</a></li><li class="l1" data-self="introduction"><a href="#introduction">1. Sarrera</a></li><li class="l2" data-group="introduction"><a href="#loading-the-packages">1.1 Paketeak kargatzea</a></li><li class="l2" data-group="introduction"><a href="#loading-data">1.2 Datuak kargatzea</a></li><li class="l1" data-self="predictions-splitting-the-training-set"><a href="#predictions-splitting-the-training-set">2. Aurreikuspenak entrenamendu-multzoa zatituz</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#selection-of-variables">2.1 Aldagaien hautaketa</a></li><li class="l2" data-group="predictions-splitting-the-training-set"><a href="#training-the-predictor">2.2 Aurreikuslea entrenatzea</a></li><li class="l1" data-self="predictions-with-all-the-training-set"><a href="#predictions-with-all-the-training-set">3. Aurreikuspenak entrenamendu-multzo osoarekin</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#random-forest">3.1 Random Forest</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#searching-for-the-best-threshold">3.2 Atalase onena bilatzea</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#ploting-the-best-models">3.3 Eredu onenak marraztea</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#roc-curves-for-the-best-models">3.3 Eredu onenen ROC kurbak</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#precision-recall-curves-for-the-best-models">3.4 Eredu onenen Precision Recall kurbak</a></li><li class="l2" data-group="predictions-with-all-the-training-set"><a href="#code-lines-to-save">3.5 Gordetzeko kode-lerroak</a></li><li class="l1" data-self="stability"><a href="#stability">4. Egonkortasuna</a></li><li class="l1" data-self="results"><a href="#results">5. Emaitzak</a></li><li class="l1" data-self="bibliography"><a href="#bibliography">6. Bibliografia</a></li></ul></nav>
         <article class="report">
           <section id="overview">
             <h2 class="sub first">Ikuspegi orokorra</h2>
@@ -59,26 +59,26 @@
               <div class="card"><h3>Deskargatu</h3><p>Dena R fitxategi originalean dago. Excel fitxategiek taula berberak dituzte (Xtrain, Xtest eta ytrain); haietan 24.374 zutabeak bi orritan daude banatuta, Excelen zutabe-mugagatik.</p><div class="dl-group"><div class="dl-label">Originala (R formatua)</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Patients_Data_Challenge2020.Rdata">.Rdata (345 MB)</a></div></div><div class="dl-group"><div class="dl-label">Datu berberak Excelen</div><div class="dl-btns"><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtrain.xlsx">Xtrain .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_Xtest.xlsx">Xtest .xlsx (286 MB)</a><a class="btn alt" href="https://github.com/OierEt/Ebiya-Aidu/releases/download/data/Breast_Cancer_ytrain.xlsx">ytrain .xlsx (20 KB)</a></div></div></div>
             </div>
           </section>
-          <section id="report-wrap" lang="en">
+          <section id="report-wrap" lang="eu">
             <h2 class="sub" id="report" lang="eu">Txosten osoa</h2>
-            <p class="note" lang="eu">Unibertsitateko jatorrizko txostena, kodea eta irudi guztiekin. Txostena ingelesez dago. Datu pertsonalak eta fitxategi-bideak kendu dira. Iruzkinak eta ideiak bloke bereizietan gehitu dira.</p>
+            <p class="note" lang="eu">Unibertsitateko jatorrizko txostenaren euskarazko itzulpena da, kodearekin eta irudiekin; jatorrizkoa ingelesez dago (<a href="../breast-cancer-survival.html#report">irakurri ingelesez</a>). Kodearen iruzkinak itzuli dira, baina irudiek eta kodeko testuek ingelesezko etiketak dituzte. Datu pertsonalak eta fitxategi-bideak kendu dira. Iruzkinak eta ideiak bloke bereizietan gehitu dira.</p>
             
 <div class="rsec" id="introduction">
-<h2 class="sub"> 1. Introduction </h2>
-<p>The aim of our project is to predict cancer survival in breast cancer patients from clinicogenetic data. We will try to predict whether women can survive more than 96 months (8 years). Theoretically, the best approximation we could get is an <em>AUC</em> score of <em>0.74</em> in the <strong>Test set 1</strong>. The reason for this is that we are making long-term predictions, so the time factor plays a big role and makes it more difficult to predict correctly. If we were making predictions for a shorter period of time, our prediction results would be better.</p>
+<h2 class="sub"> 1. Sarrera </h2>
+<p>Gure proiektuaren helburua bularreko minbizia duten pazienteen biziraupena aurreikustea da, datu klinikogenetikoetatik abiatuta. Emakumeek 96 hilabete (8 urte) baino gehiago biziko diren aurreikusten saiatuko gara. Teorian, lor genezakeen hurbilketarik onena <em>0.74</em>ko <em>AUC</em> puntuazioa da <strong>1. proba-multzoan</strong>. Horren arrazoia epe luzerako aurreikuspenak egiten ari garela da; beraz, denbora-faktoreak pisu handia du eta zailagoa da ondo asmatzea. Epe laburragorako aurreikuspenak egingo bagenitu, gure emaitzak hobeak izango lirateke.</p>
 <div class="rsec" id="loading-the-packages">
-<h3 class="sub3"> 1.1 Loading the Packages </h3>
-<p>First, we load and install the packages.</p>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#install.packages("glmnet")
-#install.packages("ROCR")
-#install.packages("e1071")
-#install.packages("randomForest")
-#install.packages("boot")
-#install.packages("survival")
-#install.packages("MASS")
-#install.packages("class")
-#install.packages("nnet")
-#install.packages("arm")
+<h3 class="sub3"> 1.1 Paketeak kargatzea </h3>
+<p>Lehenik eta behin, paketeak kargatu eta instalatzen ditugu.</p>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#install.packages(&quot;glmnet&quot;)
+#install.packages(&quot;ROCR&quot;)
+#install.packages(&quot;e1071&quot;)
+#install.packages(&quot;randomForest&quot;)
+#install.packages(&quot;boot&quot;)
+#install.packages(&quot;survival&quot;)
+#install.packages(&quot;MASS&quot;)
+#install.packages(&quot;class&quot;)
+#install.packages(&quot;nnet&quot;)
+#install.packages(&quot;arm&quot;)
 library(boot);
 library(survival);
 library(MASS);
@@ -93,21 +93,21 @@ library(matrixStats);
 #library(FSelector)</code></pre></details>
 </div>
 <div class="rsec" id="loading-data">
-<h3 class="sub3"> 1.2 Loading Data </h3>
-<p>We load our data, it consists in 3 main groups or objects loaded as matrices.</p>
-<p>On the one hand, we have <em>xtrain</em> and <em>ytrain</em>, which are our <strong>training set</strong> and the ones that we will use to train our predictor. We can use <em>xtrain</em> to train our model and <em>ytrain</em> to see how well it works, since this last one is the known outcome of <em>xtrain</em>. On the other hand, we have <em>Xtest</em> which is part of our <strong>Test set 1</strong>. We know that it contains the information of ~1000 people and their ~24000 gene expressions. However, we don’t have the outcome of this people so we can’t know how well performs our model with this new data. Nevertheless, we can see the results if we upload our predictor to the course&#8217;s evaluation server.</p>
-<p>At last, the model performance will be evaluated on <strong>Test set 2</strong>, where we don’t have patients data neither the outcome of them.</p>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>load("path/to/dataChallenge2020_students.Rdata")</code></pre></details>
+<h3 class="sub3"> 1.2 Datuak kargatzea </h3>
+<p>Gure datuak kargatzen ditugu; matrize gisa kargatutako 3 talde edo objektu nagusik osatzen dute.</p>
+<p>Alde batetik, <em>xtrain</em> eta <em>ytrain</em> ditugu, gure <strong>entrenamendu-multzoa</strong> direnak eta gure aurreikuslea entrenatzeko erabiliko ditugunak. <em>xtrain</em> erabil dezakegu eredua entrenatzeko eta <em>ytrain</em> zein ondo funtzionatzen duen ikusteko, azken hau <em>xtrain</em>-en emaitza ezaguna baita. Bestetik, <em>Xtest</em> dugu, gure <strong>1. proba-multzoaren</strong> parte dena. Badakigu ~1000 pertsonaren informazioa eta haien ~24000 gene-adierazpen dituela. Hala ere, ez dugu pertsona horien emaitza, beraz ezin dugu jakin gure ereduak datu berri horiekin zein ondo funtzionatzen duen. Hala eta guztiz ere, emaitzak ikus ditzakegu gure aurreikuslea ikastaroaren ebaluazio-zerbitzarira igotzen badugu.</p>
+<p>Azkenik, ereduaren errendimendua <strong>2. proba-multzoan</strong> ebaluatuko da, zeinean ez dugun pazienteen daturik ezta haien emaitzarik ere.</p>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>load(&quot;path/to/dataChallenge2020_students.Rdata&quot;)</code></pre></details>
 </div>
 </div>
 <div class="rsec" id="predictions-splitting-the-training-set">
-<h2 class="sub"> 2. Predictions splitting the training set </h2>
-<p>To make the first approach, we will split <em>xtrain</em> and <em>ytrain</em> into two groups. 600 out of ~1000 will be used to train our model and the rest will be used to validate or see how well it performs since we are not using these patients to train our model.</p>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#We use set.seed to always get the same results
+<h2 class="sub"> 2. Aurreikuspenak entrenamendu-multzoa zatituz </h2>
+<p>Lehen hurbilketa egiteko, <em>xtrain</em> eta <em>ytrain</em> bi taldetan zatituko ditugu. ~1000tik 600 gure eredua entrenatzeko erabiliko dira eta gainerakoak balioztatzeko edo zein ondo funtzionatzen duen ikusteko, paziente horiek ez baititugu eredua entrenatzeko erabiltzen.</p>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#set.seed erabiltzen dugu beti emaitza berdinak lortzeko
 set.seed(1)
 index&lt;-sample(nrow(Xtrain))
 
-#In order to run the predictions, we will split the Xtrain into two sets of data: Training and Validation.
+#Aurreikuspenak exekutatzeko, Xtrain bi datu-multzotan zatituko dugu: Entrenamendua eta Balioztatzea.
 
 XsTraining&lt;-Xtrain[index[1:600],]
 YsTraining&lt;-ytrain[index[1:600],]
@@ -115,20 +115,20 @@ YsTraining&lt;-ytrain[index[1:600],]
 XsValidation&lt;-Xtrain[index[601:nrow(Xtrain)],]
 YsValidation&lt;-ytrain[index[601:nrow(Xtrain)],]</code></pre></details>
 <div class="rsec" id="selection-of-variables">
-<h3 class="sub3"> 2.1 Selection of variables  </h3>
+<h3 class="sub3"> 2.1 Aldagaien hautaketa  </h3>
 <aside class="my-note"><div class="my-note-label">Nire oharra</div><p>Atal hau oso garrantzitsua da, aldagaien kalitateak emaitzan zuzenean eragiten baitu. Hemengo logika da gure datu-multzoak 20.000 gene (zutabe) baino gehiago dituela, eta badakigu horiek guztiak ez direla baliagarriak norbait bizirik egongo den ala ez aurreikusteko. Imajinatu gene batek adierazpen-maila bera duela paziente guztietan, emaitza edozein dela ere: gene edo zutabe horrek balio al du aurreikusteko? Ez asko... Probak eta akatsak askoz egin ondoren, jarraian deskribatzen den hautaketarekin lortu nituen emaitzarik onenak. Tresna matematikoez gain, kaxatik kanpo pentsatu nuen pixka bat, eta ikerketa-artikuluen arabera gaixotasunarekin erlazionatuta zeudela jada ezagutzen ziren geneak ere aukeratu nituen. Horrek nabarmen lagundu zidan emaitza hobeak lortzen.</p></aside>
-<p>We will select our variables from 4 different methods:</p>
+<p>Aldagaiak 4 metodo desberdinekin hautatuko ditugu:</p>
 <ul>
-<li><p>With standard deviation we will select the first 100 genes that have the highest standard deviation. Then, with <em>Minimum redundancy Maximum relevance (mRMR)</em> we reduce our variables to 96 and obtain the same standard deviation order with the loop (this last step is not necessary).</p></li>
-<li><p>Using limma, we select the top 5 genes ordered by their <em>p-value</em>. We do not want to rely too much on <em>p-values</em> as it does not take redundancy into account. For this reason, we select only a few.</p></li>
-<li><p>Using limma robust, we also select the top 5 genes ordered by their <em>p-value</em> for the same reason as before.</p></li>
-<li><p>Finally, we selected the genes that we know are related to breast cancer survival. According to [1] we know that <em>LYVE1</em>, <em>LILRB5</em>, <em>CD209</em> and <em>IMPDH2</em> are genes of interest for our project.</p></li>
+<li><p>Desbideratze estandarrarekin, desbideratze estandar handiena duten lehen 100 geneak hautatuko ditugu. Gero, <em>Minimum redundancy Maximum relevance (mRMR)</em> erabiliz, gure aldagaiak 96ra murrizten ditugu eta begiztarekin desbideratze estandarraren ordena bera lortzen dugu (azken urrats hau ez da beharrezkoa).</p></li>
+<li><p>limma erabiliz, <em>p-balioaren</em> arabera ordenatuta lehen 5 geneak hautatzen ditugu. Ez dugu <em>p-balioetan</em> gehiegi oinarritu nahi, ez baitu erredundantzia kontuan hartzen. Horregatik, gutxi batzuk soilik hautatzen ditugu.</p></li>
+<li><p>limma robust erabiliz, <em>p-balioaren</em> arabera ordenatuta lehen 5 geneak ere hautatzen ditugu, lehengo arrazoi beragatik.</p></li>
+<li><p>Azkenik, bularreko minbiziaren biziraupenarekin lotuta dakizkigun geneak hautatu ditugu. [1]-en arabera badakigu <em>LYVE1</em>, <em>LILRB5</em>, <em>CD209</em> eta <em>IMPDH2</em> geneak interesgarriak direla gure proiekturako.</p></li>
 </ul>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Using standard deviation we select the top 100 genes
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Desbideratze estandarra erabiliz lehen 100 geneak hautatzen ditugu
 Sds &lt;- colSds(XsTraining)
 KeepVar &lt;- order(Sds, decreasing = T)[1:100]
 
-#Multivariate
+#Multibariantea
 library(mRMRe)
 set.thread.count(6)</code></pre></details>
 <pre class="out"><code>## [1] 6</code></pre>
@@ -150,7 +150,7 @@ for (i in 1:length(KeepVar)) {
   }
 }
 
-#Using limma
+#limma erabiliz
 XsTraining2 &lt;- XsTraining[!is.na(YsTraining[,3]),]
 Design &lt;- cbind(1,YsTraining[!is.na(YsTraining[,3]),3])
 library(limma)
@@ -159,63 +159,63 @@ fit2 &lt;- contrasts.fit(fit, c(0,1))
 fit2 &lt;- eBayes(fit2)
 Keeplimma &lt;- order(fit2$p.value)[1:5]
 
-#Using limma Robust
-fit &lt;- lmFit(t(XsTraining2), Design, method = "robust")
+#limma Robust erabiliz
+fit &lt;- lmFit(t(XsTraining2), Design, method = &quot;robust&quot;)
 fit2 &lt;- contrasts.fit(fit, c(0,1))
 fit2 &lt;- eBayes(fit2)
 KeeplimmaRobust &lt;- order(fit2$p.value)[1:5]
 
-#Related genes
-#CD209 was not in our genes 
+#Lotutako geneak
+#CD209 ez zegoen gure geneen artean 
 colnames(XsTraining)[15743] #LYVE1</code></pre></details>
 <pre class="out"><code>## [1] "LYVE1"</code></pre>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>colnames(XsTraining)[22926] #LILRB5</code></pre></details>
 <pre class="out"><code>## [1] "LILRB5"</code></pre>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>colnames(XsTraining)[14830] #IMPDH2</code></pre></details>
 <pre class="out"><code>## [1] "IMPDH2"</code></pre>
-<p>To find the column numbers of our genes we did the following. First we tried to use loops but it was very time consuming. To save this time we passed <em>xtrain</em> to Excel. There, using <em>find</em> we were able to locate the gene name and since the column numbers must match, we also obtained the position of our genes in <em>R</em>.</p>
-<p>Finally, we introduce the selected variables in a vector and make them unique since we do not want to have the same genes repeated. Thus, in our case we obtain 105 variables.</p>
+<p>Gure geneen zutabe-zenbakiak aurkitzeko honela egin genuen. Lehenik begiztak erabiltzen saiatu ginen baina denbora asko behar zuen. Denbora hori aurrezteko <em>xtrain</em> Excelera pasatu genuen. Han, <em>bilatu</em> erabiliz genearen izena aurkitu ahal izan genuen eta, zutabe-zenbakiek bat etorri behar dutenez, gure geneen posizioa <em>R</em>-n ere lortu genuen.</p>
+<p>Azkenik, hautatutako aldagaiak bektore batean sartzen ditugu eta bakar bihurtzen ditugu, ez baitugu gene bera errepikatuta izan nahi. Horrela, gure kasuan 105 aldagai lortzen ditugu.</p>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>SelectedColumns&lt;-c(Variables,Keeplimma,KeeplimmaRobust,15743,22926,14830)
 SelectedColumns&lt;-unique(SelectedColumns)
 Keep2 &lt;- c(SelectedColumns)
 print(length(Keep2))</code></pre></details>
 <pre class="out"><code>## [1] 105</code></pre>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Defining the functions
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Funtzioak definitzen
 plotROC &lt;- function(preds0,YsTraining){
   samples &lt;- !is.na(YsTraining)
   pred &lt;- prediction(preds0[samples],YsTraining[samples])
-  perf&lt;- performance(pred,"tpr","fpr")
+  perf&lt;- performance(pred,&quot;tpr&quot;,&quot;fpr&quot;)
   plot(perf)
-  AUC&lt;-performance(pred,"auc")@y.values[[1]]
+  AUC&lt;-performance(pred,&quot;auc&quot;)@y.values[[1]]
   grid()
-  text(.6,.2,sprintf("AUC=%0.3f", AUC))
-  abline(0,1,col="red", lty = 2)
+  text(.6,.2,sprintf(&quot;AUC=%0.3f&quot;, AUC))
+  abline(0,1,col=&quot;red&quot;, lty = 2)
   
 }
 plotPR &lt;- function(preds0,YsTraining){
   samples &lt;- !is.na(YsTraining)
   pred &lt;- prediction(preds0[samples],YsTraining[samples])
-  perf&lt;- performance(pred,"prec","rec")
+  perf&lt;- performance(pred,&quot;prec&quot;,&quot;rec&quot;)
   plot(perf)
-  AUC&lt;-performance(pred,"aucpr")@y.values[[1]]
+  AUC&lt;-performance(pred,&quot;aucpr&quot;)@y.values[[1]]
   grid()
-  text(.6,.9,sprintf("AUCPR=%0.3f", AUC))
+  text(.6,.9,sprintf(&quot;AUCPR=%0.3f&quot;, AUC))
 }</code></pre></details>
 </div>
 <div class="rsec" id="training-the-predictor">
-<h3 class="sub3"> 2.2 Training the predictor  </h3>
-<p>The difference between Lasso and Ridge predictors is the alpha parameter, which for the first one is 1 and for the second one is 0. Therefore, to know the best alpha we will make a loop and select the one with the highest value of <em>AUC</em>. In this way, we will obtain the best predictor. However, we will not use it as our final predictor but to make our first approximation and see if it works correctly.</p>
+<h3 class="sub3"> 2.2 Aurreikuslea entrenatzea  </h3>
+<p>Lasso eta Ridge aurreikusleen arteko aldea alpha parametroa da: lehenengoarentzat 1 da eta bigarrenarentzat 0. Beraz, alpha onena jakiteko begizta bat egingo dugu eta <em>AUC</em> baliorik altuena duena hautatuko dugu. Horrela, aurreikusle onena lortuko dugu. Hala ere, ez dugu azken aurreikusle gisa erabiliko, lehen hurbilketa egiteko eta ondo funtzionatzen duen ikusteko baizik.</p>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>set.seed(10);
 #Elastic Net
 cvFitElastic&lt;-cv.glmnet(XsTraining[!is.na(YsTraining[,3]),Keep2],
                         YsTraining[!is.na(YsTraining[,3]),3],
-                        family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+                        family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=0)
 aux&lt;-max(cvFitElastic$cvm)
 alfa&lt;-0
 for (i in seq(0,1,0.1)) {
   cvFitElastic&lt;-cv.glmnet(XsTraining[!is.na(YsTraining[,3]),Keep2],
                           YsTraining[!is.na(YsTraining[,3]),3],
-                          family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+                          family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=i)
   if (aux &lt; max(cvFitElastic$cvm)) {
     aux&lt;-max(cvFitElastic$cvm)
     alfa&lt;-i
@@ -223,36 +223,36 @@ for (i in seq(0,1,0.1)) {
 }
 cvFitElastic&lt;-cv.glmnet(XsTraining[!is.na(YsTraining[,3]),Keep2],
                         YsTraining[!is.na(YsTraining[,3]),3],
-                        family="binomial",nfolds=3,type.measure = "auc",alpha=alfa)
+                        family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfa)
 
-#Selected aux (maximum AUC value) and the correspondent alpha
+#Aux hautatua (AUC balio maximoa) eta dagokion alpha
 print(aux)</code></pre></details>
 <pre class="out"><code>## [1] 0.6865415</code></pre>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>print(alfa)</code></pre></details>
 <pre class="out"><code>## [1] 0.2</code></pre>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>plot(cvFitElastic);</code></pre></details>
 <figure class="figure"><img alt="Balidazio gurutzatuko AUCa log lambdaren aurka, alfa onenarekin (0,2), hautatutako 105 geneetan." height="857" loading="lazy" src="../img/projects/breast-cancer-report-1.png" width="1200"/></figure>
-<p>This plot corresponds to the best alpha with the highest <em>AUC</em> score (0.6865) for our 105 genes. Having a small alpha value (0.2) makes this predictor behave similarly to a Ridge predictor.</p>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>predsTrain&lt;-predict(cvFitElastic,XsTraining[,Keep2],s="lambda.min",type="response")
-predsValid&lt;-predict(cvFitElastic,XsValidation[,Keep2],s="lambda.min",type="response")
+<p>Grafiko hau <em>AUC</em> puntuazio altuena (0.6865) duen alpha onenari dagokio, gure 105 geneentzat. Alpha balio txikia (0.2) izateak aurreikusle honek Ridge batek bezala jokatzea eragiten du.</p>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>predsTrain&lt;-predict(cvFitElastic,XsTraining[,Keep2],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
+predsValid&lt;-predict(cvFitElastic,XsValidation[,Keep2],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
 
 layout(matrix(c(1:2), nrow=1))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])</code></pre></details>
 <figure class="figure"><img alt="Elastic net-aren ROC kurbak entrenamendu-multzoan (AUC 0,769) eta balidazio-multzoan (AUC 0,680)." height="857" loading="lazy" src="../img/projects/breast-cancer-report-2.png" width="1200"/></figure>
-<p>As we can see, our predictor did a good job. With the training data we obtained an <em>AUC</em> of <em>0.769</em> and with the validation data we obtained an <em>AUC</em> of <em>0.680</em>. We can be satisfied with this and we will use this predictor as the main predictor for training all data in the next step. As our predictor avoids overfitting, this difference could be due to the small number of patients that we have in the validation data.</p>
+<p>Ikus dezakegunez, gure aurreikusleak lan ona egin du. Entrenamendu-datuekin <em>0.769</em>ko <em>AUC</em> lortu genuen eta balioztatze-datuekin <em>0.680</em>ko <em>AUC</em>. Honekin pozik egon gaitezke eta aurreikusle hau hurrengo urratsean datu guztiak entrenatzeko aurreikusle nagusi gisa erabiliko dugu. Gure aurreikusleak gainmoldaketa saihesten duenez, alde hau balioztatze-datuetan dugun paziente kopuru txikiagatik izan daiteke.</p>
 </div>
 </div>
 <aside class="my-note"><div class="my-note-label">Nire oharra</div><p>Txostenean agertzen ez bada ere, arazoa iragarle eta metodo desberdinekin lantzen saiatu nintzen. Azkenean, txostenak dioenez, aukeratutako iragarlea Elastic Net da, 0,2ko alfarekin eta 105 aldagaiekin lortua. 0,769ko AUCa lortu zuen XsTraining-en (Xtrain-en azpimultzo bat) eta 0,680koa XsValidation-en (Xtrain-en beste azpimultzo bat, entrenatzean iragarleak ikusi ez zituen datuekin). Hurrengo atalean hasita, Xtrain osoa erabiltzen da.</p></aside>
 <div class="rsec" id="predictions-with-all-the-training-set">
-<h2 class="sub"> 3. Predictions with all the training set </h2>
-<p>Earlier we got the best alpha, but how do we know how many genes get the best <em>AUC</em> result?</p>
-<p>To answer this question, we need a method to eliminate genes and see their performance. We will use the gene importance table that can be extracted from <em>randomforest</em>. We will set different thresholds and see how it performs to select the best one. If our model does not improve we would end up using the full model that includes all the selected genes so it would be the same as in our last section.</p>
-<p>Previously we tried using a “manually” implemented backward <em>stepAIC</em> model, where using the importance table as a reference there would be another loop out of our current one. In this way, the loop worked by deleting a gene (according to the importance table) and inside perform the loop looking for the best alpha (with the new gene length) until the best gene length was found. However, this method needed large amount of time (4 hours). Also, we were eliminating genes in a certain order and not trying all combinations as <em>stepAIC</em> does, for that we would need to design a third loop but I considered that this approach was not worth trying.</p>
+<h2 class="sub"> 3. Aurreikuspenak entrenamendu-multzo osoarekin </h2>
+<p>Lehen alpha onena lortu dugu, baina nola jakin zenbat genek ematen duten <em>AUC</em> emaitzarik onena?</p>
+<p>Galdera horri erantzuteko, geneak ezabatzeko eta haien errendimendua ikusteko metodo bat behar dugu. <em>randomforest</em>-etik atera daitekeen genearen garrantzi-taula erabiliko dugu. Atalase desberdinak ezarriko ditugu eta zein ondo funtzionatzen duen ikusiko dugu onena hautatzeko. Gure ereduak hobetzen ez badu, hautatutako gene guztiak dituen eredu osoa erabiltzen amaituko genuke, beraz azken atalean bezala izango litzateke.</p>
+<p>Aurretik, “eskuz” inplementatutako <em>stepAIC</em> backward eredu bat erabiltzen saiatu ginen, non garrantzi-taula erreferentzia gisa erabiliz gure uneko begiztatik kanpo beste begizta bat egongo zen. Horrela, begiztak gene bat ezabatuz (garrantzi-taularen arabera) eta barruan alpha onena bilatuz (gene-luzera berriarekin) funtzionatzen zuen, gene-luzera onena aurkitu arte. Hala ere, metodo honek denbora asko behar zuen (4 ordu). Gainera, geneak ordena jakin batean ezabatzen genituen eta ez genituen konbinazio guztiak probatzen <em>stepAIC</em>-ek egiten duen bezala; horretarako hirugarren begizta bat diseinatu beharko genuke, baina ez zela merezi uste nuen.</p>
 <aside class="my-note"><div class="my-note-label">Nire oharra</div><p>Hau berriro ere aldagaien hautaketa bat da, ditugun gehienez 105 aldagaietatik abiatuta. Random forest ez da seguruenik horretarako metodorik onena, baina interesgarria izan zen funtzionatu zuelako.</p></aside>
 <div class="rsec" id="random-forest">
 <h3 class="sub3"> 3.1 Random Forest </h3>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Now we train the model with all the Xtrain data
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Orain eredua Xtrain-eko datu guztiekin entrenatzen dugu
 #RandomForest
 set.seed(10)
 Rforest.fit&lt;-randomForest(Xtrain[!is.na(ytrain[,3]),Keep2],
@@ -381,11 +381,11 @@ print(ImportanceNames)</code></pre></details>
 ## 103  3199         2.821414
 ## 104 10085         2.786360
 ## 105 20419         2.695167</code></pre>
-<p><em>ImportanceNames</em> is a 2-column matrix showing the importance of each gene in descending order. We will base on this order and set different thresholds in the next step. The selected thresholds are 6 different values for <em>MeanDecreaseGini</em>: 0 (initial model), 3, 3.5, 4, 4.5 and 5.</p>
+<p><em>ImportanceNames</em> 2 zutabeko matrize bat da, gene bakoitzaren garrantzia beheranzko ordenan erakusten duena. Ordena honetan oinarrituko gara eta hurrengo urratsean atalase desberdinak ezarriko ditugu. Hautatutako atalaseak <em>MeanDecreaseGini</em>-ren 6 balio dira: 0 (hasierako eredua), 3, 3.5, 4, 4.5 eta 5.</p>
 </div>
 <div class="rsec" id="searching-for-the-best-threshold">
-<h3 class="sub3"> 3.2 Searching for the best threshold </h3>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#First we define our vectors with different thresholds
+<h3 class="sub3"> 3.2 Atalase onena bilatzea </h3>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Lehenik atalase desberdinak dituzten gure bektoreak definitzen ditugu
 KeepOrdenadoCompleto&lt;-ImportanceNames[,1]
 
 KeepOrdenadoThres3&lt;-0
@@ -421,60 +421,60 @@ for (i in 1:dim(ImportanceNames)[1]) {
     pos4&lt;-pos4+1
   }
 }</code></pre></details>
-<p>We make a loop looking for the best alpha for each of our thresholds. Since we are doing this loop we can take advantage and store all the maximum values of each lap. Considering that we are doing 100 loops, we will get 100 maximum values one for each alpha.</p>
+<p>Begizta bat egiten dugu gure atalase bakoitzerako alpha onena bilatzeko. Begizta hau egiten ari garenez, aprobetxa dezakegu itzulinguru bakoitzeko balio maximo guztiak gordetzeko. 100 begizta egiten ari garela kontuan hartuta, 100 balio maximo lortuko ditugu, bat alpha bakoitzeko.</p>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>set.seed(9);
-#Completo
+#Osoa
 cvFitElasticCom&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoCompleto],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=0)
 
 auxCom&lt;-max(cvFitElasticCom$cvm)
 alfaCom&lt;-0
 VectorMaximosCom&lt;-0
 posC&lt;-1
-#Threshold 3
+#3ko atalasea
 cvFitElastic3&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3],
                          ytrain[!is.na(ytrain[,3]),3],
-                         family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+                         family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=0)
 
 aux3&lt;-max(cvFitElastic3$cvm)
 alfa3&lt;-0
 VectorMaximos3&lt;-0
 pos3&lt;-1
-#Threshold 3.5
+#3.5eko atalasea
 cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=0)
 
 aux3_5&lt;-max(cvFitElastic3_5$cvm)
 alfa3_5&lt;-0
 VectorMaximos3_5&lt;-0
 pos3_5&lt;-1
 
-#Threshold 4
+#4ko atalasea
 cvFitElastic4&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4],
                          ytrain[!is.na(ytrain[,3]),3],
-                         family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+                         family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=0)
 
 aux4&lt;-max(cvFitElastic4$cvm)
 alfa4&lt;-0
 VectorMaximos4&lt;-0
 pos4&lt;-1
 
-#Threshold 4.5
+#4.5eko atalasea
 cvFitElastic4_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4_5],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=0)
 
 aux4_5&lt;-max(cvFitElastic4_5$cvm)
 alfa4_5&lt;-0
 VectorMaximos4_5&lt;-0
 pos4_5&lt;-1
 
-#Threshold 5
+#5eko atalasea
 cvFitElastic5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres5],
                          ytrain[!is.na(ytrain[,3]),3],
-                         family="binomial",nfolds=3,type.measure = "auc",alpha=0)
+                         family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=0)
 
 aux5&lt;-max(cvFitElastic5$cvm)
 alfa5&lt;-0
@@ -487,22 +487,22 @@ VectorAlfa&lt;-seq(0,1,0.01)
 for (i in seq(0,1,0.01)) {
   cvFitElasticCom&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoCompleto],
                           ytrain[!is.na(ytrain[,3]),3],
-                          family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+                          family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=i)
   cvFitElastic3&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3],
                              ytrain[!is.na(ytrain[,3]),3],
-                             family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+                             family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=i)
   cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
                              ytrain[!is.na(ytrain[,3]),3],
-                             family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+                             family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=i)
   cvFitElastic4&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4],
                              ytrain[!is.na(ytrain[,3]),3],
-                             family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+                             family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=i)
   cvFitElastic4_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4_5],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=i)
   cvFitElastic5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres5],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=i)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=i)
   
   VectorMaximosCom[posC]&lt;-max(cvFitElasticCom$cvm)
   posC&lt;-posC+1
@@ -553,54 +553,54 @@ for (i in seq(0,1,0.01)) {
   }
 }  
 layout(matrix(c(1:2), nrow=1,byrow = T))
-plot(VectorAlfa,VectorMaximosCom,col="blue",type="p",cex=0.75,pch=20,xlab="Alpha", ylab="Maximun AUC scores")
-lines(VectorAlfa,VectorMaximos3,col="red",type="p",cex=0.75,pch=20)
-lines(VectorAlfa,VectorMaximos3_5,col="green",type="p",cex=0.75,pch=20)
-lines(VectorAlfa,VectorMaximos4,col="yellow",type="p",cex=0.75,pch=20)
-lines(VectorAlfa,VectorMaximos4_5,col="orange",type="p",cex=0.75,pch=20)
-lines(VectorAlfa,VectorMaximos5,col="black",type="p",cex=0.75,pch=20)
-abline(h=mean(VectorMaximosCom),col="blue")
-abline(h=mean(VectorMaximos3),col="red")
-abline(h=mean(VectorMaximos3_5),col="green")
-abline(h=mean(VectorMaximos4),col="yellow")
-abline(h=mean(VectorMaximos4_5),col="orange")
-abline(h=mean(VectorMaximos5),col="black")
-plot(c(length(KeepOrdenadoCompleto),length(KeepOrdenadoThres3),length(KeepOrdenadoThres3_5),length(KeepOrdenadoThres4),length(KeepOrdenadoThres4_5),length(KeepOrdenadoThres5)),c(mean(VectorMaximosCom),mean(VectorMaximos3),mean(VectorMaximos3_5),mean(VectorMaximos4),mean(VectorMaximos4_5),mean(VectorMaximos5)),type="b",xlab="Number of genes", ylab="Mean of maximun AUC score")</code></pre></details>
+plot(VectorAlfa,VectorMaximosCom,col=&quot;blue&quot;,type=&quot;p&quot;,cex=0.75,pch=20,xlab=&quot;Alpha&quot;, ylab=&quot;Maximun AUC scores&quot;)
+lines(VectorAlfa,VectorMaximos3,col=&quot;red&quot;,type=&quot;p&quot;,cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos3_5,col=&quot;green&quot;,type=&quot;p&quot;,cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos4,col=&quot;yellow&quot;,type=&quot;p&quot;,cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos4_5,col=&quot;orange&quot;,type=&quot;p&quot;,cex=0.75,pch=20)
+lines(VectorAlfa,VectorMaximos5,col=&quot;black&quot;,type=&quot;p&quot;,cex=0.75,pch=20)
+abline(h=mean(VectorMaximosCom),col=&quot;blue&quot;)
+abline(h=mean(VectorMaximos3),col=&quot;red&quot;)
+abline(h=mean(VectorMaximos3_5),col=&quot;green&quot;)
+abline(h=mean(VectorMaximos4),col=&quot;yellow&quot;)
+abline(h=mean(VectorMaximos4_5),col=&quot;orange&quot;)
+abline(h=mean(VectorMaximos5),col=&quot;black&quot;)
+plot(c(length(KeepOrdenadoCompleto),length(KeepOrdenadoThres3),length(KeepOrdenadoThres3_5),length(KeepOrdenadoThres4),length(KeepOrdenadoThres4_5),length(KeepOrdenadoThres5)),c(mean(VectorMaximosCom),mean(VectorMaximos3),mean(VectorMaximos3_5),mean(VectorMaximos4),mean(VectorMaximos4_5),mean(VectorMaximos5)),type=&quot;b&quot;,xlab=&quot;Number of genes&quot;, ylab=&quot;Mean of maximun AUC score&quot;)</code></pre></details>
 <figure class="figure"><img alt="Alfa bakoitzaren AUC maximoa (kolore bat random forest-aren ebaki-puntu bakoitzeko) eta AUC maximoen batezbestekoa gene kopuruaren aurka." height="857" loading="lazy" src="../img/projects/breast-cancer-report-3.png" width="1200"/></figure>
-<p>In the left graph, each point represents a maximum <em>AUC</em> obtained for each alpha and each threshold. Each line represents the mean of these maximum values and these lines are represented as dots in the graph on the right.</p>
+<p>Ezkerreko grafikoan, puntu bakoitzak alpha eta atalase bakoitzeko lortutako <em>AUC</em> maximo bat adierazten du. Lerro bakoitzak balio maximo horien batez bestekoa adierazten du eta lerro hauek puntu gisa irudikatzen dira eskuineko grafikoan.</p>
 <ul>
-<li><strong>Blue:</strong> full model with 105 genes.</li>
-<li><strong>Red:</strong> threshold of 3 <em>MeanDecreaseGini</em> containing 93 genes.</li>
-<li><strong>Green:</strong> threshold of 3.5 <em>MeanDecreaseGini</em> containing 58 genes.</li>
-<li><strong>Yellow:</strong> threshold of 4 <em>MeanDecreaseGini</em> containing 23 genes.</li>
-<li><strong>Orange:</strong> threshold of 4.5 <em>MeanDecreaseGini</em> containing 15 genes.</li>
-<li><strong>Black:</strong> threshold of 5 <em>MeanDecreaseGini</em> containing 12 genes.</li>
+<li><strong>Urdina:</strong> 105 geneko eredu osoa.</li>
+<li><strong>Gorria:</strong> <em>MeanDecreaseGini</em>-ren 3ko atalasea, 93 gene dituena.</li>
+<li><strong>Berdea:</strong> <em>MeanDecreaseGini</em>-ren 3.5eko atalasea, 58 gene dituena.</li>
+<li><strong>Horia:</strong> <em>MeanDecreaseGini</em>-ren 4ko atalasea, 23 gene dituena.</li>
+<li><strong>Laranja:</strong> <em>MeanDecreaseGini</em>-ren 4.5eko atalasea, 15 gene dituena.</li>
+<li><strong>Beltza:</strong> <em>MeanDecreaseGini</em>-ren 5eko atalasea, 12 gene dituena.</li>
 </ul>
-<p>We can observe that on average we get better results when we reduce the number of genes. Although the threshold of 4 has the best mean, it does not mean that it plots the best AUC or makes the best predictions. It only gives us an idea that, in general, our model obtains better values when the threshold is between 3.5 and 4.5.</p>
+<p>Ikus dezakegu, batez beste, emaitza hobeak lortzen ditugula geneen kopurua murrizten dugunean. 4ko atalaseak batez besteko onena duen arren, horrek ez du esan nahi AUC onena marrazten duenik edo aurreikuspen onenak egiten dituenik. Orokorrean, gure ereduak balio hobeak lortzen dituela ematen digu ideia, atalasea 3.5 eta 4.5 artean dagoenean.</p>
 </div>
 <div class="rsec" id="ploting-the-best-models">
-<h3 class="sub3"> 3.3 Ploting the best models </h3>
-<p>We will plot the best models we have obtained for each threshold.</p>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Now we plot the best ones
+<h3 class="sub3"> 3.3 Eredu onenak marraztea </h3>
+<p>Atalase bakoitzerako lortu ditugun eredu onenak marraztuko ditugu.</p>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Orain onenak marrazten ditugu
 layout(matrix(c(1:6), nrow=2,byrow = T))
 cvFitElasticCom&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoCompleto],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=alfaCom)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfaCom)
 cvFitElastic3&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3],
                          ytrain[!is.na(ytrain[,3]),3],
-                         family="binomial",nfolds=3,type.measure = "auc",alpha=alfa3)
+                         family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfa3)
 cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=alfa3_5)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfa3_5)
 cvFitElastic4&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4],
                          ytrain[!is.na(ytrain[,3]),3],
-                         family="binomial",nfolds=3,type.measure = "auc",alpha=alfa4)
+                         family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfa4)
 cvFitElastic4_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres4_5],
                            ytrain[!is.na(ytrain[,3]),3],
-                           family="binomial",nfolds=3,type.measure = "auc",alpha=alfa4_5)
+                           family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfa4_5)
 cvFitElastic5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres5],
                          ytrain[!is.na(ytrain[,3]),3],
-                         family="binomial",nfolds=3,type.measure = "auc",alpha=alfa5)
+                         family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfa5)
 plot(cvFitElasticCom)
 plot(cvFitElastic3)
 plot(cvFitElastic3_5)
@@ -620,16 +620,16 @@ plot(cvFitElastic5)</code></pre></details>
 <pre class="out"><code>## [1] 0.7214539</code></pre>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>max(VectorMaximos5)</code></pre></details>
 <pre class="out"><code>## [1] 0.7057409</code></pre>
-<p>As we can see when we reduce the variables, we are also eliminating the penalties produced by Elastic Net and although they produce penalties they should not be considered as noise but I consider that we are eliminating valuable signal. If we check the maximum <em>AUC</em> value we obtained was for a threshold of 3.5.</p>
+<p>Ikus dezakegunez, aldagaiak murrizten ditugunean, Elastic Net-ek sortutako zigorrak ere ezabatzen ari gara; zigor horiek zarata gisa hartu behar ez diren arren, uste dut seinale baliotsua ezabatzen ari garela. Lortutako <em>AUC</em> balio maximoa begiratzen badugu, 3.5eko atalaserako izan zen.</p>
 </div>
 <div class="rsec" id="roc-curves-for-the-best-models">
-<h3 class="sub3"> 3.3 ROC curves for the best models </h3>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>predsC&lt;-predict(cvFitElasticCom,Xtrain[,KeepOrdenadoCompleto],s="lambda.min",type="response")
-preds3&lt;-predict(cvFitElastic3,Xtrain[,KeepOrdenadoThres3],s="lambda.min",type="response")
-preds3_5&lt;-predict(cvFitElastic3_5,Xtrain[,KeepOrdenadoThres3_5],s="lambda.min",type="response")
-preds4&lt;-predict(cvFitElastic4,Xtrain[,KeepOrdenadoThres4],s="lambda.min",type="response")
-preds4_5&lt;-predict(cvFitElastic4_5,Xtrain[,KeepOrdenadoThres4_5],s="lambda.min",type="response")
-preds5&lt;-predict(cvFitElastic5,Xtrain[,KeepOrdenadoThres5],s="lambda.min",type="response")
+<h3 class="sub3"> 3.3 Eredu onenen ROC kurbak </h3>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>predsC&lt;-predict(cvFitElasticCom,Xtrain[,KeepOrdenadoCompleto],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
+preds3&lt;-predict(cvFitElastic3,Xtrain[,KeepOrdenadoThres3],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
+preds3_5&lt;-predict(cvFitElastic3_5,Xtrain[,KeepOrdenadoThres3_5],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
+preds4&lt;-predict(cvFitElastic4,Xtrain[,KeepOrdenadoThres4],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
+preds4_5&lt;-predict(cvFitElastic4_5,Xtrain[,KeepOrdenadoThres4_5],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
+preds5&lt;-predict(cvFitElastic5,Xtrain[,KeepOrdenadoThres5],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
 layout(matrix(c(1:6), nrow=2,byrow = T))
 plotROC(predsC,ytrain[,3])
 plotROC(preds3,ytrain[,3])
@@ -638,10 +638,10 @@ plotROC(preds4,ytrain[,3])
 plotROC(preds4_5,ytrain[,3])
 plotROC(preds5,ytrain[,3])</code></pre></details>
 <figure class="figure"><img alt="Sei ROC kurba entrenamendu-datuetan, ebaki-puntu bakoitzeko bat; 3,5eko ebaki-puntuak AUC onena ematen du." height="857" loading="lazy" src="../img/projects/breast-cancer-report-5.png" width="1200"/></figure>
-<p>After looking at the ROC curves, we can be more confident that the best threshold is 3.5, as it gives an <em>AUC</em> of <em>0.764</em>.</p>
+<p>ROC kurbak ikusi ondoren, seguruago egon gaitezke atalaserik onena 3.5 dela, <em>0.764</em>ko <em>AUC</em> ematen baitu.</p>
 </div>
 <div class="rsec" id="precision-recall-curves-for-the-best-models">
-<h3 class="sub3"> 3.4 Precision Recall curves for the best models </h3>
+<h3 class="sub3"> 3.4 Eredu onenen Precision Recall kurbak </h3>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>layout(matrix(c(1:6), nrow=2,byrow = T))
 plotPR(predsC,ytrain[,3])
 plotPR(preds3,ytrain[,3])
@@ -650,57 +650,57 @@ plotPR(preds4,ytrain[,3])
 plotPR(preds4_5,ytrain[,3])
 plotPR(preds5,ytrain[,3])</code></pre></details>
 <figure class="figure"><img alt="Sei precision-recall kurba, ebaki-puntu bakoitzeko bat." height="857" loading="lazy" src="../img/projects/breast-cancer-report-6.png" width="1200"/></figure>
-<p>A perfect classifier would have an precision equal to 1 and a recall equal to 1, which means that the classifier would not misclassify any data. In our case even if our results are far from perfection, the best one is for the threshold of 3.5 because it has the best area under the curve.</p>
+<p>Sailkatzaile perfektu batek 1 berdineko precision eta 1 berdineko recall izango lituzke, hau da, sailkatzaileak ez luke daturik gaizki sailkatuko. Gure kasuan, gure emaitzak perfekziotik urrun badaude ere, onena 3.5eko atalasea da, kurbaren azpiko area onena duelako.</p>
 </div>
 <div class="rsec" id="code-lines-to-save">
-<h3 class="sub3"> 3.5 Code Lines to save </h3>
-<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Code Lines to upload
-PredsElasticNet&lt;-predict(cvFitElastic3_5,Xtest[,KeepOrdenadoThres3_5],s="lambda.1se",type="response")
-write.table(PredsElasticNet,file="PredsElasticNet3_5.csv",col.names=FALSE,sep=",")</code></pre></details>
+<h3 class="sub3"> 3.5 Gordetzeko kode-lerroak </h3>
+<details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>#Igotzeko kode-lerroak
+PredsElasticNet&lt;-predict(cvFitElastic3_5,Xtest[,KeepOrdenadoThres3_5],s=&quot;lambda.1se&quot;,type=&quot;response&quot;)
+write.table(PredsElasticNet,file=&quot;PredsElasticNet3_5.csv&quot;,col.names=FALSE,sep=&quot;,&quot;)</code></pre></details>
 </div>
 </div>
 <div class="rsec" id="stability">
-<h2 class="sub"> 4. Stability </h2>
-<p>To test the stability, we will vary <em>set.seed</em> in our best model (threshold of 3.5) and see how it performs.</p>
+<h2 class="sub"> 4. Egonkortasuna </h2>
+<p>Egonkortasuna probatzeko, gure eredu onenean (3.5eko atalasea) <em>set.seed</em> aldatuko dugu eta zein ondo funtzionatzen duen ikusiko dugu.</p>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>AUC_Values&lt;-0
 j&lt;-1
 for (i in 1:100) {
   set.seed(i);
   cvFitElastic3_5&lt;-cv.glmnet(Xtrain[!is.na(ytrain[,3]),KeepOrdenadoThres3_5],
                              ytrain[!is.na(ytrain[,3]),3],
-                             family="binomial",nfolds=3,type.measure = "auc",alpha=alfa3_5)
-  preds3_5&lt;-predict(cvFitElastic3_5,Xtrain[,KeepOrdenadoThres3_5],s="lambda.min",type="response")
+                             family=&quot;binomial&quot;,nfolds=3,type.measure = &quot;auc&quot;,alpha=alfa3_5)
+  preds3_5&lt;-predict(cvFitElastic3_5,Xtrain[,KeepOrdenadoThres3_5],s=&quot;lambda.min&quot;,type=&quot;response&quot;)
   samples &lt;- !is.na(ytrain[,3])
   pred &lt;- prediction(preds3_5[samples],ytrain[,3][samples])
-  AUC&lt;-performance(pred,"auc")@y.values[[1]]
+  AUC&lt;-performance(pred,&quot;auc&quot;)@y.values[[1]]
   AUC_Values[j]&lt;-AUC
   j&lt;-j+1
 }
 layout(1)
-plot(AUC_Values,xlab="Seed", ylab="AUC score")
+plot(AUC_Values,xlab=&quot;Seed&quot;, ylab=&quot;AUC score&quot;)
 abline(h=mean(AUC_Values))</code></pre></details>
 <figure class="figure"><img alt="Eredu onenaren AUCa hazi ausazal desberdinekin, guztiak 0,75 eta 0,77 artean." height="857" loading="lazy" src="../img/projects/breast-cancer-report-7.png" width="1200"/></figure>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>StabMatrix&lt;-matrix(c(min(AUC_Values),max(AUC_Values),mean(AUC_Values),median(AUC_Values),sd(AUC_Values)),nrow=1)
-colnames(StabMatrix)&lt;-c("Min Value","Max Value","Mean","Median","Standard Deviation")
+colnames(StabMatrix)&lt;-c(&quot;Min Value&quot;,&quot;Max Value&quot;,&quot;Mean&quot;,&quot;Median&quot;,&quot;Standard Deviation&quot;)
 print(StabMatrix)</code></pre></details>
 <pre class="out"><code>##      Min Value Max Value      Mean    Median Standard Deviation
 ## [1,] 0.7520938 0.7734222 0.7644498 0.7652581        0.004866613</code></pre>
-<p>As we can see, our model predicts between 0.75 and 0.77 consistently with a small standard deviation of 0.004. This leads us to conclude that our model is stable.</p>
+<p>Ikus dezakegunez, gure ereduak 0.75 eta 0.77 artean aurreikusten du etengabe, 0.004ko desbideratze estandar txikiarekin. Honek gure eredua egonkorra dela ondorioztatzera eramaten gaitu.</p>
 </div>
 <div class="rsec" id="results">
-<h2 class="sub"> 5. Results </h2><div class="summary"><div class="summary-label">Emaitzak begirada batean (AUC)</div><div class="stats four"><div class="card stat"><b>0,769</b><span>XsTraining, 105 gene</span></div><div class="card stat"><b>0,680</b><span>XsValidation, 105 gene</span></div><div class="card stat"><b>0,766</b><span>Xtrain, 58 gene</span></div><div class="card stat"><b>0,733</b><span>1. proba-multzoa (unibertsitateko plataforma, ikusi gabeko datuak)</span></div></div></div>
+<h2 class="sub"> 5. Emaitzak </h2><div class="summary"><div class="summary-label">Emaitzak begirada batean (AUC)</div><div class="stats four"><div class="card stat"><b>0,769</b><span>XsTraining, 105 gene</span></div><div class="card stat"><b>0,680</b><span>XsValidation, 105 gene</span></div><div class="card stat"><b>0,766</b><span>Xtrain, 58 gene</span></div><div class="card stat"><b>0,733</b><span>1. proba-multzoa (unibertsitateko plataforma, ikusi gabeko datuak)</span></div></div></div>
 <details class="code"><summary>Kodea erakutsi</summary><pre class="r"><code>layout(matrix(c(1:3), nrow=1,byrow = T))
 plotROC(predsTrain,YsTraining[,3])
 plotROC(predsValid,YsValidation[,3])
 plotROC(preds3_5,ytrain[,3])</code></pre></details>
 <figure class="figure"><img alt="Hiru ROC kurba: entrenamendua, balidazioa eta 58 geneko eredu onena." height="857" loading="lazy" src="../img/projects/breast-cancer-report-8.png" width="1200"/></figure>
-<p>These are the final results obtained. In the first graph we can see the training results for our complete model with 105 genes. In the second plot the validation we have obtained for these 105 genes and in the last graph we can observe the ROC curve for our best model with 58 genes (threshold of 3.5).</p>
-<p>Finally, we can conclude that on average, our model predicts with 76.44% accuracy whether a woman with breast cancer will live more than 8 years with our <strong>Training set</strong>. Testing with different <em>set.seeds</em> we have obtained a result of 73.29% with the <strong>Test set 1</strong> (data that has not been used to train the predictor) which we have managed to get very close to the 74% target.</p>
+<p>Hauek dira lortutako azken emaitzak. Lehen grafikoan gure 105 geneko eredu osoaren entrenamendu-emaitzak ikus ditzakegu. Bigarren grafikoan 105 gene horietarako lortu dugun balioztatzea eta azken grafikoan gure eredu onenaren (58 gene, 3.5eko atalasea) ROC kurba ikus dezakegu.</p>
+<p>Azkenik, ondoriozta dezakegu, batez beste, gure ereduak %76.44ko zehaztasunez aurreikusten duela bularreko minbizia duen emakume bat 8 urte baino gehiago biziko den ala ez gure <strong>Entrenamendu-multzoarekin</strong>. <em>set.seed</em> desberdinekin probatuta, <strong>1. proba-multzoan</strong> (eredua entrenatzeko erabili ez diren datuak) %73.29ko emaitza lortu dugu, eta horrela %74ko helburutik oso gertu egotea lortu dugu.</p>
 <aside class="my-note"><div class="my-note-label">Nire oharra</div><p>Hemen bi kontzeptu nahastu nituen. % 76,44 eta % 73,29 ez dira zehaztasuna (accuracy): AUC balioak dira (0,7644 entrenamendu-multzoko hazien arteko AUC batezbestekoa da, eta 0,7329 1. proba-multzoko AUCa). Zehaztasuna ebaki-puntu jakin batean ondo sailkatutako pazienteen proportzioa da; AUCak, berriz, ebaki-puntu guztietan ereduak bizirik jarraitzen duten pazienteak ez dutenen aurretik zein ondo ordenatzen dituen neurtzen du.</p></aside>
-<p><em>Estimated time to generate the html: 15min</em></p>
+<p><em>HTMLa sortzeko denbora estimatua: 15 min</em></p>
 </div>
 <div class="rsec" id="bibliography">
-<h2 class="sub"> 6. Bibliography </h2>
+<h2 class="sub"> 6. Bibliografia </h2>
 <p>[1] Liu, L., Chen, Z., Shi, W., Liu, H., &amp; Pang, W. (2019). Breast cancer survival prediction using seven prognostic biomarker genes. Oncology letters, 18(3), 2907–2916. <a class="uri" href="https://doi.org/10.3892/ol.2019.10635">https://doi.org/10.3892/ol.2019.10635</a></p>
 </div>
 
