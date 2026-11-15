@@ -355,12 +355,28 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .bib { list-style: none; padding: 0; margin: 0; }
 .bib li { margin: 0 0 12px; overflow-wrap: anywhere; font-size: 15px; }
 
-/* Rain behind the name on the home page: a few seconds, then it fades out (ebiya aidu = "it is raining") */
-.rain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; animation: rain-life 7s ease-in-out .4s 1 forwards; }
-.rain::before, .rain::after { content: ""; position: absolute; inset: 0; background: var(--red); -webkit-mask-repeat: repeat; mask-repeat: repeat; }
-.rain::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='180'%3E%3Cg stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M12 8l-5 22M58 70l-5 22M104 30l-5 22M30 118l-5 22M84 140l-5 22M126 100l-5 22'/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='180'%3E%3Cg stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M12 8l-5 22M58 70l-5 22M104 30l-5 22M30 118l-5 22M84 140l-5 22M126 100l-5 22'/%3E%3C/g%3E%3C/svg%3E"); -webkit-mask-size: 140px 180px; mask-size: 140px 180px; animation: rain-fall-a .9s linear infinite; }
-.rain::after { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='130'%3E%3Cg stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M20 10l-4 16M70 40l-4 16M40 78l-4 16M8 100l-4 16M78 108l-4 16'/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='130'%3E%3Cg stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M20 10l-4 16M70 40l-4 16M40 78l-4 16M8 100l-4 16M78 108l-4 16'/%3E%3C/g%3E%3C/svg%3E"); -webkit-mask-size: 90px 130px; mask-size: 90px 130px; opacity: .6; animation: rain-fall-b 1.3s linear infinite; }
-@keyframes rain-life { 0% { opacity: 0; } 15% { opacity: .4; } 70% { opacity: .4; } 100% { opacity: 0; } }
-@keyframes rain-fall-a { from { -webkit-mask-position: 0 0; mask-position: 0 0; } to { -webkit-mask-position: -28px 180px; mask-position: -28px 180px; } }
-@keyframes rain-fall-b { from { -webkit-mask-position: 0 0; mask-position: 0 0; } to { -webkit-mask-position: -18px 130px; mask-position: -18px 130px; } }
-@media (prefers-reduced-motion: reduce) { .rain { display: none; } }
+/* Intro on the home page (Ebiya aidu = "it is raining"): thin rain falls around the name, a puddle forms under it and,
+   after about 7 seconds, shrinks into the dot after AIDU. Pure CSS, only on the home hero, off with prefers-reduced-motion. */
+.hero h1 { position: relative; isolation: isolate; width: fit-content; }
+.hero h1::before, .hero h1::after { content: ""; position: absolute; z-index: -1; inset: -.45em -.45em -.05em -.45em; pointer-events: none; background: var(--red); opacity: 0;
+  -webkit-mask-repeat: repeat, no-repeat; mask-repeat: repeat, no-repeat; -webkit-mask-composite: source-in; mask-composite: intersect; }
+.hero h1::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='120'%3E%3Cg stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M12 6l-4 18M52 50l-4 18M80 20l-4 18M26 84l-4 18M70 92l-4 18'/%3E%3C/g%3E%3C/svg%3E"), radial-gradient(ellipse at 50% 55%, #000 45%, transparent 72%); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='120'%3E%3Cg stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M12 6l-4 18M52 50l-4 18M80 20l-4 18M26 84l-4 18M70 92l-4 18'/%3E%3C/g%3E%3C/svg%3E"), radial-gradient(ellipse at 50% 55%, #000 45%, transparent 72%); -webkit-mask-size: 90px 120px, 100% 100%; mask-size: 90px 120px, 100% 100%;
+  animation: rain-life 7s ease-in-out .4s 1 forwards, rain-fall-a .8s linear .4s 9; }
+.hero h1::after { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='90'%3E%3Cg stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M14 8l-3 13M46 30l-3 13M26 58l-3 13M52 68l-3 13'/%3E%3C/g%3E%3C/svg%3E"), radial-gradient(ellipse at 50% 55%, #000 45%, transparent 72%); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='90'%3E%3Cg stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M14 8l-3 13M46 30l-3 13M26 58l-3 13M52 68l-3 13'/%3E%3C/g%3E%3C/svg%3E"), radial-gradient(ellipse at 50% 55%, #000 45%, transparent 72%); -webkit-mask-size: 60px 90px, 100% 100%; mask-size: 60px 90px, 100% 100%;
+  animation: rain-life-soft 7s ease-in-out .4s 1 forwards, rain-fall-b 1.2s linear .4s 6; }
+@keyframes rain-life { 0% { opacity: 0; } 15% { opacity: .55; } 80% { opacity: .55; } 100% { opacity: 0; } }
+@keyframes rain-life-soft { 0% { opacity: 0; } 15% { opacity: .3; } 80% { opacity: .3; } 100% { opacity: 0; } }
+@keyframes rain-fall-a { from { -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0; } to { -webkit-mask-position: -20px 120px, 0 0; mask-position: -20px 120px, 0 0; } }
+@keyframes rain-fall-b { from { -webkit-mask-position: 0 0, 0 0; mask-position: 0 0, 0 0; } to { -webkit-mask-position: -14px 90px, 0 0; mask-position: -14px 90px, 0 0; } }
+.hero h1 span { position: relative; display: inline-block; animation: dot-pulse .5s ease-out 7.4s 1; }
+.hero h1 span::before { content: ""; position: absolute; left: -2.55em; bottom: -.09em; width: 3.1em; height: .13em; border-radius: 50%; box-sizing: border-box;
+  border: 2px solid var(--red); background: color-mix(in srgb, var(--red) 16%, transparent); opacity: 0; transform: scaleX(0); transform-origin: 82% 50%;
+  animation: puddle 8s cubic-bezier(.5,0,.3,1) .6s 1 forwards; }
+@keyframes puddle {
+  0% { opacity: 0; transform: scaleX(0); }
+  20% { opacity: .85; transform: scaleX(.85); }
+  30%, 78% { opacity: .85; transform: scaleX(1); }
+  96% { left: .17em; bottom: .12em; width: .3em; height: .3em; opacity: 1; transform: scaleX(1); }
+  100% { left: .17em; bottom: .12em; width: .3em; height: .3em; opacity: 0; transform: scaleX(1); } }
+@keyframes dot-pulse { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.35); } }
+@media (prefers-reduced-motion: reduce) { .hero h1::before, .hero h1::after, .hero h1 span::before { display: none; } .hero h1 span { animation: none; } }
