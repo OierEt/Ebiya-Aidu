@@ -354,3 +354,13 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 @media (max-width: 600px) { .figrow .row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .bib { list-style: none; padding: 0; margin: 0; }
 .bib li { margin: 0 0 12px; overflow-wrap: anywhere; font-size: 15px; }
+
+/* Rain behind the name on the home page: a few seconds, then it fades out (ebiya aidu = "it is raining") */
+.rain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; animation: rain-life 7s ease-in-out .4s 1 forwards; }
+.rain::before, .rain::after { content: ""; position: absolute; inset: 0; background: var(--red); -webkit-mask-repeat: repeat; mask-repeat: repeat; }
+.rain::before { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='180'%3E%3Cg stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M12 8l-5 22M58 70l-5 22M104 30l-5 22M30 118l-5 22M84 140l-5 22M126 100l-5 22'/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='180'%3E%3Cg stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M12 8l-5 22M58 70l-5 22M104 30l-5 22M30 118l-5 22M84 140l-5 22M126 100l-5 22'/%3E%3C/g%3E%3C/svg%3E"); -webkit-mask-size: 140px 180px; mask-size: 140px 180px; animation: rain-fall-a .9s linear infinite; }
+.rain::after { -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='130'%3E%3Cg stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M20 10l-4 16M70 40l-4 16M40 78l-4 16M8 100l-4 16M78 108l-4 16'/%3E%3C/g%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='130'%3E%3Cg stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M20 10l-4 16M70 40l-4 16M40 78l-4 16M8 100l-4 16M78 108l-4 16'/%3E%3C/g%3E%3C/svg%3E"); -webkit-mask-size: 90px 130px; mask-size: 90px 130px; opacity: .6; animation: rain-fall-b 1.3s linear infinite; }
+@keyframes rain-life { 0% { opacity: 0; } 15% { opacity: .4; } 70% { opacity: .4; } 100% { opacity: 0; } }
+@keyframes rain-fall-a { from { -webkit-mask-position: 0 0; mask-position: 0 0; } to { -webkit-mask-position: -28px 180px; mask-position: -28px 180px; } }
+@keyframes rain-fall-b { from { -webkit-mask-position: 0 0; mask-position: 0 0; } to { -webkit-mask-position: -18px 130px; mask-position: -18px 130px; } }
+@media (prefers-reduced-motion: reduce) { .rain { display: none; } }
