@@ -4,7 +4,7 @@
   if (!fig) return;
   var svg = fig.querySelector("svg");
   var vb = svg.viewBox.baseVal, W0 = vb.width, H0 = vb.height;
-  var MAXZ = 14, x = 0, y = 0, w = W0, h = H0;
+  var MAXZ = 40, x = 0, y = 0, w = W0, h = H0;
   function apply() {
     w = Math.max(W0 / MAXZ, Math.min(W0, w)); h = w * H0 / W0;
     x = Math.max(0, Math.min(W0 - w, x)); y = Math.max(0, Math.min(H0 - h, y));
