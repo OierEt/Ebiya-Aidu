@@ -1,8 +1,20 @@
 {
   "countries": [
+    { "iso2": "es", "en": "Spain", "eu": "Espainia" },
+    { "iso2": "pt", "en": "Portugal", "eu": "Portugal" },
+    { "iso2": "fr", "en": "France", "eu": "Frantzia", "mainlandOnly": true },
+    { "iso2": "gb", "en": "United Kingdom", "eu": "Erresuma Batua" },
+    { "iso2": "be", "en": "Belgium", "eu": "Belgika" },
+    { "iso2": "nl", "en": "Netherlands", "eu": "Herbehereak" },
+    { "iso2": "de", "en": "Germany", "eu": "Alemania" },
+    { "iso2": "pl", "en": "Poland", "eu": "Polonia" },
+    { "iso2": "sk", "en": "Slovakia", "eu": "Eslovakia" },
+    { "iso2": "at", "en": "Austria", "eu": "Austria" },
+    { "iso2": "hu", "en": "Hungary", "eu": "Hungaria" },
     { "iso2": "ee", "en": "Estonia", "eu": "Estonia" },
     { "iso2": "lv", "en": "Latvia", "eu": "Letonia" },
-    { "iso2": "lt", "en": "Lithuania", "eu": "Lituania" }
+    { "iso2": "kr", "en": "South Korea", "eu": "Hego Korea" },
+    { "iso2": "kp", "en": "North Korea", "eu": "Ipar Korea", "borderOnly": true }
   ],
   "cities": []
 }

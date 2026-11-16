@@ -425,3 +425,15 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .flags { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 14px; }
 .flags li { display: flex; align-items: center; gap: 8px; border: 2px solid var(--black); background: var(--paper); padding: 5px 10px 5px 6px; font-family: var(--mono, "IBM Plex Mono", monospace); font-size: 13px; }
 .flags img { display: block; width: 32px; height: 24px; border: 1px solid var(--black); object-fit: cover; }
+.travelmap { position: relative; }
+.travelmap svg { touch-action: pan-y; cursor: default; }
+.travelmap.zoomed svg { cursor: grab; touch-action: none; }
+.travelmap .land path.border { fill: url(#hatch); }
+.travelmap .land path { vector-effect: non-scaling-stroke; }
+.travelmap .pinscale { transform: scale(var(--pinscale, 1)); }
+.mapzoom { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; z-index: 2; }
+.mapzoom button { width: 32px; height: 32px; border: 2px solid var(--black); background: var(--paper); color: var(--black); font: 700 16px var(--mono, "IBM Plex Mono", monospace); line-height: 1; cursor: pointer; padding: 0; }
+.mapzoom button:hover { background: var(--red); color: var(--cream); }
+.flags .times { color: var(--red); font-weight: 700; }
+.flags em { font-style: normal; opacity: .7; font-size: 11px; }
+.flags li.border { border-style: dashed; }
