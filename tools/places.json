@@ -1,0 +1,8 @@
+{
+  "countries": [
+    { "iso2": "ee", "en": "Estonia", "eu": "Estonia" },
+    { "iso2": "lv", "en": "Latvia", "eu": "Letonia" },
+    { "iso2": "lt", "en": "Lithuania", "eu": "Lituania" }
+  ],
+  "cities": []
+}

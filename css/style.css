@@ -413,3 +413,15 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
   0% { transform: scale(1); } 22% { transform: scale(1.5,.7); } 48% { transform: scale(.85,1.3); }
   72% { transform: scale(1.15,.92); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .hero h1::before, .hero h1::after, .hero h1 span::before, .hero h1 span::after { display: none; } .hero h1 span { animation: none; } }
+
+/* Travel map and flags (About page, Places). Drawn by tools/make-map.mjs; colours come from the style variables. */
+.travelmap { margin: 0 0 18px; }
+.travelmap svg { display: block; width: 100%; height: auto; }
+.travelmap .land path { fill: var(--paper); stroke: var(--black); stroke-width: .5; stroke-linejoin: round; }
+.travelmap .land path.visited { fill: var(--red); }
+.travelmap .pin path { fill: var(--black); stroke: var(--paper); stroke-width: .8; }
+.travelmap .pin circle { fill: var(--paper); }
+.travelmap figcaption { margin-top: 6px; font-family: var(--mono, "IBM Plex Mono", monospace); font-size: 12px; letter-spacing: .04em; opacity: .75; }
+.flags { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 14px; }
+.flags li { display: flex; align-items: center; gap: 8px; border: 2px solid var(--black); background: var(--paper); padding: 5px 10px 5px 6px; font-family: var(--mono, "IBM Plex Mono", monospace); font-size: 13px; }
+.flags img { display: block; width: 32px; height: 24px; border: 1px solid var(--black); object-fit: cover; }
