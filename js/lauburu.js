@@ -27,6 +27,19 @@
       });
     }
   };
+  // One anonymous record per throw: where from, direction, speed, whether it scored (see backend/shots-setup.sql)
+  function reportShot(sh, made, points, flightMs) {
+    var body = {
+      p_made: made, p_points: points, p_dist: Math.round(sh.dist), p_release_x: +sh.x.toFixed(4), p_release_y: +sh.y.toFixed(4),
+      p_hoop_dx: Math.round(sh.dx), p_hoop_dy: Math.round(sh.dy), p_angle: Math.round(sh.angle), p_speed: Math.round(sh.speed),
+      p_flight_ms: Math.round(flightMs), p_vw: sh.vw, p_vh: sh.vh, p_touch: sh.touch
+    };
+    try {
+      dbCall("rpc/record_shot", { method: "POST", body: JSON.stringify(body), keepalive: true }).catch(function () {
+        if (made) reportBasket(points);   // the shots table is not set up yet: at least count the basket
+      });
+    } catch (e) {}
+  }
   function reportBasket(points) {
     try { dbCall("rpc/add_basket", { method: "POST", body: JSON.stringify({ p_points: points }), keepalive: true }).catch(function () {}); } catch (e) {}
   }
@@ -38,6 +51,7 @@
   var GRAVITY = 1500;       // px/s^2
   var BOUNCE = 0.6, FLOOR_BOUNCE = 0.55;
   var MAX_THROW = 2400;     // px/s
+  var MIN_SHOT_SPEED = 250; // px/s: slower releases are drops, not throws, and are not recorded
   var STORE = "lauburuScore", STORE_HIDE = "lauburuHoopHidden";
 
   // ---- elements ----
@@ -102,6 +116,7 @@
   var last = performance.now();
   var track = [];                   // recent pointer samples while held
   var releaseDist = 0, scored = false, flyStart = 0, calmSince = 0;
+  var shot = null, ptype = "mouse";   // data of the throw in the air, sent once
 
   function angleDiff(a, b) {
     var d = a - b;
@@ -116,7 +131,7 @@
   el.addEventListener("pointerdown", function (e) {
     e.preventDefault();
     try { el.setPointerCapture(e.pointerId); } catch (err) {}
-    mode = "held";
+    mode = "held"; ptype = e.pointerType; shot = null;
     if (!played) { played = true; document.documentElement.classList.add("lauburu-played"); try { localStorage.setItem("lauburuPlayed", "1"); } catch (err) {} }
     grabDX = cx - e.clientX; grabDY = cy - e.clientY;
     track = [{ t: performance.now(), x: e.clientX, y: e.clientY }];
@@ -140,14 +155,26 @@
     var r = rect(rim);
     releaseDist = Math.hypot(r.left + r.width / 2 - cx, r.top - cy);
     scored = false; mode = "flying"; flyStart = performance.now(); calmSince = 0;
+    shot = null;
+    if (!document.documentElement.classList.contains("hoop-hidden") && Math.hypot(vx, vy) >= MIN_SHOT_SPEED) {
+      shot = { x: cx / window.innerWidth, y: cy / window.innerHeight, dx: r.left + r.width / 2 - cx, dy: r.top - cy, dist: releaseDist,
+        angle: Math.atan2(-vy, vx) * 180 / Math.PI, speed: Math.hypot(vx, vy), vw: window.innerWidth, vh: window.innerHeight,
+        touch: ptype === "touch", sent: false };
+    }
   }
   el.addEventListener("pointerup", release);
   el.addEventListener("pointercancel", release);
 
   // ---- scoring ----
+  function sendShot(made, points) {
+    if (!shot) { if (made) reportBasket(points); return; }
+    if (shot.sent) return;
+    shot.sent = true;
+    reportShot(shot, made, points, performance.now() - flyStart);
+  }
   function addPoints(three) {
     if (three) score.three++; else score.two++;
-    reportBasket(three ? 3 : 2);
+    sendShot(true, three ? 3 : 2);
     try { localStorage.setItem(STORE, JSON.stringify(score)); } catch (e) {}
     drawScore();
     panel.classList.remove("flash"); void panel.offsetWidth; panel.classList.add("flash");
@@ -198,6 +225,7 @@
     var onFloor = cy >= h - R - 1 && Math.abs(vx) < 30 && vy === 0;
     calmSince = onFloor ? (calmSince || now) : 0;
     if ((calmSince && now - calmSince > 1500) || now - flyStart > 14000) {
+      sendShot(false, 0);   // it never went in
       mode = "wander"; speed = 0; resting = true; until = now + 1500;
       heading = Math.random() * Math.PI * 2;
     }

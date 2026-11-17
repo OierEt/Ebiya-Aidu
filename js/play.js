@@ -13,9 +13,10 @@
     window.ebiyaCounter.totals().then(function (t) {
       $("total-baskets").textContent = fmt(t.baskets || 0);
       $("total-points").textContent = fmt(t.points || 0);
-      $("count-status").textContent = "";
+      var acc = t.shots ? Math.round((t.baskets || 0) / t.shots * 100) : null;
+      $("count-status").textContent = acc === null ? "" : (eu ? fmt(t.shots) + " jaurtiketa, " + acc + "% sartuta" : fmt(t.shots) + " throws, " + acc + "% scored");
     }).catch(function () {
-      $("count-status").textContent = eu ? "Kontagailu partekatua ez dago erabilgarri orain." : "The shared counter is not available right now.";
+      $("count-status").textContent = eu ? "Kontagailu partekatua atseden hartzen ari da edo ez dago eskuragarri orain (doako datu-basea lo egiten da inor ez dabilenean). Saiatu berriro minutu batzuk barru." : "The shared counter is resting or unreachable right now (the free database sleeps when nobody uses it). Try again in a few minutes.";
     });
   }
   load();
