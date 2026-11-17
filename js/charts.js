@@ -5,10 +5,10 @@
   var eu = document.documentElement.lang === "eu";
   var T = eu ? {
     none: "Oraindik ez dago jaurtiketarik. Bota lauburua saskira!", few: "Grafikoak ikusteko jaurtiketa gehiago behar dira.", err: "Ezin izan dira jaurtiketak kargatu orain.",
-    made: "Sartu da", miss: "Huts egin du", count: "Jaurtiketak", pctOf: "Jaurtiketen %", bins: "Zutabeen zabalera",
-    all: "Pantaila guztiak", land: "Horizontala", port: "Bertikala", unitC: "Kopurua", unitP: "Ehunekoa", bars: "Barrak", radar: "Radarra", logit: "Logistikoa", linear: "Lineala", cells: "Gelaxkak",
+    made: "Sartu da", miss: "Huts egin du", count: "Jaurtiketak", bins: "Zutabeen zabalera",
+    all: "Pantaila guztiak", land: "Horizontala", port: "Bertikala", unitC: "Kopurua", unitP: "% zutabe bakoitzean", pctOf: "Sartuak / hutsak (%)", pFrac: "Leihoaren zatiak", pPx: "Pixelak saskitik", bars: "Barrak", radar: "Radarra", logit: "Logistikoa", linear: "Lineala", cells: "Gelaxkak",
     sumT: "Laburpena", rows: ["Jaurtiketak", "Sartuak", "2 puntukoak", "3 puntukoak", "Sartutakoen batez besteko distantzia", "Hutsen batez besteko distantzia", "Ukipen-pantailaz", "Abiadura-mugara iritsiak"],
-    posT: "Jaurtiketak nondik hasten diren", posC: "Laukia leihoa da, baloia askatu zen lekuan marraztua: x eta y leihoaren zabaleraren eta garaieraren zatiak dira, beraz pantaila ezberdinak laukiaren neurri berera \"luzatzen\" dira (mugikorra bertikalean, adibidez, zabalago ageri da benetan baino). Saskia pantailan bezala ageri da, beti eskuineko ertzean, garaieraren %36an. Beteta: sartu da. Hutsa: huts egin du. Puntu handiagoak 3 puntukoak dira. Pantaila-formak nahasten badira, erabili goiko iragazkia.",
+    posT: "Jaurtiketak nondik hasten diren", posC: "Bi ikuspegi daude. \"Leihoaren zatiak\": laukia leihoa da, eta puntu bakoitza baloia askatu zen lekuan dago, leihoaren zabaleraren eta garaieraren zati gisa. Beraz, pantaila erdi-zabaleko ordenagailu batean eta zabal batean ezkerreko ertzetik jaurtitzen baduzu, biak ezkerreko ertzean ageri dira (ez bata erdian), eta pantaila guztiak laukiaren neurri berera \"luzatzen\" dira. \"Pixelak saskitik\": puntu bakoitza saskitik benetan zenbat pixelera dagoen da, pantaila-neurrien zuzenketarik gabe; bertan distantziak zuzenean konparatzen dira, baina pantaila handiek urrutiago dauden puntuak dituzte. Saskia pantailan bezala ageri da. Beteta: sartu da. Hutsa: huts egin du. Puntu handiagoak 3 puntukoak dira.",
     heatT: "Non da errazago sartzea", heatC: "Leihoa gelaxka-sarean zatituta. Gelaxka bakoitzean, handik askatutako jaurtiketen artean sartutakoen ehunekoa (3 jaurtiketa baino gutxiagoko gelaxkak hutsik). Ilunagoa = errazagoa.",
     distT: "Jaurtiketen distantzia", distC: "Askatze-puntutik zerkara dagoen distantzia pixeletan. Pantaila handiek distantzia luzeagoak dituzte.",
     regT: "Sartzeko probabilitatea distantziaren arabera", regC: "Puntu bakoitza distantzia-tarte bat da (ez pixel bat): puntuaren altuera tarte horretan sartutakoen ehunekoa da, eta tamaina jaurtiketa-kopurua. Behean eta goian marra txikiek jaurtiketa bakoitza erakusten dute (goian sartuak, behean hutsak). Lerroa hautatutako ereduaren doikuntza da. Sartu/huts erantzun bitarra denez, eredu logistikoa egokiena da (probabilitatea 0 eta 100 artean gelditzen da); eredu linealak lerro zuzena doitzen du, 0tik behera edo 100etik gora joan daiteke, baina irakurtzeko errazagoa da.",
@@ -21,10 +21,10 @@
     timeT: "Asmatzea denboran zehar", timeC: "Azken jaurtiketen batez bestekoa (leiho mugikorra) sartutakoen ehunekoan; lerro etena guztien batez bestekoa da. Ezkerrean zaharrenak, eskuinean berrienak.", xThrow: "Jaurtiketa zenbakia"
   } : {
     none: "No throws recorded yet. Throw the lauburu into the hoop!", few: "More throws are needed to draw the charts.", err: "The throws could not be loaded right now.",
-    made: "Scored", miss: "Missed", count: "Throws", pctOf: "% of throws", bins: "Bin width",
-    all: "All screens", land: "Landscape", port: "Portrait", unitC: "Count", unitP: "Percent", bars: "Bars", radar: "Radar", logit: "Logistic", linear: "Linear", cells: "Cells",
+    made: "Scored", miss: "Missed", count: "Throws", bins: "Bin width",
+    all: "All screens", land: "Landscape", port: "Portrait", unitC: "Count", unitP: "% within bin", pctOf: "Scored / missed (%)", pFrac: "Window fractions", pPx: "Pixels from hoop", bars: "Bars", radar: "Radar", logit: "Logistic", linear: "Linear", cells: "Cells",
     sumT: "Summary", rows: ["Throws", "Scored", "2-pointers", "3-pointers", "Average distance, scored", "Average distance, missed", "On a touch screen", "Reached the speed cap"],
-    posT: "Where throws start", posC: "The box is the window, drawn where the ball was released: x and y are fractions of the window width and height, so every screen is stretched to the same box (a phone in portrait looks wider here than it really is). The hoop is drawn as on screen, always at the right edge, 36% down. Filled: scored. Hollow: missed. Bigger dots are 3-pointers. If screen shapes are mixed, use the filter above.",
+    posT: "Where throws start", posC: "Two views. \"Window fractions\": the box is the window and each dot is where the ball was released as a fraction of the window width and height. So if you throw from the far left edge on a half-width laptop and on a wide one, both dots land on the left edge of the box (not one in the middle), and every screen is stretched to the same box. \"Pixels from hoop\": each dot is the real number of pixels from the hoop, with no screen correction; distances compare directly, but big screens reach further out. The hoop is drawn as on screen. Filled: scored. Hollow: missed. Bigger dots are 3-pointers.",
     heatT: "Where it is easiest to score", heatC: "The window split into a grid. Each cell shows the share of throws released there that scored (cells with fewer than 3 throws are left empty). Darker = easier.",
     distT: "Throw distance", distC: "Pixels from the release point to the rim. Big screens have longer distances.",
     regT: "Chance of scoring by distance", regC: "Each dot is a distance bin (not a pixel): its height is the share of throws in that bin that scored, its size is how many throws it has. The small ticks at the top and bottom show every single throw (top: scored, bottom: missed). The line is the chosen model. Because scored/missed is a yes/no outcome, the logistic model is the proper one (the probability stays between 0 and 100); the linear model fits a straight line, which can go below 0 or above 100, but is easier to read.",
@@ -38,7 +38,7 @@
   };
   var fmt = function (n, d) { return Number(n).toLocaleString(eu ? "eu" : "en", { maximumFractionDigits: d || 0 }); };
   var W = 600, H = 340, M = { l: 48, r: 24, t: 12, b: 42 };
-  var S = { filter: "all", unit: "count", view: "bars", model: "logit", bins: { dist: 100, reg: 100, speed: 200, angle: 15, heat: 8 } };
+  var S = { pview: "frac", filter: "all", unit: "count", view: "bars", model: "logit", bins: { dist: 100, reg: 100, speed: 200, angle: 15, heat: 8 } };
   var ALL = [];
 
   /* ---------- small helpers ---------- */
@@ -109,14 +109,14 @@
     return { nb: nb, made: made, miss: miss };
   }
   function hist(rows, key, lo, hi, bw, xl, extra, xt) {
-    var b = bin(rows, key, lo, hi, bw), n = rows.length, k = S.unit === "pct" ? 100 / n : 1, i, max = 0;
-    for (i = 0; i < b.nb; i++) max = Math.max(max, (b.made[i] + b.miss[i]) * k);
+    var b = bin(rows, key, lo, hi, bw), pc = S.unit === "pct", i, max = 0, kk = function (i) { var t = b.made[i] + b.miss[i]; return pc ? (t ? 100 / t : 0) : 1; };
+    for (i = 0; i < b.nb; i++) max = Math.max(max, pc ? 100 : b.made[i] + b.miss[i]);
     var st = step(max || 1, 5), top = Math.ceil((max || 1) / st) * st;
-    var a = axes(lo, lo + b.nb * bw, 0, top, xl, S.unit === "pct" ? T.pctOf : T.count, xt || ticksFor(lo + b.nb * bw)), s = a.svg;
+    var a = axes(lo, lo + b.nb * bw, 0, top, xl, pc ? T.pctOf : T.count, xt || ticksFor(lo + b.nb * bw)), s = a.svg;
     for (i = 0; i < b.nb; i++) {
-      var x = a.sx(lo + i * bw) + 1, w = Math.max(1, a.sx(lo + (i + 1) * bw) - a.sx(lo + i * bw) - 2), mi = b.miss[i] * k, ma = b.made[i] * k;
-      if (mi) s += '<rect class="miss" x="' + x + '" y="' + a.sy(mi) + '" width="' + w + '" height="' + (a.sy(0) - a.sy(mi)) + '"/>';
-      if (ma) s += '<rect class="made" x="' + x + '" y="' + a.sy(mi + ma) + '" width="' + w + '" height="' + (a.sy(mi) - a.sy(mi + ma)) + '"/>';
+      var x = a.sx(lo + i * bw) + 1, w = Math.max(1, a.sx(lo + (i + 1) * bw) - a.sx(lo + i * bw) - 2), mi = b.miss[i] * kk(i), ma = b.made[i] * kk(i), tt = '<title>' + b.made[i] + ' / ' + (b.made[i] + b.miss[i]) + '</title>';
+      if (mi) s += '<rect class="miss" x="' + x + '" y="' + a.sy(mi) + '" width="' + w + '" height="' + (a.sy(0) - a.sy(mi)) + '">' + tt + '</rect>';
+      if (ma) s += '<rect class="made" x="' + x + '" y="' + a.sy(mi + ma) + '" width="' + w + '" height="' + (a.sy(mi) - a.sy(mi + ma)) + '">' + tt + '</rect>';
     }
     if (extra) s += extra(a);
     return svg(s) + legend;
@@ -124,8 +124,8 @@
   var unitCtrl = function () { return seg("unit", [["count", T.unitC], ["pct", T.unitP]], S.unit); };
 
   /* the hoop, drawn like the one on the page (sizes in CSS px, scaled to the chart) */
-  function hoop(pw, ph, sc) {
-    var y = 0.36 * ph, u = function (v) { return (v * sc).toFixed(1); }, g = '<g class="hoopg">';
+  function hoop(pw, ph, sc, yr) {
+    var y = yr === undefined ? 0.36 * ph : yr, u = function (v) { return (v * sc).toFixed(1); }, g = '<g class="hoopg">';
     g += '<rect class="hb" x="' + (pw - 10 * sc) + '" y="' + (y - 50 * sc) + '" width="' + u(10) + '" height="' + u(90) + '"/>';
     g += '<path class="hn" d="M' + (pw - 91 * sc) + ' ' + (y + 8 * sc) + 'L' + (pw - 13 * sc) + ' ' + (y + 8 * sc) + 'L' + (pw - 30 * sc) + ' ' + (y + 52 * sc) + 'L' + (pw - 74 * sc) + ' ' + (y + 52 * sc) + 'Z"/>';
     g += '<path class="hn" d="M' + (pw - 71 * sc) + ' ' + (y + 8 * sc) + 'L' + (pw - 60 * sc) + ' ' + (y + 52 * sc) + 'M' + (pw - 52 * sc) + ' ' + (y + 8 * sc) + 'L' + (pw - 48 * sc) + ' ' + (y + 52 * sc) + 'M' + (pw - 33 * sc) + ' ' + (y + 8 * sc) + 'L' + (pw - 38 * sc) + ' ' + (y + 52 * sc) + 'M' + (pw - 80 * sc) + ' ' + (y + 30 * sc) + 'L' + (pw - 23 * sc) + ' ' + (y + 30 * sc) + '"/>';
@@ -139,7 +139,8 @@
     var sc = pw / mvw * (mvw <= 600 ? 0.7 : 1);
     return { pw: pw, ph: ph, ox: Math.round((W - pw) / 2), oy: 12, sc: sc };
   }
-  function windowSvg(g, inner) { return '<svg viewBox="0 0 ' + W + ' ' + (g.ph + 24) + '" role="img" aria-hidden="true"><g transform="translate(' + g.ox + ' ' + g.oy + ')"><rect class="frame" x="0" y="0" width="' + g.pw + '" height="' + g.ph + '"/>' + inner + hoop(g.pw, g.ph, g.sc) + '</g></svg>'; }
+  function windowSvg(g, inner) {
+    var hp = g.yr === undefined ? hoop(g.pw, g.ph, g.sc) : hoop(g.pw, g.ph, g.sc, g.yr); return '<svg viewBox="0 0 ' + W + ' ' + (g.ph + 24) + '" role="img" aria-hidden="true"><g transform="translate(' + g.ox + ' ' + g.oy + ')"><rect class="frame" x="0" y="0" width="' + g.pw + '" height="' + g.ph + '"/>' + inner + hp + '</g></svg>'; }
 
   /* ---------- the charts ---------- */
   function cSummary(rows) {
@@ -149,9 +150,18 @@
     return card(T.sumT, "", dl(T.rows.map(function (l, i) { return [l, v[i]]; })), "");
   }
   function cPos(rows) {
-    var g = geom(rows), s = "";
-    rows.slice().sort(function (p, q) { return (p.made ? 1 : 0) - (q.made ? 1 : 0); }).forEach(function (r) { s += '<circle class="' + (r.made ? "dm" : "dx") + '" cx="' + (r.release_x * g.pw).toFixed(1) + '" cy="' + (r.release_y * g.ph).toFixed(1) + '" r="' + (r.points === 3 ? 5 : 3.6) + '"/>'; });
-    return card(T.posT, "", windowSvg(g, s) + legend, T.posC);
+    var g, s = "", sorted = rows.slice().sort(function (p, q) { return (p.made ? 1 : 0) - (q.made ? 1 : 0); }), fx, fy;
+    if (S.pview === "px") {
+      var xs = rows.map(function (r) { return r.hoop_dx; }), ys = rows.map(function (r) { return -r.hoop_dy; }), xmax = Math.max(400, Math.ceil(Math.max.apply(null, xs) / 100) * 100),
+        ymin = Math.min(-100, Math.floor(Math.min.apply(null, ys) / 100) * 100), ymax = Math.max(200, Math.ceil(Math.max.apply(null, ys) / 100) * 100), pw = 560, sc = pw / (xmax + 60), ph = Math.round((ymax - ymin) * sc);
+      g = { pw: pw, ph: ph, ox: Math.round((W - pw) / 2), oy: 12, sc: sc, yr: -ymin * sc };
+      fx = function (r) { return pw - (52 + r.hoop_dx) * sc; }; fy = function (r) { return (-r.hoop_dy - ymin) * sc; };
+    } else {
+      g = geom(rows);
+      fx = function (r) { return r.release_x * g.pw; }; fy = function (r) { return r.release_y * g.ph; };
+    }
+    sorted.forEach(function (r) { s += '<circle class="' + (r.made ? "dm" : "dx") + '" cx="' + fx(r).toFixed(1) + '" cy="' + fy(r).toFixed(1) + '" r="' + (r.points === 3 ? 5 : 3.6) + '"/>'; });
+    return card(T.posT, seg("pview", [["frac", T.pFrac], ["px", T.pPx]], S.pview), windowSvg(g, s) + legend, T.posC);
   }
   function cHeat(rows) {
     var g = geom(rows), nc = S.bins.heat, nr = Math.max(2, Math.round(nc * g.ph / g.pw)), cw = g.pw / nc, ch = g.ph / nr, cnt = [], mad = [], i, j, s = "";
@@ -200,15 +210,15 @@
   function cAngle(rows) {
     var bw = S.bins.angle, ctrls = seg("view", [["bars", T.bars], ["radar", T.radar]], S.view) + sel("angle", [10, 15, 30, 45], S.bins.angle, T.bins, "°") + unitCtrl();
     if (S.view === "bars") return card(T.angT, ctrls, hist(rows, "angle", -180, 180, bw, T.xAng, null, [-180, -90, 0, 90, 180]), T.angC);
-    var b = bin(rows, "angle", -180, 180, bw), k = S.unit === "pct" ? 100 / rows.length : 1, cx = W / 2, cy = H / 2 + 2, R = 135, i, max = 0, s = "", tot = [];
-    for (i = 0; i < b.nb; i++) { tot.push((b.made[i] + b.miss[i]) * k); max = Math.max(max, tot[i]); }
+    var b = bin(rows, "angle", -180, 180, bw), pc = S.unit === "pct", kf = function (i) { var t = b.made[i] + b.miss[i]; return pc ? (t ? 100 / t : 0) : 1; }, cx = W / 2, cy = H / 2 + 2, R = 135, i, max = 0, s = "", tot = [];
+    for (i = 0; i < b.nb; i++) { tot.push((b.made[i] + b.miss[i]) * kf(i)); max = Math.max(max, tot[i]); }
     var st = step(max || 1, 3), top = Math.ceil((max || 1) / st) * st, rad = function (v) { return v / top * R; }, pt = function (r, a) { var q = a * Math.PI / 180; return [cx + r * Math.cos(q), cy - r * Math.sin(q)]; };
     for (var v = st; v <= top + 1e-9; v += st) s += '<circle class="gl2" cx="' + cx + '" cy="' + cy + '" r="' + rad(v) + '"/><text class="tx" x="' + (cx + 4) + '" y="' + (cy - rad(v) - 2) + '">' + fmt(v, st < 1 ? 1 : 0) + (S.unit === "pct" ? "%" : "") + '</text>';
     [[0, "0°", "start"], [90, "90°", "middle"], [180, "180°", "end"], [-90, "-90°", "middle"]].forEach(function (a) { var p = pt(R, a[0]), q = pt(R + 14, a[0]); s += '<line class="gl2" x1="' + cx + '" y1="' + cy + '" x2="' + p[0] + '" y2="' + p[1] + '"/><text class="tx" x="' + q[0] + '" y="' + (q[1] + 4) + '" text-anchor="' + a[2] + '">' + a[1] + '</text>'; });
     for (i = 0; i < b.nb; i++) {
       var a1 = -180 + i * bw, a2 = a1 + bw, wedge = function (r) { if (r <= 0) return ""; var p1 = pt(r, a1), p2 = pt(r, a2); return "M" + cx + " " + cy + "L" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + "A" + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + p2[0].toFixed(1) + " " + p2[1].toFixed(1) + "Z"; };
       if (tot[i]) s += '<path class="miss" d="' + wedge(rad(tot[i])) + '"/>';
-      if (b.made[i]) s += '<path class="made" d="' + wedge(rad(b.made[i] * k)) + '"/>';
+      if (b.made[i]) s += '<path class="made" d="' + wedge(rad(b.made[i] * kf(i))) + '"/>';
     }
     return card(T.angT, ctrls, svg(s) + legend, T.angC);
   }

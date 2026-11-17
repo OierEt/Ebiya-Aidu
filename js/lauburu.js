@@ -209,7 +209,7 @@
       // basket: centre crosses the rim line going down, inside the opening
       if (!scored && py < rimY && cy >= rimY && vy > 0 && cx > rimL + 3 && cx < rimR - 2) {
         scored = true;
-        addPoints(releaseDist > Math.max(300, w * 0.35));
+        addPoints(releaseDist > 0.3 * Math.hypot(w, h));
         vx *= 0.35; vy *= 0.7;      // the net slows it down
       }
       if (cy < rimY - 50) scored = false;   // allow another score on the next shot
