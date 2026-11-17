@@ -10,7 +10,7 @@ import fs from "fs";
 import path from "path";
 import { createRequire } from "module";
 import { feature, mesh, merge } from "topojson-client";
-import { geoNaturalEarth1, geoPath, geoCentroid, geoContains } from "d3-geo";
+import { geoNaturalEarth1, geoPath, geoCentroid, geoContains, geoArea } from "d3-geo";
 import countriesLib from "i18n-iso-countries";
 const require = createRequire(import.meta.url);
 const repo = process.argv[2];
@@ -29,24 +29,34 @@ const title = (c, lang) => {
   if (c.visits) t += lang === "en" ? ` · ${c.visits} visit${c.visits > 1 ? "s" : ""}` : ` · ${c.visits} bisita`;
   return esc(t);
 };
+countriesLib.registerLocale(require("i18n-iso-countries/langs/en.json"));
+countriesLib.registerLocale(require("i18n-iso-countries/langs/eu.json"));
+// Crimea belongs to Ukraine on this map
+const inCrimea0 = ([lo, la]) => lo > 32 && lo < 37 && la > 44 && la < 46.5;
+const polysOf = f => (f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates);
+const polyMap = new Map(all.map(f => [String(f.id).replace(/^0+/, ""), polysOf(f)]));
+const crimeaP = polyMap.get("643").filter(p => inCrimea0(p[0][0]));
+polyMap.set("643", polyMap.get("643").filter(p => !inCrimea0(p[0][0])));
+polyMap.set("804", polyMap.get("804").concat(crimeaP));
+const nameOf = (f, c, lang) => {
+  if (c) return title(c, lang);
+  const a2 = countriesLib.numericToAlpha2(String(f.id).padStart(3, "0"));
+  const n = a2 && (countriesLib.getName(a2, lang, { select: "alias" }) || countriesLib.getName(a2, lang));
+  return esc(n || f.properties.name);
+};
+const polyFeat = ps => ({ type: "Feature", geometry: { type: "MultiPolygon", coordinates: ps } });
 function land(lang) {
   let out = "";
   for (const f of all) {
-    const c = byId.get(String(f.id).replace(/^0+/, ""));
+    const id = String(f.id).replace(/^0+/, "");
+    const c = byId.get(id);
     if (c) missing.delete(num(c));
     const cls = c ? (c.borderOnly ? "border" : "visited") : "";
-    if (c && c.mainlandOnly && f.geometry.type === "MultiPolygon") {
-      for (const poly of f.geometry.coordinates) {
-        const sub = { type: "Feature", geometry: { type: "Polygon", coordinates: poly } };
-        const [lo, la] = geoCentroid(sub); const main = lo > -6 && lo < 10 && la > 41 && la < 52;
-        const d = gp(sub); if (!d) continue;
-        if (main) out += `<path d="${d}" class="${cls}"><title>${title(c, lang)}</title></path>`;
-      }
-      continue;
-    }
-    if (!c) continue; // ordinary land is one merged path (see baseLand)
-    const d = gp(f); if (!d) continue;
-    out += `<path d="${d}" class="${cls}"><title>${title(c, lang)}</title></path>`;
+    let ps = polyMap.get(id);
+    if (c && c.mainlandOnly) ps = ps.filter(p => { const [lo, la] = geoCentroid({ type: "Feature", geometry: { type: "Polygon", coordinates: p } }); return lo > -6 && lo < 10 && la > 41 && la < 52; });
+    if (!c) ps = ps.filter(p => geoArea({ type: "Feature", geometry: { type: "Polygon", coordinates: p } }) > 1e-7 || ps.length === 1);
+    const d = gp(polyFeat(ps)); if (!d) continue;
+    out += `<path d="${d}"${cls ? ` class="${cls}"` : ""}><title>${nameOf(f, c, lang)}</title></path>`;
   }
   return out;
 }
@@ -64,17 +74,8 @@ const landGeo = merge(topo, coll.geometries);
 let wsLon = -8.68; while (geoContains(landGeo, [wsLon - 0.02, 27.667]) && wsLon > -16) wsLon -= 0.02;
 const wsDots = { type: "LineString", coordinates: [[-8.68, 27.667], [wsLon, 27.667]] };
 const ukRu = mesh(topo, coll, (a, b) => a !== b && isCrimeaPair(a, b));
-const ruF = all.find(f => f.id === "643");
-const crimeaPolys = ruF.geometry.coordinates.filter(poly => inCrimea(poly[0][0]));
-if (!crimeaPolys.length) console.warn("Crimea polygon not found");
-const key = p => p[0].toFixed(4) + "," + p[1].toFixed(4);
-const crimeaKeys = new Set(crimeaPolys.flatMap(poly => poly[0].map(key)));
-const crimea = { type: "MultiLineString", coordinates: crimeaPolys.map(poly => poly[0]) };
-const ukRuRest = { type: "MultiLineString", coordinates: ukRu.coordinates.filter(l => !l.every(inCrimea)) };
-const coastRaw = mesh(topo, coll, (a, b) => a === b);
-const coastLines = [];
-for (const l of coastRaw.coordinates) { let cur = []; for (let i = 0; i < l.length; i++) { if (i > 0 && crimeaKeys.has(key(l[i])) && crimeaKeys.has(key(l[i - 1]))) { if (cur.length > 1) coastLines.push(cur); cur = []; } else { if (!cur.length && i > 0) cur.push(l[i - 1]); cur.push(l[i]); } } if (cur.length > 1) coastLines.push(cur); }
-const coast = { type: "MultiLineString", coordinates: coastLines };
+const ukRuRest = { type: "MultiLineString", coordinates: ukRu.coordinates.filter(l => !l.every(inCrimea)) }; // Crimea link not drawn: Crimea is Ukraine
+const coast = mesh(topo, coll, (a, b) => a === b);
 // Euskal Herria: Hego Euskal Herria from es-atlas provinces + hand-drawn northern part (approximate)
 const es = require("es-atlas/es/provinces.json");
 const hego = merge(es, es.objects.provinces.geometries.filter(g => ["Gipuzkoa", "Navarra", "Bizkaia", "Araba/Álava"].includes(g.properties.name)));
@@ -91,9 +92,10 @@ const euskal = { type: "LineString", coordinates: (southPath[0] === ring[iB] ? s
 // southPath runs between the two tripoints through the south; close it with the northern arc
 const sp = southPath[0] === ring[iA] ? southPath : southPath.slice().reverse(); // starts at Bidasoa mouth, ends at east tripoint
 euskal.coordinates = sp.concat(north.slice().reverse()).concat([sp[0]]);
-const borders = `<g class="borders"><path d="${gp(solid)}${gp(ukRuRest)}"/><path d="${gp(coast)}"/><path class="dots" d="${gp(wsDots)}${gp(crimea)}${gp(euskal)}"/></g>`;
-const baseLand = gp(merge(topo, coll.geometries));
-const ehHit = lang => `<path class="hit" d="${gp({ type: "Polygon", coordinates: [euskal.coordinates] })}"><title>Euskal Herria</title></path>`;
+const borders = `<g class="borders"><path d="${gp(solid)}${gp(ukRuRest)}"/><path d="${gp(coast)}"/><path class="dots" d="${gp(wsDots)}${gp(euskal)}"/></g>`;
+const ehPoly = { type: "Polygon", coordinates: [euskal.coordinates] };
+if (geoArea(ehPoly) > 2 * Math.PI) ehPoly.coordinates[0].reverse();
+const ehHit = lang => `<path class="hit" d="${gp(ehPoly)}"><title>Euskal Herria</title></path>`;
 const pinShape = "M0 0C-4 -7 -5 -10 -5 -12.5a5 5 0 1 1 10 0c0 2.5 -1 5.5 -5 12.5z";
 const pins = lang => places.cities.map(c => { const [x, y] = proj([c.lon, c.lat]); return `<g class="pin" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="pinscale"><path d="${pinShape}"/><circle cx="0" cy="-12.5" r="1.8"/></g><title>${esc(c[lang])}</title></g>`; }).join("");
 fs.mkdirSync(path.join(repo, "img/flags"), { recursive: true });
@@ -112,7 +114,7 @@ for (const lang of ["en", "eu"]) {
   const sorted = [...places.countries].sort((a, b) => (a.borderOnly ? 1 : 0) - (b.borderOnly ? 1 : 0) || a[lang].localeCompare(b[lang], lang));
   const flags = sorted.map(c => `<li${c.borderOnly ? ' class="border"' : ""}><img src="${t.pre}img/flags/${c.iso2}.svg" alt="" width="32" height="24"><span>${esc(c[lang])}</span>${c.visits ? `<b class="times">&times;${c.visits}</b>` : ""}${c.borderOnly ? `<em>${t.border}</em>` : ""}</li>`).join("");
   const block = `<!--map:start-->
-      <figure class="travelmap" data-zi="${t.zi}" data-zo="${t.zo}" data-zr="${t.zr}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.aria}">${defs}<g class="land"><path d="${baseLand}"/>${land(lang)}</g>${borders}${ehHit(lang)}<g class="pins">${dots(lang)}${pins(lang)}</g></svg><figcaption>${t.cap}</figcaption></figure>
+      <figure class="travelmap" data-zi="${t.zi}" data-zo="${t.zo}" data-zr="${t.zr}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.aria}">${defs}<g class="land">${land(lang)}</g>${borders}${ehHit(lang)}<g class="pins">${dots(lang)}${pins(lang)}</g></svg></figure>
       <p class="mapstats"><b>${nVisited}</b> ${t.of} ${TOTAL} ${t.countries} · <b>${lang === "eu" ? pct.replace(".", ",") : pct}%</b></p>
       <ul class="flags">${flags}</ul>
       <!--map:end-->`;
