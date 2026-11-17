@@ -54,7 +54,7 @@ function land(lang) {
     const cls = c ? (c.borderOnly ? "border" : "visited") : "";
     let ps = polyMap.get(id);
     if (c && c.mainlandOnly) ps = ps.filter(p => { const [lo, la] = geoCentroid({ type: "Feature", geometry: { type: "Polygon", coordinates: p } }); return lo > -6 && lo < 10 && la > 41 && la < 52; });
-    if (!c) ps = ps.filter(p => geoArea({ type: "Feature", geometry: { type: "Polygon", coordinates: p } }) > 1e-7 || ps.length === 1);
+    if (!c) continue; // ordinary land is one merged path (baseLand): no hover name for countries I have not visited
     const d = gp(polyFeat(ps)); if (!d) continue;
     out += cls ? `<path d="${d}" class="${cls}"><title>${nameOf(f, c, lang)}</title></path>` : `<path d="${d}"/>`; // only visited countries get a hover name
   }
@@ -96,6 +96,7 @@ const borders = `<g class="borders"><path d="${gp(solid)}${gp(ukRuRest)}"/><path
 const ehPoly = { type: "Polygon", coordinates: [euskal.coordinates] };
 if (geoArea(ehPoly) > 2 * Math.PI) ehPoly.coordinates[0].reverse();
 const ehHit = lang => `<path class="hit" d="${gp(ehPoly)}"><title>Euskal Herria</title></path>`;
+const baseLand = gp(merge(topo, coll.geometries));
 const pinShape = "M0 0C-4 -7 -5 -10 -5 -12.5a5 5 0 1 1 10 0c0 2.5 -1 5.5 -5 12.5z";
 const pins = lang => places.cities.map(c => { const [x, y] = proj([c.lon, c.lat]); return `<g class="pin" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="pinscale"><path d="${pinShape}"/><circle cx="0" cy="-12.5" r="1.8"/></g><title>${esc(c[lang])}</title></g>`; }).join("");
 fs.mkdirSync(path.join(repo, "img/flags"), { recursive: true });
@@ -114,7 +115,7 @@ for (const lang of ["en", "eu"]) {
   const sorted = [...places.countries].sort((a, b) => (a.borderOnly ? 1 : 0) - (b.borderOnly ? 1 : 0) || a[lang].localeCompare(b[lang], lang));
   const flags = sorted.map(c => `<li${c.borderOnly ? ' class="border"' : ""}><img src="${t.pre}img/flags/${c.iso2}.svg" alt="" width="32" height="24"><span>${esc(c[lang])}</span>${c.visits ? `<b class="times">&times;${c.visits}</b>` : ""}${c.borderOnly ? `<em>${t.border}</em>` : ""}</li>`).join("");
   const block = `<!--map:start-->
-      <figure class="travelmap" data-zi="${t.zi}" data-zo="${t.zo}" data-zr="${t.zr}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.aria}">${defs}<g class="land">${land(lang)}</g>${borders}${ehHit(lang)}<g class="pins">${dots(lang)}${pins(lang)}</g></svg></figure>
+      <figure class="travelmap" data-zi="${t.zi}" data-zo="${t.zo}" data-zr="${t.zr}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.aria}">${defs}<g class="land"><path d="${baseLand}"/>${land(lang)}</g>${borders}${ehHit(lang)}<g class="pins">${dots(lang)}${pins(lang)}</g></svg></figure>
       <p class="mapstats"><b>${nVisited}</b> ${t.of} ${TOTAL} ${t.countries} · <b>${lang === "eu" ? pct.replace(".", ",") : pct}%</b></p>
       <ul class="flags">${flags}</ul>
       <!--map:end-->`;
