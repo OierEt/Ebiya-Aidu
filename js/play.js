@@ -5,16 +5,18 @@
   var $ = function (id) { return document.getElementById(id); };
   try {
     var mine = JSON.parse(localStorage.getItem("lauburuScore") || "null") || { two: 0, three: 0 };
-    $("my-baskets").textContent = fmt((mine.two | 0) + (mine.three | 0));
+    $("my-two").textContent = fmt(mine.two | 0);
+    $("my-three").textContent = fmt(mine.three | 0);
     $("my-points").textContent = fmt((mine.two | 0) * 2 + (mine.three | 0) * 3);
   } catch (e) {}
   function load() {
     if (!window.ebiyaCounter) return;
-    window.ebiyaCounter.totals().then(function (t) {
-      $("total-baskets").textContent = fmt(t.baskets || 0);
-      $("total-points").textContent = fmt(t.points || 0);
-      var acc = t.shots ? Math.round((t.baskets || 0) / t.shots * 100) : null;
-      $("count-status").textContent = acc === null ? "" : (eu ? fmt(t.shots) + " jaurtiketa, " + acc + "% sartuta" : fmt(t.shots) + " throws, " + acc + "% scored");
+    window.ebiyaCounter.stats().then(function (t) {
+      var twos = t.twos || 0, threes = t.threes || 0, shots = t.shots || 0, made = twos + threes;
+      $("total-two").textContent = fmt(twos);
+      $("total-three").textContent = fmt(threes);
+      $("total-points").textContent = fmt(twos * 2 + threes * 3);
+      $("count-status").textContent = shots ? (eu ? fmt(shots) + " jaurtiketa, " + Math.round(made / shots * 100) + "% sartuta" : fmt(shots) + " throws, " + Math.round(made / shots * 100) + "% scored") : "";
     }).catch(function () {
       $("count-status").textContent = eu ? "Kontagailu partekatua atseden hartzen ari da edo ez dago eskuragarri orain (doako datu-basea lo egiten da inor ez dabilenean). Saiatu berriro minutu batzuk barru." : "The shared counter is resting or unreachable right now (the free database sleeps when nobody uses it). Try again in a few minutes.";
     });

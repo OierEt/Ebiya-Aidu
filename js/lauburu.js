@@ -19,29 +19,20 @@
     options.headers = options.method === "POST" ? { apikey: DB_KEY, "Content-Type": "application/json" } : { apikey: DB_KEY };
     return fetch(DB_URL + "/rest/v1/" + path, options).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
   }
-  // Used by js/play.js: resolves to { baskets, points }
+  // Used by js/play.js: resolves to { shots, twos, threes, misses } computed from the shots table
   window.ebiyaCounter = {
-    totals: function () {
-      return dbCall("counters?select=name,value").then(function (rows) {
-        var o = {}; rows.forEach(function (r) { o[r.name] = r.value; }); return o;
-      });
-    }
+    stats: function () { return dbCall("rpc/shot_stats", { method: "POST", body: "{}" }); }
   };
-  // One anonymous record per throw: where from, direction, speed, whether it scored (see backend/shots-setup.sql)
+  // One anonymous record per throw: where from, direction, speed, whether it scored (see backend/shots-setup.sql and shots-update.sql)
   function reportShot(sh, made, points, flightMs) {
     var body = {
       p_made: made, p_points: points, p_dist: Math.round(sh.dist), p_release_x: +sh.x.toFixed(4), p_release_y: +sh.y.toFixed(4),
       p_hoop_dx: Math.round(sh.dx), p_hoop_dy: Math.round(sh.dy), p_angle: Math.round(sh.angle), p_speed: Math.round(sh.speed),
-      p_flight_ms: Math.round(flightMs), p_vw: sh.vw, p_vh: sh.vh, p_touch: sh.touch
+      p_speed_raw: Math.round(sh.raw), p_flight_ms: Math.round(flightMs), p_vw: sh.vw, p_vh: sh.vh, p_touch: sh.touch
     };
     try {
-      dbCall("rpc/record_shot", { method: "POST", body: JSON.stringify(body), keepalive: true }).catch(function () {
-        if (made) reportBasket(points);   // the shots table is not set up yet: at least count the basket
-      });
+      dbCall("rpc/record_shot", { method: "POST", body: JSON.stringify(body), keepalive: true }).catch(function (e) { console.warn("Throw not saved:", e); });
     } catch (e) {}
-  }
-  function reportBasket(points) {
-    try { dbCall("rpc/add_basket", { method: "POST", body: JSON.stringify({ p_points: points }), keepalive: true }).catch(function () {}); } catch (e) {}
   }
 
   // ---- tuning ----
@@ -51,7 +42,7 @@
   var GRAVITY = 1500;       // px/s^2
   var BOUNCE = 0.6, FLOOR_BOUNCE = 0.55;
   var MAX_THROW = 2400;     // px/s
-  var MIN_SHOT_SPEED = 250; // px/s: slower releases are drops, not throws, and are not recorded
+  var MIN_SHOT_SPEED = 60;  // px/s: slower releases are drops, not throws, and are not recorded
   var STORE = "lauburuScore", STORE_HIDE = "lauburuHoopHidden";
 
   // ---- elements ----
@@ -131,6 +122,8 @@
   el.addEventListener("pointerdown", function (e) {
     e.preventDefault();
     try { el.setPointerCapture(e.pointerId); } catch (err) {}
+    // grabbing the ball again: a throw that was in the air for a while without scoring counts as a miss
+    if (shot && !shot.sent && performance.now() - flyStart > 600) sendShot(false, 0);
     mode = "held"; ptype = e.pointerType; shot = null;
     if (!played) { played = true; document.documentElement.classList.add("lauburu-played"); try { localStorage.setItem("lauburuPlayed", "1"); } catch (err) {} }
     grabDX = cx - e.clientX; grabDY = cy - e.clientY;
@@ -150,7 +143,7 @@
     el.classList.remove("held");
     var a = track[0], b = track[track.length - 1], dt = (b.t - a.t) / 1000;
     if (dt > 0.01) { vx = (b.x - a.x) / dt; vy = (b.y - a.y) / dt; } else { vx = vy = 0; }
-    var s = Math.hypot(vx, vy);
+    var s = Math.hypot(vx, vy), rawSpeed = s;
     if (s > MAX_THROW) { vx *= MAX_THROW / s; vy *= MAX_THROW / s; }
     var r = rect(rim);
     releaseDist = Math.hypot(r.left + r.width / 2 - cx, r.top - cy);
@@ -158,7 +151,7 @@
     shot = null;
     if (!document.documentElement.classList.contains("hoop-hidden") && Math.hypot(vx, vy) >= MIN_SHOT_SPEED) {
       shot = { x: cx / window.innerWidth, y: cy / window.innerHeight, dx: r.left + r.width / 2 - cx, dy: r.top - cy, dist: releaseDist,
-        angle: Math.atan2(-vy, vx) * 180 / Math.PI, speed: Math.hypot(vx, vy), vw: window.innerWidth, vh: window.innerHeight,
+        angle: Math.atan2(-vy, vx) * 180 / Math.PI, speed: Math.hypot(vx, vy), raw: rawSpeed, vw: window.innerWidth, vh: window.innerHeight,
         touch: ptype === "touch", sent: false };
     }
   }
@@ -167,7 +160,7 @@
 
   // ---- scoring ----
   function sendShot(made, points) {
-    if (!shot) { if (made) reportBasket(points); return; }
+    if (!shot) return;
     if (shot.sent) return;
     shot.sent = true;
     reportShot(shot, made, points, performance.now() - flyStart);
