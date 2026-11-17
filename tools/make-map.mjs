@@ -10,7 +10,7 @@ import fs from "fs";
 import path from "path";
 import { createRequire } from "module";
 import { feature, mesh, merge } from "topojson-client";
-import { geoNaturalEarth1, geoPath, geoCentroid } from "d3-geo";
+import { geoNaturalEarth1, geoPath, geoCentroid, geoContains } from "d3-geo";
 import countriesLib from "i18n-iso-countries";
 const require = createRequire(import.meta.url);
 const repo = process.argv[2];
@@ -54,15 +54,27 @@ const dots = lang => places.countries.filter(c => c.micro).map(c => { const f = 
 // Borders: solid for ordinary ones; dotted for Western Sahara, the Crimea link and the outline of Euskal Herria
 const coll = { type: "GeometryCollection", geometries: topo.objects.countries.geometries.filter(g => g.id !== "010") };
 const isWS = g => g.id === "732";
+const isWSMor = (a, b) => (a.id === "732" && b.id === "504") || (a.id === "504" && b.id === "732");
 const isCrimeaPair = (a, b) => (a.id === "804" && b.id === "643") || (a.id === "643" && b.id === "804");
 const inCrimea = ([lo, la]) => lo > 32 && lo < 37 && la > 44 && la < 46.5;
-const solid = mesh(topo, coll, (a, b) => a !== b && !isWS(a) && !isWS(b) && !isCrimeaPair(a, b));
-const coast = mesh(topo, coll, (a, b) => a === b);
-const wsDots = mesh(topo, coll, (a, b) => a !== b && (isWS(a) || isWS(b)));
+const solid = mesh(topo, coll, (a, b) => a !== b && !isWSMor(a, b) && !isCrimeaPair(a, b)); // the Morocco/Western Sahara wall is not drawn
+// Western Sahara: the 50m data gives Morocco the western part (up to the sand wall). We hide that wall and
+// draw instead the straight northern frontier along 27°40'N, from the Atlantic coast to 8°40'W, as a dotted line.
+const landGeo = merge(topo, coll.geometries);
+let wsLon = -8.68; while (geoContains(landGeo, [wsLon - 0.02, 27.667]) && wsLon > -16) wsLon -= 0.02;
+const wsDots = { type: "LineString", coordinates: [[-8.68, 27.667], [wsLon, 27.667]] };
 const ukRu = mesh(topo, coll, (a, b) => a !== b && isCrimeaPair(a, b));
-const crimea = { type: "MultiLineString", coordinates: ukRu.coordinates.filter(l => l.every(inCrimea)) };
+const ruF = all.find(f => f.id === "643");
+const crimeaPolys = ruF.geometry.coordinates.filter(poly => inCrimea(poly[0][0]));
+if (!crimeaPolys.length) console.warn("Crimea polygon not found");
+const key = p => p[0].toFixed(4) + "," + p[1].toFixed(4);
+const crimeaKeys = new Set(crimeaPolys.flatMap(poly => poly[0].map(key)));
+const crimea = { type: "MultiLineString", coordinates: crimeaPolys.map(poly => poly[0]) };
 const ukRuRest = { type: "MultiLineString", coordinates: ukRu.coordinates.filter(l => !l.every(inCrimea)) };
-if (!crimea.coordinates.length) console.warn("Crimea link not found");
+const coastRaw = mesh(topo, coll, (a, b) => a === b);
+const coastLines = [];
+for (const l of coastRaw.coordinates) { let cur = []; for (let i = 0; i < l.length; i++) { if (i > 0 && crimeaKeys.has(key(l[i])) && crimeaKeys.has(key(l[i - 1]))) { if (cur.length > 1) coastLines.push(cur); cur = []; } else { if (!cur.length && i > 0) cur.push(l[i - 1]); cur.push(l[i]); } } if (cur.length > 1) coastLines.push(cur); }
+const coast = { type: "MultiLineString", coordinates: coastLines };
 // Euskal Herria: Hego Euskal Herria from es-atlas provinces + hand-drawn northern part (approximate)
 const es = require("es-atlas/es/provinces.json");
 const hego = merge(es, es.objects.provinces.geometries.filter(g => ["Gipuzkoa", "Navarra", "Bizkaia", "Araba/Álava"].includes(g.properties.name)));
@@ -81,6 +93,7 @@ const sp = southPath[0] === ring[iA] ? southPath : southPath.slice().reverse(); 
 euskal.coordinates = sp.concat(north.slice().reverse()).concat([sp[0]]);
 const borders = `<g class="borders"><path d="${gp(solid)}${gp(ukRuRest)}"/><path d="${gp(coast)}"/><path class="dots" d="${gp(wsDots)}${gp(crimea)}${gp(euskal)}"/></g>`;
 const baseLand = gp(merge(topo, coll.geometries));
+const ehHit = lang => `<path class="hit" d="${gp({ type: "Polygon", coordinates: [euskal.coordinates] })}"><title>Euskal Herria</title></path>`;
 const pinShape = "M0 0C-4 -7 -5 -10 -5 -12.5a5 5 0 1 1 10 0c0 2.5 -1 5.5 -5 12.5z";
 const pins = lang => places.cities.map(c => { const [x, y] = proj([c.lon, c.lat]); return `<g class="pin" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="pinscale"><path d="${pinShape}"/><circle cx="0" cy="-12.5" r="1.8"/></g><title>${esc(c[lang])}</title></g>`; }).join("");
 fs.mkdirSync(path.join(repo, "img/flags"), { recursive: true });
@@ -91,15 +104,15 @@ const TOTAL = 195; // 193 UN members + Vatican City + Palestine
 const nVisited = places.countries.filter(c => !c.borderOnly).length;
 const pct = (nVisited / TOTAL * 100).toFixed(1);
 const T = {
-  en: { aria: "World map: countries I have been to are coloured, the striped one is a country I only saw from its border, dotted lines mark Crimea, Western Sahara and Euskal Herria. Use the buttons to zoom.", cap: "Countries I have been to are coloured; the striped one (DMZ) I only saw from the border. Dotted lines mark Crimea, Western Sahara and Euskal Herria.", src: "about.html", pre: "", border: "DMZ", of: "of", countries: "countries", zi: "Zoom in", zo: "Zoom out", zr: "Reset zoom" },
-  eu: { aria: "Munduko mapa: egon naizen herrialdeak koloreztatuta daude, marradunak mugatik soilik ikusi dudana da, eta puntuzko lerroek Krimea, Mendebaldeko Sahara eta Euskal Herria markatzen dituzte. Erabili botoiak zooma egiteko.", cap: "Egon naizen herrialdeak koloreztatuta daude; marradunean mugatik soilik egon naiz (DMZ). Puntuzko lerroek Krimea, Mendebaldeko Sahara eta Euskal Herria markatzen dituzte.", src: "eu/about.html", pre: "../", border: "DMZ", of: "/", countries: "herrialde", zi: "Handitu", zo: "Txikitu", zr: "Berrezarri zooma" }
+  en: { aria: "World map: countries I have been to are coloured, the striped one is a country I only saw from its border, dotted lines mark Crimea, Western Sahara and Euskal Herria. Use the buttons to zoom.", cap: "Countries I have been to are coloured; the striped one (DMZ) I only saw from the border.", src: "about.html", pre: "", border: "DMZ", of: "of", countries: "countries", zi: "Zoom in", zo: "Zoom out", zr: "Reset zoom" },
+  eu: { aria: "Munduko mapa: egon naizen herrialdeak koloreztatuta daude, marradunak mugatik soilik ikusi dudana da, eta puntuzko lerroek Krimea, Mendebaldeko Sahara eta Euskal Herria markatzen dituzte. Erabili botoiak zooma egiteko.", cap: "Egon naizen herrialdeak koloreztatuta daude; marradunean mugatik soilik egon naiz (DMZ).", src: "eu/about.html", pre: "../", border: "DMZ", of: "/", countries: "herrialde", zi: "Handitu", zo: "Txikitu", zr: "Berrezarri zooma" }
 };
 for (const lang of ["en", "eu"]) {
   const t = T[lang];
   const sorted = [...places.countries].sort((a, b) => (a.borderOnly ? 1 : 0) - (b.borderOnly ? 1 : 0) || a[lang].localeCompare(b[lang], lang));
   const flags = sorted.map(c => `<li${c.borderOnly ? ' class="border"' : ""}><img src="${t.pre}img/flags/${c.iso2}.svg" alt="" width="32" height="24"><span>${esc(c[lang])}</span>${c.visits ? `<b class="times">&times;${c.visits}</b>` : ""}${c.borderOnly ? `<em>${t.border}</em>` : ""}</li>`).join("");
   const block = `<!--map:start-->
-      <figure class="travelmap" data-zi="${t.zi}" data-zo="${t.zo}" data-zr="${t.zr}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.aria}">${defs}<g class="land"><path d="${baseLand}"/>${land(lang)}</g>${borders}<g class="pins">${dots(lang)}${pins(lang)}</g></svg><figcaption>${t.cap}</figcaption></figure>
+      <figure class="travelmap" data-zi="${t.zi}" data-zo="${t.zo}" data-zr="${t.zr}"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.aria}">${defs}<g class="land"><path d="${baseLand}"/>${land(lang)}</g>${borders}${ehHit(lang)}<g class="pins">${dots(lang)}${pins(lang)}</g></svg><figcaption>${t.cap}</figcaption></figure>
       <p class="mapstats"><b>${nVisited}</b> ${t.of} ${TOTAL} ${t.countries} · <b>${lang === "eu" ? pct.replace(".", ",") : pct}%</b></p>
       <ul class="flags">${flags}</ul>
       <!--map:end-->`;
