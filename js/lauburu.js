@@ -11,6 +11,26 @@
     ? { hint: "Eraman lauburua saskira!", pts: "Puntuak", hide: "Ezkutatu", show: "Saskia" }
     : { hint: "Drag the lauburu into the hoop!", pts: "Points", hide: "Hide", show: "Basket" };
 
+  // ---- shared basket counter (Supabase, public key only; see backend/counter-setup.sql) ----
+  var DB_URL = "https://cqwblkgghzvonxsazasm.supabase.co";
+  var DB_KEY = "sb_publishable_T8zN3tIwPkcfoB3xoUV72g_-3Hi44tz";
+  function dbCall(path, options) {
+    options = options || {};
+    options.headers = options.method === "POST" ? { apikey: DB_KEY, "Content-Type": "application/json" } : { apikey: DB_KEY };
+    return fetch(DB_URL + "/rest/v1/" + path, options).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  // Used by js/play.js: resolves to { baskets, points }
+  window.ebiyaCounter = {
+    totals: function () {
+      return dbCall("counters?select=name,value").then(function (rows) {
+        var o = {}; rows.forEach(function (r) { o[r.name] = r.value; }); return o;
+      });
+    }
+  };
+  function reportBasket(points) {
+    try { dbCall("rpc/add_basket", { method: "POST", body: JSON.stringify({ p_points: points }), keepalive: true }).catch(function () {}); } catch (e) {}
+  }
+
   // ---- tuning ----
   var R = 14;               // ball radius (px)
   var CRUISE = 26;          // walking speed (px/s)
@@ -127,6 +147,7 @@
   // ---- scoring ----
   function addPoints(three) {
     if (three) score.three++; else score.two++;
+    reportBasket(three ? 3 : 2);
     try { localStorage.setItem(STORE, JSON.stringify(score)); } catch (e) {}
     drawScore();
     panel.classList.remove("flash"); void panel.offsetWidth; panel.classList.add("flash");

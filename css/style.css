@@ -444,3 +444,7 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .mapstats b { color: var(--red); font-size: 1.3em; }
 .travelmap .hit { fill: transparent; stroke: none; pointer-events: all; }
 .travelmap, .travelmap svg { -webkit-user-select: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }
+.bigcount { display: flex; gap: 32px; margin: 12px 0; }
+.bigcount b { display: block; font-family: var(--head); font-size: 56px; line-height: 1; color: var(--red); }
+.bigcount span { font: 12px var(--mono, "IBM Plex Mono", monospace); text-transform: uppercase; }
+.count-status { font: 12px var(--mono, "IBM Plex Mono", monospace); margin: 0; min-height: 1em; }

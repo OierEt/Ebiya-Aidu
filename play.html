@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Play · Ebiya Aidu</title>
+  <meta name="description" content="Ebiya Aidu: a personal site about data, education, research, travel and odd collections.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261117g">
+  <script src="js/theme.js?v=20261117g"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Ebiya Aidu</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About me</a>
+        <a href="play.html" aria-current="page">Play</a>
+        <a href="chat.html">Chat</a>
+        </nav>
+        <div class="lang" aria-label="Language"><a href="play.html" lang="en" hreflang="en" aria-current="true">EN</a><a href="eu/play.html" lang="eu" hreflang="eu">EU</a></div>
+      </div>
+    </div>
+  </header>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="num">03 /</div>
+      <h1>Play</h1>
+      <p>A lauburu, a hoop and a counter shared by every visitor.</p>
+    </div>
+  </section>
+  <main>
+    <div class="wrap">
+      <div class="grid">
+        <div class="card">
+          <h3>All visitors together</h3>
+          <div class="bigcount"><div><b id="total-baskets">&hellip;</b><span>baskets</span></div><div><b id="total-points">&hellip;</b><span>points</span></div></div>
+          <p id="count-status" class="count-status" aria-live="polite"></p>
+        </div>
+        <div class="card">
+          <h3>Your score</h3>
+          <div class="bigcount"><div><b id="my-baskets">0</b><span>baskets</span></div><div><b id="my-points">0</b><span>points</span></div></div>
+          <p class="count-status">Kept in this browser only.</p>
+        </div>
+      </div>
+      <div class="prose" style="margin-top:32px">
+        <h2 class="sub">How to play</h2>
+        <p>A small red lauburu wanders around every page. Grab it, drag it and throw it into the hoop at the right edge of the window. A basket from far away is worth 3 points, a closer one 2.</p>
+        <p>Every basket is added to the shared counter above. Only the number of points is sent, nothing about you.</p>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="swiss" aria-pressed="false">Swiss</button><button type="button" data-theme-set="blueprint" aria-pressed="false">Blueprint</button></div>
+      <span>&copy; 2026 Ebiya Aidu</span>
+    </div>
+  </footer>
+  <script src="js/lauburu.js?v=20261117g"></script>
+  <script src="js/play.js?v=20261117g"></script>
+  <script src="js/nav.js?v=20261117g"></script>
+</body>
+</html>
