@@ -56,7 +56,7 @@ function land(lang) {
     if (c && c.mainlandOnly) ps = ps.filter(p => { const [lo, la] = geoCentroid({ type: "Feature", geometry: { type: "Polygon", coordinates: p } }); return lo > -6 && lo < 10 && la > 41 && la < 52; });
     if (!c) ps = ps.filter(p => geoArea({ type: "Feature", geometry: { type: "Polygon", coordinates: p } }) > 1e-7 || ps.length === 1);
     const d = gp(polyFeat(ps)); if (!d) continue;
-    out += `<path d="${d}"${cls ? ` class="${cls}"` : ""}><title>${nameOf(f, c, lang)}</title></path>`;
+    out += cls ? `<path d="${d}" class="${cls}"><title>${nameOf(f, c, lang)}</title></path>` : `<path d="${d}"/>`; // only visited countries get a hover name
   }
   return out;
 }
