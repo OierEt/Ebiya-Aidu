@@ -22,7 +22,7 @@
   // Used by js/play.js: resolves to { shots, twos, threes, misses } computed from the shots table
   window.ebiyaCounter = {
     stats: function () { return dbCall("rpc/shot_stats", { method: "POST", body: "{}" }); },
-    shots: function () { return dbCall("shots?select=made,points,dist,release_x,release_y,angle,speed,speed_raw,flight_ms,touch&order=id.desc&limit=5000"); }
+    shots: function () { return dbCall("shots?select=made,points,dist,release_x,release_y,hoop_dx,hoop_dy,angle,speed,speed_raw,flight_ms,vw,vh,touch,created_at&order=id.desc&limit=5000"); }
   };
   // One anonymous record per throw: where from, direction, speed, whether it scored (see backend/shots-setup.sql and shots-update.sql)
   function reportShot(sh, made, points, flightMs) {

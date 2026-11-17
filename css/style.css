@@ -448,7 +448,29 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .bigcount b { display: block; font-family: var(--head); font-size: 40px; line-height: 1; color: var(--red); }
 .bigcount span { font: 12px var(--mono, "IBM Plex Mono", monospace); text-transform: uppercase; }
 .count-status { font: 12px var(--mono, "IBM Plex Mono", monospace); margin: 0; min-height: 1em; }
-.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; margin-top: 8px; }
+.grid.stack { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.grid.stack .card { width: 100%; max-width: 520px; text-align: center; }
+.grid.stack .bigcount { justify-content: center; }
+.charts { display: flex; flex-direction: column; align-items: center; gap: 28px; margin-top: 8px; }
+.charts .card.chart { width: 100%; max-width: 680px; }
+.chartbar { text-align: center; }
+.chart .ctrls, .chartbar { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 4px 0 10px; }
+.chartbar { justify-content: center; width: 100%; max-width: 680px; margin: 0; }
+.seg { display: inline-flex; border: 2px solid var(--black); }
+.seg button { font: 12px var(--mono, "IBM Plex Mono", monospace); background: var(--paper); color: var(--black); border: 0; padding: 5px 10px; cursor: pointer; }
+.seg button + button { border-left: 2px solid var(--black); }
+.seg button.on { background: var(--red); color: var(--paper); }
+.sel { font: 12px var(--mono, "IBM Plex Mono", monospace); }
+.sel select { font: 12px var(--mono, "IBM Plex Mono", monospace); background: var(--paper); color: var(--black); border: 2px solid var(--black); padding: 3px 4px; }
+.chart .hb { fill: var(--black); }
+.chart .hr { fill: var(--red); stroke: var(--black); stroke-width: 1.5; }
+.chart .hn { fill: none; stroke: var(--black); stroke-width: 1; stroke-opacity: .6; }
+.chart .hc { fill: var(--red); stroke: var(--paper); stroke-width: 1; }
+.chart .hn0 { fill: none; stroke: var(--black); stroke-opacity: .08; }
+.chart .ht { fill: var(--black); font-size: 10px; }
+.chart .gl2 { fill: none; stroke: var(--black); stroke-opacity: .18; }
+.chart .rug { stroke: var(--black); stroke-opacity: .35; stroke-width: 1; }
+.chart .avg { stroke: var(--black); stroke-opacity: .5; stroke-dasharray: 4 4; }
 .chart svg { width: 100%; height: auto; display: block; }
 .chart .gl { stroke: var(--black); stroke-opacity: .15; }
 .chart .ax, .chart .tk { stroke: var(--black); stroke-width: 1; fill: none; }
