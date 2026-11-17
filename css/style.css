@@ -443,3 +443,4 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .mapstats { font: 14px var(--mono, "IBM Plex Mono", monospace); margin: 10px 0; }
 .mapstats b { color: var(--red); font-size: 1.3em; }
 .travelmap .hit { fill: transparent; stroke: none; pointer-events: all; }
+.travelmap, .travelmap svg { -webkit-user-select: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; }

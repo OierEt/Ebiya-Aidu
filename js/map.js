@@ -32,9 +32,10 @@
   });
   var pts = {}, last = null;
   function dist() { var k = Object.keys(pts); if (k.length < 2) return 0; var a = pts[k[0]], b = pts[k[1]]; return Math.hypot(a.x - b.x, a.y - b.y); }
-  svg.addEventListener("pointerdown", function (e) { pts[e.pointerId] = { x: e.clientX, y: e.clientY }; last = dist(); try { svg.setPointerCapture(e.pointerId); } catch (_) {} });
+  svg.addEventListener("pointerdown", function (e) { if (e.pointerType === "mouse") { pts = {}; e.preventDefault(); } /* no text selection or native drag while panning */ pts[e.pointerId] = { x: e.clientX, y: e.clientY }; last = dist(); try { svg.setPointerCapture(e.pointerId); } catch (_) {} });
   svg.addEventListener("pointermove", function (e) {
     var p = pts[e.pointerId]; if (!p) return;
+    if (e.pointerType === "mouse" && e.buttons === 0) { pts = {}; last = null; return; } /* button released outside: forget the drag */
     var r = svg.getBoundingClientRect(), n = Object.keys(pts).length;
     if (n >= 2) {
       pts[e.pointerId] = { x: e.clientX, y: e.clientY };
@@ -44,6 +45,7 @@
     }
   });
   function up(e) { delete pts[e.pointerId]; last = null; }
-  svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up);
+  svg.addEventListener("pointerup", up); svg.addEventListener("pointercancel", up); svg.addEventListener("lostpointercapture", up);
+  window.addEventListener("blur", function () { pts = {}; last = null; });
   apply();
 })();
