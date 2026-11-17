@@ -3,107 +3,90 @@
   {
    "iso2": "es",
    "en": "Spain",
-   "eu": "Espainia",
-   "visits": 6
+   "eu": "Espainia"
   },
   {
    "iso2": "pt",
    "en": "Portugal",
-   "eu": "Portugal",
-   "visits": 3
+   "eu": "Portugal"
   },
   {
    "iso2": "fr",
    "en": "France",
    "eu": "Frantzia",
-   "mainlandOnly": true,
-   "visits": 7
+   "mainlandOnly": true
   },
   {
    "iso2": "gb",
    "en": "United Kingdom",
-   "eu": "Erresuma Batua",
-   "visits": 1
+   "eu": "Erresuma Batua"
   },
   {
    "iso2": "be",
    "en": "Belgium",
-   "eu": "Belgika",
-   "visits": 2
+   "eu": "Belgika"
   },
   {
    "iso2": "nl",
    "en": "Netherlands",
-   "eu": "Herbehereak",
-   "visits": 9
+   "eu": "Herbehereak"
   },
   {
    "iso2": "de",
    "en": "Germany",
-   "eu": "Alemania",
-   "visits": 2
+   "eu": "Alemania"
   },
   {
    "iso2": "pl",
    "en": "Poland",
-   "eu": "Polonia",
-   "visits": 6
+   "eu": "Polonia"
   },
   {
    "iso2": "sk",
    "en": "Slovakia",
-   "eu": "Eslovakia",
-   "visits": 1
+   "eu": "Eslovakia"
   },
   {
    "iso2": "at",
    "en": "Austria",
-   "eu": "Austria",
-   "visits": 9
+   "eu": "Austria"
   },
   {
    "iso2": "hu",
    "en": "Hungary",
-   "eu": "Hungaria",
-   "visits": 4
+   "eu": "Hungaria"
   },
   {
    "iso2": "ee",
    "en": "Estonia",
-   "eu": "Estonia",
-   "visits": 1
+   "eu": "Estonia"
   },
   {
    "iso2": "lv",
    "en": "Latvia",
-   "eu": "Letonia",
-   "visits": 2
+   "eu": "Letonia"
   },
   {
    "iso2": "kr",
    "en": "South Korea",
-   "eu": "Hego Korea",
-   "visits": 7
+   "eu": "Hego Korea"
   },
   {
    "iso2": "it",
    "en": "Italy",
-   "eu": "Italia",
-   "visits": 7
+   "eu": "Italia"
   },
   {
    "iso2": "mc",
    "en": "Monaco",
    "eu": "Monako",
-   "micro": true,
-   "visits": 2
+   "micro": true
   },
   {
    "iso2": "va",
    "en": "Vatican City",
    "eu": "Vatikano",
-   "micro": true,
-   "visits": 4
+   "micro": true
   },
   {
    "iso2": "kp",
