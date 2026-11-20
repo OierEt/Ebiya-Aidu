@@ -491,3 +491,6 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .chart .sum { margin: 8px 0 0; }
 .chart .sum div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--black); font: 13px var(--mono, "IBM Plex Mono", monospace); }
 .chart .sum dt { margin: 0; } .chart .sum dd { margin: 0; font-weight: 600; color: var(--red); }
+
+.chart .tri { fill: none; stroke: var(--red); stroke-width: 2; stroke-dasharray: 6 5; }
+.chart .lg.tri { background: none; border: 0; border-bottom: 2px dashed var(--red); height: 0; width: 18px; vertical-align: 3px; margin-left: 12px; }
