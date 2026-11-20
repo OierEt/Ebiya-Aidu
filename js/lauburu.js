@@ -21,6 +21,7 @@
   }
   // Used by js/play.js: resolves to { shots, twos, threes, misses } computed from the shots table
   window.ebiyaCounter = {
+    mine: function () { try { return JSON.parse(localStorage.getItem("lauburuMine") || "[]"); } catch (e) { return []; } },
     stats: function () { return dbCall("rpc/shot_stats", { method: "POST", body: "{}" }); },
     shots: function () { return dbCall("shots?select=made,points,dist,release_x,release_y,hoop_dx,hoop_dy,angle,speed,speed_raw,flight_ms,vw,vh,touch,created_at&order=id.desc&limit=5000"); }
   };
@@ -31,6 +32,11 @@
       p_hoop_dx: Math.round(sh.dx), p_hoop_dy: Math.round(sh.dy), p_angle: Math.round(sh.angle), p_speed: Math.round(sh.speed),
       p_speed_raw: Math.round(sh.raw), p_flight_ms: Math.round(flightMs), p_vw: sh.vw, p_vh: sh.vh, p_touch: sh.touch
     };
+    try {   // also keep this device's own throws in the browser, for the personal overlay on the charts
+      var mine = JSON.parse(localStorage.getItem("lauburuMine") || "[]");
+      mine.push({ made: made, points: points, dist: body.p_dist, release_x: body.p_release_x, release_y: body.p_release_y, hoop_dx: body.p_hoop_dx, hoop_dy: body.p_hoop_dy, angle: body.p_angle, speed: body.p_speed, speed_raw: body.p_speed_raw, flight_ms: body.p_flight_ms, vw: body.p_vw, vh: body.p_vh, touch: body.p_touch, created_at: new Date().toISOString() });
+      localStorage.setItem("lauburuMine", JSON.stringify(mine.slice(-1000)));
+    } catch (e) {}
     try {
       dbCall("rpc/record_shot", { method: "POST", body: JSON.stringify(body), keepalive: true }).catch(function (e) { console.warn("Throw not saved:", e); });
     } catch (e) {}
