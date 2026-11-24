@@ -506,3 +506,6 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .backlink { margin: 0 0 18px; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
 .playbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 .playbar h3 { margin: 0 0 4px; } .playbar p { margin: 0; } .playbar .more { margin: 0; }
+.card .thumb { margin: 8px 0 14px; border: 2px solid var(--black); background: var(--cream); height: 130px; overflow: hidden; }
+.card .thumb svg { display: block; width: 100%; height: 100%; }
+.card:hover .thumb svg circle { transform: translate(8px, -6px); transition: transform .25s; }
