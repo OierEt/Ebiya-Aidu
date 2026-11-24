@@ -8,8 +8,8 @@
 
   var eu = document.documentElement.lang === "eu";
   var TXT = eu
-    ? { hint: "Eraman lauburua saskira!", pts: "Puntuak", hide: "Ezkutatu", show: "Saskia" }
-    : { hint: "Drag the lauburu into the hoop!", pts: "Points", hide: "Hide", show: "Basket" };
+    ? { hint: "Eraman lauburua saskira!", pts: "Puntuak", hide: "Ezkutatu", show: "Saskia", reset: "Berrezarri", sure: "Ziur?" }
+    : { hint: "Drag the lauburu into the hoop!", pts: "Points", hide: "Hide", show: "Basket", reset: "Reset", sure: "Sure?" };
 
   // ---- shared basket counter (Supabase, public key only; see backend/counter-setup.sql) ----
   var DB_URL = "https://cqwblkgghzvonxsazasm.supabase.co";
@@ -72,7 +72,7 @@
   panel.className = "score";
   panel.innerHTML = '<div class="score-row"><span class="s2">2&times;<b>0</b></span><span class="s3">3&times;<b>0</b></span>' +
     '<span class="st">' + TXT.pts + ' <b>0</b></span></div><div class="score-hint">' + TXT.hint + '</div>' +
-    '<button type="button" class="score-toggle">' + TXT.hide + '</button>';
+    '<button type="button" class="score-toggle">' + TXT.hide + '</button> <button type="button" class="score-toggle score-reset">' + TXT.reset + '</button>';
   document.body.appendChild(panel);
   var board = hoop.querySelector(".board"), rim = hoop.querySelector(".rim"), plus = hoop.querySelector(".plus");
   var toggle = panel.querySelector(".score-toggle");
@@ -103,6 +103,20 @@
     applyHidden();
   });
   applyHidden();
+  // Reset: clears this browser's own score and throws (the shared counter is not touched). Two clicks to confirm.
+  var resetBtn = panel.querySelector(".score-reset"), resetTimer = 0;
+  resetBtn.addEventListener("click", function () {
+    if (!resetTimer) {
+      resetBtn.textContent = TXT.sure;
+      resetTimer = setTimeout(function () { resetTimer = 0; resetBtn.textContent = TXT.reset; }, 3000);
+      return;
+    }
+    clearTimeout(resetTimer); resetTimer = 0; resetBtn.textContent = TXT.reset;
+    score = { two: 0, three: 0 };
+    try { localStorage.removeItem(STORE); localStorage.removeItem("lauburuMine"); } catch (e) {}
+    drawScore();
+    window.dispatchEvent(new Event("lauburu-reset"));
+  });
 
   // ---- state ----
   var cx = window.innerWidth * (0.45 + Math.random() * 0.3);

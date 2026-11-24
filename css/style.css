@@ -500,4 +500,6 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .chart .sum .hd { border-bottom: 2px solid var(--black); font-weight: 600; }
 .chart .sum dd { min-width: 64px; text-align: right; } .chart .sum dd.me { color: var(--black); }
 .chart .sum div { justify-content: flex-start; } .chart .sum dt { flex: 1; }
-.prose.center { max-width: 680px; margin-left: auto; margin-right: auto; text-align: center; }
+.prose.center { max-width: 680px; margin-left: auto; margin-right: auto; text-align: justify; hyphens: auto; }
+.prose.center .sub { text-align: left; margin-top: 8px; }
+.score-reset { margin-left: 4px; }

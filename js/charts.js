@@ -6,40 +6,40 @@
   var T = eu ? {
     none: "Oraindik ez dago jaurtiketarik. Bota lauburua saskira!", few: "Grafikoak ikusteko jaurtiketa gehiago behar dira.", err: "Ezin izan dira jaurtiketak kargatu orain.",
     made: "Sartu da", miss: "Huts egin du", count: "Jaurtiketak", bins: "Zutabeen zabalera",
-    viewL: "Posizio-ikuspegia", showL: "Erakutsi", both: "Biak", onlyMade: "Sartuak soilik", onlyMiss: "Hutsak soilik", mineL: "Zure jaurtiketak (gailu hau)", youC: "Zu", allC: "Denak", mineN: "Zure jaurtiketak gailu honetan eta nabigatzaile honetan bakarrik gordetzen dira, orri hau gehitu zen unetik aurrera.", axPxX: "Saskitik distantzia horizontala (px)", axPxY: "Saskiarekiko desplazamendu bertikala (px, + = behean)", axWX: "Leihoaren zabalera (%)", axWY: "Leihoaren garaiera (%)", unitC: "Kopurua", unitP: "% zutabe bakoitzean", pctOf: "Sartuak / hutsak (%)", pWin: "Leihoa", pPx: "Pixelak", bars: "Barrak", radar: "Radarra", logit: "Logistikoa", linear: "Lineala", cells: "Gelaxkak",
+    viewL: "Posizio-ikuspegia", showL: "Erakutsi", both: "Biak", onlyMade: "Sartuak soilik", onlyMiss: "Hutsak soilik", mineL: "Zureak", mineT: "Zureak", hi: "Nabarmenduta", mg: "Batuta", fitL: "Doitu hauetan", fitT: "Jaurtiketak", fitB: "Zutabeak", youC: "Zu", allC: "Denak", mineN: "Zure jaurtiketak gailu honetan eta nabigatzaile honetan bakarrik gordetzen dira, orri hau gehitu zen unetik aurrera.", axPxX: "Saskitik distantzia horizontala (px)", axPxY: "Saskiarekiko desplazamendu bertikala (px, + = behean)", axWX: "Leihoaren zabalera (%)", axWY: "Leihoaren garaiera (%)", unitC: "Kopurua", unitP: "% zutabe bakoitzean", pctOf: "Sartuak / hutsak (%)", pWin: "Leihoa", pPx: "Pixelak", bars: "Barrak", radar: "Radarra", logit: "Logistikoa", linear: "Lineala", cells: "Gelaxkak",
     sumT: "Laburpena", rows: ["Jaurtiketak", "Sartuak", "2 puntukoak", "3 puntukoak", "Sartutakoen batez besteko distantzia", "Hutsen batez besteko distantzia", "Ukipen-pantailaz", "Abiadura-mugara iritsiak"],
     posT: "Jaurtiketak nondik hasten diren", posC: "Puntu bakoitza jaurtiketa bat da. Pixelak (lehenetsia): saskitik benetan zenbat pixelera dagoen, pantaila-neurrien zuzenketarik gabe; distantziak zuzenean konparatzen dira, baina pantaila handiek urrutiago dauden puntuak dituzte. Leihoa: laukia leihoa da, eta puntu bakoitza baloia askatu zen lekuan dago, leihoaren zabaleraren eta garaieraren zati gisa; beraz, pantaila erdi-zabaleko ordenagailu batean eta zabal batean ezkerreko ertzetik jaurtitzen baduzu, biak laukiaren ezkerreko ertzean ageri dira (ez bata erdian), pantaila guztiak neurri berera luzatzen direlako. Hiru puntuak nola kalkulatzen diren: saskia 3 puntu balio du baloia saskitik leihoaren diagonalaren %30 baino urrunago askatu bada, bestela 2; muga hori pantaila bakoitzaren neurriaren araberakoa da, beraz pantaila ezberdinetan distantzia ezberdina da. Puntu handiak 3 puntukoak dira; puntu hutsak huts egindakoak. Diamante beltzak zureak dira.",
     heatT: "Non da errazago sartzea", heatC: "Leihoa gelaxka-sarean zatituta. Gelaxka bakoitzean, handik askatutako jaurtiketen artean sartutakoen ehunekoa (3 jaurtiketa baino gutxiagoko gelaxkak hutsik). Ilunagoa = errazagoa. Goiko Pixelak/Leihoa aukerari jarraitzen dio.",
     distT: "Jaurtiketen distantzia", distC: "Askatze-puntutik zerkara dagoen distantzia pixeletan. Pantaila handiek distantzia luzeagoak dituzte.",
-    regT: "Sartzeko probabilitatea distantziaren arabera", regC: "Puntu bakoitza distantzia-tarte bat da (ez pixel bat): puntuaren altuera tarte horretan sartutakoen ehunekoa da, eta tamaina jaurtiketa-kopurua. Behean eta goian marra txikiek jaurtiketa bakoitza erakusten dute (goian sartuak, behean hutsak). Lerroa hautatutako ereduaren doikuntza da. Sartu/huts erantzun bitarra denez, eredu logistikoa egokiena da (probabilitatea 0 eta 100 artean gelditzen da); eredu linealak lerro zuzena doitzen du, 0tik behera edo 100etik gora joan daiteke, baina irakurtzeko errazagoa da. Zutabe-zabalerak puntuei bakarrik eragiten die; lerroa eta metrikak jaurtiketa bakoitzarekin kalkulatzen dira beti.",
+    regT: "Sartzeko probabilitatea distantziaren arabera", regC: "Puntu bakoitza distantzia-tarte bat da (ez pixel bat): puntuaren altuera tarte horretan sartutakoen ehunekoa da, eta tamaina jaurtiketa-kopurua. Behean eta goian marra txikiek jaurtiketa bakoitza erakusten dute (goian sartuak, behean hutsak). Lerroa hautatutako ereduaren doikuntza da. Sartu/huts erantzun bitarra denez, eredu logistikoa egokiena da (probabilitatea 0 eta 100 artean gelditzen da); eredu linealak lerro zuzena doitzen du, 0tik behera edo 100etik gora joan daiteke, baina irakurtzeko errazagoa da. \"Jaurtiketak\" aukeran (lehenetsia), lerroa eta metrikak jaurtiketa bakoitzarekin kalkulatzen dira, beraz zutabe-zabalerak puntuei bakarrik eragiten die; estatistikoki hori da bide zuzena. \"Zutabeak\" aukeran, jaurtiketa bakoitza bere zutabearen erdira biribiltzen da lehenik, eta orduan zutabe-zabalerak doikuntza aldatzen du; xehetasuna galtzen da, beraz erabili jaurtiketak zutabeetan multzokatzeak zer eragiten duen ikusteko soilik.",
     regFew: "Erregresiorako gutxienez 20 jaurtiketa behar dira, sartuak eta hutsak tartean.",
     rn: "Jaurtiketak", rOR: "Aukera-ratioa 100 px-ko", rP: "p balioa", rMcF: "McFadden R²", rAUC: "AUC", rAcc: "Asmatze-tasa (%50eko mugarekin)", rD50: "Distantzia %50eko probabilitatearekin",
     rSlope: "Malda (ehuneko-puntuak 100 px-ko)", rR2: "R²", rR: "r", rInt: "Ebakidura (%, 0 px-n)", xDist: "Distantzia (px)", yPct: "Sartuak (%)",
     spT: "Jaurtiketen abiadura", spC: "Askatzeko abiadura px/s-tan. Baloiak 2400 px/s-ko muga du; jaurtiketen", spC2: "azkarragoak izan ziren.", xSpeed: "Abiadura (px/s)",
     svdT: "Abiadura distantziaren aurka", svdC: "Jaurtiketa bakoitza puntu bat da. Distantzia handiagoan abiadura handiagoa behar da; mugan (2400) pilatzen direnek sartzeko zailtasunak dituzte.", ySpeed: "Abiadura (px/s)",
-    angT: "Jaurtiketen norabidea", angC: "Graduak: 0° eskuinera, 90° zuzen gora, 180° ezkerrera, -90° behera. Radarrean, ertz bakoitzaren luzera jaurtiketa-kopurua da.", xAng: "Norabidea (°)",
+    angT: "Jaurtiketen norabidea", angC: "Graduak: 0° eskuinera, 90° zuzen gora, 180° ezkerrera, -90° behera. Radarrean, ertz bakoitzaren luzera bere jaurtiketa-kopurua da (ehuneko moduan ertz guztiak %100 luze dira, eta zati gorria sartutakoen zatia da). Jarri kurtsorea zenbaki zehatzak ikusteko.", xAng: "Norabidea (°)",
     timeT: "Asmatzea denboran zehar", timeC: "Azken jaurtiketen batez bestekoa (leiho mugikorra) sartutakoen ehunekoan; lerro etena guztien batez bestekoa da. Ezkerrean zaharrenak, eskuinean berrienak.", xThrow: "Jaurtiketa zenbakia"
   } : {
     none: "No throws recorded yet. Throw the lauburu into the hoop!", few: "More throws are needed to draw the charts.", err: "The throws could not be loaded right now.",
     made: "Scored", miss: "Missed", count: "Throws", bins: "Bin width",
-    viewL: "Position view", showL: "Show", both: "Both", onlyMade: "Scored only", onlyMiss: "Missed only", mineL: "Your throws (this device)", youC: "You", allC: "All", mineN: "Your throws are only kept on this device and browser, from the moment this feature was added.", axPxX: "Horizontal distance from the rim (px)", axPxY: "Vertical offset from the rim (px, + = below)", axWX: "Window width (%)", axWY: "Window height (%)", unitC: "Count", unitP: "% within bin", pctOf: "Scored / missed (%)", pWin: "Window", pPx: "Pixels", bars: "Bars", radar: "Radar", logit: "Logistic", linear: "Linear", cells: "Cells",
+    viewL: "Position view", showL: "Show", both: "Both", onlyMade: "Scored only", onlyMiss: "Missed only", mineL: "Yours", mineT: "Yours", hi: "Highlighted", mg: "Merged", fitL: "Fit on", fitT: "Throws", fitB: "Bins", youC: "You", allC: "All", mineN: "Your throws are only kept on this device and browser, from the moment this feature was added.", axPxX: "Horizontal distance from the rim (px)", axPxY: "Vertical offset from the rim (px, + = below)", axWX: "Window width (%)", axWY: "Window height (%)", unitC: "Count", unitP: "% within bin", pctOf: "Scored / missed (%)", pWin: "Window", pPx: "Pixels", bars: "Bars", radar: "Radar", logit: "Logistic", linear: "Linear", cells: "Cells",
     sumT: "Summary", rows: ["Throws", "Scored", "2-pointers", "3-pointers", "Average distance, scored", "Average distance, missed", "On a touch screen", "Reached the speed cap"],
     posT: "Where throws start", posC: "Each dot is a throw. Pixels (default): the real distance in pixels from the hoop, with no screen correction, so distances compare directly but big screens reach further out. Window: the box is the window and each dot is where the ball was released as a share of its width and height; if you throw from the far left edge on a half-width laptop and on a wide one, both dots land on the left edge of the box (not one in the middle), because every screen is stretched to the same box. How the 3-pointer is calculated: a basket counts 3 if the ball was released farther than 30% of the window diagonal from the rim, otherwise 2; that limit depends on each screen's size, so it is a different distance on different screens. Bigger dots are 3-pointers; hollow dots are misses. Black diamonds are yours.",
     heatT: "Where it is easiest to score", heatC: "The window split into a grid. Each cell shows the share of throws released there that scored (cells with fewer than 3 throws are left empty). Darker = easier. It follows the Pixels / Window switch above.",
     distT: "Throw distance", distC: "Pixels from the release point to the rim. Big screens have longer distances.",
-    regT: "Chance of scoring by distance", regC: "Each dot is a distance bin (not a pixel): its height is the share of throws in that bin that scored, its size is how many throws it has. The small ticks at the top and bottom show every single throw (top: scored, bottom: missed). The line is the chosen model. Because scored/missed is a yes/no outcome, the logistic model is the proper one (the probability stays between 0 and 100); the linear model fits a straight line, which can go below 0 or above 100, but is easier to read. The bin size only changes the dots; the line and the metrics are always fitted on every single throw.",
+    regT: "Chance of scoring by distance", regC: "Each dot is a distance bin (not a pixel): its height is the share of throws in that bin that scored, its size is how many throws it has. The small ticks at the top and bottom show every single throw (top: scored, bottom: missed). The line is the chosen model. Because scored/missed is a yes/no outcome, the logistic model is the proper one (the probability stays between 0 and 100); the linear model fits a straight line, which can go below 0 or above 100, but is easier to read. With Fit on Throws (default) the line and metrics use every single throw, so the bin size only changes the dots; statistically, that is the right way. With Fit on Bins, each throw is first rounded to the middle of its bin, so the bin width does change the fit; it throws detail away, so use it only to see what binning does.",
     regFew: "At least 20 throws are needed for the regression, with both scored and missed ones.",
     rn: "Throws", rOR: "Odds ratio per 100 px", rP: "p-value", rMcF: "McFadden R²", rAUC: "AUC", rAcc: "Accuracy (at the 50% line)", rD50: "Distance at 50% chance",
     rSlope: "Slope (percentage points per 100 px)", rR2: "R²", rR: "r", rInt: "Intercept (%, at 0 px)", xDist: "Distance (px)", yPct: "Scored (%)",
     spT: "Throw speed", spC: "Release speed in px/s. The ball is capped at 2400 px/s; the share of throws that were faster is", spC2: "", xSpeed: "Speed (px/s)",
     svdT: "Speed against distance", svdC: "Each throw is a dot. Further throws need more speed; the ones piled at the cap (2400) have a harder time scoring.", ySpeed: "Speed (px/s)",
-    angT: "Throw direction", angC: "Degrees: 0° is to the right, 90° straight up, 180° to the left, -90° down. In the radar, the length of each petal is the number of throws.", xAng: "Direction (°)",
+    angT: "Throw direction", angC: "Degrees: 0° is to the right, 90° straight up, 180° to the left, -90° down. In the radar, each petal is as long as its number of throws (in percent mode every petal is 100% long and the red part is the share that scored). Hover for exact counts.", xAng: "Direction (°)",
     timeT: "Accuracy over time", timeC: "Moving average of the latest throws, as % scored; the dashed line is the overall average. Oldest on the left, newest on the right.", xThrow: "Throw number"
   };
   var fmt = function (n, d) { return Number(n).toLocaleString(eu ? "eu" : "en", { maximumFractionDigits: d || 0 }); };
   var W = 600, H = 340, M = { l: 48, r: 24, t: 12, b: 42 };
-  var S = { pview: "px", show: "both", unit: "count", view: "bars", model: "logit", bins: { dist: 100, reg: 100, speed: 200, angle: 15, heat: 8 } };
-  var ALL = [], MINE = [];
+  var S = { pview: "px", show: "both", mine: "on", regFit: "throws", unit: "count", view: "bars", model: "logit", bins: { dist: 100, reg: 100, speed: 200, angle: 15, heat: 8 } };
+  var ALL = [], MINE = [], my = function () { return S.mine === "on" ? MINE : []; };
 
   /* ---------- small helpers ---------- */
   var lin = function (d0, d1, r0, r1) { return function (v) { return r0 + (v - d0) / (d1 - d0) * (r1 - r0); }; };
@@ -164,7 +164,7 @@
       ''+ hp + g.axes +
       '<text class="tx" x="' + g.pw / 2 + '" y="' + (g.ph + 34) + '" text-anchor="middle">' + g.xl + '</text><text class="tx" transform="translate(-50 ' + g.ph / 2 + ') rotate(-90)" text-anchor="middle">' + g.yl + '</text></g></svg>';
   }
-  var mineLeg = function () { return MINE.length ? '<p class="legend"><i class="lg mn"></i>' + T.mineL + '</p>' : ''; };
+  var legendMine = function () { return '<p class="legend"><i class="lg made"></i>' + T.made + ' <i class="lg miss"></i>' + T.miss + (my().length ? ' <i class="lg mn"></i>' + T.mineL : '') + '</p>'; };
 
   /* ---------- the charts ---------- */
   function summ(rows) {
@@ -173,7 +173,7 @@
       P(rows.filter(function (r) { return r.touch; }).length), P(rows.filter(function (r) { return r.speed_raw > 2400; }).length)];
   }
   function cSummary(rows) {
-    var a = summ(rows), m = MINE.length ? summ(MINE) : null;
+    var a = summ(rows), m = my().length ? summ(my()) : null;
     var head = m ? '<div class="hd"><dt></dt><dd>' + T.allC + '</dd><dd>' + T.youC + '</dd></div>' : '';
     var body = '<dl class="sum">' + head + T.rows.map(function (l, i) { return '<div><dt>' + l + '</dt><dd>' + a[i] + '</dd>' + (m ? '<dd class="me">' + m[i] + '</dd>' : '') + '</div>'; }).join("") + '</dl>';
     return card(T.sumT, "", body, m ? T.mineN : "");
@@ -186,8 +186,9 @@
       if (!vis(r)) return;
       s += '<circle class="' + (r.made ? "dm" : "dx") + '" cx="' + g.fx(r).toFixed(1) + '" cy="' + g.fy(r).toFixed(1) + '" r="' + (r.points === 3 ? 5 : 3.6) + '"/>';
     });
-    MINE.forEach(function (r) { if (vis(r)) { var x = g.fx(r), y = g.fy(r); if (x >= 0 && x <= g.pw && y >= 0 && y <= g.ph) s += diamond(x, y, r.made); } });
-    return card(T.posT, seg("show", [["both", T.both], ["made", T.onlyMade], ["miss", T.onlyMiss]], S.show), windowSvg(g, s) + legend + mineLeg(), T.posC);
+    my().forEach(function (r) { if (vis(r)) { var x = g.fx(r), y = g.fy(r); if (x >= 0 && x <= g.pw && y >= 0 && y <= g.ph) s += diamond(x, y, r.made); } });
+    var mineCtl = MINE.length ? ' <span class="sel">' + T.mineT + '</span>' + seg("mine", [["on", T.hi], ["off", T.mg]], S.mine) : "";
+    return card(T.posT, seg("show", [["both", T.both], ["made", T.onlyMade], ["miss", T.onlyMiss]], S.show) + mineCtl, windowSvg(g, s) + legendMine(), T.posC);
   }
   function cHeat(rows) {
     var g = posGeom(rows), nc = S.bins.heat, nr = Math.max(2, Math.round(nc * g.ph / g.pw)), cw = g.pw / nc, ch = g.ph / nr, cnt = [], mad = [], i, j, s = "";
@@ -205,9 +206,10 @@
     return card(T.distT, sel("dist", [25, 50, 100, 150, 200, 300], S.bins.dist, T.bins, " px") + unitCtrl(), hist(rows, "dist", 0, hi, S.bins.dist, T.xDist), T.distC);
   }
   function cReg(rows) {
-    var n = rows.length, made = rows.filter(function (r) { return r.made; }).length, ctrls = seg("model", [["logit", T.logit], ["linear", T.linear]], S.model) + sel("reg", [25, 50, 100, 150, 200, 300], S.bins.reg, T.bins, " px");
+    var n = rows.length, made = rows.filter(function (r) { return r.made; }).length, ctrls = seg("model", [["logit", T.logit], ["linear", T.linear]], S.model) + '<span class="sel">' + T.fitL + '</span>' + seg("regFit", [["throws", T.fitT], ["bins", T.fitB]], S.regFit) + sel("reg", [25, 50, 100, 150, 200, 300], S.bins.reg, T.bins, " px");
     if (n < 20 || made < 3 || n - made < 3) return card(T.regT, "", '<p class="count-status">' + T.regFew + '</p>', "");
-    var xs = rows.map(function (r) { return r.dist; }), ys = rows.map(function (r) { return r.made ? 1 : 0; }), hi = Math.max(300, Math.ceil(Math.max.apply(null, xs) / 100) * 100);
+    var xs = rows.map(function (r) { return r.dist; }), ys = rows.map(function (r) { return r.made ? 1 : 0; }), hi = Math.max(300, Math.ceil(Math.max.apply(null, xs) / 100) * 100), bwr = S.bins.reg;
+    if (S.regFit === "bins") xs = xs.map(function (x) { return (Math.floor(x / bwr) + 0.5) * bwr; });
     var ax = axes(0, hi, 0, 100, T.xDist, T.yPct, ticksFor(hi)), t = '<clipPath id="rc"><rect x="' + M.l + '" y="' + M.t + '" width="' + (W - M.l - M.r) + '" height="' + (H - M.t - M.b) + '"/></clipPath>' + ax.svg, bw = S.bins.reg, bi, pts = [], rows2, fit, metrics;
     rows.forEach(function (r) { var y = ax.sy(r.made ? 100 : 0); t += '<line class="rug" x1="' + ax.sx(r.dist) + '" x2="' + ax.sx(r.dist) + '" y1="' + y + '" y2="' + (y + (r.made ? 9 : -9)) + '"/>'; });
     for (bi = 0; bi < Math.ceil(hi / bw); bi++) { var inb = rows.filter(function (r) { return r.dist >= bi * bw && r.dist < (bi + 1) * bw; }); if (inb.length >= 3) t += '<circle class="dm" cx="' + ax.sx(bi * bw + bw / 2) + '" cy="' + ax.sy(inb.filter(function (r) { return r.made; }).length / inb.length * 100) + '" r="' + Math.min(14, 3 + Math.sqrt(inb.length)) + '"/>'; }
@@ -231,8 +233,8 @@
     var hi = Math.max(300, Math.ceil(Math.max.apply(null, rows.map(function (r) { return r.dist; })) / 100) * 100), ax = axes(0, hi, 0, 2600, T.xDist, T.ySpeed, ticksFor(hi)), t = ax.svg;
     t += '<line class="capline" x1="' + M.l + '" x2="' + (W - M.r) + '" y1="' + ax.sy(2400) + '" y2="' + ax.sy(2400) + '"/>';
     rows.slice().sort(function (p, q) { return (p.made ? 1 : 0) - (q.made ? 1 : 0); }).forEach(function (r) { t += '<circle class="' + (r.made ? "dm" : "dx") + '" cx="' + ax.sx(r.dist).toFixed(1) + '" cy="' + ax.sy(Math.min(2600, r.speed)).toFixed(1) + '" r="3.4"/>'; });
-    MINE.forEach(function (r) { t += diamond(ax.sx(r.dist), ax.sy(Math.min(2600, r.speed)), r.made); });
-    return card(T.svdT, "", svg(t) + legend + mineLeg(), T.svdC);
+    my().forEach(function (r) { t += diamond(ax.sx(r.dist), ax.sy(Math.min(2600, r.speed)), r.made); });
+    return card(T.svdT, "", svg(t) + legendMine(), T.svdC);
   }
   function cAngle(rows) {
     var bw = S.bins.angle, ctrls = seg("view", [["bars", T.bars], ["radar", T.radar]], S.view) + sel("angle", [10, 15, 30, 45], S.bins.angle, T.bins, "°") + unitCtrl();
@@ -244,8 +246,9 @@
     [[0, "0°", "start"], [90, "90°", "middle"], [180, "180°", "end"], [-90, "-90°", "middle"]].forEach(function (a) { var p = pt(R, a[0]), q = pt(R + 14, a[0]); s += '<line class="gl2" x1="' + cx + '" y1="' + cy + '" x2="' + p[0] + '" y2="' + p[1] + '"/><text class="tx" x="' + q[0] + '" y="' + (q[1] + 4) + '" text-anchor="' + a[2] + '">' + a[1] + '</text>'; });
     for (i = 0; i < b.nb; i++) {
       var a1 = -180 + i * bw, a2 = a1 + bw, wedge = function (r) { if (r <= 0) return ""; var p1 = pt(r, a1), p2 = pt(r, a2); return "M" + cx + " " + cy + "L" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + "A" + r.toFixed(1) + " " + r.toFixed(1) + " 0 0 0 " + p2[0].toFixed(1) + " " + p2[1].toFixed(1) + "Z"; };
-      if (tot[i]) s += '<path class="miss" d="' + wedge(rad(tot[i])) + '"/>';
-      if (b.made[i]) s += '<path class="made" d="' + wedge(rad(b.made[i] * kf(i))) + '"/>';
+      var tt = '<title>' + a1 + '° – ' + a2 + '°: ' + b.made[i] + ' / ' + (b.made[i] + b.miss[i]) + '</title>';
+      if (tot[i]) s += '<path class="miss" d="' + wedge(rad(tot[i])) + '">' + tt + '</path>';
+      if (b.made[i]) s += '<path class="made" d="' + wedge(rad(b.made[i] * kf(i))) + '">' + tt + '</path>';
     }
     return card(T.angT, ctrls, svg(s) + legend, T.angC);
   }
@@ -276,6 +279,7 @@
       draw();
     }).catch(function () { if (!ALL.length) box.innerHTML = '<p class="count-status">' + T.err + '</p>'; });
   }
+  window.addEventListener("lauburu-reset", function () { MINE = []; if (ALL.length) draw(); });
   load();
   setInterval(function () { var a = document.activeElement; if (a && box.contains(a) && a.tagName === "SELECT") return; load(); }, 60000);
 })();
