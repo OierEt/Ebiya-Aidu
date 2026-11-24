@@ -703,3 +703,11 @@ a.card .photo.cover { margin-bottom: 16px; }
 
 .gallery.big { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
 .gallery.big a { box-shadow: 5px 5px 0 var(--black); }
+
+.prose blockquote { margin: 20px 0; padding: 6px 20px; border-left: 4px solid var(--red); text-align: left; hyphens: none; }
+.prose blockquote p { margin: 0 0 6px; font-style: italic; }
+.prose blockquote footer { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.prose .closing { font-family: var(--head); text-transform: uppercase; font-size: 22px; text-align: left; margin: 28px 0 0; }
+.photo-todo { margin: 20px 0; padding: 48px 16px; border: 3px dashed var(--black); text-align: center; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+.langsep { border: 0; border-top: 3px solid var(--black); margin: 48px 0 20px; }
+.langnote { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; text-align: left; }
