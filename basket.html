@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lauburu basket · Ebiya Aidu</title>
+  <meta name="description" content="Ebiya Aidu: a personal site about data, education, research, travel and odd collections.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261124c">
+  <script src="js/theme.js?v=20261124c"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="img/lauburu.svg" alt="">Ebiya Aidu</a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About me</a>
+        <a href="play.html" aria-current="page">Play</a>
+        <a href="chat.html">Chat</a>
+        </nav>
+        <div class="lang" aria-label="Language"><a href="basket.html" lang="en" hreflang="en" aria-current="true">EN</a><a href="eu/basket.html" lang="eu" hreflang="eu">EU</a></div>
+      </div>
+    </div>
+  </header>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="num">03 / Play</div>
+      <h1>Lauburu basket</h1>
+      <p>A lauburu, a hoop and a counter shared by every visitor.</p>
+    </div>
+  </section>
+  <main>
+    <div class="wrap">
+      <p class="backlink"><a href="play.html">&larr; All games</a></p>
+      <div class="prose center" style="margin:0 auto 40px">
+        <h2 class="sub">How to play</h2>
+        <p>A small red lauburu wanders around every page. Grab it, drag it and throw it into the hoop at the right edge of the window. A basket from far away is worth 3 points, a closer one 2. "Far" depends on the window: more than 30% of its diagonal away from the hoop, so it works the same on a phone and on a big screen.</p>
+        <p>Every basket is added to the shared counter below. Each throw also sends a few anonymous numbers for charts (where it was thrown from, direction, speed and whether it went in). No name, no account and nothing that identifies you is saved. Your own throws are also kept in this browser only, so the charts can highlight them.</p>
+      </div>
+      <div class="grid stack">
+        <div class="card">
+          <h3>All visitors together</h3>
+          <div class="bigcount"><div><b id="total-two">&hellip;</b><span>2&times;</span></div><div><b id="total-three">&hellip;</b><span>3&times;</span></div><div><b id="total-points">&hellip;</b><span>points</span></div></div>
+          <p id="count-status" class="count-status" aria-live="polite"></p>
+        </div>
+        <div class="card">
+          <h3>Your score</h3>
+          <div class="bigcount"><div><b id="my-two">0</b><span>2&times;</span></div><div><b id="my-three">0</b><span>3&times;</span></div><div><b id="my-points">0</b><span>points</span></div></div>
+          <p class="count-status">Kept in this browser only.</p>
+        </div>
+      </div>
+      <div class="section-title" style="margin-top:48px"><h2>Charts</h2></div>
+      <div class="charts" id="charts"><p class="count-status">Loading&hellip;</p></div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <span><img src="img/lauburu.svg" alt="">Made in the Basque Country</span>
+      <div class="themes" role="group" aria-label="Style"><span>Style</span><button type="button" data-theme-set="archive" aria-pressed="false">Archive</button><button type="button" data-theme-set="constructivist" aria-pressed="false">Constructivist</button><button type="button" data-theme-set="swiss" aria-pressed="false">Swiss</button><button type="button" data-theme-set="blueprint" aria-pressed="false">Blueprint</button></div>
+      <span>&copy; 2026 Ebiya Aidu</span>
+    </div>
+  </footer>
+  <script src="js/lauburu.js?v=20261124c"></script>
+  <script src="js/play.js?v=20261124c"></script>
+  <script src="js/charts.js?v=20261124c"></script>
+  <script src="js/nav.js?v=20261124c"></script>
+</body>
+</html>

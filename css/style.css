@@ -174,7 +174,7 @@ section[id] { scroll-margin-top: 80px; }
 .score-toggle { margin-top: 6px; font: inherit; text-transform: uppercase; letter-spacing: .08em; border: 2px solid var(--black); background: var(--cream); color: var(--black); padding: 0 8px; cursor: pointer; }
 .score.flash { animation: flash .7s; }
 @keyframes flash { 0% { background: var(--red); color: var(--cream); } 100% { background: var(--paper); } }
-.hoop-hidden .hoop, .hoop-hidden .score-row, .hoop-hidden .score-hint { display: none; }
+.hoop-hidden .hoop, .hoop-hidden .score-row, .hoop-hidden .score-hint, .hoop-hidden .score-reset { display: none; }
 .lauburu-played .score-hint { display: none; }
 @media (max-width: 600px) { .hoop { transform: scale(.7); transform-origin: right top; } .score-hint { display: none; } }
 
@@ -503,3 +503,6 @@ html[data-theme="blueprint"] .page-head h1 { color: var(--red); }
 .prose.center { max-width: 680px; margin-left: auto; margin-right: auto; text-align: justify; hyphens: auto; }
 .prose.center .sub { text-align: left; margin-top: 8px; }
 .score-reset { margin-left: 4px; }
+.backlink { margin: 0 0 18px; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.playbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.playbar h3 { margin: 0 0 4px; } .playbar p { margin: 0; } .playbar .more { margin: 0; }
