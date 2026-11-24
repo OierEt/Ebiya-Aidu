@@ -205,15 +205,15 @@ section[id] { scroll-margin-top: 80px; }
    plus a few shapes, so every page works in every style.
    ========================================================== */
 /* Archive: aged paper, rust, typewriter headings */
+
+
+/* Blueprint: blue drawing paper, white linework, one coral red-line */
 html[data-theme="archive"] { --cream: #e6d9bb; --paper: #f0e7cf; --red: #8e3a22; --black: #2a2116; --green: #556b2f; --head: "IBM Plex Mono", "Courier New", monospace; }
 html[data-theme="archive"] h1, html[data-theme="archive"] h2, html[data-theme="archive"] h3, html[data-theme="archive"] .brand, html[data-theme="archive"] .idx, html[data-theme="archive"] .marquee .track, html[data-theme="archive"] .list .when { font-weight: 600; letter-spacing: -.02em; }
 html[data-theme="archive"] .hero h1 { font-size: clamp(48px, 10vw, 112px); }
 html[data-theme="archive"] .card, html[data-theme="archive"] .score { box-shadow: 4px 4px 0 rgba(42, 33, 22, .55); }
 html[data-theme="archive"] .shape.circle { border-radius: 0; }
 html[data-theme="archive"] .shape.ring { border-radius: 0; }
-
-
-/* Blueprint: blue drawing paper, white linework, one coral red-line */
 html[data-theme="blueprint"] { --cream: #0b2a55; --paper: #103a73; --red: #ff8a5c; --black: #e8f1ff; --green: #8fe3ff; --head: "IBM Plex Mono", "Courier New", monospace; }
 html[data-theme="blueprint"] body { background-image: linear-gradient(rgba(232, 241, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(232, 241, 255, .07) 1px, transparent 1px), linear-gradient(rgba(232, 241, 255, .15) 1px, transparent 1px), linear-gradient(90deg, rgba(232, 241, 255, .15) 1px, transparent 1px); background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px; }
 html[data-theme="blueprint"] h1, html[data-theme="blueprint"] h2, html[data-theme="blueprint"] h3, html[data-theme="blueprint"] .brand, html[data-theme="blueprint"] .idx, html[data-theme="blueprint"] .marquee .track, html[data-theme="blueprint"] .list .when { font-weight: 600; letter-spacing: -.02em; }
@@ -589,9 +589,6 @@ html[data-theme="poster"] .page-head { border-bottom-width: 4px; }
 html[data-theme="poster"] .page-head::after { width: 200px; height: 200px; right: 10px; top: -30px; transform: rotate(12deg); }
 html[data-theme="poster"] .page-head::before { width: 70px; height: 70px; right: 130px; top: 40px; }
 
-/* ---- Archive: stamps, ledger lines, folded corner, punched holes ---- */
-html[data-theme="archive"] .page-head::after { right: 0; top: 0; width: 84px; height: 84px; transform: none; background: linear-gradient(225deg, var(--cream) 50%, rgba(42, 33, 22, .45) 50%); opacity: 1; }
-html[data-theme="archive"] .page-head::before { right: 120px; top: 18px; width: 22px; height: 22px; background: var(--cream); box-shadow: 0 46px 0 var(--cream), 0 92px 0 var(--cream); }
 
 /* ---- Blueprint: drafting triangle, crosshair, dimension line ---- */
 html[data-theme="blueprint"] .shape.tri { display: block; clip-path: none; border: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='%23e8f1ff' stroke-width='2' stroke-dasharray='6 5'%3E%3Cpath d='M10 190 L190 190 L10 20Z'/%3E%3Cpath d='M40 190 L40 160 L10 160M10 120 L25 120M10 80 L25 80M70 190 L70 175M110 190 L110 175M150 190 L150 175'/%3E%3C/svg%3E") center / contain no-repeat; width: 200px; height: 200px; right: 240px; bottom: 10px; opacity: .8; }
@@ -625,9 +622,6 @@ html[data-theme="metro"] .nav a[aria-current="page"] { background: var(--line); 
 html[data-theme="metro"] .shape.bar { background: var(--line); }
 html[data-theme="metro"] .page-head .num { background: var(--line); }
 
-/* ---- Archive: original filled shapes (square) + a stamp, folded corner, punched holes ---- */
-html[data-theme="archive"] .shape.tri { display: block; clip-path: none; background: transparent; border: 5px double var(--red); border-radius: 4px; width: 200px; height: 110px; right: 330px; bottom: 36px; transform: rotate(-8deg); opacity: .75; }
-@media (max-width: 800px) { html[data-theme="archive"] .shape.tri { display: none; } }
 
 /* ---- Poster: halftone dots, hazard stripes, print registration marks ---- */
 html[data-theme="poster"] .shape.circle { background: radial-gradient(circle, rgba(20,18,16,.45) 1.5px, transparent 2px) 0 0 / 14px 14px, var(--red); }
@@ -677,15 +671,3 @@ html[data-theme="voyager"] .brand img, html[data-theme="voyager"] .site-footer i
 
 html[data-theme="voyager"] .hero::after { width: 190px; height: 190px; right: 40px; bottom: 14px; border-radius: 6px; background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22 fill=%22none%22 stroke=%22%23f2b441%22 stroke-width=%221.6%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%225%22 y=%225%22 width=%22190%22 height=%22190%22 rx=%226%22 fill=%22%23f2b441%22 fill-opacity=%22.12%22 stroke-width=%223%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2264%22 stroke-width=%222.5%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2218%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2224%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2230%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2236%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2242%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2248%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2254%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2260%22 stroke-opacity=%22.7%22/%3E%3Ccircle cx=%22116%22 cy=%22102%22 r=%2211%22 fill=%22%23f2b441%22 fill-opacity=%22.5%22/%3E%3Cpath d=%22M26 34L100 78%22/%3E%3Crect x=%2218%22 y=%2226%22 width=%2214%22 height=%229%22 rx=%221%22 transform=%22rotate(30 25 30)%22/%3E%3Cpath d=%22M100 78l6 6%22/%3E%3Ccircle cx=%2226%22 cy=%2216%22 r=%223.5%22/%3E%3Ccircle cx=%2244%22 cy=%2216%22 r=%223.5%22/%3E%3Cpath d=%22M29.5 16H40.5%22/%3E%3Cpath d=%22M150 14v10M155 14v6M160 14v10M165 14v6M170 14v10M175 14v6M180 14v10%22/%3E%3Ccircle cx=%2238%22 cy=%22150%22 r=%222.5%22 fill=%22%23f2b441%22/%3E%3Cpath d=%22M38 150L68.0 150.0%22/%3E%3Cpath d=%22M68.0 147.0L68.0 153.0%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L59.8 160.1%22/%3E%3Cpath d=%22M61.0 157.4L58.5 162.9%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L59.9 176.0%22/%3E%3Cpath d=%22M62.2 174.1L57.6 178.0%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L41.5 169.7%22/%3E%3Cpath d=%22M44.4 169.2L38.5 170.2%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L28.4 176.3%22/%3E%3Cpath d=%22M31.2 177.3L25.6 175.3%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L12.0 171.9%22/%3E%3Cpath d=%22M13.9 174.2L10.0 169.6%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L16.3 153.8%22/%3E%3Cpath d=%22M16.9 156.8L15.8 150.9%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L9.8 139.7%22/%3E%3Cpath d=%22M8.8 142.6L10.8 136.9%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L19.6 131.6%22/%3E%3Cpath d=%22M17.5 133.7L21.7 129.5%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L25.7 116.2%22/%3E%3Cpath d=%22M22.9 117.2L28.5 115.1%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L41.8 128.3%22/%3E%3Cpath d=%22M38.9 127.8L44.8 128.9%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L58.6 125.5%22/%3E%3Cpath d=%22M56.3 123.6L60.9 127.4%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L61.6 139.0%22/%3E%3Cpath d=%22M60.3 136.3L62.8 141.7%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M38 150L55.9 148.4%22/%3E%3Cpath d=%22M55.7 145.4L56.2 151.4%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M112 176v10M118 176v6M124 176v10M130 176v6M136 176v10M142 176v6M148 176v10%22/%3E%3C/svg%3E") center / contain no-repeat; box-shadow: none; filter: drop-shadow(0 0 16px rgba(242,180,65,.4)); transform: rotate(-6deg); }
 
-/* ---- Archive: paper grain, index card with paper clip, folder-tab cards, double rules ---- */
-html[data-theme="archive"] body { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16  0 0 0 0 .13  0 0 0 0 .08  0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-html[data-theme="archive"] .hero::after { content: ""; position: absolute; right: 110px; bottom: 34px; width: 270px; height: 170px; z-index: 1; transform: rotate(4deg); background: linear-gradient(var(--red), var(--red)) 0 34px / 100% 2px no-repeat, repeating-linear-gradient(transparent 0 22px, rgba(42,33,22,.28) 22px 23px) 0 46px / 100% calc(100% - 46px) no-repeat, var(--paper); border: 2px solid var(--black); box-shadow: 5px 5px 0 rgba(42,33,22,.45); }
-html[data-theme="archive"] .hero::before { content: ""; position: absolute; right: 330px; bottom: 150px; width: 26px; height: 70px; z-index: 2; transform: rotate(4deg); background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 80' fill='none' stroke='%237a7a7a' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M8 70V18a7.5 7.5 0 0 1 15 0V60a5 5 0 0 1-10 0V24'/%3E%3C/svg%3E") center / contain no-repeat; }
-html[data-theme="archive"] .card { border-top-width: 10px; }
-html[data-theme="archive"] .section-title::after { height: 0; background: none; border-top: 7px double var(--black); }
-html[data-theme="archive"] .section-title h2::before { content: "\00A7  "; color: var(--red); }
-html[data-theme="archive"] .page-head { background-image: repeating-linear-gradient(transparent 0 29px, rgba(240,231,207,.14) 29px 30px); }
-html[data-theme="archive"] .site-footer { border-top-style: double; border-top-width: 6px; }
-html[data-theme="archive"] .marquee { border-top: 3px dashed var(--cream); border-bottom: 3px dashed var(--cream); outline: 3px solid var(--black); outline-offset: -3px; }
-@media (max-width: 800px) { html[data-theme="archive"] .hero::after, html[data-theme="archive"] .hero::before { display: none; } }
-html[data-theme="archive"] .shape.tri { right: 420px; bottom: 24px; }
