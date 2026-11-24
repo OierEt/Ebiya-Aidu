@@ -695,3 +695,8 @@ details.essay[open] summary::before { content: "\2212  "; }
 .photo.cover.book img { object-fit: contain; }
 a.card .photo.cover { margin-bottom: 16px; }
 .card .year { z-index: 2; }
+.gallery { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.gallery li { margin: 0; padding: 0; border: 0; display: block; }
+.gallery a { display: block; border: 2px solid var(--black); aspect-ratio: 4 / 3; overflow: hidden; background: var(--black); }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s; }
+.gallery a:hover img { transform: scale(1.05); }
