@@ -1,13 +1,12 @@
 /* Style switcher: remembers the chosen look in this browser.
    Loaded in <head> so the saved style is applied before the page paints. */
 (function () {
-  var KEY = "siteTheme", ok = ["archive", "constructivist", "swiss", "blueprint", "voyager", "pirate", "baserri", "metro", "riso"];
+  var KEY = "siteTheme", ok = ["archive", "blueprint", "voyager", "metro"];
   var t = null;
   try { t = localStorage.getItem(KEY); } catch (e) {}
   if (ok.indexOf(t) < 0) t = "archive";
   function apply(name) {
-    if (name === "constructivist") document.documentElement.removeAttribute("data-theme");
-    else document.documentElement.setAttribute("data-theme", name);
+    document.documentElement.setAttribute("data-theme", name);
   }
   apply(t);
   document.addEventListener("DOMContentLoaded", function () {
