@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261124zzz">
-  <script src="js/theme.js?v=20261124zzz"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261125b">
+  <script src="js/theme.js?v=20261125b"></script>
 </head>
 <body>
   <header class="site-header">
@@ -32,15 +32,22 @@
     <div class="wrap">
       <div class="num">04 /</div>
       <h1>Chat</h1>
-      <p>Coming soon.</p>
+      <p>A public notice board. Leave a message.</p>
     </div>
   </section>
   <main>
     <div class="wrap">
-      <div class="card soon">
-        <h2>Coming soon</h2>
-        <p>A public notice board where you will be able to leave a message under an alias. It is not ready yet.</p>
-      </div>
+      <div class="prose" style="max-width:720px"><p>A public notice board. Choose an alias, write a message and it appears below for everyone to read.</p></div>
+      <p class="chat-note">Messages are public and anyone can read them. Please do not write personal data (phone numbers, addresses, emails) and be kind. The alias and the message are stored on a server in the European Union, together with the time they were sent; I do not ask for names or emails. If you want one of your messages removed, write another one asking for it and I will delete it.</p>
+      <p id="chat-off" class="chat-note" hidden>The chat is switched off at the moment.</p>
+      <form id="chat-form" class="chat-form" hidden autocomplete="off">
+        <label>Alias<input type="text" name="alias" maxlength="24" required></label>
+        <label>Message<textarea name="body" maxlength="500" rows="4" required placeholder="Write something kind, curious or silly (max. 500 characters)"></textarea></label>
+        <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="chat-actions"><button class="btn" type="submit">Send</button><span id="chat-status" role="status" aria-live="polite"></span></div>
+      </form>
+      <div class="section-title"><h2>Messages</h2></div>
+      <ul id="chat-list" class="chat-list"></ul>
     </div>
   </main>
   <footer class="site-footer">
@@ -50,7 +57,8 @@
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261124zzz"></script>
-  <script src="js/nav.js?v=20261124zzz"></script>
+  <script src="js/lauburu.js?v=20261125b"></script>
+  <script src="js/chat.js?v=20261125b"></script>
+  <script src="js/nav.js?v=20261125b"></script>
 </body>
 </html>

@@ -715,3 +715,20 @@ a.card .photo.cover { margin-bottom: 16px; }
 .pbd { margin: 24px auto; max-width: 560px; text-align: center; }
 .pbd img { display: block; width: 100%; height: auto; border: 3px solid var(--black); background: #000; }
 .pbd figcaption { margin-top: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-align: left; }
+
+.chat-note { max-width: 720px; font-size: 14px; margin: 14px 0; }
+.chat-form { max-width: 720px; margin: 22px 0 36px; padding: 20px 22px; background: var(--paper); border: 3px solid var(--black); box-shadow: 7px 7px 0 var(--black); display: grid; gap: 14px; }
+.chat-form label { display: grid; gap: 6px; font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+.chat-form input, .chat-form textarea { font: inherit; font-family: var(--body, inherit); text-transform: none; letter-spacing: 0; font-size: 16px; padding: 10px 12px; border: 3px solid var(--black); background: #fff; color: var(--black); width: 100%; box-sizing: border-box; }
+.chat-form textarea { resize: vertical; }
+.chat-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.chat-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+#chat-status { font-size: 14px; }
+.chat-list { list-style: none; margin: 0; padding: 0; max-width: 720px; display: grid; gap: 14px; }
+.chat-msg { padding: 14px 18px; background: var(--paper); border: 3px solid var(--black); }
+.chat-msg.owner { border-color: var(--red); }
+.chat-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-size: 14px; }
+.chat-head time { margin-left: auto; font-family: var(--mono); font-size: 12px; opacity: .7; }
+.chat-head .badge { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; padding: 1px 7px; background: var(--red); color: var(--cream); }
+.chat-msg p { margin: 6px 0 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.chat-empty { font-family: var(--mono); font-size: 14px; }

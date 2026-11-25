@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261124zzz">
-  <script src="../js/theme.js?v=20261124zzz"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20261125b">
+  <script src="../js/theme.js?v=20261125b"></script>
 </head>
 <body>
   <header class="site-header">
@@ -32,15 +32,22 @@
     <div class="wrap">
       <div class="num">04 /</div>
       <h1>Txata</h1>
-      <p>Laster.</p>
+      <p>Iragarki-taula publikoa. Utzi mezu bat.</p>
     </div>
   </section>
   <main>
     <div class="wrap">
-      <div class="card soon">
-        <h2>Laster</h2>
-        <p>Ezizen baten pean mezu bat utz dezakezun iragarki-taula publikoa. Oraindik ez dago prest.</p>
-      </div>
+      <div class="prose" style="max-width:720px"><p>Iragarki-taula publikoa. Aukeratu ezizen bat, idatzi mezu bat eta behean agertuko da, denek irakur dezaten.</p></div>
+      <p class="chat-note">Mezuak publikoak dira eta edonork irakur ditzake. Mesedez, ez idatzi datu pertsonalik (telefono-zenbakiak, helbideak, posta elektronikoak) eta izan atsegina. Ezizena eta mezua Europar Batasuneko zerbitzari batean gordetzen dira, bidali ziren orduarekin batera; ez dut izenik ez posta elektronikorik eskatzen. Zure mezuetako bat ezabatzea nahi baduzu, idatzi beste mezu bat hori eskatuz eta ezabatuko dut.</p>
+      <p id="chat-off" class="chat-note" hidden>Txata itzalita dago une honetan.</p>
+      <form id="chat-form" class="chat-form" hidden autocomplete="off">
+        <label>Ezizena<input type="text" name="alias" maxlength="24" required></label>
+        <label>Mezua<textarea name="body" maxlength="500" rows="4" required placeholder="Idatzi zerbait atsegina, bitxia edo barregarria (gehienez 500 karaktere)"></textarea></label>
+        <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="chat-actions"><button class="btn" type="submit">Bidali</button><span id="chat-status" role="status" aria-live="polite"></span></div>
+      </form>
+      <div class="section-title"><h2>Mezuak</h2></div>
+      <ul id="chat-list" class="chat-list"></ul>
     </div>
   </main>
   <footer class="site-footer">
@@ -50,7 +57,8 @@
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/lauburu.js?v=20261124zzz"></script>
-  <script src="../js/nav.js?v=20261124zzz"></script>
+  <script src="../js/lauburu.js?v=20261125b"></script>
+  <script src="../js/chat.js?v=20261125b"></script>
+  <script src="../js/nav.js?v=20261125b"></script>
 </body>
 </html>

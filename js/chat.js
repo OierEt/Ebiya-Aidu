@@ -1,8 +1,8 @@
 /* Public chat: visitors pick an alias and leave a message.
    Talks to a Supabase table through its REST API (see backend/chat-setup.sql).
    Fill in the two values below once the Supabase project exists. */
-var CHAT_URL = "";   // e.g. "https://abcdefgh.supabase.co"
-var CHAT_KEY = "";   // the project's public (anon / publishable) key
+var CHAT_URL = "https://cqwblkgghzvonxsazasm.supabase.co";   // same Supabase project as the basket counter
+var CHAT_KEY = "sb_publishable_T8zN3tIwPkcfoB3xoUV72g_-3Hi44tz";   // public publishable key (safe to publish)
 
 (function () {
   var eu = document.documentElement.lang === "eu";
