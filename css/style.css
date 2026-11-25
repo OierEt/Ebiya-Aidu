@@ -732,3 +732,6 @@ a.card .photo.cover { margin-bottom: 16px; }
 .chat-head .badge { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; padding: 1px 7px; background: var(--red); color: var(--cream); }
 .chat-msg p { margin: 6px 0 0; overflow-wrap: anywhere; white-space: pre-wrap; }
 .chat-empty { font-family: var(--mono); font-size: 14px; }
+
+.chat-list { margin-bottom: 36px; }
+.chat-form + .chat-note, #chat-off + .chat-form + .chat-note { margin-top: 40px; font-size: 13px; opacity: .85; }
