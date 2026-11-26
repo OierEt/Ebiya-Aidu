@@ -736,3 +736,8 @@ a.card .photo.cover { margin-bottom: 16px; }
 .chat-list { margin-bottom: 36px; }
 .chat-form + .chat-note, #chat-off + .chat-form + .chat-note { margin-top: 40px; font-size: 13px; opacity: .85; }
 #research { margin-top: 56px; }
+
+/* "to review" tag on finished projects I still want to revise */
+.review-flag { position: absolute; top: -13px; left: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; line-height: 1.5; padding: 1px 8px; background: var(--black); color: var(--cream); }
+.review-flag svg { width: 11px; height: 11px; flex: none; }
+html[data-theme="blueprint"] .review-flag, html[data-theme="voyager"] .review-flag { background: var(--red); color: var(--black); }
