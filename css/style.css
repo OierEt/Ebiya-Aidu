@@ -735,3 +735,4 @@ a.card .photo.cover { margin-bottom: 16px; }
 
 .chat-list { margin-bottom: 36px; }
 .chat-form + .chat-note, #chat-off + .chat-form + .chat-note { margin-top: 40px; font-size: 13px; opacity: .85; }
+#research { margin-top: 56px; }

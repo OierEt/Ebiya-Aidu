@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261125c">
-  <script src="js/theme.js?v=20261125c"></script>
+  <link rel="stylesheet" href="css/style.css?v=20261126a">
+  <script src="js/theme.js?v=20261126a"></script>
 </head>
 <body>
   <header class="site-header">
@@ -37,10 +37,17 @@
   </section>
   <main>
     <div class="wrap">
-      <ul class="subnav"><li><a href="#projects">Projects</a></li><li><a href="#research">Research</a></li></ul>
+      <ul class="subnav"><li><a href="#projects">Projects</a></li><li><a href="#research">Work in progress</a></li></ul>
       <section id="projects">
       <div class="section-title"><h2>Projects</h2></div>
       <div class="grid">
+        <div class="card">
+          <span class="year">2026</span>
+          <h3>Lauburu basket</h3>
+          <p>A small game: throw the wandering lauburu into a hoop. Every throw is stored anonymously and shown in live charts, with a regression of scoring against distance.</p>
+          <ul class="tags"><li>JavaScript</li><li>Supabase</li><li>Statistics</li></ul>
+          <a class="more" href="basket.html">Play &rarr;</a>
+        </div>
         <div class="card">
           <span class="year">2022</span>
           <h3>Zeolite and iron adsorption</h3>
@@ -63,18 +70,28 @@
           <a class="more" href="lung-adenocarcinoma.html">Details &rarr;</a>
         </div>
         <div class="card">
-          <span class="year">2021</span>
-          <h3>Ovarian cancer gene expression</h3>
-          <p>Which genes differ between benign and malignant ovarian tumours, and at which sample locations? Differential expression on 50 patients (GSE29156) with limma, plus Gene Ontology enrichment.</p>
-          <ul class="tags"><li>R</li><li>limma</li><li>Genomics</li></ul>
-          <span class="more">Details coming soon</span>
-        </div>
-        <div class="card">
           <span class="year">2020</span>
           <h3>Drunk driving laws and traffic deaths</h3>
           <p>Do US states with different drunk-driving laws differ in income, unemployment and traffic deaths? 48 states over 1982&ndash;1988, from ANOVA to logistic regression.</p>
           <ul class="tags"><li>R</li><li>Regression</li><li>Biostatistics</li></ul>
           <a class="more" href="drunk-driving-laws.html">Details &rarr;</a>
+        </div>
+      </div>
+      </section>
+      <section id="research">
+      <div class="section-title"><h2>Work in progress</h2></div>
+      <ul class="list" style="margin-top:22px">
+        <li><div class="when">Ongoing</div><div><h3>Reflection in student&ndash;AI conversations</h3><p>A reproducible NLP method to measure the reflective quality of dialogues between students and ChatGPT.</p></div></li>
+        <li><div class="when">Ongoing</div><div><h3>Ethical AI training in game-based environments</h3><p>A systematic literature review that scores published studies against a weighted rubric.</p></div></li>
+        <li><div class="when">Ongoing</div><div><h3>Socioemotional competency analytics</h3><p>Longitudinal analysis of competency data across programmes and cohorts.</p></div></li>
+      </ul>
+      <div class="grid" style="margin-top:30px">
+        <div class="card">
+          <span class="year">2021</span>
+          <h3>Ovarian cancer gene expression</h3>
+          <p>Which genes differ between benign and malignant ovarian tumours, and at which sample locations? Differential expression on 50 patients (GSE29156) with limma, plus Gene Ontology enrichment.</p>
+          <ul class="tags"><li>R</li><li>limma</li><li>Genomics</li></ul>
+          <span class="more">Details coming soon</span>
         </div>
         <div class="card todo">
           <h3>Competency dashboards</h3>
@@ -102,19 +119,6 @@
         </div>
       </div>
       </section>
-      <section id="research">
-      <div class="section-title"><h2>Research</h2></div>
-      <div class="prose">
-        <p>My doctoral work sits between education, data and AI: how students reflect, how competencies grow, and how machines can be trained to behave ethically.</p>
-      </div>
-      <ul class="list" style="margin-top:22px">
-        <li><div class="when">Ongoing</div><div><h3>Reflection in student&ndash;AI conversations</h3><p>A reproducible NLP method to measure the reflective quality of dialogues between students and ChatGPT.</p></div></li>
-        <li><div class="when">Ongoing</div><div><h3>Ethical AI training in game-based environments</h3><p>A systematic literature review that scores published studies against a weighted rubric.</p></div></li>
-        <li><div class="when">Ongoing</div><div><h3>Socioemotional competency analytics</h3><p>Longitudinal analysis of competency data across programmes and cohorts.</p></div></li>
-      </ul>
-      <h3 style="font-family:var(--head);font-weight:400;text-transform:uppercase;font-size:24px;margin:30px 0 10px">Publications</h3>
-      <div class="card todo"><p style="margin:0">No publications listed yet. Add them here as a list: authors, year, title, journal, link.</p></div>
-      </section>
     </div>
   </main>
   <footer class="site-footer">
@@ -124,7 +128,7 @@
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="js/lauburu.js?v=20261125c"></script>
-  <script src="js/nav.js?v=20261125c"></script>
+  <script src="js/lauburu.js?v=20261126a"></script>
+  <script src="js/nav.js?v=20261126a"></script>
 </body>
 </html>
