@@ -741,3 +741,9 @@ a.card .photo.cover { margin-bottom: 16px; }
 .review-flag { position: absolute; top: -13px; left: 14px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; line-height: 1.5; padding: 1px 8px; background: var(--black); color: var(--cream); }
 .review-flag svg { width: 11px; height: 11px; flex: none; }
 html[data-theme="blueprint"] .review-flag, html[data-theme="voyager"] .review-flag { background: var(--red); color: var(--black); }
+
+/* inline "unfinished" tag (reflections still being written) */
+.status-flag { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; margin-left: 10px; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; line-height: 1.5; padding: 1px 8px; background: var(--black); color: var(--cream); }
+.status-flag svg { width: 11px; height: 11px; flex: none; }
+.page-head .status-flag { display: table; margin: 12px 0 0; }
+html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-flag { background: var(--red); color: var(--black); }
