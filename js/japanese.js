@@ -69,7 +69,17 @@
     { k: "父", kun: "ちち (chichi)", on: "ふ (fu)", en: "father", eu: "aita", x: { en: "In お{父|とう}さん it is read とう (tō).", eu: "お{父|とう}さん-en とう (tō) irakurtzen da." },
       ex: [{ jp: "{父|ちち}", rom: "chichi", en: "my father", eu: "nire aita" }, { jp: "お{父|とう}さん", rom: "otōsan", en: "father (yours or someone else's)", eu: "aita (zurea edo besteena)" }] },
     { k: "母", kun: "はは (haha)", on: "ぼ (bo)", en: "mother", eu: "ama", x: { en: "In お{母|かあ}さん it is read かあ (kā).", eu: "お{母|かあ}さん-en かあ (kā) irakurtzen da." },
-      ex: [{ jp: "{母|はは}", rom: "haha", en: "my mother", eu: "nire ama" }, { jp: "お{母|かあ}さん", rom: "okāsan", en: "mother (yours or someone else's)", eu: "ama (zurea edo besteena)" }] }
+      ex: [{ jp: "{母|はは}", rom: "haha", en: "my mother", eu: "nire ama" }, { jp: "お{母|かあ}さん", rom: "okāsan", en: "mother (yours or someone else's)", eu: "ama (zurea edo besteena)" }] },
+    { k: "一", kun: "ひと(つ) (hito-tsu)", on: "いち (ichi)", en: "one", eu: "bat",
+      ex: [{ jp: "{一|いち}", rom: "ichi", en: "one", eu: "bat" }, { jp: "{一時|いちじ}", rom: "ichiji", en: "one o'clock", eu: "ordu bata" }] },
+    { k: "二", kun: "ふた(つ) (futa-tsu)", on: "に (ni)", en: "two", eu: "bi",
+      ex: [{ jp: "{二|に}", rom: "ni", en: "two", eu: "bi" }, { jp: "{二十|にじゅう}", rom: "nijū", en: "twenty", eu: "hogei" }] },
+    { k: "三", kun: "み(っつ) (mi-ttsu)", on: "さん (san)", en: "three", eu: "hiru",
+      ex: [{ jp: "{三|さん}", rom: "san", en: "three", eu: "hiru" }, { jp: "{三人|さんにん}", rom: "sannin", en: "three people", eu: "hiru pertsona" }] },
+    { k: "四", kun: "よ(っつ) (yo-ttsu)", on: "し (shi), よん (yon)", en: "four", eu: "lau",
+      ex: [{ jp: "{四|よん}", rom: "yon", en: "four", eu: "lau" }, { jp: "{四時|よじ}", rom: "yoji", en: "four o'clock", eu: "lauak" }] },
+    { k: "日", kun: "ひ (hi)", on: "にち (nichi), じつ (jitsu)", en: "day; sun", eu: "eguna; eguzkia",
+      ex: [{ jp: "{日本|にほん}", rom: "nihon", en: "Japan", eu: "Japonia" }, { jp: "{日曜日|にちようび}", rom: "nichiyōbi", en: "Sunday", eu: "igandea" }, { jp: "{毎日|まいにち}", rom: "mainichi", en: "every day", eu: "egunero" }] },
   ];
   (function () {
     var kf = document.getElementById("kc-front"), kb = document.getElementById("kc-back"), kd = document.getElementById("kc-dir"), kcur = null;
