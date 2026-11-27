@@ -818,5 +818,5 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .bars .bt { display: block; height: 16px; border: 2px solid var(--black, #2a2116); background: var(--paper, #f0e7cf); }
 .bars .bf { display: block; height: 100%; background: var(--black, #2a2116); opacity: .35; }
 .bars .me .bf { background: var(--red); opacity: 1; }
-.bars .me { font-weight: 700; margin-bottom: 14px; }
+.bars .me { font-weight: 700; margin: 14px 0 0; }
 .bars .bv { text-align: right; }

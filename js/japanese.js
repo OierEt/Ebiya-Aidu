@@ -83,6 +83,8 @@
   ];
   var WITH = [null, { jp: "{友達|ともだち}と", rom: "tomodachi to", en: "with a friend", eu: "lagun batekin" }, { jp: "{家族|かぞく}と", rom: "kazoku to", en: "with family", eu: "familiarekin" }];
   var HOW = [null, { jp: "{地下鉄|ちかてつ}で", rom: "chikatetsu de", en: "by subway", eu: "metroz" }, { jp: "{電車|でんしゃ}で", rom: "densha de", en: "by train", eu: "trenez" }, { jp: "{車|くるま}で", rom: "kuruma de", en: "by car", eu: "autoz" }];
+  var LOCN = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotela" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportua" }, { jp: "{地下鉄|ちかてつ}", rom: "chikatetsu", en: "the subway", eu: "metroa" }, { jp: "{車|くるま}", rom: "kuruma", en: "the car", eu: "autoa" }];
+  var LOCW = [{ jp: "ここ", rom: "koko", en: "here", eu: "hemen" }, { jp: "そこ", rom: "soko", en: "there", eu: "hor" }, { jp: "あそこ", rom: "asoko", en: "over there", eu: "han" }];
   var JOBS = [{ jp: "{医者|いしゃ}", rom: "isha", en: "doctor", eu: "medikua" }, { jp: "{弁護士|べんごし}", rom: "bengoshi", en: "lawyer", eu: "abokatua" }];
   var PLACE = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotelera" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportura" }];
   var DEM = [
@@ -103,7 +105,12 @@
     fun: { jp: "おもしろい", rom: "omoshiroi", en: "interesting", eu: "interesgarria" },
     cool: { jp: "かっこいい", rom: "kakkoii", en: "cool", eu: "dotorea" },
     pretty: { jp: "きれい", rom: "kirei", en: "pretty", eu: "ederra" },
-    cute: { jp: "かわいい", rom: "kawaii", en: "cute", eu: "polita" }
+    cute: { jp: "かわいい", rom: "kawaii", en: "cute", eu: "polita" },
+    big: { jp: "{大|おお}きい", rom: "ōkii", en: "big", eu: "handia" },
+    small: { jp: "{小|ちい}さい", rom: "chiisai", en: "small", eu: "txikia" },
+    white: { jp: "{白|しろ}い", rom: "shiroi", en: "white", eu: "zuria" },
+    black: { jp: "{黒|くろ}い", rom: "kuroi", en: "black", eu: "beltza" },
+    blue: { jp: "{青|あお}い", rom: "aoi", en: "blue", eu: "urdina" }
   };
   var NOUN = [
     { jp: "ホテル", rom: "hoteru", en: "hotel", eu: "hotel", adj: ["new", "old", "exp", "cheap", "pretty"] },
@@ -114,9 +121,14 @@
     { jp: "{動画|どうが}", rom: "dōga", en: "video", eu: "bideo", adj: ["new", "old", "fun", "cool"] },
     { jp: "Tシャツ", rom: "tīshatsu", en: "T-shirt", eu: "kamiseta", adj: ["new", "old", "exp", "cheap", "cute", "cool"] },
     { jp: "ジャケット", rom: "jaketto", en: "jacket", eu: "jaka", adj: ["new", "old", "exp", "cheap", "cute", "cool"] },
-    { jp: "スカート", rom: "sukāto", en: "skirt", eu: "gona", adj: ["new", "old", "exp", "cheap", "cute", "pretty"] }
+    { jp: "スカート", rom: "sukāto", en: "skirt", eu: "gona", adj: ["new", "old", "exp", "cheap", "cute", "pretty"] },
+    { jp: "{車|くるま}", rom: "kuruma", en: "car", eu: "auto", adj: ["new", "old", "exp", "cheap", "cool", "big", "small", "white", "black", "blue"] },
+    { jp: "ピアノ", rom: "piano", en: "piano", eu: "piano", adj: ["new", "old", "exp", "cheap", "big", "white", "black"] },
+    { jp: "かばん", rom: "kaban", en: "bag", eu: "poltsa", adj: ["new", "old", "exp", "cheap", "cute", "cool", "big", "small", "white", "black", "blue"] },
+    { jp: "{財布|さいふ}", rom: "saifu", en: "wallet", eu: "diru-zorro", adj: ["new", "old", "exp", "cheap", "cute", "small", "white", "black", "blue"] },
+    { jp: "{帽子|ぼうし}", rom: "bōshi", en: "hat", eu: "kapela", adj: ["new", "old", "exp", "cheap", "cute", "cool", "big", "small", "white", "black", "blue"] }
   ];
-  var THING_ADJ = ["new", "old", "exp", "cheap", "fun", "cool", "pretty", "cute"];
+  var THING_ADJ = ["new", "old", "exp", "cheap", "fun", "cool", "pretty", "cute", "big", "small", "white", "black", "blue"];
   var LIKE = [
     { jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" },
     { jp: "お{茶|ちゃ}", rom: "ocha", en: "tea", eu: "tea" },
@@ -135,11 +147,18 @@
     { jp: "Tシャツ", rom: "tīshatsu", en: "a T-shirt", eu: "kamiseta bat" },
     { jp: "ジャケット", rom: "jaketto", en: "a jacket", eu: "jaka bat" },
     { jp: "スカート", rom: "sukāto", en: "a skirt", eu: "gona bat" },
-    { jp: "{風船|ふうせん}", rom: "fūsen", en: "a balloon", eu: "puxika bat" }
+    { jp: "{風船|ふうせん}", rom: "fūsen", en: "a balloon", eu: "puxika bat" },
+    { jp: "{車|くるま}", rom: "kuruma", en: "a car", eu: "auto bat" },
+    { jp: "ピアノ", rom: "piano", en: "a piano", eu: "piano bat" },
+    { jp: "かばん", rom: "kaban", en: "a bag", eu: "poltsa bat" },
+    { jp: "{財布|さいふ}", rom: "saifu", en: "a wallet", eu: "diru-zorro bat" },
+    { jp: "{帽子|ぼうし}", rom: "bōshi", en: "a hat", eu: "kapela bat" },
+    { jp: "{服|ふく}", rom: "fuku", en: "clothes", eu: "arropa" },
+    { jp: "スニーカー", rom: "sunīkā", en: "sneakers", eu: "zapatilak" }
   ];
 
   function make(q) {
-    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job"]);
+    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc"]);
     var f = pick(FREQ), jp, rom, enS, euS;
     if (kind === "drink") {
       var d = pick(DRINK);
@@ -157,6 +176,12 @@
       jp = f.jp + s.jp + "をします"; rom = f.rom + s.rom + " o shimasu";
       enS = f.pre + s.en + f.suf;
       euS = f.eu + " " + s.eu + (q ? " al duzu" : " dut");
+    } else if (kind === "loc") {
+      var lp = pick(LOCN), lw = pick(LOCW);
+      return { jp: lp.jp + "は" + (q ? "どこですか" : lw.jp + "です") + "。",
+        rom: cap(lp.rom + " wa " + (q ? "doko desu ka?" : lw.rom + " desu.")),
+        en: q ? "Where is " + lp.en + "?" : cap(lp.en) + " is " + lw.en + ".",
+        eu: q ? "Non dago " + lp.eu + "?" : cap(lp.eu) + " " + lw.eu + " dago." };
     } else if (kind === "job") {
       var j = pick(JOBS);
       return { jp: (q ? "あなたは" : "{私|わたし}は") + j.jp + "です" + (q ? "か" : "") + "。",
@@ -212,7 +237,7 @@
   /* Progress: my own word count comes from the vocabulary tables */
   var prog = document.getElementById("progress");
   if (prog) {
-    var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = 0;
+    var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = 2; /* kanji he knows: 人 and 大 */
     [].forEach.call(prog.querySelectorAll(".bars"), function (ul) {
       var k = ul.getAttribute("data-kind"), v = k === "w" ? nw : nk, mx = +ul.getAttribute("data-max");
       ul.querySelector(".me .bv").textContent = v;
