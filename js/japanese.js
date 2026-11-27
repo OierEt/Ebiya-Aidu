@@ -69,7 +69,7 @@
     { jp: "いつも", rom: "itsumo ", pre: "always ", suf: "", eu: "beti" }
   ];
   var DRINK = [{ jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" }, { jp: "お{茶|ちゃ}", rom: "ocha", en: "tea", eu: "tea" }, { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafea" }];
-  var FOOD = [{ jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza" }, { jp: "ケーキ", rom: "kēki", en: "cake", eu: "pastela" }, { jp: "サラダ", rom: "sarada", en: "salad", eu: "entsalada" }, { jp: "{弁当|べんとう}", rom: "bentō", en: "bento", eu: "bentoa" }];
+  var FOOD = [{ jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza" }, { jp: "ケーキ", rom: "kēki", en: "cake", eu: "pastela" }, { jp: "サラダ", rom: "sarada", en: "salad", eu: "entsalada" }, { jp: "{弁当|べんとう}", rom: "bentō", en: "bento", eu: "bentoa" }, { jp: "サンドイッチ", rom: "sandoicchi", en: "sandwiches", eu: "ogitartekoa" }, { jp: "{卵|たまご}", rom: "tamago", en: "eggs", eu: "arrautza" }];
   var SPORT = [
     { jp: "ヨガ", rom: "yoga", en: "do yoga", eu: "yoga egiten", like: "yoga", likeEu: "yoga" },
     { jp: "{柔道|じゅうどう}", rom: "jūdō", en: "do judo", eu: "judoa egiten", like: "judo", likeEu: "judoa" },
@@ -86,10 +86,10 @@
   ];
   var WITH = [null, { jp: "{友達|ともだち}と", rom: "tomodachi to", en: "with a friend", eu: "lagun batekin" }, { jp: "{家族|かぞく}と", rom: "kazoku to", en: "with family", eu: "familiarekin" }];
   var HOW = [null, { jp: "{地下鉄|ちかてつ}で", rom: "chikatetsu de", en: "by subway", eu: "metroz" }, { jp: "{電車|でんしゃ}で", rom: "densha de", en: "by train", eu: "trenez" }, { jp: "{車|くるま}で", rom: "kuruma de", en: "by car", eu: "autoz" }];
-  var LOCN = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotela" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportua" }, { jp: "{地下鉄|ちかてつ}", rom: "chikatetsu", en: "the subway", eu: "metroa" }, { jp: "{車|くるま}", rom: "kuruma", en: "the car", eu: "autoa" }];
+  var LOCN = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotela" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportua" }, { jp: "{地下鉄|ちかてつ}", rom: "chikatetsu", en: "the subway", eu: "metroa" }, { jp: "{車|くるま}", rom: "kuruma", en: "the car", eu: "autoa" }, { jp: "{店|みせ}", rom: "mise", en: "the shop", eu: "denda" }, { jp: "コンビニ", rom: "konbini", en: "the convenience store", eu: "konbinia" }, { jp: "{駅|えき}", rom: "eki", en: "the station", eu: "geltokia" }];
   var LOCW = [{ jp: "ここ", rom: "koko", en: "here", eu: "hemen" }, { jp: "そこ", rom: "soko", en: "there", eu: "hor" }, { jp: "あそこ", rom: "asoko", en: "over there", eu: "han" }];
   var JOBS = [{ jp: "{医者|いしゃ}", rom: "isha", en: "doctor", eu: "medikua" }, { jp: "{弁護士|べんごし}", rom: "bengoshi", en: "lawyer", eu: "abokatua" }];
-  var PLACE = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotelera" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportura" }];
+  var PLACE = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotelera" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportura" }, { jp: "{店|みせ}", rom: "mise", en: "the shop", eu: "dendara" }, { jp: "コンビニ", rom: "konbini", en: "the convenience store", eu: "konbinira" }, { jp: "{駅|えき}", rom: "eki", en: "the station", eu: "geltokira" }];
   var DEM = [
     { jp: "これ", rom: "kore", en: "this", eu: "hau" },
     { jp: "それ", rom: "sore", en: "that", eu: "hori" },
@@ -120,6 +120,10 @@
     lively: { jp: "にぎやか", rom: "nigiyaka", en: "lively", eu: "bizia" }
   };
   var NOUN = [
+    { jp: "{店|みせ}", rom: "mise", en: "shop", eu: "denda", adj: ["new", "old", "big", "small", "cheap", "exp", "quiet", "lively", "pretty"] },
+    { jp: "コンビニ", rom: "konbini", en: "convenience store", eu: "konbini", adj: ["new", "old", "big", "small", "cheap", "lively"] },
+    { jp: "{辞書|じしょ}", rom: "jisho", en: "dictionary", eu: "hiztegi", adj: ["new", "old", "exp", "cheap", "big", "small"] },
+    { jp: "サンドイッチ", rom: "sandoicchi", en: "sandwich", eu: "ogitarteko", adj: ["tasty", "cheap", "exp", "big", "small"] },
     { jp: "ホテル", rom: "hoteru", en: "hotel", eu: "hotel", adj: ["new", "old", "exp", "cheap", "pretty", "quiet", "lively"] },
     { jp: "{空港|くうこう}", rom: "kūkō", en: "airport", eu: "aireportu", adj: ["new", "old", "pretty"] },
     { jp: "{地下鉄|ちかてつ}", rom: "chikatetsu", en: "subway", eu: "metro", adj: ["new", "old", "cheap", "pretty"] },
@@ -157,6 +161,7 @@
     { jp: "サッカー", rom: "sakkā", en: "soccer", eu: "futbola" },
     { jp: "{空手|からて}", rom: "karate", en: "karate", eu: "karatea" },
     { jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza" },
+    { jp: "サンドイッチ", rom: "sandoicchi", en: "sandwiches", eu: "ogitartekoa" },
     { jp: "ケーキ", rom: "kēki", en: "cake", eu: "pastela" },
     { jp: "サラダ", rom: "sarada", en: "salad", eu: "entsalada" },
     { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafea" },
@@ -184,17 +189,24 @@
     { jp: "サラダ", rom: "sarada", en: "a salad", eu: "entsalada bat" },
     { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafea" },
     { jp: "{弁当|べんとう}", rom: "bentō", en: "a bento", eu: "bento bat" },
-    { jp: "ゲーム", rom: "gēmu", en: "a game", eu: "joko bat" }
+    { jp: "ゲーム", rom: "gēmu", en: "a game", eu: "joko bat" },
+    { jp: "サンドイッチ", rom: "sandoicchi", en: "a sandwich", eu: "ogitarteko bat" },
+    { jp: "{辞書|じしょ}", rom: "jisho", en: "a dictionary", eu: "hiztegi bat" }
   ];
 
   function make(q) {
-    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc", "eat"]);
+    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc", "eat", "please"]);
     var f = pick(FREQ), jp, rom, enS, euS;
     if (kind === "drink") {
       var d = pick(DRINK);
       jp = f.jp + d.jp + "を{飲|の}みます"; rom = f.rom + d.rom + " o nomimasu";
       enS = f.pre + "drink " + d.en + f.suf;
       euS = f.eu + " " + d.eu + " edaten" + (q ? " al duzu" : " dut");
+    } else if (kind === "please") {
+      var pl = pick(DRINK.concat(FOOD)), kd = Math.random() < 0.5;
+      return { jp: pl.jp + "を" + (kd ? "ください" : "お{願|ねが}いします") + "。",
+        rom: cap(pl.rom + " o " + (kd ? "kudasai." : "onegaishimasu.")),
+        en: cap(pl.en) + ", please.", eu: cap(pl.eu) + ", mesedez." };
     } else if (kind === "eat") {
       var fd = pick(FOOD);
       jp = f.jp + fd.jp + "を{食|た}べます"; rom = f.rom + fd.rom + " o tabemasu";
