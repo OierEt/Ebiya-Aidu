@@ -82,7 +82,8 @@
     { jp: "{週末|しゅうまつ}に", rom: "shūmatsu ni", en: "on the weekend", eu: "asteburuan" }
   ];
   var WITH = [null, { jp: "{友達|ともだち}と", rom: "tomodachi to", en: "with a friend", eu: "lagun batekin" }, { jp: "{家族|かぞく}と", rom: "kazoku to", en: "with family", eu: "familiarekin" }];
-  var HOW = [null, { jp: "{地下鉄|ちかてつ}で", rom: "chikatetsu de", en: "by subway", eu: "metroz" }];
+  var HOW = [null, { jp: "{地下鉄|ちかてつ}で", rom: "chikatetsu de", en: "by subway", eu: "metroz" }, { jp: "{電車|でんしゃ}で", rom: "densha de", en: "by train", eu: "trenez" }];
+  var JOBS = [{ jp: "{医者|いしゃ}", rom: "isha", en: "doctor", eu: "medikua" }, { jp: "{弁護士|べんごし}", rom: "bengoshi", en: "lawyer", eu: "abokatua" }];
   var PLACE = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotelera" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportura" }];
   var DEM = [
     { jp: "これ", rom: "kore", en: "this", eu: "hau" },
@@ -138,7 +139,7 @@
   ];
 
   function make(q) {
-    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want"]);
+    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job"]);
     var f = pick(FREQ), jp, rom, enS, euS;
     if (kind === "drink") {
       var d = pick(DRINK);
@@ -156,6 +157,12 @@
       jp = f.jp + s.jp + "をします"; rom = f.rom + s.rom + " o shimasu";
       enS = f.pre + s.en + f.suf;
       euS = f.eu + " " + s.eu + (q ? " al duzu" : " dut");
+    } else if (kind === "job") {
+      var j = pick(JOBS);
+      return { jp: (q ? "あなたは" : "{私|わたし}は") + j.jp + "です" + (q ? "か" : "") + "。",
+        rom: q ? "Anata wa " + j.rom + " desu ka?" : "Watashi wa " + j.rom + " desu.",
+        en: q ? "Are you a " + j.en + "?" : "I am a " + j.en + ".",
+        eu: q ? cap(j.eu) + " al zara?" : cap(j.eu) + " naiz." };
     } else if (kind === "like" || kind === "want") {
       var it = pick(kind === "like" ? LIKE : WANT);
       var kw = kind === "like" ? { jp: "{好|す}き", rom: "suki", en: "like", eu: " gustatzen" + (q ? " al zaizu" : " zait") }
@@ -183,13 +190,22 @@
   }
 
   var gjp = document.getElementById("gen-jp"), grom = document.getElementById("gen-rom"), gtr = document.getElementById("gen-tr");
+  var gdir = document.getElementById("gen-dir"), btnTr = document.getElementById("gen-tr-b");
+  function applyMode() {
+    var rev = gdir.value === "mj"; /* mj: read the translation, try to say it in Japanese */
+    gjp.hidden = rev; gtr.hidden = !rev; grom.hidden = true;
+    btnTr.textContent = btnTr.getAttribute(rev ? "data-jp" : "data-tr");
+  }
   function newSentence() {
     var s = make(Math.random() < 0.3);
     gjp.innerHTML = R(s.jp); grom.textContent = s.rom; gtr.textContent = eu ? s.eu : s.en;
-    grom.hidden = true; gtr.hidden = true;
+    applyMode();
   }
   document.getElementById("gen-new").addEventListener("click", newSentence);
   document.getElementById("gen-rom-b").addEventListener("click", function () { grom.hidden = !grom.hidden; });
-  document.getElementById("gen-tr-b").addEventListener("click", function () { gtr.hidden = !gtr.hidden; });
+  btnTr.addEventListener("click", function () {
+    if (gdir.value === "mj") gjp.hidden = !gjp.hidden; else gtr.hidden = !gtr.hidden;
+  });
+  gdir.addEventListener("change", applyMode);
   newSentence();
 })();
