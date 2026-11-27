@@ -747,3 +747,18 @@ html[data-theme="blueprint"] .review-flag, html[data-theme="voyager"] .review-fl
 .status-flag svg { width: 11px; height: 11px; flex: none; }
 .page-head .status-flag { display: table; margin: 12px 0 0; }
 html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-flag { background: var(--red); color: var(--black); }
+
+/* Languages page: kana practice charts */
+.kana-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin: 28px 0 10px; }
+.kana-bar h2 { margin: 0; }
+.kana-toggle { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; padding: 6px 12px; border: 2px solid var(--black); background: var(--paper); color: var(--black); cursor: pointer; }
+.kana-toggle[aria-pressed="true"] { background: var(--black); color: var(--cream); }
+.kana { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 0 0 8px; }
+.kana .c { font: inherit; color: inherit; background: var(--paper); border: 2px solid var(--black); padding: 8px 2px 6px; text-align: center; cursor: default; }
+.kana .gap { visibility: hidden; }
+.kana .j { display: block; font-size: 30px; line-height: 1.25; }
+.kana .r { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; }
+.kana.quiz .c { cursor: pointer; }
+.kana.quiz .r { visibility: hidden; }
+.kana.quiz .c.show .r { visibility: visible; }
+.empty-log { font-family: var(--mono); font-size: 14px; }
