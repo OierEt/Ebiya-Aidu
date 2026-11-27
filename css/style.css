@@ -820,3 +820,9 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .bars .me .bf { background: var(--red); opacity: 1; }
 .bars .me { font-weight: 700; margin: 14px 0 0; }
 .bars .bv { text-align: right; }
+
+.lvt td:first-child { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+.lvt td { font-size: 15px; }
+.lvl-note { font-size: 14px; opacity: .85; margin: 4px 0 0; }
+.lvt td:first-child { width: 1%; }
+.lvt td:nth-child(2) { white-space: nowrap; }

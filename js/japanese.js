@@ -139,7 +139,8 @@
     { jp: "バレーボール", rom: "barēbōru", en: "volleyball", eu: "boleibola" },
     { jp: "バスケットボール", rom: "basukettobōru", en: "basketball", eu: "saskibaloia" },
     { jp: "{野球|やきゅう}", rom: "yakyū", en: "baseball", eu: "beisbola" },
-    { jp: "サッカー", rom: "sakkā", en: "soccer", eu: "futbola" }
+    { jp: "サッカー", rom: "sakkā", en: "soccer", eu: "futbola" },
+    { jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza" }
   ];
   var WANT = [
     { jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" },
@@ -154,7 +155,8 @@
     { jp: "{財布|さいふ}", rom: "saifu", en: "a wallet", eu: "diru-zorro bat" },
     { jp: "{帽子|ぼうし}", rom: "bōshi", en: "a hat", eu: "kapela bat" },
     { jp: "{服|ふく}", rom: "fuku", en: "clothes", eu: "arropa" },
-    { jp: "スニーカー", rom: "sunīkā", en: "sneakers", eu: "zapatilak" }
+    { jp: "{靴|くつ}", rom: "kutsu", en: "shoes", eu: "zapatak" },
+    { jp: "ピザ", rom: "piza", en: "a pizza", eu: "pizza bat" }
   ];
 
   function make(q) {
@@ -244,6 +246,6 @@
       ul.querySelector(".me .bf").style.width = Math.max(0.6, v * 100 / mx) + "%";
     });
     var lv = nw >= 800 && nk >= 100 ? "N5" : prog.getAttribute("data-lv");
-    document.getElementById("lvl-sum").innerHTML = prog.getAttribute("data-sum").replace("{lv}", lv).replace("{w}", nw).replace("{k}", nk);
+    document.getElementById("lvl-sum").innerHTML = prog.getAttribute("data-sum").replace("{lv}", lv).replace("{cefr}", nw >= 800 && nk >= 100 ? "A1" : prog.getAttribute("data-cefr")).replace("{w}", nw).replace("{k}", nk);
   }
 })();
