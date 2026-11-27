@@ -762,3 +762,43 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .kana.quiz .r { visibility: hidden; }
 .kana.quiz .c.show .r { visibility: visible; }
 .empty-log { font-family: var(--mono); font-size: 14px; }
+
+/* Languages page: vocabulary, tables, practice */
+.lsec { margin-bottom: 56px; scroll-margin-top: 70px; }
+.lsec h3.sub { font-family: var(--head); font-weight: 400; text-transform: uppercase; font-size: 22px; margin: 30px 0 10px; }
+.lsec .prose { margin-bottom: 14px; }
+.tablewrap { overflow-x: auto; margin: 0 0 14px; }
+.vocab { width: 100%; border-collapse: collapse; border: 3px solid var(--black); background: var(--paper); font-size: 16px; }
+.vocab th { font-family: var(--mono); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; text-align: left; padding: 8px 12px; background: var(--black); color: var(--cream); white-space: nowrap; }
+.vocab td { padding: 8px 12px; border-top: 2px solid var(--black); vertical-align: middle; }
+.vocab tbody tr:first-child td { border-top: 0; }
+.vocab .jp { font-size: 24px; line-height: 1.8; white-space: nowrap; }
+.vocab .jp-s { font-size: 16px; }
+.vocab rt { font-size: 10px; letter-spacing: 0; }
+.vocab .rom { font-family: var(--mono); font-size: 14px; white-space: nowrap; }
+.vocab .note { font-size: 14px; opacity: .85; }
+.vocab.ex .jp { white-space: normal; font-size: 20px; }
+.vocab.ex .rom { white-space: normal; }
+.vocab.nums td:first-child { font-family: var(--mono); font-size: 14px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; align-items: start; }
+.tnote { font-size: 14px; margin: 0 0 8px; }
+@media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+.fc, .gen { border: 3px solid var(--black); background: var(--paper); padding: 16px 18px; margin: 0 0 16px; box-shadow: 5px 5px 0 var(--black); }
+.fc-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 8px 0; font-family: var(--mono); font-size: 13px; }
+.fc-bar select { font: inherit; padding: 4px 6px; border: 2px solid var(--black); background: var(--cream); color: var(--black); }
+.fc-card { min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10px 0; gap: 8px; }
+.fc-front { font-size: 40px; line-height: 1.5; }
+.fc-back { text-align: center; }
+.fc-back .fc-jp { font-size: 32px; line-height: 1.8; }
+.fc-back .fc-r { font-family: var(--mono); font-size: 15px; }
+.fc-back .fc-m { font-size: 18px; margin-top: 4px; }
+.gen-jp { font-size: 30px; line-height: 1.6; text-align: center; padding: 18px 0 6px; }
+.gen-rom { font-family: var(--mono); font-size: 15px; text-align: center; }
+.gen-tr { font-size: 18px; text-align: center; margin: 6px 0; }
+.gen .fc-bar { justify-content: center; }
+.vocab:not(.nums):not(.ex):not(.fam):not(.parts) { table-layout: fixed; }
+.vocab:not(.nums):not(.ex):not(.fam):not(.parts) th:nth-child(1) { width: 24%; }
+.vocab:not(.nums):not(.ex):not(.fam):not(.parts) th:nth-child(2) { width: 18%; }
+.vocab:not(.nums):not(.ex):not(.fam):not(.parts) th:nth-child(3) { width: 28%; }
+.vocab:not(.nums):not(.ex):not(.fam):not(.parts) td.rom { white-space: normal; }
+.vocab:not(.nums):not(.ex):not(.fam):not(.parts) td.jp { white-space: normal; }
