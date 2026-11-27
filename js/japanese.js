@@ -80,6 +80,8 @@
       ex: [{ jp: "{四|よん}", rom: "yon", en: "four", eu: "lau" }, { jp: "{四時|よじ}", rom: "yoji", en: "four o'clock", eu: "lauak" }] },
     { k: "日", kun: "ひ (hi)", on: "にち (nichi), じつ (jitsu)", en: "day; sun", eu: "eguna; eguzkia",
       ex: [{ jp: "{日本|にほん}", rom: "nihon", en: "Japan", eu: "Japonia" }, { jp: "{日曜日|にちようび}", rom: "nichiyōbi", en: "Sunday", eu: "igandea" }, { jp: "{毎日|まいにち}", rom: "mainichi", en: "every day", eu: "egunero" }] },
+    { k: "木", kun: "き (ki)", on: "もく (moku), ぼく (boku)", en: "tree; wood", eu: "zuhaitza; egurra",
+      ex: [{ jp: "{木|き}", rom: "ki", en: "tree", eu: "zuhaitza" }, { jp: "{木曜日|もくようび}", rom: "mokuyōbi", en: "Thursday", eu: "osteguna" }] }
   ];
   (function () { /* kanji chart in Alphabets: the kanji he knows, with readings and meaning (hidden with the toggle) */
     var g = document.getElementById("kana-kanji"); if (!g) return;
