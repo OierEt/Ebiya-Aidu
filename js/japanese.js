@@ -60,6 +60,7 @@
 
   /* ---------- random sentences ---------- */
   var FREQ = [
+    { jp: "{毎日|まいにち}、", rom: "mainichi, ", pre: "", suf: " every day", eu: "egunero" },
     { jp: "{毎朝|まいあさ}、", rom: "maiasa, ", pre: "", suf: " every morning", eu: "goizero" },
     { jp: "{毎晩|まいばん}、", rom: "maiban, ", pre: "", suf: " every night", eu: "gauero" },
     { jp: "{毎週|まいしゅう}、", rom: "maishū, ", pre: "", suf: " every week", eu: "astero" },
@@ -67,14 +68,16 @@
     { jp: "よく", rom: "yoku ", pre: "often ", suf: "", eu: "askotan" },
     { jp: "いつも", rom: "itsumo ", pre: "always ", suf: "", eu: "beti" }
   ];
-  var DRINK = [{ jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" }, { jp: "お{茶|ちゃ}", rom: "ocha", en: "tea", eu: "tea" }];
+  var DRINK = [{ jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" }, { jp: "お{茶|ちゃ}", rom: "ocha", en: "tea", eu: "tea" }, { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafea" }];
+  var FOOD = [{ jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza" }, { jp: "ケーキ", rom: "kēki", en: "cake", eu: "pastela" }, { jp: "サラダ", rom: "sarada", en: "salad", eu: "entsalada" }, { jp: "{弁当|べんとう}", rom: "bentō", en: "bento", eu: "bentoa" }];
   var SPORT = [
     { jp: "ヨガ", rom: "yoga", en: "do yoga", eu: "yoga egiten", like: "yoga", likeEu: "yoga" },
     { jp: "{柔道|じゅうどう}", rom: "jūdō", en: "do judo", eu: "judoa egiten", like: "judo", likeEu: "judoa" },
     { jp: "バレーボール", rom: "barēbōru", en: "play volleyball", eu: "boleibolean jolasten", like: "volleyball", likeEu: "boleibola" },
     { jp: "バスケットボール", rom: "basukettobōru", en: "play basketball", eu: "saskibaloian jolasten", like: "basketball", likeEu: "saskibaloia" },
     { jp: "{野球|やきゅう}", rom: "yakyū", en: "play baseball", eu: "beisbolean jolasten", like: "baseball", likeEu: "beisbola" },
-    { jp: "サッカー", rom: "sakkā", en: "play soccer", eu: "futbolean jolasten", like: "soccer", likeEu: "futbola" }
+    { jp: "サッカー", rom: "sakkā", en: "play soccer", eu: "futbolean jolasten", like: "soccer", likeEu: "futbola" },
+    { jp: "{空手|からて}", rom: "karate", en: "do karate", eu: "karatea egiten", like: "karate", likeEu: "karatea" }
   ];
   var WHEN = [
     { jp: "{土曜日|どようび}に", rom: "doyōbi ni", en: "on Saturday", eu: "larunbatean" },
@@ -110,10 +113,14 @@
     small: { jp: "{小|ちい}さい", rom: "chiisai", en: "small", eu: "txikia" },
     white: { jp: "{白|しろ}い", rom: "shiroi", en: "white", eu: "zuria" },
     black: { jp: "{黒|くろ}い", rom: "kuroi", en: "black", eu: "beltza" },
-    blue: { jp: "{青|あお}い", rom: "aoi", en: "blue", eu: "urdina" }
+    blue: { jp: "{青|あお}い", rom: "aoi", en: "blue", eu: "urdina" },
+    tasty: { jp: "おいしい", rom: "oishii", en: "delicious", eu: "goxoa" },
+    wow: { jp: "すごい", rom: "sugoi", en: "amazing", eu: "harrigarria" },
+    quiet: { jp: "{静|しず}か", rom: "shizuka", en: "quiet", eu: "lasaia" },
+    lively: { jp: "にぎやか", rom: "nigiyaka", en: "lively", eu: "bizia" }
   };
   var NOUN = [
-    { jp: "ホテル", rom: "hoteru", en: "hotel", eu: "hotel", adj: ["new", "old", "exp", "cheap", "pretty"] },
+    { jp: "ホテル", rom: "hoteru", en: "hotel", eu: "hotel", adj: ["new", "old", "exp", "cheap", "pretty", "quiet", "lively"] },
     { jp: "{空港|くうこう}", rom: "kūkō", en: "airport", eu: "aireportu", adj: ["new", "old", "pretty"] },
     { jp: "{地下鉄|ちかてつ}", rom: "chikatetsu", en: "subway", eu: "metro", adj: ["new", "old", "cheap", "pretty"] },
     { jp: "{映画|えいが}", rom: "eiga", en: "movie", eu: "film", adj: ["new", "old", "fun", "cool"] },
@@ -126,21 +133,37 @@
     { jp: "ピアノ", rom: "piano", en: "piano", eu: "piano", adj: ["new", "old", "exp", "cheap", "big", "white", "black"] },
     { jp: "かばん", rom: "kaban", en: "bag", eu: "poltsa", adj: ["new", "old", "exp", "cheap", "cute", "cool", "big", "small", "white", "black", "blue"] },
     { jp: "{財布|さいふ}", rom: "saifu", en: "wallet", eu: "diru-zorro", adj: ["new", "old", "exp", "cheap", "cute", "small", "white", "black", "blue"] },
-    { jp: "{帽子|ぼうし}", rom: "bōshi", en: "hat", eu: "kapela", adj: ["new", "old", "exp", "cheap", "cute", "cool", "big", "small", "white", "black", "blue"] }
+    { jp: "{帽子|ぼうし}", rom: "bōshi", en: "hat", eu: "kapela", adj: ["new", "old", "exp", "cheap", "cute", "cool", "big", "small", "white", "black", "blue"] },
+    { jp: "{駅|えき}", rom: "eki", en: "station", eu: "geltoki", adj: ["new", "old", "big", "small", "pretty", "quiet", "lively"] },
+    { jp: "ケーキ", rom: "kēki", en: "cake", eu: "pastel", adj: ["tasty", "cheap", "exp", "big", "small", "cute"] },
+    { jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza", adj: ["tasty", "cheap", "exp", "big", "small"] },
+    { jp: "サラダ", rom: "sarada", en: "salad", eu: "entsalada", adj: ["tasty", "cheap", "exp", "big", "small"] },
+    { jp: "{弁当|べんとう}", rom: "bentō", en: "bento", eu: "bento", adj: ["tasty", "cheap", "exp", "big", "small"] },
+    { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafe", adj: ["tasty", "cheap", "exp"] },
+    { jp: "ゲーム", rom: "gēmu", en: "game", eu: "joko", adj: ["new", "old", "fun", "cool", "exp", "cheap", "wow"] },
+    { jp: "ドラマ", rom: "dorama", en: "drama", eu: "drama", adj: ["new", "old", "fun", "wow"] }
   ];
-  var THING_ADJ = ["new", "old", "exp", "cheap", "fun", "cool", "pretty", "cute", "big", "small", "white", "black", "blue"];
+  var THING_ADJ = ["new", "old", "exp", "cheap", "fun", "cool", "pretty", "cute", "big", "small", "white", "black", "blue", "tasty", "wow"];
   var LIKE = [
     { jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" },
     { jp: "お{茶|ちゃ}", rom: "ocha", en: "tea", eu: "tea" },
     { jp: "{音楽|おんがく}", rom: "ongaku", en: "music", eu: "musika" },
-    { jp: "{映画|えいが}", rom: "eiga", en: "movies", eu: "filmak" },
+    { jp: "{映画|えいが}", rom: "eiga", en: "movies", eu: "filmak", pl: true },
     { jp: "ヨガ", rom: "yoga", en: "yoga", eu: "yoga" },
     { jp: "{柔道|じゅうどう}", rom: "jūdō", en: "judo", eu: "judoa" },
     { jp: "バレーボール", rom: "barēbōru", en: "volleyball", eu: "boleibola" },
     { jp: "バスケットボール", rom: "basukettobōru", en: "basketball", eu: "saskibaloia" },
     { jp: "{野球|やきゅう}", rom: "yakyū", en: "baseball", eu: "beisbola" },
     { jp: "サッカー", rom: "sakkā", en: "soccer", eu: "futbola" },
-    { jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza" }
+    { jp: "{空手|からて}", rom: "karate", en: "karate", eu: "karatea" },
+    { jp: "ピザ", rom: "piza", en: "pizza", eu: "pizza" },
+    { jp: "ケーキ", rom: "kēki", en: "cake", eu: "pastela" },
+    { jp: "サラダ", rom: "sarada", en: "salad", eu: "entsalada" },
+    { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafea" },
+    { jp: "ゲーム", rom: "gēmu", en: "games", eu: "jokoak", pl: true },
+    { jp: "ドラマ", rom: "dorama", en: "dramas", eu: "dramak", pl: true },
+    { jp: "ファンタジー", rom: "fantajī", en: "fantasy", eu: "fantasia" },
+    { jp: "ホラー", rom: "horā", en: "horror", eu: "beldurrezkoa" }
   ];
   var WANT = [
     { jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" },
@@ -156,17 +179,27 @@
     { jp: "{帽子|ぼうし}", rom: "bōshi", en: "a hat", eu: "kapela bat" },
     { jp: "{服|ふく}", rom: "fuku", en: "clothes", eu: "arropa" },
     { jp: "{靴|くつ}", rom: "kutsu", en: "shoes", eu: "zapatak" },
-    { jp: "ピザ", rom: "piza", en: "a pizza", eu: "pizza bat" }
+    { jp: "ピザ", rom: "piza", en: "a pizza", eu: "pizza bat" },
+    { jp: "ケーキ", rom: "kēki", en: "a cake", eu: "pastel bat" },
+    { jp: "サラダ", rom: "sarada", en: "a salad", eu: "entsalada bat" },
+    { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafea" },
+    { jp: "{弁当|べんとう}", rom: "bentō", en: "a bento", eu: "bento bat" },
+    { jp: "ゲーム", rom: "gēmu", en: "a game", eu: "joko bat" }
   ];
 
   function make(q) {
-    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc"]);
+    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc", "eat"]);
     var f = pick(FREQ), jp, rom, enS, euS;
     if (kind === "drink") {
       var d = pick(DRINK);
       jp = f.jp + d.jp + "を{飲|の}みます"; rom = f.rom + d.rom + " o nomimasu";
       enS = f.pre + "drink " + d.en + f.suf;
       euS = f.eu + " " + d.eu + " edaten" + (q ? " al duzu" : " dut");
+    } else if (kind === "eat") {
+      var fd = pick(FOOD);
+      jp = f.jp + fd.jp + "を{食|た}べます"; rom = f.rom + fd.rom + " o tabemasu";
+      enS = f.pre + "eat " + fd.en + f.suf;
+      euS = f.eu + " " + fd.eu + " jaten" + (q ? " al duzu" : " dut");
     } else if (kind === "go") {
       var w = pick(WHEN), wi = pick(WITH), h = pick(HOW), p = pick(PLACE);
       jp = w.jp + (wi ? wi.jp : "") + (h ? h.jp : "") + p.jp + "へ{行|い}きます";
@@ -192,7 +225,7 @@
         eu: q ? cap(j.eu) + " al zara?" : cap(j.eu) + " naiz." };
     } else if (kind === "like" || kind === "want") {
       var it = pick(kind === "like" ? LIKE : WANT);
-      var kw = kind === "like" ? { jp: "{好|す}き", rom: "suki", en: "like", eu: " gustatzen" + (q ? " al zaizu" : " zait") }
+      var kw = kind === "like" ? { jp: "{好|す}き", rom: "suki", en: "like", eu: " gustatzen" + (q ? (it.pl ? " al zaizkizu" : " al zaizu") : (it.pl ? " zaizkit" : " zait")) }
                                 : { jp: "{欲|ほ}しい", rom: "hoshii", en: "want", eu: " nahi" + (q ? " al duzu" : " dut") };
       return { jp: it.jp + "が" + kw.jp + "です" + (q ? "か" : "") + "。", rom: cap(it.rom + " ga " + kw.rom + " desu" + (q ? " ka?" : ".")),
         en: q ? "Do you " + kw.en + " " + it.en + "?" : "I " + kw.en + " " + it.en + ".",
@@ -240,10 +273,15 @@
   var prog = document.getElementById("progress");
   if (prog) {
     var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = 2; /* kanji he knows: 人 and 大 */
-    [].forEach.call(prog.querySelectorAll(".bars"), function (ul) {
+    [].forEach.call(prog.querySelectorAll(".bars[data-kind]"), function (ul) {
       var k = ul.getAttribute("data-kind"), v = k === "w" ? nw : nk, mx = +ul.getAttribute("data-max");
       ul.querySelector(".me .bv").textContent = v;
       ul.querySelector(".me .bf").style.width = Math.max(0.6, v * 100 / mx) + "%";
+    });
+    [].forEach.call(prog.querySelectorAll(".tonf li"), function (li) {
+      var ul = li.parentNode, w = li.getAttribute("data-kind") === "w", v = w ? nw : nk, r = +ul.getAttribute(w ? "data-n5w" : "data-n5k");
+      li.querySelector(".bf").style.width = Math.max(0.6, v * 100 / r) + "%";
+      li.querySelector(".bv").textContent = v + " / " + r + " \u00b7 " + Math.min(100, Math.round(v * 100 / r)) + "%";
     });
     var lv = nw >= 800 && nk >= 100 ? "N5" : prog.getAttribute("data-lv");
     document.getElementById("lvl-sum").innerHTML = prog.getAttribute("data-sum").replace("{lv}", lv).replace("{cefr}", nw >= 800 && nk >= 100 ? "A1" : prog.getAttribute("data-cefr")).replace("{w}", nw).replace("{k}", nk);

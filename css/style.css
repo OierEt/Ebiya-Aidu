@@ -826,3 +826,19 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .lvl-note { font-size: 14px; opacity: .85; margin: 4px 0 0; }
 .lvt td:first-child { width: 1%; }
 .lvt td:nth-child(2) { white-space: nowrap; }
+
+.tonf { margin-bottom: 8px; }
+.tonf li { grid-template-columns: 64px 1fr 130px; }
+.tonf .bf { background: var(--red); opacity: 1; }
+.lvd { margin: 22px 0 0; }
+.lvd summary { cursor: pointer; font-family: var(--head); text-transform: uppercase; font-size: 22px; padding: 4px 0; list-style: none; }
+.lvd summary::-webkit-details-marker { display: none; }
+.lvd summary::before { content: "\25B8"; display: inline-block; width: 1.1em; }
+.lvd[open] summary::before { content: "\25BE"; }
+.lvd[open] summary { margin-bottom: 10px; }
+.lvt { table-layout: fixed; }
+.lvt th:nth-child(1) { width: 72px; }
+.lvd:nth-of-type(1) .lvt th:nth-child(2) { width: 230px; }
+.lvd:nth-of-type(2) .lvt th:nth-child(2) { width: 170px; }
+.lvd:nth-of-type(2) .lvt th:nth-child(4) { width: 210px; }
+@media (max-width: 760px) { .lvt { table-layout: auto; } }
