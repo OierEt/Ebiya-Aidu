@@ -82,7 +82,7 @@
     { jp: "{週末|しゅうまつ}に", rom: "shūmatsu ni", en: "on the weekend", eu: "asteburuan" }
   ];
   var WITH = [null, { jp: "{友達|ともだち}と", rom: "tomodachi to", en: "with a friend", eu: "lagun batekin" }, { jp: "{家族|かぞく}と", rom: "kazoku to", en: "with family", eu: "familiarekin" }];
-  var HOW = [null, { jp: "{地下鉄|ちかてつ}で", rom: "chikatetsu de", en: "by subway", eu: "metroz" }, { jp: "{電車|でんしゃ}で", rom: "densha de", en: "by train", eu: "trenez" }];
+  var HOW = [null, { jp: "{地下鉄|ちかてつ}で", rom: "chikatetsu de", en: "by subway", eu: "metroz" }, { jp: "{電車|でんしゃ}で", rom: "densha de", en: "by train", eu: "trenez" }, { jp: "{車|くるま}で", rom: "kuruma de", en: "by car", eu: "autoz" }];
   var JOBS = [{ jp: "{医者|いしゃ}", rom: "isha", en: "doctor", eu: "medikua" }, { jp: "{弁護士|べんごし}", rom: "bengoshi", en: "lawyer", eu: "abokatua" }];
   var PLACE = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotelera" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportura" }];
   var DEM = [
@@ -208,4 +208,17 @@
   });
   gdir.addEventListener("change", applyMode);
   newSentence();
+
+  /* Progress: my own word count comes from the vocabulary tables */
+  var prog = document.getElementById("progress");
+  if (prog) {
+    var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = 0;
+    [].forEach.call(prog.querySelectorAll(".bars"), function (ul) {
+      var k = ul.getAttribute("data-kind"), v = k === "w" ? nw : nk, mx = +ul.getAttribute("data-max");
+      ul.querySelector(".me .bv").textContent = v;
+      ul.querySelector(".me .bf").style.width = Math.max(0.6, v * 100 / mx) + "%";
+    });
+    var lv = nw >= 800 && nk >= 100 ? "N5" : prog.getAttribute("data-lv");
+    document.getElementById("lvl-sum").innerHTML = prog.getAttribute("data-sum").replace("{lv}", lv).replace("{w}", nw).replace("{k}", nk);
+  }
 })();

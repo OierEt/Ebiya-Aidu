@@ -810,3 +810,13 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .hello-t { font-size: 20px; }
 .hello .hl { padding: 1px 3px; margin: 0 -1px; cursor: default; transition: background .12s, color .12s; }
 .hello .hl.on { background: rgba(142, 58, 34, .28); background: color-mix(in srgb, var(--red) 30%, transparent); }
+
+/* Languages page: level chart */
+.lvl-sum { font-size: 1.05rem; margin: 0 0 18px; }
+.bars { list-style: none; margin: 0; padding: 0; }
+.bars li { display: grid; grid-template-columns: 38px 1fr 84px; gap: 10px; align-items: center; margin: 0 0 8px; font-family: var(--mono, "IBM Plex Mono", monospace); font-size: .8rem; }
+.bars .bt { display: block; height: 16px; border: 2px solid var(--black, #2a2116); background: var(--paper, #f0e7cf); }
+.bars .bf { display: block; height: 100%; background: var(--black, #2a2116); opacity: .35; }
+.bars .me .bf { background: var(--red); opacity: 1; }
+.bars .me { font-weight: 700; margin-bottom: 14px; }
+.bars .bv { text-align: right; }
