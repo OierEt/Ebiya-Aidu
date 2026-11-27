@@ -81,6 +81,16 @@
     { k: "日", kun: "ひ (hi)", on: "にち (nichi), じつ (jitsu)", en: "day; sun", eu: "eguna; eguzkia",
       ex: [{ jp: "{日本|にほん}", rom: "nihon", en: "Japan", eu: "Japonia" }, { jp: "{日曜日|にちようび}", rom: "nichiyōbi", en: "Sunday", eu: "igandea" }, { jp: "{毎日|まいにち}", rom: "mainichi", en: "every day", eu: "egunero" }] },
   ];
+  (function () { /* kanji chart in Alphabets: the kanji he knows, with readings and meaning (hidden with the toggle) */
+    var g = document.getElementById("kana-kanji"); if (!g) return;
+    KANJI.forEach(function (c) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "c";
+      var j = document.createElement("span"); j.className = "j"; j.textContent = c.k;
+      var r = document.createElement("span"); r.className = "r"; r.setAttribute("lang", eu ? "eu" : "en");
+      r.innerHTML = (eu ? c.eu : c.en) + "<br>kun: " + c.kun.replace(/ \(.*$/, "") + " \u00b7 on: " + c.on.replace(/ \([^)]*\)/g, "");
+      b.appendChild(j); b.appendChild(r); g.appendChild(b);
+    });
+  })();
   (function () {
     var kf = document.getElementById("kc-front"), kb = document.getElementById("kc-back"), kd = document.getElementById("kc-dir"), kcur = null;
     if (!kf) return;

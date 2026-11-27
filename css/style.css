@@ -860,3 +860,8 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .alph { margin-bottom: 8px; }
 .kana.k3 { grid-template-columns: repeat(3, 1fr); }
 .kana-h { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; margin: 18px 0 8px; }
+
+.alpha-d .kana-bar { margin: 6px 0 10px; justify-content: flex-end; }
+.alpha-d { margin-top: 12px; }
+.kana.kanji .r { font-size: 12px; line-height: 1.5; letter-spacing: 0; }
+.kana.kanji .j { font-size: 44px; }

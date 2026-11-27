@@ -2,9 +2,9 @@
 (function () {
   document.querySelectorAll(".kana-toggle").forEach(function (btn) {
     var tg = btn.getAttribute("data-target"); if (!tg) return;
-    var grids = tg.split(" ").map(function (id) { return document.getElementById(id); }).filter(Boolean);
-    if (!grids.length) return;
+    function find() { return tg.split(" ").map(function (id) { return document.getElementById(id); }).filter(Boolean); }
     btn.addEventListener("click", function () {
+      var grids = find(); if (!grids.length) return;
       var quiz = !grids[0].classList.contains("quiz");
       grids.forEach(function (g) {
         g.classList.toggle("quiz", quiz);
@@ -13,11 +13,9 @@
       btn.textContent = btn.getAttribute(quiz ? "data-show" : "data-hide");
       btn.setAttribute("aria-pressed", quiz ? "true" : "false");
     });
-    grids.forEach(function (grid) {
-      grid.addEventListener("click", function (e) {
-        var c = e.target.closest(".c");
-        if (c && grid.classList.contains("quiz")) c.classList.toggle("show");
-      });
+    document.addEventListener("click", function (e) {
+      var c = e.target.closest(".c"), grid = c && c.parentNode;
+      if (c && grid && find().indexOf(grid) > -1 && grid.classList.contains("quiz")) c.classList.toggle("show");
     });
   });
 })();
