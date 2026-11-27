@@ -360,7 +360,7 @@
       ul.querySelector(".me .bv").textContent = v;
       ul.querySelector(".me .bf").style.width = Math.max(0.6, v * 100 / mx) + "%";
     });
-    [].forEach.call(prog.querySelectorAll(".tonf li"), function (li) {
+    [].forEach.call(prog.querySelectorAll(".tonf li[data-kind]"), function (li) {
       var ul = li.parentNode, w = li.getAttribute("data-kind") === "w", v = w ? nw : nk, r = +ul.getAttribute(w ? "data-n5w" : "data-n5k");
       li.querySelector(".bf").style.width = Math.max(0.6, v * 100 / r) + "%";
       li.querySelector(".bv").textContent = v + " / " + r + " \u00b7 " + Math.min(100, Math.round(v * 100 / r)) + "%";
@@ -390,6 +390,29 @@
       add(plain, jp.innerHTML, tip);
       var cat = tr.getAttribute("data-cat"), noteEl = tr.querySelector(".note");
       var isV = cat === "verbs", isA = cat === "adj" && noteEl && /^i-adj/.test(noteEl.textContent);
+      if (isV && tr.getAttribute("data-dict")) { /* polite form in the table: also recognise its stem and the plain (dictionary) form */
+        var pst = plain.replace(/ます$/, "");
+        if (pst !== plain && (CJK.test(pst) || pst.length > 1)) {
+          var pc = jp.cloneNode(true), pw = document.createTreeWalker(pc, NodeFilter.SHOW_TEXT), pl = null, pn;
+          while ((pn = pw.nextNode())) { if (!pn.parentNode.closest("rt")) pl = pn; }
+          if (pl && /ます$/.test(pl.textContent)) { pl.textContent = pl.textContent.replace(/ます$/, ""); add(pst, pc.innerHTML, plain + " — " + tip); }
+        }
+        var dc = jp.cloneNode(true), dw = document.createTreeWalker(dc, NodeFilter.SHOW_TEXT), dl = null, dn;
+        while ((dn = dw.nextNode())) { if (!dn.parentNode.closest("rt")) dl = dn; }
+        var dk = tr.getAttribute("data-dict");
+        if (dl) {
+          dl.textContent = dk;
+          var base = plainOf(dc);
+          add(base, dc.innerHTML, base + " — " + tip);
+          var dstem = base.slice(0, -1);
+          if (base.length > 1 && (CJK.test(dstem) || dstem.length > 1)) {
+            var sc = dc.cloneNode(true), sw = document.createTreeWalker(sc, NodeFilter.SHOW_TEXT), sl = null, sn;
+            while ((sn = sw.nextNode())) { if (!sn.parentNode.closest("rt")) sl = sn; }
+            if (sl && sl.textContent.length > 0) { sl.textContent = sl.textContent.slice(0, -1); add(dstem, sc.innerHTML, base + " — " + tip); }
+          }
+        }
+        return;
+      }
       if ((isV || isA) && plain.length > 1 && KANA.test(plain.charAt(plain.length - 1))) {
         var stem = plain.slice(0, -1);
         if (CJK.test(stem) || stem.length > 1) {

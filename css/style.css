@@ -855,3 +855,6 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 #kc .fc-front { font-size: 72px; line-height: 1.2; }
 #kc .fc-back .fc-jp { font-size: 64px; line-height: 1.3; }
 #kc .fc-back .fc-r { margin-top: 2px; }
+
+.alph li { grid-template-columns: 96px 1fr 130px; }
+.alph { margin-bottom: 8px; }
