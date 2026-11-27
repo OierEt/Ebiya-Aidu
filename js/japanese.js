@@ -81,7 +81,9 @@
     { k: "日", kun: "ひ (hi)", on: "にち (nichi), じつ (jitsu)", en: "day; sun", eu: "eguna; eguzkia",
       ex: [{ jp: "{日本|にほん}", rom: "nihon", en: "Japan", eu: "Japonia" }, { jp: "{日曜日|にちようび}", rom: "nichiyōbi", en: "Sunday", eu: "igandea" }, { jp: "{毎日|まいにち}", rom: "mainichi", en: "every day", eu: "egunero" }] },
     { k: "木", kun: "き (ki)", on: "もく (moku), ぼく (boku)", en: "tree; wood", eu: "zuhaitza; egurra",
-      ex: [{ jp: "{木|き}", rom: "ki", en: "tree", eu: "zuhaitza" }, { jp: "{木曜日|もくようび}", rom: "mokuyōbi", en: "Thursday", eu: "osteguna" }] }
+      ex: [{ jp: "{木|き}", rom: "ki", en: "tree", eu: "zuhaitza" }, { jp: "{木曜日|もくようび}", rom: "mokuyōbi", en: "Thursday", eu: "osteguna" }] },
+    { k: "五", kun: "いつ(つ) (itsu-tsu)", on: "ご (go)", en: "five", eu: "bost",
+      ex: [{ jp: "{五|ご}", rom: "go", en: "five", eu: "bost" }, { jp: "{五時|ごじ}", rom: "goji", en: "five o'clock", eu: "bostak" }] }
   ];
   (function () { /* kanji chart in Alphabets: the kanji he knows, with readings and meaning (hidden with the toggle) */
     var g = document.getElementById("kana-kanji"); if (!g) return;
