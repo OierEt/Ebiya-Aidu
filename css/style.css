@@ -802,3 +802,11 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .vocab:not(.nums):not(.ex):not(.fam):not(.parts) th:nth-child(3) { width: 28%; }
 .vocab:not(.nums):not(.ex):not(.fam):not(.parts) td.rom { white-space: normal; }
 .vocab:not(.nums):not(.ex):not(.fam):not(.parts) td.jp { white-space: normal; }
+
+/* Languages page: greeting with hover pairs */
+.hello { margin: 0 0 28px; }
+.hello p { margin: 0 0 6px; }
+.hello-jp { font-size: 32px; line-height: 2; }
+.hello-t { font-size: 20px; }
+.hello .hl { padding: 1px 3px; margin: 0 -1px; cursor: default; transition: background .12s, color .12s; }
+.hello .hl.on { background: rgba(142, 58, 34, .28); background: color-mix(in srgb, var(--red) 30%, transparent); }
