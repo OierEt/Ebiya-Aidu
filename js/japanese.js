@@ -58,6 +58,41 @@
   selDir.addEventListener("change", nextCard);
   nextCard();
 
+  /* ---------- kanji flashcards (only the kanji he knows; the front has no furigana on purpose) ---------- */
+  var KANJI = [
+    { k: "人", kun: "ひと (hito)", on: "じん (jin), にん (nin)", en: "person", eu: "pertsona",
+      ex: [{ jp: "{人|ひと}", rom: "hito", en: "person", eu: "pertsona" }, { jp: "{三人|さんにん}", rom: "sannin", en: "three people", eu: "hiru pertsona" }, { jp: "{日本人|にほんじん}", rom: "nihonjin", en: "Japanese person", eu: "japoniarra" }] },
+    { k: "大", kun: "おお(きい) (ō-kii)", on: "だい (dai)", en: "big", eu: "handia",
+      ex: [{ jp: "{大|おお}きい", rom: "ōkii", en: "big", eu: "handia" }, { jp: "{大学|だいがく}", rom: "daigaku", en: "university", eu: "unibertsitatea" }] },
+    { k: "私", kun: "わたし (watashi)", on: "し (shi)", en: "I, me", eu: "ni",
+      ex: [{ jp: "{私|わたし}", rom: "watashi", en: "I", eu: "ni" }, { jp: "{私|わたし}たち", rom: "watashitachi", en: "we", eu: "gu" }] },
+    { k: "父", kun: "ちち (chichi)", on: "ふ (fu)", en: "father", eu: "aita", x: { en: "In お{父|とう}さん it is read とう (tō).", eu: "お{父|とう}さん-en とう (tō) irakurtzen da." },
+      ex: [{ jp: "{父|ちち}", rom: "chichi", en: "my father", eu: "nire aita" }, { jp: "お{父|とう}さん", rom: "otōsan", en: "father (yours or someone else's)", eu: "aita (zurea edo besteena)" }] },
+    { k: "母", kun: "はは (haha)", on: "ぼ (bo)", en: "mother", eu: "ama", x: { en: "In お{母|かあ}さん it is read かあ (kā).", eu: "お{母|かあ}さん-en かあ (kā) irakurtzen da." },
+      ex: [{ jp: "{母|はは}", rom: "haha", en: "my mother", eu: "nire ama" }, { jp: "お{母|かあ}さん", rom: "okāsan", en: "mother (yours or someone else's)", eu: "ama (zurea edo besteena)" }] }
+  ];
+  (function () {
+    var kf = document.getElementById("kc-front"), kb = document.getElementById("kc-back"), kd = document.getElementById("kc-dir"), kcur = null;
+    if (!kf) return;
+    function div(cls, html, ja) { var d = document.createElement("div"); d.className = cls; if (ja) d.setAttribute("lang", "ja"); d.innerHTML = html; return d; }
+    function nextKanji() {
+      var c = pick(KANJI);
+      if (KANJI.length > 1) { var g = 0; while (c === kcur && g++ < 20) c = pick(KANJI); }
+      kcur = c; kb.hidden = true; kb.innerHTML = "";
+      var mean = eu ? c.eu : c.en;
+      if (kd.value === "km") { kf.setAttribute("lang", "ja"); kf.textContent = c.k; }
+      else { kf.removeAttribute("lang"); kf.textContent = mean; kb.appendChild(div("fc-jp", c.k, true)); }
+      if (kd.value === "km") kb.appendChild(div("fc-m", mean, false));
+      kb.appendChild(div("fc-r", "kun: " + c.kun + " \u00b7 on: " + c.on, false));
+      if (c.x) kb.appendChild(div("fc-r", R(eu ? c.x.eu : c.x.en), false));
+      c.ex.forEach(function (e) { kb.appendChild(div("fc-r", R(e.jp) + " (" + e.rom + ") " + (eu ? e.eu : e.en), false)); });
+    }
+    document.getElementById("kc-ans").addEventListener("click", function () { kb.hidden = false; });
+    document.getElementById("kc-next").addEventListener("click", nextKanji);
+    kd.addEventListener("change", nextKanji);
+    nextKanji();
+  })();
+
   /* ---------- random sentences ---------- */
   var FREQ = [
     { jp: "{毎日|まいにち}、", rom: "mainichi, ", pre: "", suf: " every day", eu: "egunero" },
@@ -319,7 +354,7 @@
   /* Progress: my own word count comes from the vocabulary tables */
   var prog = document.getElementById("progress");
   if (prog) {
-    var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = 3; /* kanji he knows: 人, 大 and 私 */
+    var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = KANJI.length; /* kanji he knows: the cards above */
     [].forEach.call(prog.querySelectorAll(".bars[data-kind]"), function (ul) {
       var k = ul.getAttribute("data-kind"), v = k === "w" ? nw : nk, mx = +ul.getAttribute("data-max");
       ul.querySelector(".me .bv").textContent = v;
