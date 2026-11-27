@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=20261127o">
-  <script src="../js/theme.js?v=20261127o"></script>
+  <link rel="stylesheet" href="../css/style.css?v=20261127p">
+  <script src="../js/theme.js?v=20261127p"></script>
 </head>
 <body>
   <header class="site-header">
@@ -104,6 +104,14 @@
         <div class="gen-tr" id="gen-tr" hidden></div>
         <div class="fc-bar"><button type="button" class="kana-toggle" id="gen-new">Perpaus berria</button><button type="button" class="kana-toggle" id="gen-rom-b">Erakutsi erromaji-a</button><button type="button" class="kana-toggle" id="gen-tr-b" data-tr="Erakutsi itzulpena" data-jp="Erakutsi japoniera">Erakutsi itzulpena</button></div>
       </div>
+      <details class="lvd" id="reader" data-stat="{n} hitz ezagun nabarmendu dira ({d} desberdin).">
+      <summary>Irakurgailua: ezagutzen ditudan hitzak margotu</summary>
+      <div class="prose"><p>Itsatsi japonierazko testu bat. Nire zerrendetako hitzak gorriz agertzen dira eta esanahia erakusten dute kurtsorea gainetik pasatzean edo sakatzean. Ez da ezer gordetzen edo bidaltzen.</p></div>
+      <textarea id="rd-in" class="rd-in" lang="ja" rows="6" placeholder="Itsatsi hemen japonierazko testua…" spellcheck="false"></textarea>
+      <div class="fc-bar"><button type="button" class="kana-toggle" id="rd-clear">Garbitu</button><span class="rd-stat" id="rd-stat"></span></div>
+      <div class="rd-out" id="rd-out" lang="ja"></div>
+      <p class="lvl-note">Nire zerrendetako hitzak bakarrik ezagutzen ditu, aditzen eta i-adjektiboen amaiera adeitsuekin. Nire zerrendetatik kanpoko kanjiek ez dute irakurketarik.</p>
+      </details>
       </section>
 
       <section id="progress" class="lsec" data-sum="Nire maila: <b>{lv}</b> ({cefr}). N5erako behar diren 800 hitzetatik gutxi gorabehera {w} eta 100 kanjietatik {k}." data-lv="N5etik behera" data-cefr="A1en hasiera-hasiera">
@@ -134,9 +142,9 @@
       <span>&copy; 2026 Ebiya Aidu</span>
     </div>
   </footer>
-  <script src="../js/lauburu.js?v=20261127o"></script>
-  <script src="../js/kana.js?v=20261127o"></script>
-  <script src="../js/japanese.js?v=20261127o"></script>
-  <script src="../js/nav.js?v=20261127o"></script>
+  <script src="../js/lauburu.js?v=20261127p"></script>
+  <script src="../js/kana.js?v=20261127p"></script>
+  <script src="../js/japanese.js?v=20261127p"></script>
+  <script src="../js/nav.js?v=20261127p"></script>
 </body>
 </html>

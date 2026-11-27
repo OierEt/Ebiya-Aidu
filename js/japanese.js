@@ -333,4 +333,61 @@
     var lv = nw >= 800 && nk >= 100 ? "N5" : prog.getAttribute("data-lv");
     document.getElementById("lvl-sum").innerHTML = prog.getAttribute("data-sum").replace("{lv}", lv).replace("{cefr}", nw >= 800 && nk >= 100 ? "A1" : prog.getAttribute("data-cefr")).replace("{w}", nw).replace("{k}", nk);
   }
+
+  /* Reader: colours the words that are in my lists (all in the browser, nothing is saved or sent) */
+  var rdIn = document.getElementById("rd-in");
+  if (rdIn) {
+    var rdOut = document.getElementById("rd-out"), rdStat = document.getElementById("rd-stat"), rdBox = document.getElementById("reader");
+    var CJK = /[㐀-鿿]/, KANA = /[぀-ヿ]/;
+    var forms = [];
+    function plainOf(cell) { var c = cell.cloneNode(true); [].forEach.call(c.querySelectorAll("rt"), function (x) { x.remove(); }); return c.textContent.replace(/[〜~\s]/g, ""); }
+    function add(plain, html, tip) {
+      if (!plain || (plain.length === 1 && !CJK.test(plain))) return;
+      forms.push({ f: plain, html: html, tip: tip });
+    }
+    var rowSel = "#vocabulary tbody tr, #numbers tbody tr, #basics table.vocab:not(.ex):not(.fam):not(.parts) tbody tr, #basics table.qw tbody tr";
+    [].forEach.call(document.querySelectorAll(rowSel), function (tr) {
+      var jp = tr.querySelector(".jp"), rom = tr.querySelector(".rom");
+      if (!jp || !rom) return;
+      var meanEl = tr.querySelector(".mean"), mean = meanEl ? meanEl.textContent : tr.children[0].textContent;
+      var plain = plainOf(jp), tip = rom.textContent + " · " + mean;
+      if (plain.indexOf("・") > -1) { plain.split("・").forEach(function (w) { add(w, w, tip); }); return; }
+      add(plain, jp.innerHTML, tip);
+      var cat = tr.getAttribute("data-cat"), noteEl = tr.querySelector(".note");
+      var isV = cat === "verbs", isA = cat === "adj" && noteEl && /^i-adj/.test(noteEl.textContent);
+      if ((isV || isA) && plain.length > 1 && KANA.test(plain.charAt(plain.length - 1))) {
+        var stem = plain.slice(0, -1);
+        if (CJK.test(stem) || stem.length > 1) {
+          var c = jp.cloneNode(true), w = document.createTreeWalker(c, NodeFilter.SHOW_TEXT), last = null, n;
+          while ((n = w.nextNode())) { if (!n.parentNode.closest("rt")) last = n; }
+          if (last && last.textContent.length > 0) { last.textContent = last.textContent.slice(0, -1); add(stem, c.innerHTML, plain + " — " + tip); }
+        }
+      }
+    });
+    forms.sort(function (a, b) { return b.f.length - a.f.length; });
+    function lone(t, i, f) { /* a single kanji inside a longer kanji word is not a match */
+      return f.length === 1 && CJK.test(f) && ((i > 0 && CJK.test(t.charAt(i - 1))) || CJK.test(t.charAt(i + 1)));
+    }
+    function render() {
+      var t = rdIn.value, i = 0, buf = "", count = 0, seen = {};
+      rdOut.textContent = "";
+      function flush() { if (buf) { rdOut.appendChild(document.createTextNode(buf)); buf = ""; } }
+      while (i < t.length) {
+        var hit = null;
+        for (var k = 0; k < forms.length; k++) {
+          if (t.substr(i, forms[k].f.length) === forms[k].f && !lone(t, i, forms[k].f)) { hit = forms[k]; break; }
+        }
+        if (hit) {
+          flush();
+          var sp = document.createElement("span");
+          sp.className = "kw"; sp.tabIndex = 0; sp.setAttribute("data-tip", hit.tip); sp.innerHTML = hit.html;
+          rdOut.appendChild(sp); count++; seen[hit.f] = 1; i += hit.f.length;
+        } else { buf += t.charAt(i); i++; }
+      }
+      flush();
+      rdStat.textContent = t ? rdBox.getAttribute("data-stat").replace("{n}", count).replace("{d}", Object.keys(seen).length) : "";
+    }
+    rdIn.addEventListener("input", render);
+    document.getElementById("rd-clear").addEventListener("click", function () { rdIn.value = ""; render(); rdIn.focus(); });
+  }
 })();

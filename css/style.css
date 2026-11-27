@@ -842,3 +842,12 @@ html[data-theme="blueprint"] .status-flag, html[data-theme="voyager"] .status-fl
 .lvd:nth-of-type(2) .lvt th:nth-child(2) { width: 170px; }
 .lvd:nth-of-type(2) .lvt th:nth-child(4) { width: 210px; }
 @media (max-width: 760px) { .lvt { table-layout: auto; } }
+
+/* Reader */
+.rd-in { width: 100%; box-sizing: border-box; min-height: 120px; padding: 10px 12px; border: 3px solid var(--black); background: var(--paper); color: inherit; font: inherit; font-size: 18px; line-height: 1.7; resize: vertical; }
+.rd-stat { font-family: var(--mono); font-size: 13px; margin-left: 6px; align-self: center; }
+.rd-out { min-height: 60px; margin: 12px 0 8px; padding: 10px 12px 14px; border: 3px solid var(--black); background: var(--paper); font-size: 22px; line-height: 2.6; white-space: pre-wrap; }
+.rd-out rt { font-size: 10px; }
+.rd-out .kw { color: var(--red); font-weight: 600; border-bottom: 2px dotted var(--red); position: relative; cursor: help; }
+.rd-out .kw::after { content: attr(data-tip); display: none; position: absolute; left: 0; bottom: calc(100% + 4px); z-index: 5; width: max-content; max-width: 260px; padding: 4px 8px; background: var(--black); color: var(--cream); font: 400 13px/1.4 var(--mono); white-space: normal; border-radius: 0; }
+.rd-out .kw:hover::after, .rd-out .kw:focus::after { display: block; }
