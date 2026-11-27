@@ -86,10 +86,11 @@
   ];
   var WITH = [null, { jp: "{友達|ともだち}と", rom: "tomodachi to", en: "with a friend", eu: "lagun batekin" }, { jp: "{家族|かぞく}と", rom: "kazoku to", en: "with family", eu: "familiarekin" }];
   var HOW = [null, { jp: "{地下鉄|ちかてつ}で", rom: "chikatetsu de", en: "by subway", eu: "metroz" }, { jp: "{電車|でんしゃ}で", rom: "densha de", en: "by train", eu: "trenez" }, { jp: "{車|くるま}で", rom: "kuruma de", en: "by car", eu: "autoz" }];
-  var LOCN = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotela" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportua" }, { jp: "{地下鉄|ちかてつ}", rom: "chikatetsu", en: "the subway", eu: "metroa" }, { jp: "{車|くるま}", rom: "kuruma", en: "the car", eu: "autoa" }, { jp: "{店|みせ}", rom: "mise", en: "the shop", eu: "denda" }, { jp: "コンビニ", rom: "konbini", en: "the convenience store", eu: "konbinia" }, { jp: "{駅|えき}", rom: "eki", en: "the station", eu: "geltokia" }];
+  var LOCN = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotela" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportua" }, { jp: "{地下鉄|ちかてつ}", rom: "chikatetsu", en: "the subway", eu: "metroa" }, { jp: "{車|くるま}", rom: "kuruma", en: "the car", eu: "autoa" }, { jp: "{店|みせ}", rom: "mise", en: "the shop", eu: "denda" }, { jp: "コンビニ", rom: "konbini", en: "the convenience store", eu: "konbinia" }, { jp: "{駅|えき}", rom: "eki", en: "the station", eu: "geltokia" }, { jp: "{大学|だいがく}", rom: "daigaku", en: "the university", eu: "unibertsitatea" }];
   var LOCW = [{ jp: "ここ", rom: "koko", en: "here", eu: "hemen" }, { jp: "そこ", rom: "soko", en: "there", eu: "hor" }, { jp: "あそこ", rom: "asoko", en: "over there", eu: "han" }];
-  var JOBS = [{ jp: "{医者|いしゃ}", rom: "isha", en: "doctor", eu: "medikua" }, { jp: "{弁護士|べんごし}", rom: "bengoshi", en: "lawyer", eu: "abokatua" }];
-  var PLACE = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotelera" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportura" }, { jp: "{店|みせ}", rom: "mise", en: "the shop", eu: "dendara" }, { jp: "コンビニ", rom: "konbini", en: "the convenience store", eu: "konbinira" }, { jp: "{駅|えき}", rom: "eki", en: "the station", eu: "geltokira" }];
+  var READ = [{ jp: "{本|ほん}", rom: "hon", en: "books", eu: "liburuak", pl: true }, { jp: "マンガ", rom: "manga", en: "manga", eu: "manga" }];
+  var JOBS = [{ jp: "{医者|いしゃ}", rom: "isha", en: "doctor", eu: "medikua" }, { jp: "{弁護士|べんごし}", rom: "bengoshi", en: "lawyer", eu: "abokatua" }, { jp: "{先生|せんせい}", rom: "sensei", en: "teacher", eu: "irakaslea" }, { jp: "{学生|がくせい}", rom: "gakusei", en: "student", eu: "ikaslea" }, { jp: "{店員|てんいん}", rom: "ten’in", en: "shop assistant", eu: "dendaria" }];
+  var PLACE = [{ jp: "ホテル", rom: "hoteru", en: "the hotel", eu: "hotelera" }, { jp: "{空港|くうこう}", rom: "kūkō", en: "the airport", eu: "aireportura" }, { jp: "{店|みせ}", rom: "mise", en: "the shop", eu: "dendara" }, { jp: "コンビニ", rom: "konbini", en: "the convenience store", eu: "konbinira" }, { jp: "{駅|えき}", rom: "eki", en: "the station", eu: "geltokira" }, { jp: "{大学|だいがく}", rom: "daigaku", en: "the university", eu: "unibertsitatera" }];
   var DEM = [
     { jp: "これ", rom: "kore", en: "this", eu: "hau" },
     { jp: "それ", rom: "sore", en: "that", eu: "hori" },
@@ -117,7 +118,11 @@
     tasty: { jp: "おいしい", rom: "oishii", en: "delicious", eu: "goxoa" },
     wow: { jp: "すごい", rom: "sugoi", en: "amazing", eu: "harrigarria" },
     quiet: { jp: "{静|しず}か", rom: "shizuka", en: "quiet", eu: "lasaia" },
-    lively: { jp: "にぎやか", rom: "nigiyaka", en: "lively", eu: "bizia" }
+    lively: { jp: "にぎやか", rom: "nigiyaka", en: "lively", eu: "bizia" },
+    famous: { jp: "{有名|ゆうめい}", rom: "yūmei", en: "famous", eu: "ospetsua" },
+    hard: { jp: "{難|むずか}しい", rom: "muzukashii", en: "difficult", eu: "zaila" },
+    wide: { jp: "{広|ひろ}い", rom: "hiroi", en: "spacious", eu: "zabala" },
+    kind: { jp: "やさしい", rom: "yasashii", en: "kind", eu: "jatorra" }
   };
   var NOUN = [
     { jp: "{店|みせ}", rom: "mise", en: "shop", eu: "denda", adj: ["new", "old", "big", "small", "cheap", "exp", "quiet", "lively", "pretty"] },
@@ -145,9 +150,22 @@
     { jp: "{弁当|べんとう}", rom: "bentō", en: "bento", eu: "bento", adj: ["tasty", "cheap", "exp", "big", "small"] },
     { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafe", adj: ["tasty", "cheap", "exp"] },
     { jp: "ゲーム", rom: "gēmu", en: "game", eu: "joko", adj: ["new", "old", "fun", "cool", "exp", "cheap", "wow"] },
-    { jp: "ドラマ", rom: "dorama", en: "drama", eu: "drama", adj: ["new", "old", "fun", "wow"] }
+    { jp: "ドラマ", rom: "dorama", en: "drama", eu: "drama", adj: ["new", "old", "fun", "wow"] },
+    { jp: "{本|ほん}", rom: "hon", en: "book", eu: "liburu", adj: ["new", "old", "exp", "cheap", "fun", "hard", "famous"] },
+    { jp: "マンガ", rom: "manga", en: "manga", eu: "manga", adj: ["new", "old", "exp", "cheap", "fun", "famous"] },
+    { jp: "{地図|ちず}", rom: "chizu", en: "map", eu: "mapa", adj: ["new", "old", "big", "small", "cheap"] },
+    { jp: "チケット", rom: "chiketto", en: "ticket", eu: "txartel", adj: ["exp", "cheap"] },
+    { jp: "ペン", rom: "pen", en: "pen", eu: "boligrafo", adj: ["new", "old", "exp", "cheap", "cute", "cool", "small"] },
+    { jp: "ラーメン", rom: "rāmen", en: "ramen", eu: "ramen", adj: ["tasty", "cheap", "exp", "big", "small", "famous"] },
+    { jp: "カメラ", rom: "kamera", en: "camera", eu: "kamera", adj: ["new", "old", "exp", "cheap", "small", "big", "cool", "black", "white"] },
+    { jp: "{部屋|へや}", rom: "heya", en: "room", eu: "gela", adj: ["new", "old", "big", "small", "pretty", "quiet", "wide"] },
+    { jp: "{家|いえ}", rom: "ie", en: "house", eu: "etxe", adj: ["new", "old", "exp", "cheap", "big", "small", "pretty", "quiet", "wide"] },
+    { jp: "{大学|だいがく}", rom: "daigaku", en: "university", eu: "unibertsitate", adj: ["new", "old", "big", "pretty", "famous", "wide"] },
+    { jp: "{先生|せんせい}", rom: "sensei", en: "teacher", eu: "irakasle", adj: ["kind", "famous", "cool"] },
+    { jp: "{学生|がくせい}", rom: "gakusei", en: "student", eu: "ikasle", adj: ["kind", "famous", "cool", "cute"] },
+    { jp: "{店員|てんいん}", rom: "ten’in", en: "shop assistant", eu: "dendari", adj: ["kind", "cool"] }
   ];
-  var THING_ADJ = ["new", "old", "exp", "cheap", "fun", "cool", "pretty", "cute", "big", "small", "white", "black", "blue", "tasty", "wow"];
+  var THING_ADJ = ["new", "old", "exp", "cheap", "fun", "cool", "pretty", "cute", "big", "small", "white", "black", "blue", "tasty", "wow", "famous", "hard"];
   var LIKE = [
     { jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" },
     { jp: "お{茶|ちゃ}", rom: "ocha", en: "tea", eu: "tea" },
@@ -168,7 +186,11 @@
     { jp: "ゲーム", rom: "gēmu", en: "games", eu: "jokoak", pl: true },
     { jp: "ドラマ", rom: "dorama", en: "dramas", eu: "dramak", pl: true },
     { jp: "ファンタジー", rom: "fantajī", en: "fantasy", eu: "fantasia" },
-    { jp: "ホラー", rom: "horā", en: "horror", eu: "beldurrezkoa" }
+    { jp: "ホラー", rom: "horā", en: "horror", eu: "beldurrezkoa" },
+    { jp: "マンガ", rom: "manga", en: "manga", eu: "manga" },
+    { jp: "ラーメン", rom: "rāmen", en: "ramen", eu: "ramen" },
+    { jp: "{料理|りょうり}", rom: "ryōri", en: "cooking", eu: "sukaldaritza" },
+    { jp: "{本|ほん}", rom: "hon", en: "books", eu: "liburuak", pl: true }
   ];
   var WANT = [
     { jp: "{水|みず}", rom: "mizu", en: "water", eu: "ura" },
@@ -191,11 +213,19 @@
     { jp: "{弁当|べんとう}", rom: "bentō", en: "a bento", eu: "bento bat" },
     { jp: "ゲーム", rom: "gēmu", en: "a game", eu: "joko bat" },
     { jp: "サンドイッチ", rom: "sandoicchi", en: "a sandwich", eu: "ogitarteko bat" },
-    { jp: "{辞書|じしょ}", rom: "jisho", en: "a dictionary", eu: "hiztegi bat" }
+    { jp: "{辞書|じしょ}", rom: "jisho", en: "a dictionary", eu: "hiztegi bat" },
+    { jp: "{本|ほん}", rom: "hon", en: "a book", eu: "liburu bat" },
+    { jp: "ペン", rom: "pen", en: "a pen", eu: "boligrafo bat" },
+    { jp: "カメラ", rom: "kamera", en: "a camera", eu: "kamera bat" },
+    { jp: "チケット", rom: "chiketto", en: "a ticket", eu: "sarrera bat" },
+    { jp: "ラーメン", rom: "rāmen", en: "ramen", eu: "ramen" },
+    { jp: "{家|いえ}", rom: "ie", en: "a house", eu: "etxe bat" },
+    { jp: "{地図|ちず}", rom: "chizu", en: "a map", eu: "mapa bat" },
+    { jp: "マンガ", rom: "manga", en: "a manga", eu: "manga bat" }
   ];
 
   function make(q) {
-    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc", "eat", "please"]);
+    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc", "eat", "please", "read"]);
     var f = pick(FREQ), jp, rom, enS, euS;
     if (kind === "drink") {
       var d = pick(DRINK);
@@ -207,6 +237,11 @@
       return { jp: pl.jp + "を" + (kd ? "ください" : "お{願|ねが}いします") + "。",
         rom: cap(pl.rom + " o " + (kd ? "kudasai." : "onegaishimasu.")),
         en: cap(pl.en) + ", please.", eu: cap(pl.eu) + ", mesedez." };
+    } else if (kind === "read") {
+      var rd = pick(READ);
+      jp = f.jp + rd.jp + "を{読|よ}みます"; rom = f.rom + rd.rom + " o yomimasu";
+      enS = f.pre + "read " + rd.en + f.suf;
+      euS = f.eu + " " + rd.eu + " irakurtzen" + (q ? (rd.pl ? " al dituzu" : " al duzu") : (rd.pl ? " ditut" : " dut"));
     } else if (kind === "eat") {
       var fd = pick(FOOD);
       jp = f.jp + fd.jp + "を{食|た}べます"; rom = f.rom + fd.rom + " o tabemasu";
