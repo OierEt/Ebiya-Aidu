@@ -319,7 +319,7 @@
   /* Progress: my own word count comes from the vocabulary tables */
   var prog = document.getElementById("progress");
   if (prog) {
-    var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = 2; /* kanji he knows: 人 and 大 */
+    var nw = document.querySelectorAll("#vocabulary tbody tr[data-cat]").length, nk = 3; /* kanji he knows: 人, 大 and 私 */
     [].forEach.call(prog.querySelectorAll(".bars[data-kind]"), function (ul) {
       var k = ul.getAttribute("data-kind"), v = k === "w" ? nw : nk, mx = +ul.getAttribute("data-max");
       ul.querySelector(".me .bv").textContent = v;
