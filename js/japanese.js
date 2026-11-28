@@ -60,16 +60,6 @@
 
   /* ---------- kanji flashcards (only the kanji he knows; the front has no furigana on purpose) ---------- */
   var KANJI = [
-    { k: "人", kun: "ひと (hito)", on: "じん (jin), にん (nin)", en: "person", eu: "pertsona",
-      ex: [{ jp: "{人|ひと}", rom: "hito", en: "person", eu: "pertsona" }, { jp: "{三人|さんにん}", rom: "sannin", en: "three people", eu: "hiru pertsona" }, { jp: "{日本人|にほんじん}", rom: "nihonjin", en: "Japanese person", eu: "japoniarra" }] },
-    { k: "大", kun: "おお(きい) (ō-kii)", on: "だい (dai)", en: "big", eu: "handia",
-      ex: [{ jp: "{大|おお}きい", rom: "ōkii", en: "big", eu: "handia" }, { jp: "{大学|だいがく}", rom: "daigaku", en: "university", eu: "unibertsitatea" }] },
-    { k: "私", kun: "わたし (watashi)", on: "し (shi)", en: "I, me", eu: "ni",
-      ex: [{ jp: "{私|わたし}", rom: "watashi", en: "I", eu: "ni" }, { jp: "{私|わたし}たち", rom: "watashitachi", en: "we", eu: "gu" }] },
-    { k: "父", kun: "ちち (chichi)", on: "ふ (fu)", en: "father", eu: "aita", x: { en: "In お{父|とう}さん it is read とう (tō).", eu: "お{父|とう}さん-en とう (tō) irakurtzen da." },
-      ex: [{ jp: "{父|ちち}", rom: "chichi", en: "my father", eu: "nire aita" }, { jp: "お{父|とう}さん", rom: "otōsan", en: "father (yours or someone else's)", eu: "aita (zurea edo besteena)" }] },
-    { k: "母", kun: "はは (haha)", on: "ぼ (bo)", en: "mother", eu: "ama", x: { en: "In お{母|かあ}さん it is read かあ (kā).", eu: "お{母|かあ}さん-en かあ (kā) irakurtzen da." },
-      ex: [{ jp: "{母|はは}", rom: "haha", en: "my mother", eu: "nire ama" }, { jp: "お{母|かあ}さん", rom: "okāsan", en: "mother (yours or someone else's)", eu: "ama (zurea edo besteena)" }] },
     { k: "一", kun: "ひと(つ) (hito-tsu)", on: "いち (ichi)", en: "one", eu: "bat",
       ex: [{ jp: "{一|いち}", rom: "ichi", en: "one", eu: "bat" }, { jp: "{一時|いちじ}", rom: "ichiji", en: "one o'clock", eu: "ordu bata" }] },
     { k: "二", kun: "ふた(つ) (futa-tsu)", on: "に (ni)", en: "two", eu: "bi",
@@ -78,12 +68,22 @@
       ex: [{ jp: "{三|さん}", rom: "san", en: "three", eu: "hiru" }, { jp: "{三人|さんにん}", rom: "sannin", en: "three people", eu: "hiru pertsona" }] },
     { k: "四", kun: "よ(っつ) (yo-ttsu)", on: "し (shi), よん (yon)", en: "four", eu: "lau",
       ex: [{ jp: "{四|よん}", rom: "yon", en: "four", eu: "lau" }, { jp: "{四時|よじ}", rom: "yoji", en: "four o'clock", eu: "lauak" }] },
+    { k: "五", kun: "いつ(つ) (itsu-tsu)", on: "ご (go)", en: "five", eu: "bost",
+      ex: [{ jp: "{五|ご}", rom: "go", en: "five", eu: "bost" }, { jp: "{五時|ごじ}", rom: "goji", en: "five o'clock", eu: "bostak" }] },
     { k: "日", kun: "ひ (hi)", on: "にち (nichi), じつ (jitsu)", en: "day; sun", eu: "eguna; eguzkia",
       ex: [{ jp: "{日本|にほん}", rom: "nihon", en: "Japan", eu: "Japonia" }, { jp: "{日曜日|にちようび}", rom: "nichiyōbi", en: "Sunday", eu: "igandea" }, { jp: "{毎日|まいにち}", rom: "mainichi", en: "every day", eu: "egunero" }] },
     { k: "木", kun: "き (ki)", on: "もく (moku), ぼく (boku)", en: "tree; wood", eu: "zuhaitza; egurra",
       ex: [{ jp: "{木|き}", rom: "ki", en: "tree", eu: "zuhaitza" }, { jp: "{木曜日|もくようび}", rom: "mokuyōbi", en: "Thursday", eu: "osteguna" }] },
-    { k: "五", kun: "いつ(つ) (itsu-tsu)", on: "ご (go)", en: "five", eu: "bost",
-      ex: [{ jp: "{五|ご}", rom: "go", en: "five", eu: "bost" }, { jp: "{五時|ごじ}", rom: "goji", en: "five o'clock", eu: "bostak" }] }
+    { k: "人", kun: "ひと (hito)", on: "じん (jin), にん (nin)", en: "person", eu: "pertsona",
+      ex: [{ jp: "{人|ひと}", rom: "hito", en: "person", eu: "pertsona" }, { jp: "{三人|さんにん}", rom: "sannin", en: "three people", eu: "hiru pertsona" }, { jp: "{日本人|にほんじん}", rom: "nihonjin", en: "Japanese person", eu: "japoniarra" }] },
+    { k: "私", kun: "わたし (watashi)", on: "し (shi)", en: "I, me", eu: "ni",
+      ex: [{ jp: "{私|わたし}", rom: "watashi", en: "I", eu: "ni" }, { jp: "{私|わたし}たち", rom: "watashitachi", en: "we", eu: "gu" }] },
+    { k: "父", kun: "ちち (chichi)", on: "ふ (fu)", en: "father", eu: "aita", x: { en: "In お{父|とう}さん it is read とう (tō).", eu: "お{父|とう}さん-en とう (tō) irakurtzen da." },
+      ex: [{ jp: "{父|ちち}", rom: "chichi", en: "my father", eu: "nire aita" }, { jp: "お{父|とう}さん", rom: "otōsan", en: "father (yours or someone else's)", eu: "aita (zurea edo besteena)" }] },
+    { k: "母", kun: "はは (haha)", on: "ぼ (bo)", en: "mother", eu: "ama", x: { en: "In お{母|かあ}さん it is read かあ (kā).", eu: "お{母|かあ}さん-en かあ (kā) irakurtzen da." },
+      ex: [{ jp: "{母|はは}", rom: "haha", en: "my mother", eu: "nire ama" }, { jp: "お{母|かあ}さん", rom: "okāsan", en: "mother (yours or someone else's)", eu: "ama (zurea edo besteena)" }] },
+    { k: "大", kun: "おお(きい) (ō-kii)", on: "だい (dai)", en: "big", eu: "handia",
+      ex: [{ jp: "{大|おお}きい", rom: "ōkii", en: "big", eu: "handia" }, { jp: "{大学|だいがく}", rom: "daigaku", en: "university", eu: "unibertsitatea" }] }
   ];
   (function () { /* kanji chart in Alphabets: the kanji he knows, with readings and meaning (hidden with the toggle) */
     var g = document.getElementById("kana-kanji"); if (!g) return;
