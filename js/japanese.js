@@ -458,11 +458,32 @@
   if (rdIn) {
     var rdOut = document.getElementById("rd-out"), rdStat = document.getElementById("rd-stat"), rdBox = document.getElementById("reader");
     var CJK = /[㐀-鿿]/, KANA = /[぀-ヿ]/;
-    var forms = [];
+    var forms = [], seenForm = {};
     function plainOf(cell) { var c = cell.cloneNode(true); [].forEach.call(c.querySelectorAll("rt"), function (x) { x.remove(); }); return c.textContent.replace(/[〜~\s]/g, ""); }
     function add(plain, html, tip) {
       if (!plain || (plain.length === 1 && !CJK.test(plain))) return;
       forms.push({ f: plain, html: html, tip: tip });
+      /* text copied from this page carries the furigana after each kanji (好すき, お茶ちゃ): also accept the forms with their readings */
+      var tmp = document.createElement("span"); tmp.innerHTML = html;
+      [false, true].forEach(function (short) {
+        var s = "";
+        [].forEach.call(tmp.childNodes, function (nd) {
+          if (nd.nodeType === 3) { s += nd.textContent; return; }
+          var rt = nd.querySelector ? nd.querySelector("rt") : null;
+          if (!rt) { s += nd.textContent; return; }
+          var base = "", r = rt.textContent;
+          [].forEach.call(nd.childNodes, function (c) { if (c !== rt) base += c.textContent; });
+          if (short) { /* the kana that the base and the reading share at the start and end are not repeated */
+            var a = 0, z = 0;
+            while (a < base.length && a < r.length && base.charAt(a) === r.charAt(a) && KANA.test(base.charAt(a))) a++;
+            while (z < base.length - a && z < r.length - a && base.charAt(base.length - 1 - z) === r.charAt(r.length - 1 - z) && KANA.test(base.charAt(base.length - 1 - z))) z++;
+            r = r.slice(a, r.length - z);
+          }
+          s += base + r;
+        });
+        s = s.replace(/[〜~\s]/g, "");
+        if (s !== plain && !seenForm[s]) { seenForm[s] = 1; forms.push({ f: s, html: html, tip: tip }); }
+      });
     }
     var rowSel = "#vocabulary tbody tr, #numbers tbody tr, #basics table.vocab:not(.ex):not(.fam):not(.parts) tbody tr, #basics table.qw tbody tr";
     [].forEach.call(document.querySelectorAll(rowSel), function (tr) {
