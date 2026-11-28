@@ -283,14 +283,56 @@
     { jp: "マンガ", rom: "manga", en: "a manga", eu: "manga bat" }
   ];
 
+  /* hours (go pattern and the time pattern) and prices (numbers he knows: 10 to 100) */
+  var HRS = [
+    { jp: "{一時|いちじ}", rom: "ichiji", en: "one", eu: "ordu bata", euAt: "ordu batean", euIs: "Ordu bata da" },
+    { jp: "{二時|にじ}", rom: "niji", en: "two", eu: "biak", euAt: "ordu bietan", euIs: "Biak dira" },
+    { jp: "{三時|さんじ}", rom: "sanji", en: "three", eu: "hirurak", euAt: "hiruretan", euIs: "Hirurak dira" },
+    { jp: "{四時|よじ}", rom: "yoji", en: "four", eu: "laurak", euAt: "lauretan", euIs: "Laurak dira" },
+    { jp: "{五時|ごじ}", rom: "goji", en: "five", eu: "bostak", euAt: "bostetan", euIs: "Bostak dira" },
+    { jp: "{六時|ろくじ}", rom: "rokuji", en: "six", eu: "seiak", euAt: "seietan", euIs: "Seiak dira" },
+    { jp: "{七時|しちじ}", rom: "shichiji", en: "seven", eu: "zazpiak", euAt: "zazpietan", euIs: "Zazpiak dira" },
+    { jp: "{八時|はちじ}", rom: "hachiji", en: "eight", eu: "zortziak", euAt: "zortzietan", euIs: "Zortziak dira" },
+    { jp: "{九時|くじ}", rom: "kuji", en: "nine", eu: "bederatziak", euAt: "bederatzietan", euIs: "Bederatziak dira" },
+    { jp: "{十時|じゅうじ}", rom: "jūji", en: "ten", eu: "hamarrak", euAt: "hamarretan", euIs: "Hamarrak dira" },
+    { jp: "{十一時|じゅういちじ}", rom: "jūichiji", en: "eleven", eu: "hamaikak", euAt: "hamaiketan", euIs: "Hamaikak dira" },
+    { jp: "{十二時|じゅうにじ}", rom: "jūniji", en: "twelve", eu: "hamabiak", euAt: "hamabietan", euIs: "Hamabiak dira" }
+  ];
+  var PRICES = [
+    { n: 10, jp: "{十|じゅう}", rom: "jū" }, { n: 20, jp: "{二十|にじゅう}", rom: "nijū" }, { n: 30, jp: "{三十|さんじゅう}", rom: "sanjū" },
+    { n: 40, jp: "{四十|よんじゅう}", rom: "yonjū" }, { n: 50, jp: "{五十|ごじゅう}", rom: "gojū" }, { n: 60, jp: "{六十|ろくじゅう}", rom: "rokujū" },
+    { n: 70, jp: "{七十|ななじゅう}", rom: "nanajū" }, { n: 80, jp: "{八十|はちじゅう}", rom: "hachijū" }, { n: 90, jp: "{九十|きゅうじゅう}", rom: "kyūjū" },
+    { n: 100, jp: "{百|ひゃく}", rom: "hyaku" }
+  ];
+  var PRICE_IT = [
+    { jp: "これ", rom: "kore", en: "this", eu: "honek" }, { jp: "それ", rom: "sore", en: "that", eu: "horrek" }, { jp: "あれ", rom: "are", en: "that one over there", eu: "harek" },
+    { jp: "ラーメン", rom: "rāmen", en: "ramen", eu: "ramenak" }, { jp: "コーヒー", rom: "kōhī", en: "coffee", eu: "kafeak" }, { jp: "ピザ", rom: "piza", en: "pizza", eu: "pizzak" },
+    { jp: "ケーキ", rom: "kēki", en: "the cake", eu: "pastelak" }, { jp: "サンドイッチ", rom: "sandoicchi", en: "a sandwich", eu: "ogitartekoak" },
+    { jp: "{本|ほん}", rom: "hon", en: "a book", eu: "liburuak" }, { jp: "{傘|かさ}", rom: "kasa", en: "an umbrella", eu: "aterkiak" },
+    { jp: "ペン", rom: "pen", en: "a pen", eu: "boligrafoak" }, { jp: "チケット", rom: "chiketto", en: "a ticket", eu: "sarrerak" },
+    { jp: "ネクタイ", rom: "nekutai", en: "a tie", eu: "gorbatak" }, { jp: "{辞書|じしょ}", rom: "jisho", en: "a dictionary", eu: "hiztegiak" }
+  ];
+
   function make(q) {
-    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc", "eat", "please", "read"]);
+    var kind = pick(["drink", "go", "sport", "dem", "noun", "like", "want", "job", "loc", "eat", "please", "read", "price", "time"]);
     var f = pick(FREQ), jp, rom, enS, euS;
     if (kind === "drink") {
       var d = pick(DRINK);
       jp = f.jp + d.jp + "を{飲|の}みます"; rom = f.rom + d.rom + " o nomimasu";
       enS = f.pre + "drink " + d.en + f.suf;
       euS = f.eu + " " + d.eu + " edaten" + (q ? " al duzu" : " dut");
+    } else if (kind === "price") {
+      var it0 = pick(PRICE_IT), pr = pick(PRICES);
+      return { jp: it0.jp + "は" + (q ? "いくらですか" : pr.jp + "{円|えん}です") + "。",
+        rom: cap(it0.rom + " wa " + (q ? "ikura desu ka?" : pr.rom + " en desu.")),
+        en: q ? "How much is " + it0.en + "?" : cap(it0.en) + " is " + pr.n + " yen.",
+        eu: q ? "Zenbat balio du " + it0.eu + "?" : cap(it0.eu) + " " + pr.n + " yen balio du." };
+    } else if (kind === "time") {
+      var hh = pick(HRS);
+      return { jp: "{今|いま}、" + (q ? "{何時|なんじ}ですか" : hh.jp + "です") + "。",
+        rom: cap("ima, " + (q ? "nanji desu ka?" : hh.rom + " desu.")),
+        en: q ? "What time is it now?" : "It is " + hh.en + " o'clock now.",
+        eu: q ? "Zer ordu da orain?" : "Orain, " + hh.euIs.charAt(0).toLowerCase() + hh.euIs.slice(1) + "." };
     } else if (kind === "please") {
       var pl = pick(DRINK.concat(FOOD)), kd = Math.random() < 0.5;
       return { jp: pl.jp + "を" + (kd ? "ください" : "お{願|ねが}いします") + "。",
@@ -307,7 +349,8 @@
       enS = f.pre + "eat " + fd.en + f.suf;
       euS = f.eu + " " + fd.eu + " jaten" + (q ? " al duzu" : " dut");
     } else if (kind === "go") {
-      var w = pick(WHEN), wi = pick(WITH), h = pick(HOW), p = pick(PLACE);
+      var hr = Math.random() < 0.2 ? pick(HRS) : null;
+      var w = hr ? { jp: hr.jp + "に", rom: hr.rom + " ni", en: "at " + hr.en, eu: hr.euAt } : pick(WHEN), wi = pick(WITH), h = pick(HOW), p = pick(PLACE);
       jp = w.jp + (wi ? wi.jp : "") + (h ? h.jp : "") + p.jp + "へ{行|い}きます";
       rom = w.rom + " " + (wi ? wi.rom + " " : "") + (h ? h.rom + " " : "") + p.rom + " e ikimasu";
       enS = "go to " + p.en + (h ? " " + h.en : "") + (wi ? " " + wi.en : "") + " " + w.en;
@@ -324,18 +367,29 @@
         en: q ? "Where is " + lp.en + "?" : cap(lp.en) + " is " + lw.en + ".",
         eu: q ? "Non dago " + lp.eu + "?" : cap(lp.eu) + " " + lw.eu + " dago." };
     } else if (kind === "job") {
-      var j = pick(JOBS);
-      return { jp: (q ? "あなたは" : "{私|わたし}は") + j.jp + "です" + (q ? "か" : "") + "。",
-        rom: q ? "Anata wa " + j.rom + " desu ka?" : "Watashi wa " + j.rom + " desu.",
-        en: q ? "Are you a " + j.en + "?" : "I am a " + j.en + ".",
-        eu: q ? cap(j.eu) + " al zara?" : cap(j.eu) + " naiz." };
+      var j = pick(JOBS), ans = q && Math.random() < 0.6, yes = Math.random() < 0.5;
+      var aj = !ans ? "" : yes ? "はい、" + j.jp + "です。" : "いいえ、" + j.jp + "じゃないです。";
+      var ar = !ans ? "" : yes ? " Hai, " + j.rom + " desu." : " Iie, " + j.rom + " janai desu.";
+      var ae = !ans ? "" : yes ? " No, I am a " + j.en + "." : " No, I am not a " + j.en + ".";
+      if (ans && yes) ae = " Yes, I am a " + j.en + ".";
+      var au = !ans ? "" : yes ? " Bai, " + j.eu + " naiz." : " Ez, ez naiz " + j.eu + ".";
+      return { jp: (q ? "あなたは" : "{私|わたし}は") + j.jp + "です" + (q ? "か" : "") + "。" + aj,
+        rom: (q ? "Anata wa " + j.rom + " desu ka?" : "Watashi wa " + j.rom + " desu.") + ar,
+        en: (q ? "Are you a " + j.en + "?" : "I am a " + j.en + ".") + ae,
+        eu: (q ? cap(j.eu) + " al zara?" : cap(j.eu) + " naiz.") + au };
     } else if (kind === "like" || kind === "want") {
       var it = pick(kind === "like" ? LIKE : WANT);
       var kw = kind === "like" ? { jp: "{好|す}き", rom: "suki", en: "like", eu: " gustatzen" + (q ? (it.pl ? " al zaizkizu" : " al zaizu") : (it.pl ? " zaizkit" : " zait")) }
                                 : { jp: "{欲|ほ}しい", rom: "hoshii", en: "want", eu: " nahi" + (q ? " al duzu" : " dut") };
-      return { jp: it.jp + "が" + kw.jp + "です" + (q ? "か" : "") + "。", rom: cap(it.rom + " ga " + kw.rom + " desu" + (q ? " ka?" : ".")),
-        en: q ? "Do you " + kw.en + " " + it.en + "?" : "I " + kw.en + " " + it.en + ".",
-        eu: cap(it.eu + kw.eu) + (q ? "?" : ".") };
+      var la = q && kind === "like" && Math.random() < 0.6, ly = Math.random() < 0.5; /* question + answer, the no-answer uses じゃないです */
+      var lj = !la ? "" : ly ? "はい、{好|す}きです。" : "いいえ、{好|す}きじゃないです。";
+      var lr = !la ? "" : ly ? " Hai, suki desu." : " Iie, suki janai desu.";
+      var le = !la ? "" : ly ? " Yes, I like it." : " No, I don't like it.";
+      var lu = !la ? "" : ly ? (" Bai, gustatzen " + (it.pl ? "zaizkit." : "zait.")) : (" Ez, ez " + (it.pl ? "zaizkit" : "zait") + " gustatzen.");
+      if (la && it.pl) le = ly ? " Yes, I like them." : " No, I don't like them.";
+      return { jp: it.jp + "が" + kw.jp + "です" + (q ? "か" : "") + "。" + lj, rom: cap(it.rom + " ga " + kw.rom + " desu" + (q ? " ka?" : ".")) + lr,
+        en: (q ? "Do you " + kw.en + " " + it.en + "?" : "I " + kw.en + " " + it.en + ".") + le,
+        eu: cap(it.eu + kw.eu) + (q ? "?" : ".") + lu };
     } else if (kind === "dem") {
       var dm = pick(DEM), a = ADJ[pick(THING_ADJ)];
       jp = dm.jp + "は" + a.jp + "です"; rom = dm.rom + " wa " + a.rom + " desu";
