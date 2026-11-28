@@ -70,10 +70,14 @@
       ex: [{ jp: "{四|よん}", rom: "yon", en: "four", eu: "lau" }, { jp: "{四時|よじ}", rom: "yoji", en: "four o'clock", eu: "lauak" }] },
     { k: "五", kun: "いつ(つ) (itsu-tsu)", on: "ご (go)", en: "five", eu: "bost",
       ex: [{ jp: "{五|ご}", rom: "go", en: "five", eu: "bost" }, { jp: "{五時|ごじ}", rom: "goji", en: "five o'clock", eu: "bostak" }] },
+    { k: "十", kun: "とお (tō)", on: "じゅう (jū), じっ (jis-)", en: "ten", eu: "hamar",
+      ex: [{ jp: "{十|じゅう}", rom: "jū", en: "ten", eu: "hamar" }, { jp: "{十時|じゅうじ}", rom: "jūji", en: "ten o'clock", eu: "hamarrak" }, { jp: "{二十|にじゅう}", rom: "nijū", en: "twenty", eu: "hogei" }] },
     { k: "日", kun: "ひ (hi)", on: "にち (nichi), じつ (jitsu)", en: "day; sun", eu: "eguna; eguzkia",
       ex: [{ jp: "{日本|にほん}", rom: "nihon", en: "Japan", eu: "Japonia" }, { jp: "{日曜日|にちようび}", rom: "nichiyōbi", en: "Sunday", eu: "igandea" }, { jp: "{毎日|まいにち}", rom: "mainichi", en: "every day", eu: "egunero" }] },
     { k: "木", kun: "き (ki)", on: "もく (moku), ぼく (boku)", en: "tree; wood", eu: "zuhaitza; egurra",
       ex: [{ jp: "{木|き}", rom: "ki", en: "tree", eu: "zuhaitza" }, { jp: "{木曜日|もくようび}", rom: "mokuyōbi", en: "Thursday", eu: "osteguna" }] },
+    { k: "山", kun: "やま (yama)", on: "さん (san)", en: "mountain", eu: "mendia",
+      ex: [{ jp: "{山|やま}", rom: "yama", en: "mountain", eu: "mendia" }, { jp: "{富士山|ふじさん}", rom: "Fujisan", en: "Mount Fuji", eu: "Fuji mendia" }] },
     { k: "人", kun: "ひと (hito)", on: "じん (jin), にん (nin)", en: "person", eu: "pertsona",
       ex: [{ jp: "{人|ひと}", rom: "hito", en: "person", eu: "pertsona" }, { jp: "{三人|さんにん}", rom: "sannin", en: "three people", eu: "hiru pertsona" }, { jp: "{日本人|にほんじん}", rom: "nihonjin", en: "Japanese person", eu: "japoniarra" }] },
     { k: "私", kun: "わたし (watashi)", on: "し (shi)", en: "I, me", eu: "ni",
@@ -83,7 +87,9 @@
     { k: "母", kun: "はは (haha)", on: "ぼ (bo)", en: "mother", eu: "ama", x: { en: "In お{母|かあ}さん it is read かあ (kā).", eu: "お{母|かあ}さん-en かあ (kā) irakurtzen da." },
       ex: [{ jp: "{母|はは}", rom: "haha", en: "my mother", eu: "nire ama" }, { jp: "お{母|かあ}さん", rom: "okāsan", en: "mother (yours or someone else's)", eu: "ama (zurea edo besteena)" }] },
     { k: "大", kun: "おお(きい) (ō-kii)", on: "だい (dai)", en: "big", eu: "handia",
-      ex: [{ jp: "{大|おお}きい", rom: "ōkii", en: "big", eu: "handia" }, { jp: "{大学|だいがく}", rom: "daigaku", en: "university", eu: "unibertsitatea" }] }
+      ex: [{ jp: "{大|おお}きい", rom: "ōkii", en: "big", eu: "handia" }, { jp: "{大学|だいがく}", rom: "daigaku", en: "university", eu: "unibertsitatea" }] },
+    { k: "小", kun: "ちい(さい) (chii-sai)", on: "しょう (shō)", en: "small", eu: "txikia",
+      ex: [{ jp: "{小|ちい}さい", rom: "chiisai", en: "small", eu: "txikia" }, { jp: "{小学生|しょうがくせい}", rom: "shōgakusei", en: "elementary school pupil", eu: "lehen hezkuntzako ikaslea" }] }
   ];
   (function () { /* kanji chart in Alphabets: the kanji he knows, with readings and meaning (hidden with the toggle) */
     var g = document.getElementById("kana-kanji"); if (!g) return;
@@ -500,24 +506,53 @@
         }
       }
     });
+    /* grammar he already knows: particles and endings (only lit up right after another recognised word, or after kanji / katakana) */
+    var GRAM = [
+      ["は", "wa", "topic marker (what we talk about)", "gai-marka (hizketagaia)"],
+      ["が", "ga", "subject marker (also with 好き and 欲しい)", "subjektu-marka (好き eta 欲しい-rekin ere)"],
+      ["を", "o", "object marker (what the action is done to)", "objektu-marka (ekintzaren gaia)"],
+      ["に", "ni", "at, in, to (time and place)", "-an, -ra (ordua eta lekua)"],
+      ["へ", "e", "to, towards (destination)", "-ra (norabidea)"],
+      ["で", "de", "by, at, with (means or place of an action)", "-z, -n (bitartekoa edo ekintzaren lekua)"],
+      ["と", "to", "with; and", "-rekin; eta"],
+      ["の", "no", "of, 's", "-ren"],
+      ["か", "ka", "question marker", "galdera-marka"],
+      ["です", "desu", "is, am, are (polite)", "da, naiz, zara (adeitsua)"],
+      ["ます", "masu", "polite verb ending", "aditz-amaiera adeitsua"],
+      ["じゃないです", "janai desu", "is not (polite)", "ez da (adeitsua)"],
+      ["ではありません", "dewa arimasen", "is not (more formal)", "ez da (formalagoa)"],
+      ["くないです", "kunai desu", "is not (i-adjective, polite)", "ez da (i-adjektiboa, adeitsua)"],
+      ["はい", "hai", "yes", "bai"],
+      ["いいえ", "iie", "no", "ez"]
+    ];
+    var FREE = { "はい": 1, "いいえ": 1 };
+    GRAM.forEach(function (g) { forms.push({ f: g[0], html: g[0], tip: g[1] + " · " + (eu ? g[3] : g[2]), gram: !FREE[g[0]], alone: !!FREE[g[0]] }); });
     forms.sort(function (a, b) { return b.f.length - a.f.length; });
-    function lone(t, i, f) { /* a single kanji inside a longer kanji word is not a match */
-      return f.length === 1 && CJK.test(f) && ((i > 0 && CJK.test(t.charAt(i - 1))) || CJK.test(t.charAt(i + 1)));
+    var NUMK = "一二三四五六七八九十百千万円時分半";
+    function lone(t, i, f) { /* a single kanji inside a longer kanji word is not a match (numbers with 円, 時, 分 are fine: 八十円) */
+      if (f.length !== 1 || !CJK.test(f)) return false;
+      var a = t.charAt(i - 1), b = t.charAt(i + 1), num = NUMK.indexOf(f) > -1;
+      return (i > 0 && CJK.test(a) && !(num && NUMK.indexOf(a) > -1)) || (CJK.test(b) && !(num && NUMK.indexOf(b) > -1));
     }
+    var KATA = /[゠-ヿ]/;
     function render() {
-      var t = rdIn.value, i = 0, buf = "", count = 0, seen = {};
+      var t = rdIn.value, i = 0, buf = "", count = 0, seen = {}, lastEnd = -1;
       rdOut.textContent = "";
       function flush() { if (buf) { rdOut.appendChild(document.createTextNode(buf)); buf = ""; } }
       while (i < t.length) {
         var hit = null;
         for (var k = 0; k < forms.length; k++) {
-          if (t.substr(i, forms[k].f.length) === forms[k].f && !lone(t, i, forms[k].f)) { hit = forms[k]; break; }
+          var fk = forms[k];
+          if (t.substr(i, fk.f.length) !== fk.f || lone(t, i, fk.f)) continue;
+          if (fk.alone && (/[぀-ヿ㐀-鿿]/.test(t.charAt(i - 1)) || /[぀-ヿ㐀-鿿]/.test(t.charAt(i + fk.f.length)))) continue;
+          if (fk.gram && !(i === lastEnd || (i > 0 && (CJK.test(t.charAt(i - 1)) || KATA.test(t.charAt(i - 1)))))) continue;
+          hit = fk; break;
         }
         if (hit) {
           flush();
           var sp = document.createElement("span");
           sp.className = "kw"; sp.tabIndex = 0; sp.setAttribute("data-tip", hit.tip); sp.innerHTML = hit.html;
-          rdOut.appendChild(sp); count++; seen[hit.f] = 1; i += hit.f.length;
+          rdOut.appendChild(sp); count++; seen[hit.f] = 1; i += hit.f.length; lastEnd = i;
         } else { buf += t.charAt(i); i++; }
       }
       flush();
